@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    name: scDataSource
+    url: jdbc:mysql://127.0.0.1:3306/sc-manage?scharacterEncoding=utf8&useSSL=false
+    username: root
+    password: root1234
+    type: org.apache.tomcat.jdbc.pool.DataSource
+    driver-class-name: com.mysql.jdbc.Driver
+  mvc:
+    static-path-pattern: /static/**
+  resources:
+    static-locations: /static
+
+logging:
+  config: classpath:config/logback.xml
+  
+server:
+  port: 8090
+  

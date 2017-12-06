@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration scan="true" scanPeriod="60 seconds" debug="false">
+	<!-- <property> 有两个属性，name和value；其中name的值是变量的名称，value的值时变量定义的值 -->
+	<property name="APP_NAME" value="marchant-loan" />
+	<!-- 使用<property>定义上下文名称 -->
+	<!-- 获取时间戳字符串：key:名字；datePattern：设置将当前时间（解析配置文件的时间）转换为字符串的模式 -->
+	 <timestamp key="nowTimestamp" datePattern="yyyyMMdd'T'HHmmss"/>   
+	<contextName>${APP_NAME}</contextName>
+	
+	<!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,,,, -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d %p (%file:%line\)- %m%n</pattern>
+			<charset>UTF-8</charset>
+		</encoder>
+	</appender>
+	<appender name="baselog" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<File>./loan.log</File>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>./loan.log.%d.%i</fileNamePattern>
+			<timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+				<!-- or whenever the file size reaches 8 MB -->
+				<maxFileSize>8MB</maxFileSize>
+			</timeBasedFileNamingAndTriggeringPolicy>
+		</rollingPolicy>
+		<encoder>
+			<pattern>
+				%d %p (%file:%line\)- %m%n
+			</pattern>
+			<charset>UTF-8</charset> <!-- 此处设置字符集 -->
+		</encoder>
+	</appender>
+
+	<logger name="com.wanda.merchant.loan.dao" level="DEBUG">
+		<appender-ref ref="STDOUT" />
+	</logger>
+	<logger name="jdbc.sqltiming" level="debug" />
+	<logger name="com.ibatis" level="debug" />
+	<root level="debug">
+		<appender-ref ref="STDOUT" />
+	</root>
+</configuration>  
