@@ -6,10 +6,6 @@ spring:
     password: root1234
     type: org.apache.tomcat.jdbc.pool.DataSource
     driver-class-name: com.mysql.jdbc.Driver
-  mvc:
-    static-path-pattern: /static/**
-  resources:
-    static-locations: /static
 
 logging:
   config: classpath:config/logback.xml

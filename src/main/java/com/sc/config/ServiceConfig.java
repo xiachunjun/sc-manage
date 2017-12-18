@@ -8,6 +8,6 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ComponentScan("com.sc.service")
 public class ServiceConfig {
-	static Logger logger = LoggerFactory.getLogger(ServiceConfig.class);
+    static Logger logger = LoggerFactory.getLogger(ServiceConfig.class);
 
 }
