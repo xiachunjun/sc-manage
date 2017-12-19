@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"> 
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>jQuery跑马灯支持任何DOM元素|DEMO1</title>
+<link rel="stylesheet" type="text/css" href="css/normalize.css" />
+<link rel="stylesheet" type="text/css" href="css/default.css">
+<link rel="stylesheet" href="css/liMarquee.css">
+<style type="text/css">
+	.str_wrap{
+		padding-left: 3em;
+		padding-right: 3em;
+		background: #fefefe;
+		height: 3em;
+		line-height: 3em;
+		font-size: 1.2em;
+	}
+</style>
+
+</head>
+<body>
+<div class="jq22-container">
+	<div class="jq22-content">
+		<h3>Default</h3>
+		<div class="str1 str_wrap">
+			Javascript是一种通用的脚本编程语言，
+		</div>
+	</div>
+</div>
+<script src="../assets/js/jquery-2.1.4.min.js"></script>
+<script src="js/jquery.liMarquee.js"></script>
+<script>
+$(window).load(function(){
+	$('.str1').liMarquee();
+	});
+</script>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,13 @@
+.jq22-container {
+    margin: 0 auto;
+    text-align: center;
+    overflow: hidden;
+}
+
+.jq22-content {
+    padding: 1em 3em;
+}
+
+.str_wrap img {
+    max-width:none !important;
+}
