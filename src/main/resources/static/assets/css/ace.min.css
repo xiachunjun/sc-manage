@@ -2205,7 +2205,7 @@ pre.prettyprint {
 .nav-list > li .submenu > li > a {
     display: block;
     position: relative;
-    padding: 7px 0 9px 37px;
+    padding: 7px 0 9px 0;
     margin: 0;
     border-top-width: 1px;
     border-top-style: dotted
@@ -2241,8 +2241,6 @@ pre.prettyprint {
     z-index: 1;
     left: 20px;
     top: 17px;
-    border: 1px dotted;
-    border-width: 1px 0 0
 }
 
 .nav-list > li > .submenu:before {
@@ -2252,8 +2250,6 @@ pre.prettyprint {
     left: 18px;
     top: 0;
     bottom: 0;
-    border: 1px dotted;
-    border-width: 0 0 0 1px
 }
 
 .nav-list li.active > a > .arrow, .nav-list li.open > a > .arrow, .nav-list li:hover > a > .arrow {
