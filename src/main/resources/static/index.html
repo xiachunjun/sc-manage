@@ -46,6 +46,36 @@
     <script src="assets/js/html5shiv.min.js"></script>
     <script src="assets/js/respond.min.js"></script>
     <![endif]-->
+
+<style type="text/css">
+table.tftable {
+	color: #333333;
+	width: 100%;
+	border-width: 1px;
+	border-color: #729ea5;
+	border-collapse: collapse;
+}
+
+table.tftable th {
+	background-color: #acc8cc;
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #729ea5;
+	text-align: left;
+}
+
+table.tftable tr {
+	background-color: #ffffff;
+}
+
+table.tftable td {
+	border-width: 1px;
+	padding: 8px;
+	border-style: solid;
+	border-color: #729ea5;
+}
+</style>
 </head>
 <body class="no-skin">
 	<div id="navbar" class="navbar navbar-default ace-save-state">
@@ -174,7 +204,7 @@
 
 									<div class="widget-body">
 										<div class="space-6"></div>
-										<div class="col-xs-12">
+										<div class="col-xs-12" style="height: 15em;">
 											<div class="row">
 												<div class="col-sm-6">
 													<div class="center" style="font-size: 15px">营业收入</div>
@@ -207,7 +237,15 @@
 										<div class="space-6"></div>
 										<div class="col-xs-12">
 											<div class="row">
-												<div class="col-sm-12">2222</div>
+												<div class="col-sm-12" style="height: 15em;">
+													<div class="str1 str_wrap" style="height:100%;">
+														<p>Javascript是一种通用的脚本编程语言，也是一种基于（Object）和事件驱动并具有安全性能的脚本语言。</p>
+														<p>Javascript代码嵌入在HTML页面中，它把静态页面转变为支持用户交互并响应事件的活页面。</p>
+														<p>Javascript最早称作LiveScript，由Netscape Communications 和 Sun Microsystems联合开发。</p>
+														<p>Javascript和HTML关系密切，它们都由浏览器来处理。</p>
+														<p>Javascript</p>
+													</div>
+												</div>
 											</div>
 										</div>
 									</div>
@@ -224,9 +262,40 @@
 
 									<div class="widget-body">
 										<div class="space-6"></div>
-										<div class="col-xs-12">
+										<div class="col-xs-12" style="height: 15em;">
 											<div class="row">
-												<div class="col-sm-12">1111222</div>
+												<div class="col-sm-8">
+													<table id="tfhover" class="tftable" border="1">
+														<tr>
+															<th></th>
+															<th>上午</th>
+															<th>下午</th>
+														</tr>
+														<tr>
+															<td>张三</td>
+															<td>在所日常</td>
+															<td>在所日常</td>
+														</tr>
+														<tr>
+															<td>李四</td>
+															<td>在所日常</td>
+															<td>在所日常</td>
+														</tr>
+														<tr>
+															<td>王五</td>
+															<td>在所日常</td>
+															<td>在所日常</td>
+														</tr>
+														<tr>
+															<td>赵六</td>
+															<td>在所日常</td>
+															<td>在所日常</td>
+														</tr>
+													</table>
+												</div>
+											<div class="col-sm-4">
+											这里要放一个日历
+											</div>
 											</div>
 										</div>
 									</div>
@@ -549,6 +618,9 @@
 			});
 			$('.swrap').html('<a href="#">中国GDP增长率：7%</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">菠萝的海干散货运价指数：1405</a>');
 			$('.swrap').liMarquee();
+			$('.str1').liMarquee({
+				direction : 'up'
+			});
 		})
 	</script>
 </body>
