@@ -182,10 +182,10 @@ table.tftable td {
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state">
 					<div class="row">
-						<div class="col-sm-1" style="color:red;font-size: 13px;padding-left: 20px;" />
+						<div class="col-sm-2" style="color:red;font-size: 13px;padding-left: 20px;" />
 						最新资讯：
 					</div>
-					<div class="col-sm-11 swrap"></div>
+					<div class="col-sm-10 swrap"></div>
 				</div>
 			</div>
 			<div class="page-content">
@@ -293,9 +293,7 @@ table.tftable td {
 														</tr>
 													</table>
 												</div>
-											<div class="col-sm-4">
-											这里要放一个日历
-											</div>
+												<div class="col-sm-4">这里要放一个日历</div>
 											</div>
 										</div>
 									</div>
@@ -343,7 +341,32 @@ table.tftable td {
 									</div>
 									<div class="widget-body">
 										<div class="space-6"></div>
-
+										<div class="row">
+											<div class="col-sm-12">
+												<table id="tfhover" class="tftable" border="1">
+													<tr>
+														<th>序号</th>
+														<th>规章制度</th>
+														<th>数量</th>
+													</tr>
+													<tr>
+														<td>1</td>
+														<td>行政管理</td>
+														<td>30</td>
+													</tr>
+													<tr>
+														<td>2</td>
+														<td>条件保障</td>
+														<td>20</td>
+													</tr>
+													<tr>
+														<td>3</td>
+														<td>财务管理</td>
+														<td>40</td>
+													</tr>
+												</table>
+											</div>
+										</div>
 
 									</div>
 								</div>
@@ -439,8 +462,6 @@ table.tftable td {
 					});
 				});
 	
-			//flot chart resize plugin, somehow manipulates default browser resize event to optimize it!
-			//but sometimes it brings up errors with normal resize event handlers
 			$.resize.throttleWindow = false;
 	
 			var placeholder = $('#piechart-placeholder').css({
@@ -448,15 +469,15 @@ table.tftable td {
 				'min-height' : '150px'
 			});
 			var data = [ {
-				label : "未开展(50%)",
+				label : "正常(50%)",
 				data : 50,
 				color : "#68BC31"
 			}, {
-				label : "应完成正在进行(12%)",
+				label : "超期(12%)",
 				data : 12,
 				color : "#2091CF"
 			}, {
-				label : "未到节点正在进行(13%)",
+				label : "严重超期(13%)",
 				data : 13,
 				color : "#AF4E96"
 			}, {
