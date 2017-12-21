@@ -2082,7 +2082,7 @@ pre.prettyprint {
     top: 0;
     bottom: 0;
     z-index: -1;
-    background-color: inherit;
+    background-color: #0E4F87;
     border-style: inherit;
     border-color: inherit;
     border-width: inherit
@@ -2208,7 +2208,7 @@ pre.prettyprint {
     padding: 7px 0 9px 0;
     margin: 0;
     border-top-width: 1px;
-    border-top-style: dotted
+    border-top-style: solid
 }
 
 .nav-list > li .submenu > li a > .menu-icon {
@@ -2504,7 +2504,7 @@ body.mob-safari .sidebar.sidebar-fixed {
     right: 0;
     top: 4px;
     border: 8px solid transparent;
-    border-width: 14px 10px
+    border-width: 14px 10px;
 }
 
 .nav-list li.open > a:after {
@@ -5593,13 +5593,12 @@ body.mob-safari .sidebar.sidebar-fixed {
 }
 
 .footer .footer-inner .footer-content {
-    position: absolute;
-    left: 12px;
-    right: 12px;
+    left: 0px;
+    right: 0px;
     bottom: 4px;
     padding: 8px;
-    line-height: 36px;
-    border-top: 3px double #E5E5E5
+    line-height: 16px;
+    background-color: black;
 }
 
 .footer.footer-fixed .footer-inner {
@@ -19824,17 +19823,16 @@ input.typeahead.scrollable ~ .tt-menu {
 
 .no-skin .nav-list > li .submenu > li > a {
     border-top-color: #E4E4E4;
-    background-color: #FFF;
-    color: #616161
+    background-color: #326593;
+    color: #FFFFFF
 }
 
 .no-skin .nav-list > li .submenu > li > a:hover {
-    color: #4B88B7;
-    background-color: #F1F5F9
+    background-color: #2B7DBC
 }
 
 .no-skin .nav-list > li .submenu > li.active > a {
-    color: #2B7DBC
+    color: #FFFFFF
 }
 
 .no-skin .nav-list > li .submenu > li.active > a > .menu-icon {
@@ -19852,15 +19850,15 @@ input.typeahead.scrollable ~ .tt-menu {
 }
 
 .no-skin .nav-list > li .submenu > li.active:not(.open) > a {
-    background-color: #F5F7FA
+    background-color: #2B7DBC
 }
 
 .no-skin .nav-list > li .submenu > li.active:not(.open) > a:hover {
-    background-color: #F1F5F9
+    background-color: #2B7DBC
 }
 
 .no-skin .nav-list > li > .submenu .open > a, .no-skin .nav-list > li > .submenu .open > a:focus, .no-skin .nav-list > li > .submenu .open > a:hover {
-    border-color: #E4E4E4
+    border-color: #2B7DBC
 }
 
 .no-skin .nav-list > li > .submenu li > .submenu > li a {
@@ -19924,7 +19922,7 @@ input.typeahead.scrollable ~ .tt-menu {
 }
 
 .no-skin .nav-list li.active > a:after {
-    border-right-color: #2B7DBC
+   /* border-right-color: #2B7DBC*/
 }
 
 .no-skin .nav-list > li.active:after {
