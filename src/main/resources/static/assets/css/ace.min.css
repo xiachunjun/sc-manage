@@ -27,6 +27,10 @@ h1, h2, h3, h4, h5, h6 {
     font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif
 }
 
+.cursor-pointer {
+    cursor: pointer
+}
+
 .main-container:before {
     display: block;
     content: "";
@@ -460,7 +464,7 @@ pre.prettyprint {
 }
 
 .red {
-    color: #DD5A43 !important
+    color: red !important
 }
 
 .red2 {
@@ -1387,10 +1391,9 @@ pre.prettyprint {
 }
 
 .ace-nav .nav-user-photo {
-    margin: -4px 8px 0 0;
-    border-radius: 100%;
-    border: 2px solid #FFF;
-    max-width: 40px
+    margin: 0;
+    max-width: 20px;
+    margin-right: 6px;
 }
 
 .ace-nav li.dropdown-footer a .ace-icon {
@@ -1617,9 +1620,10 @@ pre.prettyprint {
     white-space: nowrap;
     text-align: left;
     vertical-align: top;
-    line-height: 15px;
     position: relative;
-    top: 6px
+    top: 6px;
+    padding-right: 6px;
+    color: white;
 }
 
 .user-info small {
@@ -7029,6 +7033,14 @@ button.btn:active {
     }
 }
 
+.radius-4 {
+    border-radius: 4px
+}
+
+.badge.radius-4 {
+    border-radius: 4px
+}
+
 .badge {
     padding-top: 1px;
     padding-bottom: 3px;
@@ -8419,13 +8431,13 @@ label.inline {
     margin-bottom: 3px
 }
 
-input[type=email], input[type=url], input[type=search], input[type=tel], input[type=color], input[type=text], input[type=password], input[type=datetime], input[type=datetime-local], input[type=date], input[type=month], input[type=time], input[type=week], input[type=number], textarea {
-    border-radius: 0 !important;
+input[type=email], input[type=url], input[type=file], input[type=search], input[type=tel], input[type=color], input[type=text], input[type=password], input[type=datetime], input[type=datetime-local], input[type=date], input[type=month], input[type=time], input[type=week], input[type=number], textarea {
+    border-radius: 5px !important;
     color: #858585;
     background-color: #FFF;
     border: 1px solid #D5D5D5;
-    padding: 5px 4px 6px;
-    font-size: 14px;
+    padding: 4px 8px 5px;
+    font-size: 13px;
     font-family: inherit;
     -webkit-box-shadow: none !important;
     box-shadow: none !important;
@@ -19922,7 +19934,7 @@ input.typeahead.scrollable ~ .tt-menu {
 }
 
 .no-skin .nav-list li.active > a:after {
-   /* border-right-color: #2B7DBC*/
+    /* border-right-color: #2B7DBC*/
 }
 
 .no-skin .nav-list > li.active:after {

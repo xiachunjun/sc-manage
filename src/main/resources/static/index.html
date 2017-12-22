@@ -21,7 +21,7 @@
 <!-- ace styles -->
 <link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 
-<!-- 
+<!--
 <link rel="stylesheet" type="text/css" href="jiaoben/css/normalize.css" />
 <link rel="stylesheet" type="text/css" href="jiaoben/css/default.css">
 <link rel="stylesheet" href="jiaoben/css/liMarquee.css">
@@ -51,17 +51,14 @@
 table.tftable {
 	color: #333333;
 	width: 100%;
-	border-width: 1px;
-	border-color: #729ea5;
+	border: 1px #729ea5;
 	border-collapse: collapse;
 }
 
 table.tftable th {
 	background-color: #acc8cc;
-	border-width: 1px;
+    border: 1px solid #729ea5;
 	padding: 8px;
-	border-style: solid;
-	border-color: #729ea5;
 	text-align: left;
 }
 
@@ -70,10 +67,8 @@ table.tftable tr {
 }
 
 table.tftable td {
-	border-width: 1px;
+	border: 1px solid #729ea5;
 	padding: 8px;
-	border-style: solid;
-	border-color: #729ea5;
 }
 </style>
 </head>
@@ -86,18 +81,9 @@ table.tftable td {
 			</div>
 			<div class="navbar-buttons navbar-header pull-right" role="navigation">
 				<ul class="nav ace-nav">
-					<li class="light-blue dropdown-modal">
-						<a data-toggle="dropdown" href="#" class="dropdown-toggle"> <img class="nav-user-photo" src="assets/images/avatars/user.jpg" alt="Jason's Photo" /> <span class="user-info"> <small>你好，</small>张三
-						</span> <i class="ace-icon fa fa-caret-down"></i>
-						</a>
-
-						<ul class="user-menu dropdown-menu-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
-							<li class="divider"></li>
-							<li>
-								<a href="#"> <i class="ace-icon fa fa-power-off"></i> 登出
-								</a>
-							</li>
-						</ul>
+					<li>
+						<span class="cursor-pointer"><img class="nav-user-photo" src="assets/images/u57.png"/> <span class="user-info">张三三三</span></span>
+						<span class="cursor-pointer"><img class="nav-user-photo" src="assets/images/u59.png"/></span><span class="cursor-pointer"><img class="nav-user-photo" src="assets/images/u61.png"/></span>
 					</li>
 				</ul>
 			</div>
@@ -127,7 +113,7 @@ table.tftable td {
 						</li>
 
 						<li class="">
-							<a href="#"> 规章制度 </a>
+							<a href="bylaws.html"> 规章制度 </a>
 						</li>
 
 						<li class="active">
@@ -238,11 +224,11 @@ table.tftable td {
 											<div class="row">
 												<div class="col-sm-12" style="height: 15em;">
 													<div class="str1 str_wrap" style="height:100%;">
-														<p>Javascript是一种通用的脚本编程语言，也是一种基于（Object）和事件驱动并具有安全性能的脚本语言。</p>
-														<p>Javascript代码嵌入在HTML页面中，它把静态页面转变为支持用户交互并响应事件的活页面。</p>
-														<p>Javascript最早称作LiveScript，由Netscape Communications 和 Sun Microsystems联合开发。</p>
-														<p>Javascript和HTML关系密切，它们都由浏览器来处理。</p>
-														<p>Javascript</p>
+														<p>七〇八所邢文华所长参加世界海事技术大会 内部 2017-12-01</p>
+														<p>七〇八所参加市科技系统学习传达党的十九大精神报告会  内部 2017-12-02</p>
+														<p>七〇八所邢文华所长参加世界海事技术大1 内部 2017-12-03</p>
+														<p>七〇八所邢文华所长参加世界海事技术大2 内部 2017-12-03</p>
+														<p>七〇八所邢文华所长参加世界海事技术大3 内部 2017-12-03</p>
 													</div>
 												</div>
 											</div>
@@ -264,19 +250,19 @@ table.tftable td {
 										<div class="col-xs-12" style="height: 15em;">
 											<div class="row">
 												<div class="col-sm-8">
-													<table id="tfhover" class="tftable" border="1">
+													<table class="tftable" border="1">
 														<tr>
 															<th></th>
 															<th>上午</th>
 															<th>下午</th>
 														</tr>
 														<tr>
-															<td>张三</td>
+															<td>张三三</td>
 															<td>在所日常</td>
 															<td>在所日常</td>
 														</tr>
 														<tr>
-															<td>李四</td>
+															<td>李四四</td>
 															<td>在所日常</td>
 															<td>在所日常</td>
 														</tr>
@@ -342,7 +328,7 @@ table.tftable td {
 										<div class="space-6"></div>
 										<div class="row">
 											<div class="col-sm-12">
-												<table id="tfhover" class="tftable" border="1">
+												<table class="tftable" border="1">
 													<tr>
 														<th>序号</th>
 														<th>规章制度</th>
@@ -376,15 +362,12 @@ table.tftable td {
 			</div>
 		</div>
 	</div>
-	</div>
 	<div class="footer">
 		<div class="footer-inner">
 			<div class="footer-content">
-				<span class="bigger-120"> <span class="blue bolder">版权所有</span> 北京中船信息科技有限公司 &copy; 2017-2018
-				</span>
+				<span class="white">版权所有：北京中船信息科技有限公司</span>
 			</div>
 		</div>
-	</div>
 	</div>
 	<script src="assets/js/jquery-2.1.4.min.js"></script>
 	<script src="assets/js/jquery.liMarquee.js"></script>
@@ -444,7 +427,7 @@ table.tftable td {
 									size : size
 								});
 					})
-	
+
 			$('.sparkline').each(
 				function() {
 					var $box = $(this).closest('.infobox');
@@ -457,9 +440,9 @@ table.tftable td {
 						chartRangeMin : $(this).data('min') || 0
 					});
 				});
-	
+
 			$.resize.throttleWindow = false;
-	
+
 			var placeholder = $('#piechart-placeholder').css({
 				'width' : '80%',
 				'min-height' : '150px'
@@ -481,7 +464,7 @@ table.tftable td {
 				data : 25,
 				color : "#DA5430"
 			} ]
-	
+
 			function drawPieChart(placeholder, data, position) {
 				$.plot(placeholder, data, {
 					series : {
@@ -510,22 +493,22 @@ table.tftable td {
 					}
 				})
 			}
-	
+
 			drawPieChart(placeholder, data);
-	
+
 			/**
 			 we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
 			 so that's not needed actually.
 			 */
 			placeholder.data('chart', data);
 			placeholder.data('draw', drawPieChart);
-	
+
 			//pie chart tooltip example
 			var $tooltip = $(
 				"<div class='tooltip top in'><div class='tooltip-inner'></div></div>")
 				.hide().appendTo('body');
 			var previousPoint = null;
-	
+
 			placeholder.on('plothover', function(event, pos, item) {
 				if (item) {
 					if (previousPoint != item.seriesIndex) {
@@ -542,52 +525,52 @@ table.tftable td {
 					$tooltip.hide();
 					previousPoint = null;
 				}
-	
+
 			});
-	
+
 			$(document).one('ajaxloadstart.page', function(e) {
 				$tooltip.remove();
 			});
-	
+
 			var d1 = [];
 			for (var i = 0; i < Math.PI * 2; i += 0.5) {
 				d1.push([ i, Math.sin(i) ]);
 			}
-	
+
 			var d2 = [];
 			for (var i = 0; i < Math.PI * 2; i += 0.5) {
 				d2.push([ i, Math.cos(i) ]);
 			}
-	
+
 			var d3 = [];
 			for (var i = 0; i < Math.PI * 2; i += 0.2) {
 				d3.push([ i, Math.tan(i) ]);
 			}
-	
-	
+
+
 			$('#recent-box [data-rel="tooltip"]').tooltip({
 				placement : tooltip_placement
 			});
-	
+
 			function tooltip_placement(context, source) {
 				var $source = $(source);
 				var $parent = $source.closest('.tab-content')
 				var off1 = $parent.offset();
 				var w1 = $parent.width();
-	
+
 				var off2 = $source.offset();
 				//var w2 = $source.width();
-	
+
 				if (parseInt(off2.left) < parseInt(off1.left)
 					+ parseInt(w1 / 2))
 					return 'right';
 				return 'left';
 			}
-	
+
 			$('.dialogs,.comments').ace_scroll({
 				size : 300
 			});
-	
+
 			//Android's default browser somehow is confused when tapping on label which will lead to dragging the task
 			//so disable dragging when clicking on label
 			var agent = navigator.userAgent.toLowerCase();
@@ -601,7 +584,7 @@ table.tftable td {
 						e.stopImmediatePropagation();
 				});
 			}
-	
+
 			$('#tasks').sortable({
 				opacity : 0.8,
 				revert : true,
@@ -622,18 +605,18 @@ table.tftable td {
 					else
 						$(this).closest('li').removeClass('selected');
 				});
-	
+
 			//show the dropdowns on top or bottom depending on window height and menu position
 			$('#task-tab .dropdown-hover').on('mouseenter', function(e) {
 				var offset = $(this).offset();
-	
+
 				var $w = $(window)
 				if (offset.top > $w.scrollTop() + $w.innerHeight() - 100)
 					$(this).addClass('dropup');
 				else
 					$(this).removeClass('dropup');
 			});
-			$('.swrap').html('<a href="#">中国GDP增长率：7%</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#">菠萝的海干散货运价指数：1405</a>');
+			$('.swrap').html('<a href="#" class="red">中国GDP增长率：7%</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">菠萝的海干散货运价指数：1405</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">年度国防预算：10443.97亿元</a>');
 			$('.swrap').liMarquee();
 			$('.str1').liMarquee({
 				direction : 'up'
