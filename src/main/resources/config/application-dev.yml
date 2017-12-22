@@ -15,7 +15,8 @@ server:
   
 system:
    enableSwagger: true    #是否启用swagger  
-   
+   file:
+     path: E:/tmp/sc-manange/
    
    
   

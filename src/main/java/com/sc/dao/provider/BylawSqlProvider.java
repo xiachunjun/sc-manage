@@ -24,11 +24,17 @@ public class BylawSqlProvider {
 				if(bylaw.getArticleTime() != null) {  
 					SET("article_time=#{articleTime,jdbcType=TIMESTAMP}");  
 				}
+				if(bylaw.getBylawsContent() != null) {  
+					SET("bylaws_content=#{bylawsContent,jdbcType=VARCHAR}");  
+				}
+				if(bylaw.getFileUrl() != null) {  
+					SET("file_url=#{fileUrl,jdbcType=VARCHAR}");  
+				}
 				if(bylaw.getUpdateUser() != null) {  
 					SET("update_user=#{updateUser,jdbcType=VARCHAR}");  
 				}
 				SET("update_time=now()");
-			WHERE("bylaws_code=#{bylawsCode,jdbcType=VARCHAR}");  
+			WHERE("id=#{id,jdbcType=INTEGER}");  
 		}}.toString();  
 	} 
 	

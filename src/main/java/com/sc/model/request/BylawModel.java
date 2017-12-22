@@ -6,7 +6,7 @@ import org.hibernate.validator.constraints.NotEmpty;
 
 public class BylawModel {
 
-	private String bylawsCode;
+	private Integer id;
 	
 	/**规则制度分类*/
 	@NotEmpty(message="规则制度分类不能为空")
@@ -28,12 +28,12 @@ public class BylawModel {
 	private Date articleTime;
 	
 	
-	public String getBylawsCode() {
-		return bylawsCode;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setBylawsCode(String bylawsCode) {
-		this.bylawsCode = bylawsCode;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public String getBylawsCategory() {

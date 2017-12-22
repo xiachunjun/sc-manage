@@ -13,6 +13,8 @@ public interface IBylawService {
 	/**
 	 * 新增规则制度
 	 * @param bylawModel
+	 * @param file
+	 * @param request
 	 */
 	void saveBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request);
 
@@ -20,18 +22,27 @@ public interface IBylawService {
 	 * 查询规则制度
 	 * @return
 	 */
-	Map<String, Object> queryBylaw();
+	Map<String, Object> queryBylawList();
 
 	/**
 	 * 修改规则制度
 	 * @param bylawModel
+	 * @param file
+	 * @param request
 	 */
-	void updateBylaw(BylawModel bylawModel);
+	void updateBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request);
 
 	/**
 	 * 删除规则制度
-	 * @param bylawsCode
+	 * @param bylawsId
 	 */
-	void deleteBylaw(String bylawsCode);
+	void deleteBylaw(Integer bylawsId);
+
+	/**
+	 * 根据业务主键， 获取文件的存储路径
+	 * @param bylawsId
+	 * @return
+	 */
+	String queryFileUrlById(Integer bylawsId);
 
 }

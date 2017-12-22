@@ -2,7 +2,6 @@ package com.sc.dao;
 
 import java.util.List;
 
-import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
 import org.apache.ibatis.annotations.Param;
@@ -63,20 +62,20 @@ public interface BylawMapper {
 	int updateBylaw(Bylaw record);
 
 	
-	@Delete({
-		"delete from sc_bylaws where bylaws_code=#{bylawsCode,jdbcType=VARCHAR}"
-	})
-	int deleteBylaw(String bylawsCode);
-
-	
 	@Update({
 		"update sc_bylaws set ",
 			"data_state=0,",
 			"update_user=#{updateUser,jdbcType=VARCHAR},",
 			"update_time=now() ",
-		"where bylaws_code=#{bylawsCode,jdbcType=VARCHAR}"
+		"where id=#{id,jdbcType=INTEGER}"
 	})
-	int deleteBylaw2(@Param("bylawsCode")String bylawsCode, @Param("updateUser")String userName);
+	int updateStatus(@Param("id")Integer bylawsId, @Param("updateUser")String userName);
+
+
+	@Select({
+		"select file_url from sc_bylaws where id = #{id, jdbcType=INTEGER}"
+	})
+	String queryFileUrlById(@Param("id")Integer bylawsId);
 	
 	
 	
