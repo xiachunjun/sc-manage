@@ -24,6 +24,9 @@ public class Department {
 	/**部门级别*/
 	private String departmentLevel;
 	
+	/**上级部门code*/
+	private String parentDepartmentCode;
+	
 	/**级别*/
 	private String dataMemo;
 	
@@ -61,6 +64,14 @@ public class Department {
 
 	public String getDepartmentLevel() {
 		return departmentLevel;
+	}
+
+	public String getParentDepartmentCode() {
+		return parentDepartmentCode;
+	}
+
+	public void setParentDepartmentCode(String parentDepartmentCode) {
+		this.parentDepartmentCode = parentDepartmentCode;
 	}
 
 	public String getDataMemo() {
