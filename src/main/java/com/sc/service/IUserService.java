@@ -1,5 +1,7 @@
 package com.sc.service;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import com.sc.model.request.UserModel;
@@ -18,6 +20,12 @@ public interface IUserService {
 	 * @param request
 	 */
 	void login(UserModel userModel, HttpServletRequest request);
+
+	/**
+	 * 查询用户列表
+	 * @return
+	 */
+	Map<String, Object> queryUsertList();
 
 	
 }

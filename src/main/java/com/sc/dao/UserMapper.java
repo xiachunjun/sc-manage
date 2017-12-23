@@ -65,7 +65,7 @@ public interface UserMapper {
     @Select({
         "select",
         "id, user_code, user_login_name, user_login_pwd, user_id_card, user_name, user_nickname, ",
-        "data_state, data_version, create_user, update_user, create_time, update_time",
+        "data_state, data_version, create_user, update_user, create_time, update_time ",
         "from sc_users"
     })
     @Results({
@@ -131,6 +131,22 @@ public interface UserMapper {
 	User selectUserByLoginName(@Param("userLoginName")String userLoginName);
 
 	
+    
+    @Select({
+        "select",
+        	"id, user_code, user_login_name, user_name, user_nickname, data_state ",
+        "from sc_users ",
+        "where data_state=1"
+    })
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="user_code", property="userCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_login_name", property="userLoginName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_name", property="userName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_nickname", property="userNickname", jdbcType=JdbcType.VARCHAR),
+        @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
+    })
+    List<User> selectUserList();
     
 	
 }

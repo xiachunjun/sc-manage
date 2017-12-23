@@ -1,6 +1,9 @@
 package com.sc.service.impl;
 
 import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -57,6 +60,15 @@ public class UserServiceImpl implements IUserService {
 			throw new MyException("对不起! 密码错误，请重新输入");
 		}
 		request.getSession().setAttribute(CommonConstant.USER_LOGIN_NAME, loginUser.getUserLoginName());
+	}
+	
+	
+	@Override
+	public Map<String, Object> queryUsertList() {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<User> list = userMapper.selectUserList();
+		dataMap.put("userList", list);
+		return dataMap;
 	}
 	
 	

@@ -1,5 +1,7 @@
 package com.sc.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
@@ -88,6 +90,31 @@ public class UserController {
 	public DataResponse logout(HttpServletRequest request){
 		request.getSession().removeAttribute(CommonConstant.USER_LOGIN_NAME);
 		return new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+	}
+	
+	
+	/**
+	 * 查询用户列表
+	 * @return
+	 */
+	@RequestMapping(value = "/user/query/list", method = {RequestMethod.POST})
+	public DataResponse queryUsertList(){
+		DataResponse dr = new DataResponse();
+		try {
+			Map<String, Object> dataMap = userService.queryUsertList();
+			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
+			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
+			dr.setDataMap(dataMap);
+		} catch (MyException e) {
+			logger.error(e.getMessage());
+			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
+			dr.setResultMessage(e.getMessage());
+		} catch (Exception e) {
+			logger.error("查询用户列表异常", e);
+			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
+			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
+		}
+		return dr;
 	}
 	
 	
