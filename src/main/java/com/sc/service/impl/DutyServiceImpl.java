@@ -68,4 +68,13 @@ public class DutyServiceImpl implements IDutyService {
 	}
 	
 	
+	@Override
+	public Map<String, Object> queryPositionList() {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<Position> list = positionMapper.queryPositionList();
+		dataMap.put("positionList", list);
+		return dataMap;
+	}
+	
+	
 }

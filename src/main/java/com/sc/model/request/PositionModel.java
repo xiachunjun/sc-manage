@@ -8,8 +8,8 @@ public class PositionModel {
 	/**岗位名称*/
 	private String positionName;
 	
-	/**责任人*/
-	private String dutyPerson;
+	/**责任人(用户code)*/
+	private String refUserCode;
 
 	public String getRefDepartmentCode() {
 		return refDepartmentCode;
@@ -17,10 +17,6 @@ public class PositionModel {
 
 	public String getPositionName() {
 		return positionName;
-	}
-
-	public String getDutyPerson() {
-		return dutyPerson;
 	}
 
 	public void setRefDepartmentCode(String refDepartmentCode) {
@@ -31,9 +27,14 @@ public class PositionModel {
 		this.positionName = positionName;
 	}
 
-	public void setDutyPerson(String dutyPerson) {
-		this.dutyPerson = dutyPerson;
+	public String getRefUserCode() {
+		return refUserCode;
 	}
+
+	public void setRefUserCode(String refUserCode) {
+		this.refUserCode = refUserCode;
+	}
+
 	
 	
 }

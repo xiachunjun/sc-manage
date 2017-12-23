@@ -48,12 +48,7 @@ public interface BylawMapper {
 	    @Result(column="article_time", property="articleTime", jdbcType=JdbcType.TIMESTAMP),
 	    @Result(column="bylaws_content", property="bylawsContent", jdbcType=JdbcType.VARCHAR),
 	    @Result(column="file_url", property="fileUrl", jdbcType=JdbcType.VARCHAR),
-	    @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER),
-	    @Result(column="data_version", property="dataVersion", jdbcType=JdbcType.INTEGER),
-        @Result(column="create_user", property="createUser", jdbcType=JdbcType.VARCHAR),
-        @Result(column="update_user", property="updateUser", jdbcType=JdbcType.VARCHAR),
-        @Result(column="create_time", property="createTime", jdbcType=JdbcType.TIMESTAMP),
-        @Result(column="update_time", property="updateTime", jdbcType=JdbcType.TIMESTAMP)
+	    @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
 	})
 	List<Bylaw> queryBylaw();
 

@@ -31,4 +31,11 @@ public interface IDutyService {
 	 */
 	Map<String, Object> queryDepartmentList();
 
+	/**
+	 * 查询岗位列表
+	 * @return
+	 */
+	Map<String, Object> queryPositionList();
+
+	
 }

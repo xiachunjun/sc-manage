@@ -2,6 +2,8 @@ package com.sc.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 public class User {
     private Integer id;
 
@@ -37,14 +39,19 @@ public class User {
 
     private Integer dataState;
 
+    @JsonIgnore
     private Integer dataVersion;
 
+    @JsonIgnore
     private String createUser;
 
+    @JsonIgnore
     private String updateUser;
 
+    @JsonIgnore
     private Date createTime;
 
+    @JsonIgnore
     private Date updateTime;
 
     public Integer getId() {

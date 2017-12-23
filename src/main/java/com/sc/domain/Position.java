@@ -2,6 +2,8 @@ package com.sc.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 岗位
  */
@@ -18,8 +20,8 @@ public class Position {
 	/**职位*/
 	private String positionName;
 	
-	/**负责人*/
-	private String positionLeader;
+	/**负责人(用户code)*/
+	private String refUserCode;
 	
 	/**部门介绍*/
 	private String positionIntroduce;
@@ -29,14 +31,19 @@ public class Position {
 	  
 	private Integer dataState;
 
+	@JsonIgnore
     private Integer dataVersion;
 
+	@JsonIgnore
     private String createUser;
 
+	@JsonIgnore
     private String updateUser;
 
+	@JsonIgnore
     private Date createTime;
 
+	@JsonIgnore
     private Date updateTime;
 
     /**附加属性， 不属于表中字段*/
@@ -59,12 +66,12 @@ public class Position {
 		return positionName;
 	}
 
-	public String getPositionLeader() {
-		return positionLeader;
+	public String getRefUserCode() {
+		return refUserCode;
 	}
 
-	public void setPositionLeader(String positionLeader) {
-		this.positionLeader = positionLeader;
+	public void setRefUserCode(String refUserCode) {
+		this.refUserCode = refUserCode;
 	}
 
 	public String getPositionIntroduce() {
