@@ -6,6 +6,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 
 import javax.servlet.http.HttpServletResponse;
 
@@ -53,8 +54,16 @@ public class FileUtil {
 	 * @param fileName
 	 */
 	public static void downloadFile(HttpServletResponse response, File file, String fileName) {
+		response.reset();
 		response.setContentType("application/force-download");// 设置强制下载不打开
-		response.addHeader("Content-Disposition", "attachment;fileName=" + fileName);// 设置文件名
+		try {
+			fileName = new String(fileName.getBytes("gbk"),"iso-8859-1");
+		} catch (UnsupportedEncodingException e1) {
+			logger.error("处理文件名乱码问题异常", e1);
+			throw new MyException("处理文件名乱码问题异常");
+		}
+		response.addHeader("Content-Disposition", "attachment;fileName="+fileName);// 设置文件名
+		response.addHeader("Content-Length", ""+file.length()); 
 		byte[] buffer = new byte[1024];
 		FileInputStream fis = null;
 		BufferedInputStream bis = null;

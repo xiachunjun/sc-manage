@@ -20,6 +20,11 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 import com.google.common.base.Predicate;
 
+/**
+ *  浏览器中输入该地址：http://localhost:8090/swagger-ui.html
+ *	即可看到后端所有接口，方便测试接口，以及方便前后端进行联调接口，不需再写接口文档
+ *
+ */
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {

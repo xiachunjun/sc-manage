@@ -111,7 +111,7 @@ public class BylawServiceImpl implements IBylawService{
 		Bylaw record = new Bylaw();
 		BeanUtils.copyProperties(bylawModel, record);
 		record.setId(null);
-		//record.setBylawsCode("100001"); //业务主键是否需要,如何设置
+		//record.setBylawsCode("000001"); //业务主键是否需要,如何设置
 		record.setDataState(1);
 		record.setDataVersion(1);
 		record.setCreateUser("SYS");
