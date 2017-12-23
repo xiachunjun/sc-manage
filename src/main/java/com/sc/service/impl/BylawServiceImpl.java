@@ -1,6 +1,5 @@
 package com.sc.service.impl;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -9,7 +8,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.sc.common.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -20,7 +18,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.MyException;
+import com.sc.common.util.DateUtil;
 import com.sc.common.util.FileUtil;
 import com.sc.common.util.UuidUtil;
 import com.sc.dao.BylawMapper;
@@ -62,15 +62,15 @@ public class BylawServiceImpl implements IBylawService{
 		if(!CollectionUtils.isEmpty(list)){
 			for (Bylaw bylaw : list) {
 				switch(bylaw.getBylawsCategory().trim()){
-					case "行政管理" : xzglList.add(bylaw);  break;
-					case "条件保障" : tjbzList.add(bylaw);  break;
-					case "财务管理" : cwglList.add(bylaw);  break;
+					case CommonConstant.XZGL : xzglList.add(bylaw);  break;
+					case CommonConstant.TJBZ : tjbzList.add(bylaw);  break;
+					case CommonConstant.CWGL : cwglList.add(bylaw);  break;
 				}
 			}
 		}
-		dataMap.put("xzglList", xzglList);
-		dataMap.put("tjbzList", tjbzList);
-		dataMap.put("cwglList", cwglList);
+		dataMap.put("XZGL", xzglList);
+		dataMap.put("TJBZ", tjbzList);
+		dataMap.put("CWGL", cwglList);
 		return dataMap;
 	}
 

@@ -1,9 +1,13 @@
 package com.sc.dao;
 
 import com.sc.domain.User;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
+import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -18,21 +22,20 @@ public interface UserMapper {
     int deleteByPrimaryKey(Integer id);
 
     @Insert({
-        "insert into sc_users (id, user_code, ",
-        "user_login_name, user_login_pwd, ",
-        "user_id_card, user_name, ",
-        "user_nickname, data_state, ",
-        "data_version, create_user, ",
-        "update_user, create_time, ",
-        "update_time)",
-        "values (#{id,jdbcType=INTEGER}, #{userCode,jdbcType=VARCHAR}, ",
-        "#{userLoginName,jdbcType=VARCHAR}, #{userLoginPwd,jdbcType=VARCHAR}, ",
-        "#{userIdCard,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, ",
-        "#{userNickname,jdbcType=VARCHAR}, #{dataState,jdbcType=INTEGER}, ",
-        "#{dataVersion,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, ",
-        "#{updateUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
-        "#{updateTime,jdbcType=TIMESTAMP})"
+        "insert into sc_users (user_code, ",
+        	"user_login_name, user_login_pwd, ",
+        	"user_id_card, user_name, user_nickname, ",
+        	"data_state, data_version, create_user, ",
+        	"update_user, create_time, update_time)",
+        "values (#{userCode,jdbcType=VARCHAR}, ",
+        	"#{userLoginName,jdbcType=VARCHAR}, #{userLoginPwd,jdbcType=VARCHAR}, ",
+        	"#{userIdCard,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, ",
+        	"#{userNickname,jdbcType=VARCHAR}, #{dataState,jdbcType=INTEGER}, ",
+        	"#{dataVersion,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, ",
+        	"#{updateUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
+        	"#{updateTime,jdbcType=TIMESTAMP})"
     })
+    @Options(useGeneratedKeys=true, keyProperty="id")
     int insert(User record);
 
     @Select({
@@ -99,4 +102,32 @@ public interface UserMapper {
         "where id = #{id,jdbcType=INTEGER}"
     })
     int updateByPrimaryKey(User record);
+
+    
+    @Select({
+    	"select data_state from sc_users where user_login_name = #{userLoginName,jdbcType=VARCHAR}"
+    })
+    User selectUserLoginNameIsExist(@Param("userLoginName")String userLoginName);
+    
+    
+    @Select({
+        "select",
+        	"id, user_code, user_login_name, user_login_pwd, user_id_card, user_name, user_nickname ",
+        "from sc_users ",
+        "where data_state=1 and user_login_name = #{userLoginName,jdbcType=VARCHAR}"
+    })
+    @Results({
+        @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+        @Result(column="user_code", property="userCode", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_login_name", property="userLoginName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_login_pwd", property="userLoginPwd", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_id_card", property="userIdCard", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_name", property="userName", jdbcType=JdbcType.VARCHAR),
+        @Result(column="user_nickname", property="userNickname", jdbcType=JdbcType.VARCHAR)
+    })
+	User selectUserByLoginName(@Param("userLoginName")String userLoginName);
+
+	
+    
+	
 }
