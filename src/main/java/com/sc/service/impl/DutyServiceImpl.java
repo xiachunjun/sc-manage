@@ -9,7 +9,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.sc.common.constant.MyException;
+import com.sc.dao.DepartmentMapper;
 import com.sc.dao.PositionMapper;
+import com.sc.domain.Department;
 import com.sc.domain.Position;
 import com.sc.model.request.PositionModel;
 import com.sc.service.IDutyService;
@@ -19,6 +21,8 @@ public class DutyServiceImpl implements IDutyService {
 
 	@Autowired
 	private PositionMapper positionMapper;
+	@Autowired
+	private DepartmentMapper departmentMapper;
 	
 	
 	@Override
@@ -54,5 +58,14 @@ public class DutyServiceImpl implements IDutyService {
 		}
 	}
 
+	
+	@Override
+	public Map<String, Object> queryDepartmentList() {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<Department> list = departmentMapper.queryDepartmentList();
+		dataMap.put("departmentList", list);
+		return dataMap;
+	}
+	
 	
 }

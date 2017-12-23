@@ -102,4 +102,32 @@ public class DutyController {
 	}
 	
 	
+	
+	/**
+	 * 查询部门列表
+	 * @return
+	 */
+	@RequestMapping(value = "/department/query/list", method = {RequestMethod.POST})
+	public DataResponse queryDepartmentList(){
+		DataResponse dr = new DataResponse();
+		try {
+			Map<String, Object> dataMap = dutyService.queryDepartmentList();
+			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
+			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
+			dr.setDataMap(dataMap);
+		} catch (MyException e) {
+			logger.error(e.getMessage());
+			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
+			dr.setResultMessage(e.getMessage());
+		} catch (Exception e) {
+			logger.error("查询部门列表异常", e);
+			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
+			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
+		}
+		return dr;
+	}
+	
+	
+	
+	
 }

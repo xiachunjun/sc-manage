@@ -2,6 +2,8 @@ package com.sc.domain;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 /**
  * 部门
  */
@@ -27,19 +29,25 @@ public class Department {
 	/**上级部门code*/
 	private String parentDepartmentCode;
 	
-	/**级别*/
+	@JsonIgnore
 	private String dataMemo;
 	
+	@JsonIgnore
 	private Integer dataState;
 
+	@JsonIgnore
     private Integer dataVersion;
 
+	@JsonIgnore
     private String createUser;
 
+	@JsonIgnore
     private String updateUser;
 
+	@JsonIgnore
     private Date createTime;
 
+	@JsonIgnore
     private Date updateTime;
 
 	public Integer getId() {

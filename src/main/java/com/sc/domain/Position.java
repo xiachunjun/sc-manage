@@ -18,6 +18,9 @@ public class Position {
 	/**职位*/
 	private String positionName;
 	
+	/**负责人*/
+	private String positionLeader;
+	
 	/**部门介绍*/
 	private String positionIntroduce;
 	
@@ -36,8 +39,9 @@ public class Position {
 
     private Date updateTime;
 
-    //附加值
+    /**附加属性， 不属于表中字段*/
     private String departmentName;   //部门名称
+    
     
 	public Integer getId() {
 		return id;
@@ -53,6 +57,14 @@ public class Position {
 
 	public String getPositionName() {
 		return positionName;
+	}
+
+	public String getPositionLeader() {
+		return positionLeader;
+	}
+
+	public void setPositionLeader(String positionLeader) {
+		this.positionLeader = positionLeader;
 	}
 
 	public String getPositionIntroduce() {

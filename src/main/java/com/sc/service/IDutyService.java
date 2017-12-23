@@ -25,4 +25,10 @@ public interface IDutyService {
 	 */
 	void updatePosition(PositionModel positionModel);
 
+	/**
+	 * 查询部门列表
+	 * @return
+	 */
+	Map<String, Object> queryDepartmentList();
+
 }

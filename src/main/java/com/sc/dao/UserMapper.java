@@ -107,6 +107,9 @@ public interface UserMapper {
     @Select({
     	"select data_state from sc_users where user_login_name = #{userLoginName,jdbcType=VARCHAR}"
     })
+    @Results({
+    	@Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
+    })
     User selectUserLoginNameIsExist(@Param("userLoginName")String userLoginName);
     
     
