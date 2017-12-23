@@ -1,5 +1,6 @@
 package com.sc.service.impl;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -8,6 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.sc.common.util.DateUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -110,6 +112,7 @@ public class BylawServiceImpl implements IBylawService{
 	private Bylaw setProperties(BylawModel bylawModel, MultipartFile file) {
 		Bylaw record = new Bylaw();
 		BeanUtils.copyProperties(bylawModel, record);
+		record.setArticleTime(DateUtil.str2Date(bylawModel.getArtTime()));
 		record.setId(null);
 		//record.setBylawsCode("000001"); //业务主键是否需要,如何设置
 		record.setDataState(1);
