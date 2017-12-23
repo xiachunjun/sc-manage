@@ -33,8 +33,4 @@ public class EncryptUtil {
        return encoder.matches(rawPassword, encodePassword);  
    }  
 
-   public static void main(String[] args) {
-	   System.out.println(encrypt("123asd"));
-   }
-   
 }
