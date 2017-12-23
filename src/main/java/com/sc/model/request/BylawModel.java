@@ -1,8 +1,5 @@
 package com.sc.model.request;
 
-import java.util.Date;
-
-import com.fasterxml.jackson.annotation.JsonFormat;
 import org.hibernate.validator.constraints.NotEmpty;
 
 public class BylawModel {
