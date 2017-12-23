@@ -44,7 +44,7 @@ public class BylawServiceImpl implements IBylawService{
 		Bylaw record = setProperties(bylawModel, file);
 		int flag = bylawMapper.saveBylaw(record);
 		if(flag != 1){
-			throw new MyException("保存规则制度出错");
+			throw new MyException("保存规章制度出错");
 		}
 	}
 
@@ -83,7 +83,7 @@ public class BylawServiceImpl implements IBylawService{
 		}
 		int flag = bylawMapper.updateBylaw(record);
 		if(flag != 1){
-			throw new MyException("修改规则制度出错");
+			throw new MyException("修改规章制度出错");
 		}
 	}
 	
@@ -94,7 +94,7 @@ public class BylawServiceImpl implements IBylawService{
 		String userName = "SYS";
 		int flag = bylawMapper.updateStatus(bylawsId, userName);
 		if(flag != 1){
-			throw new MyException("删除规则制度出错");
+			throw new MyException("删除规章制度出错");
 		}
 	}
 
@@ -137,7 +137,7 @@ public class BylawServiceImpl implements IBylawService{
 			throw new MyException("保存上传附件出错");
 		}
 		record.setFileUrl(realFilePath+fileName);
-		//record.setBylawsContent("规则制度内容");
+		//record.setBylawsContent("规章制度内容");
 	}
 	
 	

@@ -24,7 +24,7 @@ import com.sc.model.request.BylawModel;
 import com.sc.service.IBylawService;
 
 /**
- * 规则制度
+ * 规章制度（基本完成，不妥之处再进行修改）
  */
 @RestController
 public class BylawController extends BaseController{
@@ -35,7 +35,7 @@ public class BylawController extends BaseController{
 	private IBylawService bylawService;
 	
 	/**
-	 * 新增规则制度
+	 * 新增规章制度
 	 * @param bylawSaveModel
 	 * @return
 	 */
@@ -45,9 +45,9 @@ public class BylawController extends BaseController{
 		DataResponse dr = new DataResponse();
 		try {
 //			bylawModel.setBylawsCategory("条件保障");  //条件保障，财务管理
-//			bylawModel.setBylawsName("规则制度---名称");
-//			bylawModel.setBylawsNo("规则制度---编号");
-//			bylawModel.setArticleNo("规则制度---发文文号");
+//			bylawModel.setBylawsName("规章制度---名称");
+//			bylawModel.setBylawsNo("规章制度---编号");
+//			bylawModel.setArticleNo("规章制度---发文文号");
 //			bylawModel.setArticleTime(new Date());
 			
 			bylawService.saveBylaw(bylawModel, file, request);
@@ -58,7 +58,7 @@ public class BylawController extends BaseController{
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
 		} catch (Exception e) {
-			logger.error("新增规则制度出现异常", e);
+			logger.error("新增规章制度出现异常", e);
 			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
 		}
@@ -67,7 +67,7 @@ public class BylawController extends BaseController{
 	
 	
 	/**
-	 * 查询规则制度列表
+	 * 查询规章制度列表
 	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/query/list", method = {RequestMethod.POST})
@@ -83,7 +83,7 @@ public class BylawController extends BaseController{
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
 		} catch (Exception e) {
-			logger.error("查询规则制度出现异常", e);
+			logger.error("查询规章制度出现异常", e);
 			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
 		}
@@ -92,7 +92,7 @@ public class BylawController extends BaseController{
 	
 	
 	/**
-	 * 修改规则制度
+	 * 修改规章制度
 	 * @param bylawSaveModel
 	 * @return
 	 */
@@ -109,7 +109,7 @@ public class BylawController extends BaseController{
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
 		} catch (Exception e) {
-			logger.error("修改规则制度出现异常", e);
+			logger.error("修改规章制度出现异常", e);
 			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
 		}
@@ -118,7 +118,7 @@ public class BylawController extends BaseController{
 	
 	
 	/**
-	 * 删除规则制度
+	 * 删除规章制度
 	 * @param bylawsCode
 	 * @return
 	 */
@@ -134,7 +134,7 @@ public class BylawController extends BaseController{
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
 		} catch (Exception e) {
-			logger.error("修改规则制度出现异常", e);
+			logger.error("修改规章制度出现异常", e);
 			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
 		}

@@ -16,7 +16,7 @@ import com.sc.model.request.PositionModel;
 import com.sc.service.IDutyService;
 
 /**
- * 责任清单
+ * 责任清单（还未完成，需求还未明确看完）
  */
 @RestController
 public class DutyController {

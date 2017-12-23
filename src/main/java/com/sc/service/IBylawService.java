@@ -11,7 +11,7 @@ import com.sc.model.request.BylawModel;
 public interface IBylawService {
 
 	/**
-	 * 新增规则制度
+	 * 新增规章制度
 	 * @param bylawModel
 	 * @param file
 	 * @param request
@@ -19,13 +19,13 @@ public interface IBylawService {
 	void saveBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request);
 
 	/**
-	 * 查询规则制度
+	 * 查询规章制度
 	 * @return
 	 */
 	Map<String, Object> queryBylawList();
 
 	/**
-	 * 修改规则制度
+	 * 修改规章制度
 	 * @param bylawModel
 	 * @param file
 	 * @param request
@@ -33,7 +33,7 @@ public interface IBylawService {
 	void updateBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request);
 
 	/**
-	 * 删除规则制度
+	 * 删除规章制度
 	 * @param bylawsId
 	 */
 	void deleteBylaw(Integer bylawsId);
