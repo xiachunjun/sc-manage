@@ -16,6 +16,10 @@ import com.sc.common.constant.ResponseEnum;
 import com.sc.model.request.UserModel;
 import com.sc.service.IUserService;
 
+/**
+ * 用户注册+登录+退出
+ *
+ */
 @RestController
 public class UserController {
 
@@ -82,21 +86,8 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/logout", method = {RequestMethod.POST})
 	public DataResponse logout(HttpServletRequest request){
-		DataResponse dr = new DataResponse();
-		try {
-			request.getSession().removeAttribute(CommonConstant.USER_LOGIN_NAME);
-			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
-		} catch (MyException e) {
-			logger.error(e.getMessage());
-			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
-			dr.setResultMessage(e.getMessage());
-		} catch (Exception e) {
-			logger.error("用户退出登录异常", e);
-			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
-		}
-		return dr;
+		request.getSession().removeAttribute(CommonConstant.USER_LOGIN_NAME);
+		return new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 	}
 	
 	
