@@ -71,6 +71,12 @@ public interface BylawMapper {
 		"select file_url from sc_bylaws where id = #{id, jdbcType=INTEGER}"
 	})
 	String queryFileUrlById(@Param("id")Integer bylawsId);
+
+
+	@Select({
+	    "select max(bylaws_code) from sc_bylaws"
+	})
+	Integer getMaxCode();
 	
 	
 	

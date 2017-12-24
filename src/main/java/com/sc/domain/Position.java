@@ -49,6 +49,8 @@ public class Position {
     /**附加属性， 不属于表中字段*/
     private String departmentName;   //部门名称
     
+    private String userLoginName; //责任人
+    
     
 	public Integer getId() {
 		return id;
@@ -160,6 +162,14 @@ public class Position {
 
 	public void setDepartmentName(String departmentName) {
 		this.departmentName = departmentName;
+	}
+
+	public String getUserLoginName() {
+		return userLoginName;
+	}
+
+	public void setUserLoginName(String userLoginName) {
+		this.userLoginName = userLoginName;
 	}
 	
     

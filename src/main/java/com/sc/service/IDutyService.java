@@ -17,7 +17,7 @@ public interface IDutyService {
 	 * @param positionModel
 	 * @return
 	 */
-	Map<String, Object> queryPosition(PositionModel positionModel);
+	Map<String, Object> queryDutyByCondition(PositionModel positionModel);
 
 	/**
 	 * 修改责任清单

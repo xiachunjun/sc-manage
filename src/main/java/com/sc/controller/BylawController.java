@@ -44,12 +44,6 @@ public class BylawController extends BaseController{
 			@RequestParam(name="file", required=true)MultipartFile file, HttpServletRequest request){
 		DataResponse dr = new DataResponse();
 		try {
-//			bylawModel.setBylawsCategory("条件保障");  //条件保障，财务管理
-//			bylawModel.setBylawsName("规章制度---名称");
-//			bylawModel.setBylawsNo("规章制度---编号");
-//			bylawModel.setArticleNo("规章制度---发文文号");
-//			bylawModel.setArticleTime(new Date());
-			
 			bylawService.saveBylaw(bylawModel, file, request);
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());

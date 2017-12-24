@@ -147,6 +147,12 @@ public interface UserMapper {
         @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
     })
     List<User> selectUserList();
+
+    
+    @Select({
+    	"select max(user_code) from sc_users"
+    })
+    Integer getMaxCode();
     
 	
 }

@@ -56,11 +56,11 @@ public class DutyController {
 	 * @param positionModel
 	 * @return
 	 */
-	@RequestMapping(value = "/duty/query", method = {RequestMethod.POST})
-	public DataResponse queryDuty(PositionModel positionModel){
+	@RequestMapping(value = "/duty/query/list", method = {RequestMethod.POST})
+	public DataResponse queryDutyByCondition(PositionModel positionModel){
 		DataResponse dr = new DataResponse();
 		try {
-			Map<String, Object> dataMap = dutyService.queryPosition(positionModel);
+			Map<String, Object> dataMap = dutyService.queryDutyByCondition(positionModel);
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
 			dr.setDataMap(dataMap);

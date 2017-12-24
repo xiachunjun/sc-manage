@@ -43,7 +43,7 @@ public class BylawServiceImpl implements IBylawService{
 	@Transactional
 	@Override
 	public void saveBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request) {
-		Bylaw record = setProperties(bylawModel, file);
+		Bylaw record = setBylawProperties(bylawModel, file);
 		int flag = bylawMapper.saveBylaw(record);
 		if(flag != 1){
 			throw new MyException("保存规章制度出错");
@@ -109,12 +109,29 @@ public class BylawServiceImpl implements IBylawService{
 	
 	/**********************以下为私有方法**********************/
 	
-	private Bylaw setProperties(BylawModel bylawModel, MultipartFile file) {
+	private Bylaw setBylawProperties(BylawModel bylawModel, MultipartFile file) {
 		Bylaw record = new Bylaw();
 		BeanUtils.copyProperties(bylawModel, record);
+		//设置bylawCode
+		Integer maxCode = bylawMapper.getMaxCode();
+		if(null == maxCode){
+			record.setBylawsCode(CommonConstant.FIRST_CODE);
+		}else{
+			int length = String.valueOf(maxCode).length();
+			switch(length){
+				case 1 : record.setBylawsCode("0000000"+(maxCode+1));  break;
+				case 2 : record.setBylawsCode("000000"+(maxCode+1));  break;
+				case 3 : record.setBylawsCode("00000"+(maxCode+1));  break;
+				case 4 : record.setBylawsCode("0000"+(maxCode+1));  break;
+				case 5 : record.setBylawsCode("000"+(maxCode+1));  break;
+				case 6 : record.setBylawsCode("00"+(maxCode+1));  break;
+				case 7 : record.setBylawsCode("0"+(maxCode+1));  break;
+				case 8 : record.setBylawsCode(""+(maxCode+1));  break;
+				default: throw new MyException("超过最大长度");
+			}
+		}
 		record.setArticleTime(DateUtil.str2Date(bylawModel.getArtTime()));
 		record.setId(null);
-		//record.setBylawsCode("000001"); //业务主键是否需要,如何设置
 		record.setDataState(1);
 		record.setDataVersion(1);
 		record.setCreateUser("SYS");

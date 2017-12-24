@@ -77,6 +77,24 @@ public class UserServiceImpl implements IUserService {
 	private User setUserProperty(UserModel userModel) {
 		User record = new User();
 		BeanUtils.copyProperties(userModel, record);
+		//设置userCode
+		Integer maxCode = userMapper.getMaxCode();
+		if(null == maxCode){
+			record.setUserCode(CommonConstant.FIRST_CODE);
+		}else{
+			int length = String.valueOf(maxCode).length();
+			switch(length){
+				case 1 : record.setUserCode("0000000"+(maxCode+1));  break;
+				case 2 : record.setUserCode("000000"+(maxCode+1));  break;
+				case 3 : record.setUserCode("00000"+(maxCode+1));  break;
+				case 4 : record.setUserCode("0000"+(maxCode+1));  break;
+				case 5 : record.setUserCode("000"+(maxCode+1));  break;
+				case 6 : record.setUserCode("00"+(maxCode+1));  break;
+				case 7 : record.setUserCode("0"+(maxCode+1));  break;
+				case 8 : record.setUserCode(""+(maxCode+1));  break;
+				default: throw new MyException("超过最大长度");
+			}
+		}
 		//对密码进行PasswordEncoder加密（相同的密码，每次生成的结果都不一样）
 		record.setUserLoginPwd(EncryptUtil.encrypt(userModel.getUserLoginPwd()));
 		record.setId(null);
