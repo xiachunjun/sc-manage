@@ -19,7 +19,7 @@ import org.springframework.util.CollectionUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sc.common.constant.CommonConstant;
-import com.sc.common.constant.MyException;
+import com.sc.common.constant.ScException;
 import com.sc.common.util.DateUtil;
 import com.sc.common.util.FileUtil;
 import com.sc.common.util.UuidUtil;
@@ -46,7 +46,7 @@ public class BylawServiceImpl implements IBylawService{
 		Bylaw record = setProperties(bylawModel, file);
 		int flag = bylawMapper.saveBylaw(record);
 		if(flag != 1){
-			throw new MyException("保存规章制度出错");
+			throw new ScException("保存规章制度出错");
 		}
 	}
 
@@ -85,7 +85,7 @@ public class BylawServiceImpl implements IBylawService{
 		}
 		int flag = bylawMapper.updateBylaw(record);
 		if(flag != 1){
-			throw new MyException("修改规章制度出错");
+			throw new ScException("修改规章制度出错");
 		}
 	}
 	
@@ -96,7 +96,7 @@ public class BylawServiceImpl implements IBylawService{
 		String userName = "SYS";
 		int flag = bylawMapper.updateStatus(bylawsId, userName);
 		if(flag != 1){
-			throw new MyException("删除规章制度出错");
+			throw new ScException("删除规章制度出错");
 		}
 	}
 
@@ -137,7 +137,7 @@ public class BylawServiceImpl implements IBylawService{
 			FileUtil.uploadFile(file.getBytes(), realFilePath, fileName);
 		} catch (Exception e) {
 			logger.error("上传附件置服务器异常", e);
-			throw new MyException("保存上传附件出错");
+			throw new ScException("保存上传附件出错");
 		}
 		record.setFileUrl(realFilePath+fileName);
 		//record.setBylawsContent("规章制度内容");

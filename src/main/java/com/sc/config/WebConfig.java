@@ -15,7 +15,7 @@ import com.sc.support.AuthorizationInterceptor;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.sc.controller, com.sc.support")
+@ComponentScan({"com.sc.controller" ,"com.sc.support"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 	static Logger logger = LoggerFactory.getLogger(WebConfig.class);
 	

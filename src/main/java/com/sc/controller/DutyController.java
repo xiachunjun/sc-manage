@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.common.constant.DataResponse;
-import com.sc.common.constant.MyException;
+import com.sc.common.constant.ScException;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.model.request.PositionModel;
 import com.sc.service.IDutyService;
@@ -38,7 +38,7 @@ public class DutyController {
 			dutyService.savePosition(positionModel);
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
-		} catch (MyException e) {
+		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
@@ -64,7 +64,7 @@ public class DutyController {
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
 			dr.setDataMap(dataMap);
-		} catch (MyException e) {
+		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
@@ -89,7 +89,7 @@ public class DutyController {
 			dutyService.updatePosition(positionModel);
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
-		} catch (MyException e) {
+		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
@@ -114,7 +114,7 @@ public class DutyController {
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
 			dr.setDataMap(dataMap);
-		} catch (MyException e) {
+		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
@@ -139,7 +139,7 @@ public class DutyController {
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
 			dr.setDataMap(dataMap);
-		} catch (MyException e) {
+		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());

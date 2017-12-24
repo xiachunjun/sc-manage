@@ -8,7 +8,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.sc.common.constant.MyException;
+import com.sc.common.constant.ScException;
 import com.sc.dao.DepartmentMapper;
 import com.sc.dao.PositionMapper;
 import com.sc.domain.Department;
@@ -32,7 +32,7 @@ public class DutyServiceImpl implements IDutyService {
 		//TODO 
 		int flag = positionMapper.savePosition(record);
 		if(flag != 1){
-			throw new MyException("保存责任清单出错");
+			throw new ScException("保存责任清单出错");
 		}
 	}
 	
@@ -54,7 +54,7 @@ public class DutyServiceImpl implements IDutyService {
 		//TODO 
 		int flag = positionMapper.updatePosition(record);
 		if(flag != 1){
-			throw new MyException("修改责任清单出错");
+			throw new ScException("修改责任清单出错");
 		}
 	}
 

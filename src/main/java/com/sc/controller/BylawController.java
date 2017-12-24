@@ -5,6 +5,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -16,9 +17,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.DataResponse;
-import com.sc.common.constant.MyException;
 import com.sc.common.constant.ResponseEnum;
+import com.sc.common.constant.ScException;
 import com.sc.common.util.FileUtil;
 import com.sc.model.request.BylawModel;
 import com.sc.service.IBylawService;
@@ -27,58 +29,60 @@ import com.sc.service.IBylawService;
  * 规章制度（基本完成，不妥之处再进行修改）
  */
 @RestController
-public class BylawController extends BaseController{
+public class BylawController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BylawController.class);
-	
+
 	@Autowired
 	private IBylawService bylawService;
-	
+
 	/**
 	 * 新增规章制度
+	 * 
 	 * @param bylawSaveModel
 	 * @return
 	 */
-	@RequestMapping(value = "/bylaw/save", method = {RequestMethod.POST})
-	public DataResponse saveBylaw(BylawModel bylawModel, 
-			@RequestParam(name="file", required=true)MultipartFile file, HttpServletRequest request){
-		DataResponse dr = new DataResponse();
+	@RequestMapping(value = "/bylaw/save", method = { RequestMethod.POST })
+	public DataResponse saveBylaw(@Valid BylawModel bylawModel, HttpServletRequest request) {
+		DataResponse dr = null;
 		try {
-//			bylawModel.setBylawsCategory("条件保障");  //条件保障，财务管理
-//			bylawModel.setBylawsName("规章制度---名称");
-//			bylawModel.setBylawsNo("规章制度---编号");
-//			bylawModel.setArticleNo("规章制度---发文文号");
-//			bylawModel.setArticleTime(new Date());
-			
-			bylawService.saveBylaw(bylawModel, file, request);
-			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
-		} catch (MyException e) {
+			//这里的文件校验工作可以自定义校验器，省事，所以先这么写
+			if (bylawModel.getFile() == null) {
+				dr = new DataResponse(ResponseEnum.RESPONSE_FAIL);
+				dr.put(CommonConstant.FAILED_MSG, "附件文件不能为空！");
+				return dr;
+			}
+			// bylawModel.setBylawsCategory("条件保障"); //条件保障，财务管理
+			// bylawModel.setBylawsName("规章制度---名称");
+			// bylawModel.setBylawsNo("规章制度---编号");
+			// bylawModel.setArticleNo("规章制度---发文文号");
+			// bylawModel.setArticleTime(new Date());
+			bylawService.saveBylaw(bylawModel, bylawModel.getFile(), request);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+		} catch (ScException e) {
 			logger.error(e.getMessage());
-			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
-			dr.setResultMessage(e.getMessage());
+			dr = new DataResponse(e);
 		} catch (Exception e) {
 			logger.error("新增规章制度出现异常", e);
-			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
 	}
-	
-	
+
 	/**
 	 * 查询规章制度列表
+	 * 
 	 * @return
 	 */
-	@RequestMapping(value = "/bylaw/query/list", method = {RequestMethod.POST})
-	public DataResponse queryBylaw(){
+	@RequestMapping(value = "/bylaw/query/list", method = { RequestMethod.POST })
+	public DataResponse queryBylaw() {
 		DataResponse dr = new DataResponse();
 		try {
 			Map<String, Object> dataMap = bylawService.queryBylawList();
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
 			dr.setDataMap(dataMap);
-		} catch (MyException e) {
+		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
@@ -89,22 +93,22 @@ public class BylawController extends BaseController{
 		}
 		return dr;
 	}
-	
-	
+
 	/**
 	 * 修改规章制度
+	 * 
 	 * @param bylawSaveModel
 	 * @return
 	 */
-	@RequestMapping(value = "/bylaw/update", method = {RequestMethod.POST})
+	@RequestMapping(value = "/bylaw/update", method = { RequestMethod.POST })
 	public DataResponse updateBylaw(BylawModel bylawModel,
-			@RequestParam(name="file", required=false)MultipartFile file, HttpServletRequest request){
+			@RequestParam(name = "file", required = false) MultipartFile file, HttpServletRequest request) {
 		DataResponse dr = new DataResponse();
 		try {
 			bylawService.updateBylaw(bylawModel, file, request);
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
-		} catch (MyException e) {
+		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
@@ -115,21 +119,21 @@ public class BylawController extends BaseController{
 		}
 		return dr;
 	}
-	
-	
+
 	/**
 	 * 删除规章制度
+	 * 
 	 * @param bylawsCode
 	 * @return
 	 */
-	@RequestMapping(value = "/bylaw/delete", method = {RequestMethod.POST})
-	public DataResponse deleteBylaw(@RequestParam(name="bylawsId", required=true)Integer bylawsId){
+	@RequestMapping(value = "/bylaw/delete", method = { RequestMethod.POST })
+	public DataResponse deleteBylaw(@RequestParam(name = "bylawsId", required = true) Integer bylawsId) {
 		DataResponse dr = new DataResponse();
 		try {
 			bylawService.deleteBylaw(bylawsId);
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
-		} catch (MyException e) {
+		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
@@ -140,31 +144,30 @@ public class BylawController extends BaseController{
 		}
 		return dr;
 	}
-	
-	
+
 	/**
 	 * 下载文件
+	 * 
 	 * @param bylawsCode
 	 * @param request
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value = "/bylaw/download", method = {RequestMethod.POST, RequestMethod.GET})
-	public void downloadFile(@RequestParam(name="bylawsId", required=true)Integer bylawsId,
-			HttpServletRequest request, HttpServletResponse response){
+	@RequestMapping(value = "/bylaw/download", method = { RequestMethod.POST, RequestMethod.GET })
+	public void downloadFile(@RequestParam(name = "bylawsId", required = true) Integer bylawsId,
+			HttpServletRequest request, HttpServletResponse response) {
 		String filePath = bylawService.queryFileUrlById(bylawsId);
-		if(StringUtils.isEmpty(filePath)){
+		if (StringUtils.isEmpty(filePath)) {
 			logger.warn("该主键id:{}，对应的文件路径为空", bylawsId);
-		}else{
-		    File file = new File(filePath);
-		    if (file.exists()) {
-		    	String fileName = StringUtils.substringAfterLast(filePath, "/");
-		    	FileUtil.downloadFile(response, file, fileName);
-		    }else{
-		    	logger.warn("该文件路径：{}，不存在", file.getPath());
-		    }
+		} else {
+			File file = new File(filePath);
+			if (file.exists()) {
+				String fileName = StringUtils.substringAfterLast(filePath, "/");
+				FileUtil.downloadFile(response, file, fileName);
+			} else {
+				logger.warn("该文件路径：{}，不存在", file.getPath());
+			}
 		}
 	}
 
-	
 }

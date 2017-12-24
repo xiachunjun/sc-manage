@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.sc.common.constant.MyException;
+import com.sc.common.constant.ScException;
 
 public class FileUtil {
 
@@ -37,7 +37,7 @@ public class FileUtil {
 			out.flush();
 		} catch (Exception e) {
 			logger.error("上传文件异常", e);
-			throw new MyException("上传文件异常");
+			throw new ScException("上传文件异常");
 		} finally {
 			try {
 				out.close();
@@ -60,7 +60,7 @@ public class FileUtil {
 			fileName = new String(fileName.getBytes("gbk"),"iso-8859-1");
 		} catch (UnsupportedEncodingException e1) {
 			logger.error("处理文件名乱码问题异常", e1);
-			throw new MyException("处理文件名乱码问题异常");
+			throw new ScException("处理文件名乱码问题异常");
 		}
 		response.addHeader("Content-Disposition", "attachment;fileName="+fileName);// 设置文件名
 		response.addHeader("Content-Length", ""+file.length()); 
@@ -77,7 +77,7 @@ public class FileUtil {
 			}
 		} catch (Exception e) {
 			logger.error("下载文件异常", e);
-			throw new MyException("下载文件异常");
+			throw new ScException("下载文件异常");
 		} finally {
 			if (bis != null) {
 				try {

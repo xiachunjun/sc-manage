@@ -12,7 +12,12 @@ public class DataResponse {
 	Map<String, Object> dataMap = null;
 
 	public DataResponse() {
-		
+
+	}
+
+	public DataResponse(ScException e) {
+		this.resultCode = e.getErrCode();
+		this.resultMessage = e.getErrMsg();
 	}
 
 	public DataResponse(ResponseEnum responseEnum) {
@@ -58,5 +63,4 @@ public class DataResponse {
 		return dataMap;
 	}
 
-	
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sc.common.constant.CommonConstant;
-import com.sc.common.constant.MyException;
+import com.sc.common.constant.ScException;
 import com.sc.common.util.EncryptUtil;
 import com.sc.dao.UserMapper;
 import com.sc.domain.User;
@@ -37,14 +37,14 @@ public class UserServiceImpl implements IUserService {
 			User record = setUserProperty(userModel);
 			int flag = userMapper.insert(record);
 			if(flag != 1){
-				throw new MyException("注册用户出错");
+				throw new ScException("注册用户出错");
 			}
 		}else{
 			if(user.getDataState() == 0){
-				throw new MyException("该用户名已被注册，请重新设置");
+				throw new ScException("该用户名已被注册，请重新设置");
 			}
 			if(user.getDataState() == 1){
-				throw new MyException("该用户名已存在");
+				throw new ScException("该用户名已存在");
 			}
 		}
 	}
@@ -54,10 +54,10 @@ public class UserServiceImpl implements IUserService {
 	public void login(UserModel userModel, HttpServletRequest request) {
 		User loginUser = userMapper.selectUserByLoginName(userModel.getUserLoginName());
 		if(loginUser == null){
-			throw new MyException("对不起! 该登录用户名不存在");
+			throw new ScException("对不起! 该登录用户名不存在");
 		}
 		if(!EncryptUtil.match(userModel.getUserLoginPwd(), loginUser.getUserLoginPwd())){
-			throw new MyException("对不起! 密码错误，请重新输入");
+			throw new ScException("对不起! 密码错误，请重新输入");
 		}
 		request.getSession().setAttribute(CommonConstant.USER_LOGIN_NAME, loginUser.getUserLoginName());
 	}
