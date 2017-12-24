@@ -18,7 +18,7 @@ import org.springframework.transaction.annotation.TransactionManagementConfigure
 
 @Configuration
 @EnableTransactionManagement
-@MapperScan(basePackages = "com.sc.dao")
+@MapperScan("com.sc.dao")
 public class MyBatisConfig implements TransactionManagementConfigurer {
 	
 	static Logger logger = LoggerFactory.getLogger(MyBatisConfig.class);

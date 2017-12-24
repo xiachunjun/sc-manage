@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.DataResponse;
-import com.sc.common.constant.MyException;
+import com.sc.common.constant.ScException;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.model.request.UserModel;
 import com.sc.service.IUserService;
@@ -43,7 +43,7 @@ public class UserController {
 			userService.register(userModel);
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
-		} catch (MyException e) {
+		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
@@ -68,7 +68,7 @@ public class UserController {
 			userService.login(userModel, request);
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
-		} catch (MyException e) {
+		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());
@@ -105,7 +105,7 @@ public class UserController {
 			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
 			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
 			dr.setDataMap(dataMap);
-		} catch (MyException e) {
+		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
 			dr.setResultMessage(e.getMessage());

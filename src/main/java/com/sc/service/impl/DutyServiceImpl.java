@@ -9,9 +9,8 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
 import com.sc.common.constant.CommonConstant;
-import com.sc.common.constant.MyException;
+import com.sc.common.constant.ScException;
 import com.sc.dao.DepartmentMapper;
 import com.sc.dao.PositionMapper;
 import com.sc.domain.Department;
@@ -35,7 +34,7 @@ public class DutyServiceImpl implements IDutyService {
 		//TODO 保存对应的code值
 		int flag = positionMapper.savePosition(record);
 		if(flag != 1){
-			throw new MyException("保存责任清单出错");
+			throw new ScException("保存责任清单出错");
 		}
 	}
 
@@ -57,7 +56,7 @@ public class DutyServiceImpl implements IDutyService {
 		BeanUtils.copyProperties(positionModel, record);
 		int flag = positionMapper.updatePosition(record);
 		if(flag != 1){
-			throw new MyException("修改责任清单出错");
+			throw new ScException("修改责任清单出错");
 		}
 	}
 
@@ -100,7 +99,7 @@ public class DutyServiceImpl implements IDutyService {
 				case 6 : record.setPositionCode("00"+(maxCode+1));  break;
 				case 7 : record.setPositionCode("0"+(maxCode+1));  break;
 				case 8 : record.setPositionCode(""+(maxCode+1));  break;
-				default: throw new MyException("超过最大长度");
+				default: throw new ScException("超过最大长度");
 			}
 		}
 		return record;
