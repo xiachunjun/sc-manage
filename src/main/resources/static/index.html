@@ -6,12 +6,14 @@
 <title>首页</title>
 
 <meta name="description" content="overview &amp; stats" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 <!-- bootstrap & fontawesome -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
 <link rel="stylesheet" href="assets/css/sc.css" />
-<link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 
 <!-- page specific plugin styles -->
 
@@ -19,7 +21,8 @@
 <!--<link rel="stylesheet" href="assets/css/fonts.googleapis.com.css"/>-->
 
 <!-- ace styles -->
-<link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+<link rel="stylesheet" href="assets/css/ace.min.css"
+	class="ace-main-stylesheet" id="main-ace-style" />
 
 <!--
 <link rel="stylesheet" type="text/css" href="jiaoben/css/normalize.css" />
@@ -57,7 +60,7 @@ table.tftable {
 
 table.tftable th {
 	background-color: #acc8cc;
-    border: 1px solid #729ea5;
+	border: 1px solid #729ea5;
 	padding: 8px;
 	text-align: left;
 }
@@ -76,15 +79,20 @@ table.tftable td {
 	<div id="navbar" class="navbar navbar-default ace-save-state">
 		<div class="navbar-container ace-save-state" id="navbar-container">
 			<div class="navbar-header pull-left">
-				<a href="index.html" class="navbar-brand"> <small> CSSC MARIC 中国船舶及海洋工程设计研究院“晒态势、促提升”信息系统 </small>
+				<a href="index.html" class="navbar-brand"> <small> CSSC
+						MARIC 中国船舶及海洋工程设计研究院“晒态势、促提升”信息系统 </small>
 				</a>
 			</div>
-			<div class="navbar-buttons navbar-header pull-right" role="navigation">
+			<div class="navbar-buttons navbar-header pull-right"
+				role="navigation">
 				<ul class="nav ace-nav">
-					<li>
-						<span class="cursor-pointer"><img class="nav-user-photo" src="assets/images/u57.png"/> <span class="user-info">张三三三</span></span>
-						<span class="cursor-pointer"><img class="nav-user-photo" src="assets/images/u59.png"/></span><span class="cursor-pointer"><img class="nav-user-photo" src="assets/images/u61.png"/></span>
-					</li>
+					<li><span class="cursor-pointer"><img
+							class="nav-user-photo" src="assets/images/u57.png" /> <span
+							class="user-info" id="userName"></span></span> <span
+						class="cursor-pointer"><img class="nav-user-photo"
+							src="assets/images/u59.png" /></span><span id="logoutBtn"
+						class="cursor-pointer"><img class="nav-user-photo"
+							src="assets/images/u61.png" /></span></li>
 				</ul>
 			</div>
 		</div>
@@ -104,62 +112,40 @@ table.tftable td {
 				} catch (e) {}
 			</script>
 			<ul class="nav nav-list">
-				<li class="center">
-					<a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">责任晒板</span>
-					</a>
+				<li class="center"><a href="#" class="dropdown-toggle"
+					style="background-color: #0A467F;color: white;"> <span
+						class="menu-text">责任晒板</span>
+				</a>
 					<ul class="submenu">
-						<li class="">
-							<a href="#"> 责任清单 </a>
-						</li>
+						<li class=""><a href="#"> 责任清单 </a></li>
 
-						<li class="">
-							<a href="bylaws.html"> 规章制度 </a>
-						</li>
+						<li class=""><a href="bylaws.html"> 规章制度 </a></li>
 
-						<li class="">
-							<a href="#"> 计划完成情况 </a>
-						</li>
-						<li class="">
-							<a href="#"> 绩效考核 </a>
-						</li>
-					</ul>
-				</li>
-				<li class="center">
-					<a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text" >任务晒板</span>
-					</a>
+						<li class=""><a href="#"> 计划完成情况 </a></li>
+						<li class=""><a href="#"> 绩效考核 </a></li>
+					</ul></li>
+				<li class="center"><a href="#" class="dropdown-toggle"
+					style="background-color: #0A467F;color: white;"> <span
+						class="menu-text">任务晒板</span>
+				</a>
 					<ul class="submenu">
-						<li class="">
-							<a href="#"> 任务新建 </a>
-						</li>
+						<li class=""><a href="#"> 任务新建 </a></li>
 
-						<li class="">
-							<a href="#"> 任务执行 </a>
-						</li>
+						<li class=""><a href="#"> 任务执行 </a></li>
 
-						<li class="">
-							<a href="#"> 任务归档 </a>
-						</li>
-						<li class="">
-							<a href="#"> 任务统计 </a>
-						</li>
-					</ul>
-				</li>
-				<li class="center">
-					<a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">数据晒板</span>
-					</a>
+						<li class=""><a href="#"> 任务归档 </a></li>
+						<li class=""><a href="#"> 任务统计 </a></li>
+					</ul></li>
+				<li class="center"><a href="#" class="dropdown-toggle"
+					style="background-color: #0A467F;color: white;"> <span
+						class="menu-text">数据晒板</span>
+				</a>
 					<ul class="submenu">
-						<li class="">
-							<a href="#"> 总体经营数据 </a>
-						</li>
+						<li class=""><a href="#"> 总体经营数据 </a></li>
 
-						<li class="">
-							<a href="#"> 部门监管数据 </a>
-						</li>
-						<li class="">
-							<a href="#"> 数据填报 </a>
-						</li>
-					</ul>
-				</li>
+						<li class=""><a href="#"> 部门监管数据 </a></li>
+						<li class=""><a href="#"> 数据填报 </a></li>
+					</ul></li>
 			</ul>
 		</div>
 
@@ -167,7 +153,8 @@ table.tftable td {
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state">
 					<div class="row">
-						<div class="col-sm-2" style="color:red;font-size: 13px;padding-left: 20px;" />
+						<div class="col-sm-2"
+							style="color:red;font-size: 13px;padding-left: 20px;" />
 						最新资讯：
 					</div>
 					<div class="col-sm-10 swrap"></div>
@@ -193,15 +180,21 @@ table.tftable td {
 											<div class="row">
 												<div class="col-sm-6">
 													<div class="center" style="font-size: 15px">营业收入</div>
-													<div class="center" style="font-size: 50px;color: #FF3333;padding-bottom: 30px;font-weight: bold;">2000</div>
-													<div style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
-													<div style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">2%</div>
+													<div class="center"
+														style="font-size: 50px;color: #FF3333;padding-bottom: 30px;font-weight: bold;">2000</div>
+													<div
+														style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
+													<div
+														style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">2%</div>
 												</div>
 												<div class="col-sm-6">
 													<div class="center" style="font-size: 15px">利润总额</div>
-													<div class="center" style="font-size: 50px;color: #FF3333;padding-bottom: 30px;font-weight: bold;">1000</div>
-													<div style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
-													<div style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">3%</div>
+													<div class="center"
+														style="font-size: 50px;color: #FF3333;padding-bottom: 30px;font-weight: bold;">1000</div>
+													<div
+														style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
+													<div
+														style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">3%</div>
 												</div>
 											</div>
 										</div>
@@ -212,7 +205,8 @@ table.tftable td {
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">每日信息</h4>
+										<h4 class="widget-title"
+											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">每日信息</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
@@ -225,7 +219,7 @@ table.tftable td {
 												<div class="col-sm-12" style="height: 15em;">
 													<div class="str1 str_wrap" style="height:100%;">
 														<p>七〇八所邢文华所长参加世界海事技术大会 内部 2017-12-01</p>
-														<p>七〇八所参加市科技系统学习传达党的十九大精神报告会  内部 2017-12-02</p>
+														<p>七〇八所参加市科技系统学习传达党的十九大精神报告会 内部 2017-12-02</p>
 														<p>七〇八所邢文华所长参加世界海事技术大1 内部 2017-12-03</p>
 														<p>七〇八所邢文华所长参加世界海事技术大2 内部 2017-12-03</p>
 														<p>七〇八所邢文华所长参加世界海事技术大3 内部 2017-12-03</p>
@@ -239,7 +233,8 @@ table.tftable td {
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">领导安排</h4>
+										<h4 class="widget-title"
+											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">领导安排</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
@@ -290,7 +285,8 @@ table.tftable td {
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">任务晒板</h4>
+										<h4 class="widget-title"
+											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">任务晒板</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
@@ -304,7 +300,8 @@ table.tftable td {
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">责任晒板</h4>
+										<h4 class="widget-title"
+											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">责任晒板</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
@@ -319,7 +316,8 @@ table.tftable td {
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">规章制度</h4>
+										<h4 class="widget-title"
+											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">规章制度</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
@@ -400,7 +398,32 @@ table.tftable td {
 	<script src="assets/js/ace-elements.min.js"></script>
 	<script src="assets/js/ace.min.js"></script>
 
-	<!-- inline scripts related to this page -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.ajax({
+				type : 'POST',
+				url : '/user/currentUser',
+				data : null,
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						var userLoginName = dataMap.userLoginName;
+						$("#userName").html(userLoginName);
+					} else {
+						window.location.href = "login.html";
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取登录信息异常-" + JSON.stringify(data));
+				}
+			});
+		});
+	</script>
 	<script type="text/javascript">
 		jQuery(function($) {
 			$('.easy-pie-chart.percentage')
@@ -427,7 +450,7 @@ table.tftable td {
 									size : size
 								});
 					})
-
+	
 			$('.sparkline').each(
 				function() {
 					var $box = $(this).closest('.infobox');
@@ -440,9 +463,9 @@ table.tftable td {
 						chartRangeMin : $(this).data('min') || 0
 					});
 				});
-
+	
 			$.resize.throttleWindow = false;
-
+	
 			var placeholder = $('#piechart-placeholder').css({
 				'width' : '80%',
 				'min-height' : '150px'
@@ -464,7 +487,7 @@ table.tftable td {
 				data : 25,
 				color : "#DA5430"
 			} ]
-
+	
 			function drawPieChart(placeholder, data, position) {
 				$.plot(placeholder, data, {
 					series : {
@@ -493,22 +516,22 @@ table.tftable td {
 					}
 				})
 			}
-
+	
 			drawPieChart(placeholder, data);
-
+	
 			/**
 			 we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
 			 so that's not needed actually.
 			 */
 			placeholder.data('chart', data);
 			placeholder.data('draw', drawPieChart);
-
+	
 			//pie chart tooltip example
 			var $tooltip = $(
 				"<div class='tooltip top in'><div class='tooltip-inner'></div></div>")
 				.hide().appendTo('body');
 			var previousPoint = null;
-
+	
 			placeholder.on('plothover', function(event, pos, item) {
 				if (item) {
 					if (previousPoint != item.seriesIndex) {
@@ -525,52 +548,52 @@ table.tftable td {
 					$tooltip.hide();
 					previousPoint = null;
 				}
-
+	
 			});
-
+	
 			$(document).one('ajaxloadstart.page', function(e) {
 				$tooltip.remove();
 			});
-
+	
 			var d1 = [];
 			for (var i = 0; i < Math.PI * 2; i += 0.5) {
 				d1.push([ i, Math.sin(i) ]);
 			}
-
+	
 			var d2 = [];
 			for (var i = 0; i < Math.PI * 2; i += 0.5) {
 				d2.push([ i, Math.cos(i) ]);
 			}
-
+	
 			var d3 = [];
 			for (var i = 0; i < Math.PI * 2; i += 0.2) {
 				d3.push([ i, Math.tan(i) ]);
 			}
-
-
+	
+	
 			$('#recent-box [data-rel="tooltip"]').tooltip({
 				placement : tooltip_placement
 			});
-
+	
 			function tooltip_placement(context, source) {
 				var $source = $(source);
 				var $parent = $source.closest('.tab-content')
 				var off1 = $parent.offset();
 				var w1 = $parent.width();
-
+	
 				var off2 = $source.offset();
 				//var w2 = $source.width();
-
+	
 				if (parseInt(off2.left) < parseInt(off1.left)
 					+ parseInt(w1 / 2))
 					return 'right';
 				return 'left';
 			}
-
+	
 			$('.dialogs,.comments').ace_scroll({
 				size : 300
 			});
-
+	
 			//Android's default browser somehow is confused when tapping on label which will lead to dragging the task
 			//so disable dragging when clicking on label
 			var agent = navigator.userAgent.toLowerCase();
@@ -584,7 +607,7 @@ table.tftable td {
 						e.stopImmediatePropagation();
 				});
 			}
-
+	
 			$('#tasks').sortable({
 				opacity : 0.8,
 				revert : true,
@@ -605,11 +628,11 @@ table.tftable td {
 					else
 						$(this).closest('li').removeClass('selected');
 				});
-
+	
 			//show the dropdowns on top or bottom depending on window height and menu position
 			$('#task-tab .dropdown-hover').on('mouseenter', function(e) {
 				var offset = $(this).offset();
-
+	
 				var $w = $(window)
 				if (offset.top > $w.scrollTop() + $w.innerHeight() - 100)
 					$(this).addClass('dropup');
@@ -621,7 +644,30 @@ table.tftable td {
 			$('.str1').liMarquee({
 				direction : 'up'
 			});
-		})
+	
+			$("#logoutBtn").on('click', function(e) {
+				$.ajax({
+					type : 'POST',
+					url : '/user/logout',
+					data : null,
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					success : function(data) {
+						var resultCode = data.resultCode;
+						var dataMap = data.dataMap;
+						if (resultCode == '000000') {
+							window.location.href = "login.html";
+						}
+					},
+					dataType : 'json',
+					error : function(data) {
+						alert("获取登录信息异常-" + JSON.stringify(data));
+					}
+				});
+			});
+	
+		});
 	</script>
 </body>
 </html>

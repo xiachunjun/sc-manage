@@ -6,11 +6,13 @@
 <title>登录</title>
 
 <meta name="description" content="User login page" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 <!-- bootstrap & fontawesome -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
-<link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+<link rel="stylesheet"
+	href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 
 <!-- text fonts -->
 <link rel="stylesheet" href="assets/css/fonts.googleapis.com.css" />
@@ -53,7 +55,8 @@
 						<div class="space-6"></div>
 
 						<div class="position-relative">
-							<div id="login-box" class="login-box visible widget-box no-border">
+							<div id="login-box"
+								class="login-box visible widget-box no-border">
 								<div class="widget-body">
 									<div class="widget-main">
 										<h4 class="header blue lighter bigger">
@@ -62,17 +65,25 @@
 										<div class="space-6"></div>
 										<form id="loginForm">
 											<fieldset>
-												<label class="block clearfix"> <span class="block input-icon input-icon-right"> <input type="text" name="userLoginName" class="form-control" placeholder="用户名" /> <i class="ace-icon fa fa-user"></i>
+												<label class="block clearfix"> <span
+													class="block input-icon input-icon-right"> <input
+														type="text" name="userLoginName" class="form-control"
+														placeholder="用户名" /> <i class="ace-icon fa fa-user"></i>
 												</span>
-												</label> <label class="block clearfix"> <span class="block input-icon input-icon-right"> <input type="password" name="userLoginPwd" class="form-control" placeholder="密码" /> <i class="ace-icon fa fa-lock"></i>
+												</label> <label class="block clearfix"> <span
+													class="block input-icon input-icon-right"> <input
+														type="password" name="userLoginPwd" class="form-control"
+														placeholder="密码" /> <i class="ace-icon fa fa-lock"></i>
 												</span>
 												</label>
 												<div class="space"></div>
 												<div class="clearfix">
 													<!-- <label class="inline"> <input type="checkbox" class="ace" /> <span class="lbl">记住我</span>
 													</label> -->
-													<button type="button" class="width-35 pull-right btn btn-sm btn-primary">
-														<i class="ace-icon fa fa-key"></i> <span id="loginBtn" class="bigger-110">登录</span>
+													<button type="button"
+														class="width-35 pull-right btn btn-sm btn-primary">
+														<i class="ace-icon fa fa-key"></i> <span id="loginBtn"
+															class="bigger-110">登录</span>
 													</button>
 												</div>
 											</fieldset>
@@ -94,6 +105,37 @@
 	<!--[if IE]>
 		<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<![endif]-->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.ajax({
+				type : 'POST',
+				url : '/user/currentUser',
+				data : null,
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						var userLoginName = dataMap.userLoginName;
+						window.location.href = "index.html";
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取登录信息异常-" + JSON.stringify(data));
+				}
+			});
+		});
+	
+		$(document).keyup(function(e) {
+			if (e.keyCode == 13) {
+				$('#loginBtn').click();
+			}
+		});
+	</script>
+
 	<script type="text/javascript">
 		if ('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
 	</script>

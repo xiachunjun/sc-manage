@@ -108,6 +108,27 @@ public class UserController {
 		return dr;
 	}
 	
-	
+	/**
+	 * 查询用户列表
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/user/currentUser", method = { RequestMethod.POST })
+	public DataResponse queryCurrentUser(HttpServletRequest request) {
+		DataResponse dr = null;
+		try {
+			Object userNameObj = request.getSession().getAttribute(CommonConstant.USER_LOGIN_NAME);
+			if (null != userNameObj) {
+				dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+				dr.put(CommonConstant.USER_LOGIN_NAME, String.valueOf(userNameObj));
+			} else {
+				dr = new DataResponse(ResponseEnum.RESPONSE_FAIL);
+			}
+		} catch (Exception e) {
+			logger.error("获取登录用户异常：", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_FAIL);
+		}
+		return dr;
+	}
 	
 }
