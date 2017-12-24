@@ -33,19 +33,16 @@ public class DutyController {
 	 */
 	@RequestMapping(value = "/duty/save", method = {RequestMethod.POST})
 	public DataResponse saveDuty(PositionModel positionModel){
-		DataResponse dr = new DataResponse();
+		DataResponse dr = null;
 		try {
 			dutyService.savePosition(positionModel);
-			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
-			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
-			dr.setResultMessage(e.getMessage());
+			dr = new DataResponse(e);
 		} catch (Exception e) {
 			logger.error("新增责任清单出现异常", e);
-			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
 	}
@@ -58,20 +55,17 @@ public class DutyController {
 	 */
 	@RequestMapping(value = "/duty/query/list", method = {RequestMethod.POST})
 	public DataResponse queryDutyByCondition(PositionModel positionModel){
-		DataResponse dr = new DataResponse();
+		DataResponse dr = null;
 		try {
 			Map<String, Object> dataMap = dutyService.queryDutyByCondition(positionModel);
-			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.setDataMap(dataMap);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
-			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
-			dr.setResultMessage(e.getMessage());
+			dr = new DataResponse(e);
 		} catch (Exception e) {
 			logger.error("查询责任清单出现异常", e);
-			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
 	}
@@ -84,19 +78,16 @@ public class DutyController {
 	 */
 	@RequestMapping(value = "/duty/update", method = {RequestMethod.POST})
 	public DataResponse updateDuty(PositionModel positionModel){
-		DataResponse dr = new DataResponse();
+		DataResponse dr = null;
 		try {
 			dutyService.updatePosition(positionModel);
-			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
-			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
-			dr.setResultMessage(e.getMessage());
+			dr = new DataResponse(e);
 		} catch (Exception e) {
 			logger.error("修改责任清单出现异常", e);
-			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
 	}
@@ -108,20 +99,17 @@ public class DutyController {
 	 */
 	@RequestMapping(value = "/department/query/list", method = {RequestMethod.POST})
 	public DataResponse queryDepartmentList(){
-		DataResponse dr = new DataResponse();
+		DataResponse dr = null;
 		try {
 			Map<String, Object> dataMap = dutyService.queryDepartmentList();
-			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.setDataMap(dataMap);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
-			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
-			dr.setResultMessage(e.getMessage());
+			dr = new DataResponse(e);
 		} catch (Exception e) {
 			logger.error("查询部门列表异常", e);
-			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
 	}
@@ -133,20 +121,17 @@ public class DutyController {
 	 */
 	@RequestMapping(value = "/position/query/list", method = {RequestMethod.POST})
 	public DataResponse queryPositionList(){
-		DataResponse dr = new DataResponse();
+		DataResponse dr = null;
 		try {
 			Map<String, Object> dataMap = dutyService.queryPositionList();
-			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.setDataMap(dataMap);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
-			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
-			dr.setResultMessage(e.getMessage());
+			dr = new DataResponse(e);
 		} catch (Exception e) {
 			logger.error("查询岗位列表异常", e);
-			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
 	}

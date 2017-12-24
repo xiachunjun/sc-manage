@@ -7,6 +7,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class BylawModel {
 
+	//用于修改操作时，传入后端时使用
+	private Integer id;
+	
 	/**
 	 * 规则制度分类
 	 */
@@ -38,6 +41,15 @@ public class BylawModel {
 
 	@NotNull(message="文件不能为空")
 	private MultipartFile file;
+
+	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public String getBylawsCategory() {
 		return bylawsCategory;

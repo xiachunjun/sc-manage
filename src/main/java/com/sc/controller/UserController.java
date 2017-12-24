@@ -38,19 +38,16 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/register", method = {RequestMethod.POST})
 	public DataResponse register(UserModel userModel){
-		DataResponse dr = new DataResponse();
+		DataResponse dr = null;
 		try {
 			userService.register(userModel);
-			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
-			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
-			dr.setResultMessage(e.getMessage());
+			dr = new DataResponse(e);
 		} catch (Exception e) {
 			logger.error("注册用户异常", e);
-			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
 	}
@@ -63,19 +60,16 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/login", method = {RequestMethod.POST})
 	public DataResponse login(UserModel userModel, HttpServletRequest request){
-		DataResponse dr = new DataResponse();
+		DataResponse dr = null;
 		try {
 			userService.login(userModel, request);
-			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
-			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
-			dr.setResultMessage(e.getMessage());
+			dr = new DataResponse(e);
 		} catch (Exception e) {
 			logger.error("用户登录异常", e);
-			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
 	}
@@ -99,20 +93,17 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/query/list", method = {RequestMethod.POST})
 	public DataResponse queryUsertList(){
-		DataResponse dr = new DataResponse();
+		DataResponse dr = null;
 		try {
 			Map<String, Object> dataMap = userService.queryUsertList();
-			dr.setResultCode(ResponseEnum.RESPONSE_SUCCESS.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_SUCCESS.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.setDataMap(dataMap);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
-			dr.setResultCode(ResponseEnum.RESPONSE_FAIL.getCode());
-			dr.setResultMessage(e.getMessage());
+			dr = new DataResponse(e);
 		} catch (Exception e) {
 			logger.error("查询用户列表异常", e);
-			dr.setResultCode(ResponseEnum.RESPONSE_ERROR_SYSTEM.getCode());
-			dr.setResultMessage(ResponseEnum.RESPONSE_ERROR_SYSTEM.getMsg());
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
 	}
