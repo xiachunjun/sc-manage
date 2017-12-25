@@ -27,7 +27,7 @@ public class DepartmentController {
 	private IDepartmentService departmentService;
 
 	/**
-	 * 条件查询责任清单
+	 * 查询所有部门
 	 * 
 	 * @param positionModel
 	 * @return

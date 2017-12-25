@@ -15,7 +15,7 @@ public interface DepartmentMapper {
 		"select id, ref_company_code, department_code, department_name, department_type, ",
 			"department_level, parent_department_code ",
 		"from sc_departments ",
-		"where data_state = 1"
+		"where data_state = 1 order by department_type"
 	})
 	@Results({
 	    @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
