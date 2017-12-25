@@ -66,12 +66,12 @@
 										<form id="loginForm">
 											<fieldset>
 												<label class="block clearfix"> <span
-													class="block input-icon input-icon-right"> <input
+													class="block input-icon input-icon-right"> <input id="userLoginName"
 														type="text" name="userLoginName" class="form-control"
 														placeholder="用户名" /> <i class="ace-icon fa fa-user"></i>
 												</span>
 												</label> <label class="block clearfix"> <span
-													class="block input-icon input-icon-right"> <input
+													class="block input-icon input-icon-right"> <input id="userLoginPwd"
 														type="password" name="userLoginPwd" class="form-control"
 														placeholder="密码" /> <i class="ace-icon fa fa-lock"></i>
 												</span>
@@ -131,7 +131,11 @@
 	
 		$(document).keyup(function(e) {
 			if (e.keyCode == 13) {
-				$('#loginBtn').click();
+				var userLoginName = $("#userLoginName").val();
+				var userLoginPwd = $("#userLoginPwd").val();
+				if (userLoginName.length > 0 && userLoginPwd.length > 0) {
+					$('#loginBtn').click();
+				}
 			}
 		});
 	</script>

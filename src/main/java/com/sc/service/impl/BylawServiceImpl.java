@@ -29,42 +29,46 @@ import com.sc.model.request.BylawModel;
 import com.sc.service.IBylawService;
 
 @Service
-public class BylawServiceImpl implements IBylawService{
+public class BylawServiceImpl implements IBylawService {
 
 	private static final Logger logger = LoggerFactory.getLogger(BylawServiceImpl.class);
-	
+
 	@Value("${system.file.path}")
-	private String filePath;   //上传的附件的存储路径
-	
+	private String filePath; // 上传的附件的存储路径
+
 	@Autowired
 	private BylawMapper bylawMapper;
-	
-	
+
 	@Transactional
 	@Override
 	public void saveBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request) {
 		Bylaw record = setBylawProperties(bylawModel, file);
 		int flag = bylawMapper.saveBylaw(record);
-		if(flag != 1){
+		if (flag != 1) {
 			throw new ScException("保存规章制度出错");
 		}
 	}
-
 
 	@Override
 	public Map<String, Object> queryBylawList() {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		List<Bylaw> list = bylawMapper.queryBylaw();
-		//后端对数据进行处理
+		// 后端对数据进行处理
 		List<Bylaw> xzglList = new ArrayList<Bylaw>();
 		List<Bylaw> tjbzList = new ArrayList<Bylaw>();
 		List<Bylaw> cwglList = new ArrayList<Bylaw>();
-		if(!CollectionUtils.isEmpty(list)){
+		if (!CollectionUtils.isEmpty(list)) {
 			for (Bylaw bylaw : list) {
-				switch(bylaw.getBylawsCategory().trim()){
-					case CommonConstant.XZGL : xzglList.add(bylaw);  break;
-					case CommonConstant.TJBZ : tjbzList.add(bylaw);  break;
-					case CommonConstant.CWGL : cwglList.add(bylaw);  break;
+				switch (bylaw.getBylawsCategory().trim()) {
+				case CommonConstant.XZGL:
+					xzglList.add(bylaw);
+					break;
+				case CommonConstant.TJBZ:
+					tjbzList.add(bylaw);
+					break;
+				case CommonConstant.CWGL:
+					cwglList.add(bylaw);
+					break;
 				}
 			}
 		}
@@ -74,60 +78,73 @@ public class BylawServiceImpl implements IBylawService{
 		return dataMap;
 	}
 
-	
 	@Transactional
 	@Override
 	public void updateBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request) {
 		Bylaw record = new Bylaw();
 		BeanUtils.copyProperties(bylawModel, record);
-		if(null != file){
+		if (null != file) {
 			uploadAndSetFileUrl(file, record);
 		}
 		int flag = bylawMapper.updateBylaw(record);
-		if(flag != 1){
+		if (flag != 1) {
 			throw new ScException("修改规章制度出错");
 		}
 	}
-	
-	
+
 	@Transactional
 	@Override
 	public void deleteBylaw(Integer bylawsId) {
 		String userName = "SYS";
 		int flag = bylawMapper.updateStatus(bylawsId, userName);
-		if(flag != 1){
+		if (flag != 1) {
 			throw new ScException("删除规章制度出错");
 		}
 	}
-
 
 	@Override
 	public String queryFileUrlById(Integer bylawsId) {
 		return bylawMapper.queryFileUrlById(bylawsId);
 	}
-	
-	
-	/**********************以下为私有方法**********************/
-	
+
+	/********************** 以下为私有方法 **********************/
+
 	private Bylaw setBylawProperties(BylawModel bylawModel, MultipartFile file) {
 		Bylaw record = new Bylaw();
 		BeanUtils.copyProperties(bylawModel, record);
-		//设置bylawCode
+		// 设置bylawCode
 		Integer maxCode = bylawMapper.getMaxCode();
-		if(null == maxCode){
+		if (null == maxCode) {
 			record.setBylawsCode(CommonConstant.FIRST_CODE);
-		}else{
+		} else {
 			int length = String.valueOf(maxCode).length();
-			switch(length){
-				case 1 : record.setBylawsCode("0000000"+(maxCode+1));  break;
-				case 2 : record.setBylawsCode("000000"+(maxCode+1));  break;
-				case 3 : record.setBylawsCode("00000"+(maxCode+1));  break;
-				case 4 : record.setBylawsCode("0000"+(maxCode+1));  break;
-				case 5 : record.setBylawsCode("000"+(maxCode+1));  break;
-				case 6 : record.setBylawsCode("00"+(maxCode+1));  break;
-				case 7 : record.setBylawsCode("0"+(maxCode+1));  break;
-				case 8 : record.setBylawsCode(""+(maxCode+1));  break;
-				default: throw new ScException("超过最大长度");
+			switch (length) {
+			case 1:
+				record.setBylawsCode("0000000" + (maxCode + 1));
+				break;
+			case 2:
+				record.setBylawsCode("000000" + (maxCode + 1));
+				break;
+			case 3:
+				record.setBylawsCode("00000" + (maxCode + 1));
+				break;
+			case 4:
+				record.setBylawsCode("0000" + (maxCode + 1));
+				break;
+			case 5:
+				record.setBylawsCode("000" + (maxCode + 1));
+				break;
+			case 6:
+				record.setBylawsCode("00" + (maxCode + 1));
+				break;
+			case 7:
+				record.setBylawsCode("0" + (maxCode + 1));
+				break;
+			case 8:
+				record.setBylawsCode("" + (maxCode + 1));
+				break;
+			default:
+				throw new ScException("超过最大长度");
 			}
 		}
 		record.setArticleTime(DateUtil.str2Date(bylawModel.getArtTime()));
@@ -138,27 +155,25 @@ public class BylawServiceImpl implements IBylawService{
 		record.setUpdateUser("SYS");
 		record.setCreateTime(new Date());
 		record.setUpdateTime(record.getCreateTime());
-		//处理File文件
-		if(null != file){
+		// 处理File文件
+		if (null != file) {
 			uploadAndSetFileUrl(file, record);
 		}
 		return record;
 	}
 
-
 	private void uploadAndSetFileUrl(MultipartFile file, Bylaw record) {
-		//String contentType = file.getContentType();
+		// String contentType = file.getContentType();
 		String fileName = file.getOriginalFilename();
-		String realFilePath = filePath+UuidUtil.getUUID()+"/";
+		String realFilePath = filePath + UuidUtil.getUUID() + "/";
 		try {
 			FileUtil.uploadFile(file.getBytes(), realFilePath, fileName);
 		} catch (Exception e) {
 			logger.error("上传附件置服务器异常", e);
 			throw new ScException("保存上传附件出错");
 		}
-		record.setFileUrl(realFilePath+fileName);
-		//record.setBylawsContent("规章制度内容");
+		record.setFileUrl(realFilePath + fileName);
+		// record.setBylawsContent("规章制度内容");
 	}
-	
-	
+
 }
