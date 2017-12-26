@@ -31,12 +31,12 @@
 		</encoder>
 	</appender>
 
-	<logger name="com.wanda.merchant.loan.dao" level="DEBUG">
-		<appender-ref ref="STDOUT" />
+	<logger name="com.sc.dao" level="DEBUG">
+		<appender-ref ref="baselog" />
 	</logger>
 	<logger name="jdbc.sqltiming" level="debug" />
 	<logger name="com.ibatis" level="debug" />
 	<root level="debug">
-		<appender-ref ref="STDOUT" />
+		<appender-ref ref="baselog" />
 	</root>
 </configuration>  
