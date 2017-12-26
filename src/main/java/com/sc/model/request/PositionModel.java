@@ -2,29 +2,24 @@ package com.sc.model.request;
 
 public class PositionModel {
 
-	//用于修改操作时传入后端，表示记录id
+	// 用于修改操作时传入后端，表示记录id
 	private Integer id;
-	
-	/**部门code*/
-	private String refDepartmentCode;
-	
-	/**岗位名称code*/
-	private String positionCode;
-	
-	/**责任人(用户code)*/
-	private String refUserCode;
 
-	
+	/** 部门code */
+	private String departmentCode;
+
+	/** 岗位名称code */
+	private String positionCode;
+
+	/** 责任人(用户code) */
+	private String userCode;
+
 	public Integer getId() {
 		return id;
 	}
 
 	public void setId(Integer id) {
 		this.id = id;
-	}
-
-	public String getRefDepartmentCode() {
-		return refDepartmentCode;
 	}
 
 	public String getPositionCode() {
@@ -35,18 +30,20 @@ public class PositionModel {
 		this.positionCode = positionCode;
 	}
 
-	public void setRefDepartmentCode(String refDepartmentCode) {
-		this.refDepartmentCode = refDepartmentCode;
+	public String getDepartmentCode() {
+		return departmentCode;
 	}
 
-	public String getRefUserCode() {
-		return refUserCode;
+	public void setDepartmentCode(String departmentCode) {
+		this.departmentCode = departmentCode;
 	}
 
-	public void setRefUserCode(String refUserCode) {
-		this.refUserCode = refUserCode;
+	public String getUserCode() {
+		return userCode;
 	}
 
-	
-	
+	public void setUserCode(String userCode) {
+		this.userCode = userCode;
+	}
+
 }

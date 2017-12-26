@@ -19,22 +19,8 @@
 <!-- ace styles -->
 <link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 
-<!--[if lte IE 9]>
-    <link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet"/>
-    <![endif]-->
-<!--<link rel="stylesheet" href="assets/css/ace-skins.min.css"/>-->
-<!--<link rel="stylesheet" href="assets/css/ace-rtl.min.css"/>-->
-<!--[if lte IE 9]>
-    <link rel="stylesheet" href="assets/css/ace-ie.min.css"/>
-    <![endif]-->
-
-<!-- ace settings handler -->
 <script src="assets/js/ace-extra.min.js"></script>
 
-<!--[if lte IE 8]>
-    <script src="assets/js/html5shiv.min.js"></script>
-    <script src="assets/js/respond.min.js"></script>
-    <![endif]-->
 <style type="text/css">
 table.tftable {
 	color: #333333;
@@ -141,7 +127,7 @@ table.tftable td {
 								<div class="space-6"></div>
 								<div class="col-sm-12 center">
 									<div class="space-6"></div>
-									<form id="queryForm" class="form-horizontal" role="form">
+									<form id="queryForm" class="form-horizontal" role="form" onsubmit="return false;">
 										<div class="form-group">
 											<label class="col-sm-2 control-label no-padding-right" for="departmentCode">部门</label>
 											<div class="col-sm-2">
@@ -149,26 +135,20 @@ table.tftable td {
 
 												</select>
 											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="bylawsCategory">岗位</label>
+											<label class="col-sm-1 control-label no-padding-right" for="positionCode">岗位</label>
 											<div class="col-sm-2">
-												<select style="width: 80%;" id="bylawsCategory" name="bylawsCategory">
-													<option></option>
-													<option value="XZGL">保密员A</option>
-													<option value="TJBZ">保密员B</option>
-													<option value="CWGL">战略规划总监</option>
+												<select style="width: 80%;" id="positionCode" name="positionCode">
+
+
 												</select>
 											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="bylawsCategory">责任人</label>
+											<label class="col-sm-1 control-label no-padding-right" for="userCode">责任人</label>
 											<div class="col-sm-2">
-												<select style="width: 80%;" id="bylawsCategory" name="bylawsCategory">
-													<option></option>
-													<option value="XZGL">张三</option>
-													<option value="TJBZ">李四</option>
-													<option value="CWGL">王五</option>
+												<select style="width: 80%;" id="userCode" name="userCode">
 												</select>
 											</div>
 											<div class="col-sm-2 align-left">
-												<button class="btn btn-white radius-4" style="padding: 4px 12px;">查询</button>
+												<button class="btn btn-white radius-4" style="padding: 4px 12px;" onclick="queryData()">查询</button>
 											</div>
 										</div>
 									</form>
@@ -187,28 +167,7 @@ table.tftable td {
 											<th>责任人</th>
 										</tr>
 										<tr class="center">
-											<td>1</td>
-											<td>保密局</td>
-											<td>保密员A</td>
-											<td>张三</td>
-										</tr>
-										<tr class="center">
-											<td>2</td>
-											<td>经营计划部</td>
-											<td>战略规划总监</td>
-											<td>李四</td>
-										</tr>
-										<tr class="center">
-											<td>3</td>
-											<td>经营计划部</td>
-											<td>保密员B</td>
-											<td>王五</td>
-										</tr>
-										<tr class="center">
-											<td>4</td>
-											<td>财务部</td>
-											<td>保密员A</td>
-											<td>张三</td>
+											<td colspan="4">未查询到相关记录</td>
 										</tr>
 									</table>
 								</div>
@@ -227,10 +186,8 @@ table.tftable td {
 			</div>
 		</div>
 	</div>
-	<script src="assets/js/jquery-2.1.4.min.js"></script>
-	<!--[if IE]>
-<script src="assets/js/jquery-1.11.3.min.js"></script>
-<![endif]-->
+	<!-- <script src="assets/js/jquery-2.1.4.min.js"></script> -->
+	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
 		if ('ontouchstart' in document.documentElement)
 			document
@@ -245,6 +202,7 @@ table.tftable td {
 	<script src="assets/js/ace.min.js"></script>
 	<script src="assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="assets/js/ace-elements.min.js"></script>
+	<script src="assets/js/jquery.serializejson.min.js"></script>
 
 	<script type="text/javascript">
 		$(document).ready(function() {
@@ -262,6 +220,7 @@ table.tftable td {
 						var userLoginName = dataMap.userLoginName;
 						$("#userName").html(userLoginName);
 						renderDept();
+						renderUser();
 					} else {
 						window.location.href = "login.html";
 					}
@@ -295,10 +254,11 @@ table.tftable td {
 		});
 	
 		function queryData() {
+		var paramJson=$('#queryForm').serializeJSON();
 			$.ajax({
 				type : 'POST',
-				url : '/department/queryAll',
-				data : null,
+				url : '/duty/query/list',
+				data : JSON.stringify(paramJson),
 				headers : {
 					'Content-Type' : 'application/json'
 				},
@@ -308,7 +268,7 @@ table.tftable td {
 					if (resultCode == '000000' & dataMap != null) {
 						dataListRender(dataMap);
 					} else {
-						alert(11);
+						alert("查询异常！");
 					}
 				},
 				dataType : 'json',
@@ -320,60 +280,24 @@ table.tftable td {
 	
 	
 		function dataListRender(dataMap) {
-			var ht = "<tr><th>序号</th><th>名称</th><th>编号</th><th>发文文号</th><th>发文时间</th></tr>";
-			var cwglList = dataMap.CWGL;
-			var tjbzList = dataMap.TJBZ;
-			var xzglList = dataMap.XZGL;
-			if (xzglList && xzglList.length > 0) {
+			var ht = "<tr><th>序号</th><th>部门名称</th><th>岗位名称</th><th>责任人</th></tr>";
+			var dataList = dataMap.dataList;
+			if (dataList && dataList.length > 0) {
 				var indexNo = 1;
-				ht = ht + "<tr><td colspan='5'>一、行政管理</td></tr>";
-				for (var i = 0; i < xzglList.length; i++) {
-					var xzgl = xzglList[i];
+				for (var i = 0; i < dataList.length; i++) {
+					var posi = dataList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='/bylaw/download?bylawsId=" + xzgl.id + "'>" + xzgl.bylawsName + "</a></td>>";
-					ht = ht + "<td>" + xzgl.bylawsNo + "</td>";
-					ht = ht + "<td>" + xzgl.articleNo + "</td>";
-					ht = ht + "<td>" + formatDate(xzgl.articleTime) + "</td>";
+					ht = ht + "<td>" + posi.departmentName + "</td>>";
+					ht = ht + "<td>" + posi.positionName + "</td>";
+					ht = ht + "<td>" + posi.userLoginName + "</td>";
 				}
-			}
-			if (tjbzList && tjbzList.length > 0) {
-				var indexNo = 1;
-				ht = ht + "<tr><td colspan='5'>二、条件保障</td></tr>";
-				for (var i = 0; i < tjbzList.length; i++) {
-					var tjbz = tjbzList[i];
-					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='/bylaw/download?bylawsId=" + xzgl.id + "'>" + tjbz.bylawsName + "</a></td>";
-					ht = ht + "<td>" + tjbz.bylawsNo + "</td>";
-					ht = ht + "<td>" + tjbz.articleNo + "</td>";
-					ht = ht + "<td>" + formatDate(tjbz.articleTime) + "</td>";
-				}
-			}
-			if (cwglList && cwglList.length > 0) {
-				var indexNo = 1;
-				ht = ht + "<tr><td colspan='5'>三、财务管理</td></tr>";
-				for (var i = 0; i < cwglList.length; i++) {
-					var cwgl = cwglList[i];
-					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='/bylaw/download?bylawsId=" + xzgl.id + "'>" + cwgl.bylawsName + "</a></td>>";
-					ht = ht + "<td>" + cwgl.bylawsNo + "</td>";
-					ht = ht + "<td>" + cwgl.articleNo + "</td>";
-					ht = ht + "<td>" + formatDate(cwgl.articleTime) + "</td>";
-				}
+			}else{
+				ht = ht + "<tr class='center'><td colspan='4'>未查询到相关记录</td></tr>";
 			}
 			$("#tfhover").html(ht);
 		}
 	
 	
-		function formatDate(timestampStr) {
-			var now = new Date(timestampStr);
-			var year = now.getYear();
-			var month = now.getMonth() + 1;
-			var date = now.getDate();
-			/* var   hour=now.getHours();     
-			var   minute=now.getMinutes();     
-			var   second=now.getSeconds();  */
-			return (1900 + year) + "年" + month + "月" + date + "日";
-		}
 	
 		function renderDept() {
 			$.ajax({
@@ -390,13 +314,14 @@ table.tftable td {
 						var ht = "";
 						var depts = dataMap.depts;
 						if (depts && depts.length > 0) {
-							for (i = 1; i < depts.length; i++) {
-								ht = ht + "<option value='" + depts[i].departmentCode + "'>" + depts[i].departmentName + "</option>"
+							for (i = 0; i < depts.length; i++) {
+								ht = ht + "<option value='" + depts[i].departmentCode + "'>" + depts[i].departmentName + "</option>";
 							}
 							$("#departmentCode").html(ht);
 						}
+						renderPosition();
 					} else {
-						alert("查询责任清单列表失败！");
+						alert("获取部门列表失败！");
 					}
 				},
 				dataType : 'json',
@@ -406,21 +331,34 @@ table.tftable td {
 			});
 		}
 	
-		function renderPosition() {
+		function renderPosition(deptCode) {
+			var da = {};
+			if (!deptCode) {
+				deptCode = $("#departmentCode").val();
+			}
+			da.departmentCode = deptCode;
 			$.ajax({
 				type : 'POST',
-				url : '/department/queryAll',
-				data : null,
+				url : '/position/queryByDeptCode',
+				data : JSON.stringify(da),
 				headers : {
-					'Content-Type' : 'application/json'
+					"Content-Type" : "application/json"
 				},
 				success : function(data) {
 					var resultCode = data.resultCode;
 					var dataMap = data.dataMap;
 					if (resultCode == '000000' & dataMap != null) {
-						dataListRender(dataMap);
+						var ht = "<option></option>";
+						var positions = dataMap.positions;
+						if (positions && positions.length > 0) {
+							for (i = 0; i < positions.length; i++) {
+								ht = ht + "<option value='" + positions[i].positionCode + "'>" + positions[i].positionName + "</option>";
+							}
+							$("#positionCode").html(ht);
+						}
+						queryData();
 					} else {
-						alert(11);
+						alert("获取信息异常-" + JSON.stringify(data));
 					}
 				},
 				dataType : 'json',
@@ -430,10 +368,10 @@ table.tftable td {
 			});
 		}
 	
-		function renderPosition() {
+		function renderUser() {
 			$.ajax({
 				type : 'POST',
-				url : '/department/queryAll',
+				url : '/user/query/list',
 				data : null,
 				headers : {
 					'Content-Type' : 'application/json'
@@ -442,9 +380,16 @@ table.tftable td {
 					var resultCode = data.resultCode;
 					var dataMap = data.dataMap;
 					if (resultCode == '000000' & dataMap != null) {
-						dataListRender(dataMap);
+						var ht = "<option></option>";
+						var userList = dataMap.userList;
+						if (userList && userList.length > 0) {
+							for (i = 0; i < userList.length; i++) {
+								ht = ht + "<option value='" + userList[i].userCode + "'>" + userList[i].userLoginName + "</option>";
+							}
+							$("#userCode").html(ht);
+						}
 					} else {
-						alert(11);
+						alert("获取信息异常-" + JSON.stringify(data));
 					}
 				},
 				dataType : 'json',

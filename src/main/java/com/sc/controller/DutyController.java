@@ -5,6 +5,7 @@ import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -54,7 +55,7 @@ public class DutyController {
 	 * @return
 	 */
 	@RequestMapping(value = "/duty/query/list", method = {RequestMethod.POST})
-	public DataResponse queryDutyByCondition(PositionModel positionModel){
+	public DataResponse queryDutyByCondition(@RequestBody PositionModel positionModel){
 		DataResponse dr = null;
 		try {
 			Map<String, Object> dataMap = dutyService.queryDutyByCondition(positionModel);

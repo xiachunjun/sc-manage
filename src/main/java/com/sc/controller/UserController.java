@@ -109,7 +109,7 @@ public class UserController {
 	}
 	
 	/**
-	 * 查询用户列表
+	 * 查询当前用户
 	 * 
 	 * @return
 	 */

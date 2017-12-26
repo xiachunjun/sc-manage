@@ -6,49 +6,16 @@
 <title>首页</title>
 
 <meta name="description" content="overview &amp; stats" />
-<meta name="viewport"
-	content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 <!-- bootstrap & fontawesome -->
 <link rel="stylesheet" href="assets/css/bootstrap.min.css" />
 <link rel="stylesheet" href="assets/css/sc.css" />
-<link rel="stylesheet"
-	href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+<link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
 
-<!-- page specific plugin styles -->
+<link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
 
-<!-- text fonts -->
-<!--<link rel="stylesheet" href="assets/css/fonts.googleapis.com.css"/>-->
-
-<!-- ace styles -->
-<link rel="stylesheet" href="assets/css/ace.min.css"
-	class="ace-main-stylesheet" id="main-ace-style" />
-
-<!--
-<link rel="stylesheet" type="text/css" href="jiaoben/css/normalize.css" />
-<link rel="stylesheet" type="text/css" href="jiaoben/css/default.css">
-<link rel="stylesheet" href="jiaoben/css/liMarquee.css">
- -->
-<!--[if lte IE 9]>
-    <link rel="stylesheet" href="assets/css/ace-part2.min.css" class="ace-main-stylesheet"/>
-    <![endif]-->
-<!--<link rel="stylesheet" href="assets/css/ace-skins.min.css"/>-->
-<!--<link rel="stylesheet" href="assets/css/ace-rtl.min.css"/>-->
-<!--[if lte IE 9]>
-    <link rel="stylesheet" href="assets/css/ace-ie.min.css"/>
-    <![endif]-->
-
-<!-- inline styles related to this page -->
-
-<!-- ace settings handler -->
 <script src="assets/js/ace-extra.min.js"></script>
-
-<!-- HTML5shiv and Respond.js for IE8 to support HTML5 elements and media queries -->
-
-<!--[if lte IE 8]>
-    <script src="assets/js/html5shiv.min.js"></script>
-    <script src="assets/js/respond.min.js"></script>
-    <![endif]-->
 
 <style type="text/css">
 table.tftable {
@@ -79,20 +46,13 @@ table.tftable td {
 	<div id="navbar" class="navbar navbar-default ace-save-state">
 		<div class="navbar-container ace-save-state" id="navbar-container">
 			<div class="navbar-header pull-left">
-				<a href="index.html" class="navbar-brand"> <small> CSSC
-						MARIC 中国船舶及海洋工程设计研究院“晒态势、促提升”信息系统 </small>
+				<a href="index.html" class="navbar-brand"> <small> CSSC MARIC 中国船舶及海洋工程设计研究院“晒态势、促提升”信息系统 </small>
 				</a>
 			</div>
-			<div class="navbar-buttons navbar-header pull-right"
-				role="navigation">
+			<div class="navbar-buttons navbar-header pull-right" role="navigation">
 				<ul class="nav ace-nav">
-					<li><span class="cursor-pointer"><img
-							class="nav-user-photo" src="assets/images/u57.png" /> <span
-							class="user-info" id="userName"></span></span> <span
-						class="cursor-pointer"><img class="nav-user-photo"
-							src="assets/images/u59.png" /></span><span id="logoutBtn"
-						class="cursor-pointer"><img class="nav-user-photo"
-							src="assets/images/u61.png" /></span></li>
+					<li><span class="cursor-pointer"><img class="nav-user-photo" src="assets/images/u57.png" /> <span class="user-info" id="userName"></span></span> <span class="cursor-pointer"><img class="nav-user-photo" src="assets/images/u59.png" /></span><span id="logoutBtn" class="cursor-pointer"><img
+							class="nav-user-photo" src="assets/images/u61.png" /></span></li>
 				</ul>
 			</div>
 		</div>
@@ -112,9 +72,7 @@ table.tftable td {
 				} catch (e) {}
 			</script>
 			<ul class="nav nav-list">
-				<li class="center"><a href="#" class="dropdown-toggle"
-					style="background-color: #0A467F;color: white;"> <span
-						class="menu-text">责任晒板</span>
+				<li class="center"><a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">责任晒板</span>
 				</a>
 					<ul class="submenu">
 						<li class=""><a href="duty.html"> 责任清单 </a></li>
@@ -124,9 +82,7 @@ table.tftable td {
 						<li class=""><a href="#"> 计划完成情况 </a></li>
 						<li class=""><a href="#"> 绩效考核 </a></li>
 					</ul></li>
-				<li class="center"><a href="#" class="dropdown-toggle"
-					style="background-color: #0A467F;color: white;"> <span
-						class="menu-text">任务晒板</span>
+				<li class="center"><a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">任务晒板</span>
 				</a>
 					<ul class="submenu">
 						<li class=""><a href="#"> 任务新建 </a></li>
@@ -136,9 +92,7 @@ table.tftable td {
 						<li class=""><a href="#"> 任务归档 </a></li>
 						<li class=""><a href="#"> 任务统计 </a></li>
 					</ul></li>
-				<li class="center"><a href="#" class="dropdown-toggle"
-					style="background-color: #0A467F;color: white;"> <span
-						class="menu-text">数据晒板</span>
+				<li class="center"><a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">数据晒板</span>
 				</a>
 					<ul class="submenu">
 						<li class=""><a href="#"> 总体经营数据 </a></li>
@@ -153,8 +107,7 @@ table.tftable td {
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state">
 					<div class="row">
-						<div class="col-sm-2"
-							style="color:red;font-size: 13px;padding-left: 20px;" />
+						<div class="col-sm-2" style="color:red;font-size: 13px;padding-left: 20px;" />
 						最新资讯：
 					</div>
 					<div class="col-sm-10 swrap"></div>
@@ -180,21 +133,15 @@ table.tftable td {
 											<div class="row">
 												<div class="col-sm-6">
 													<div class="center" style="font-size: 15px">营业收入</div>
-													<div class="center"
-														style="font-size: 50px;color: #FF3333;padding-bottom: 30px;font-weight: bold;">2000</div>
-													<div
-														style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
-													<div
-														style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">2%</div>
+													<div class="center" style="font-size: 50px;color: #FF3333;padding-bottom: 30px;font-weight: bold;">2000</div>
+													<div style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
+													<div style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">2%</div>
 												</div>
 												<div class="col-sm-6">
 													<div class="center" style="font-size: 15px">利润总额</div>
-													<div class="center"
-														style="font-size: 50px;color: #FF3333;padding-bottom: 30px;font-weight: bold;">1000</div>
-													<div
-														style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
-													<div
-														style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">3%</div>
+													<div class="center" style="font-size: 50px;color: #FF3333;padding-bottom: 30px;font-weight: bold;">1000</div>
+													<div style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
+													<div style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">3%</div>
 												</div>
 											</div>
 										</div>
@@ -205,8 +152,7 @@ table.tftable td {
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title"
-											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">每日信息</h4>
+										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">每日信息</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
@@ -218,11 +164,40 @@ table.tftable td {
 											<div class="row">
 												<div class="col-sm-12" style="height: 15em;">
 													<div class="str1 str_wrap" style="height:100%;">
-														<p>七〇八所邢文华所长参加世界海事技术大会 内部 2017-12-01</p>
-														<p>七〇八所参加市科技系统学习传达党的十九大精神报告会 内部 2017-12-02</p>
-														<p>七〇八所邢文华所长参加世界海事技术大1 内部 2017-12-03</p>
-														<p>七〇八所邢文华所长参加世界海事技术大2 内部 2017-12-03</p>
-														<p>七〇八所邢文华所长参加世界海事技术大3 内部 2017-12-03</p>
+												
+														<table>
+															<tr>
+																<td style="width: 60%">七〇八所邢文华所长参与XX会</td>
+																<td style="padding:5px 15px 5px 15px;">内部</td>
+																<td>2017-12-01</td>
+															</tr>
+															<tr>
+																<td style="width: 60%">七〇八所全员学习十九大精神</td>
+																<td style="padding:5px 15px 5px 15px;">内部</td>
+																<td>2017-12-01</td>
+															</tr>
+															<tr>
+																<td style="width: 60%">放假通知</td>
+																<td style="padding:5px 15px 5px 15px;">内部</td>
+																<td>2017-12-01</td>
+															</tr>
+															<tr>
+																<td style="width: 60%">七〇八所邢文华所长参加世界海事技术大会</td>
+																<td style="padding:5px 15px 5px 15px;">内部</td>
+																<td>2017-12-01</td>
+															</tr>
+															<tr>
+																<td style="width: 60%">七〇八所邢文华所长参加世界海事技术大会</td>
+																<td style="padding:5px 15px 5px 15px;">内部</td>
+																<td>2017-12-01</td>
+															</tr>
+															<tr>
+																<td style="width: 60%">七〇八所邢文华所长参加世界海事技术大会</td>
+																<td style="padding:5px 15px 5px 15px;">内部</td>
+																<td>2017-12-01</td>
+															</tr>
+
+														</table>
 													</div>
 												</div>
 											</div>
@@ -233,8 +208,7 @@ table.tftable td {
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title"
-											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">领导安排</h4>
+										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">领导安排</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
@@ -285,8 +259,7 @@ table.tftable td {
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title"
-											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">任务晒板</h4>
+										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">任务晒板</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
@@ -300,15 +273,35 @@ table.tftable td {
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title"
-											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">责任晒板</h4>
+										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">责任晒板</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
 									</div>
-									<div class="widget-body">
+									<div class="widget-body" >
 										<div class="space-6"></div>
-
+										<table class="tftable" border="1">
+											<tr>
+												<th>序号</th>
+												<th>部门</th>
+												<th>责任清单</th>
+											</tr>
+											<tr>
+												<td>1</td>
+												<td>财务部</td>
+												<td><a href="#">查看</a></td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>审计部</td>
+												<td><a href="#">查看</a></td>
+											</tr>
+											<tr>
+												<td>3</td>
+												<td>监察部</td>
+												<td><a href="#">查看</a></td>
+											</tr>
+										</table>
 
 									</div>
 								</div>
@@ -316,8 +309,7 @@ table.tftable td {
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title"
-											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">规章制度</h4>
+										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">规章制度</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
@@ -367,12 +359,8 @@ table.tftable td {
 			</div>
 		</div>
 	</div>
-	<script src="assets/js/jquery-2.1.4.min.js"></script>
+	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<script src="assets/js/jquery.liMarquee.js"></script>
-
-	<!--[if IE]>
-<!--<script src="assets/js/jquery-1.11.3.min.js"></script>-->
-	<![endif]-->
 	<script type="text/javascript">
 		if ('ontouchstart' in document.documentElement)
 			document
@@ -380,12 +368,6 @@ table.tftable td {
 					+ "<" + "/script>");
 	</script>
 	<script src="assets/js/bootstrap.min.js"></script>
-
-	<!-- page specific plugin scripts -->
-
-	<!--[if lte IE 8]>
-<script src="assets/js/excanvas.min.js"></script>
-<![endif]-->
 	<script src="assets/js/jquery-ui.custom.min.js"></script>
 	<script src="assets/js/jquery.ui.touch-punch.min.js"></script>
 	<script src="assets/js/jquery.easypiechart.min.js"></script>

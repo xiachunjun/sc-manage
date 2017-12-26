@@ -109,14 +109,14 @@ public class DutyServiceImpl implements IDutyService {
 	private String packCondition(PositionModel positionModel) {
 		StringBuffer sb = new StringBuffer();
 		sb.append(" p.data_state = 1 and");
-		if(!StringUtils.isEmpty(positionModel.getRefDepartmentCode())){
-			sb.append(" p.ref_department_code="+positionModel.getRefDepartmentCode()+" and");
+		if(!StringUtils.isEmpty(positionModel.getDepartmentCode())){
+			sb.append(" p.ref_department_code="+positionModel.getDepartmentCode()+" and");
 		}
 		if(!StringUtils.isEmpty(positionModel.getPositionCode())){
 			sb.append(" p.position_code="+positionModel.getPositionCode()+" and");
 		}
-		if(!StringUtils.isEmpty(positionModel.getRefUserCode())){
-			sb.append(" p.ref_user_code="+positionModel.getRefUserCode()+" and");
+		if(!StringUtils.isEmpty(positionModel.getUserCode())){
+			sb.append(" p.ref_user_code="+positionModel.getUserCode()+" and");
 		}
 		return sb.substring(0, sb.length()-4);
 	}
