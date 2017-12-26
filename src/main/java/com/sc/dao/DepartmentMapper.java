@@ -28,6 +28,4 @@ public interface DepartmentMapper {
 	    @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
 	})
 	List<Department> queryDepartmentList();
-	
-	
 }

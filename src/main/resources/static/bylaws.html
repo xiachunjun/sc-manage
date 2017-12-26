@@ -253,12 +253,12 @@ table.tftable td {
 					if (resultCode == '000000' & dataMap != null) {
 						dataListRender(dataMap);
 					} else {
-						alert(11);
+						alert("查询规章制度列表失败！");
 					}
 				},
 				dataType : 'json',
 				error : function(data) {
-					alert("获取登录信息异常-" + JSON.stringify(data));
+					alert("获取规章制度异常-" + JSON.stringify(data));
 				}
 			});
 		}

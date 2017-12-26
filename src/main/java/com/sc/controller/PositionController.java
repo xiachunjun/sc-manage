@@ -19,12 +19,10 @@ import com.sc.service.IDepartmentService;
  * 部门
  */
 @RestController
-public class DepartmentController {
+public class PositionController {
 
-	private static final Logger logger = LoggerFactory.getLogger(DepartmentController.class);
+	private static final Logger logger = LoggerFactory.getLogger(PositionController.class);
 
-	@Autowired
-	private IDepartmentService departmentService;
 
 	/**
 	 * 查询所有部门
@@ -32,13 +30,12 @@ public class DepartmentController {
 	 * @param positionModel
 	 * @return
 	 */
-	@RequestMapping(value = "/department/queryAll", method = { RequestMethod.POST })
+	@RequestMapping(value = "/position/queryAll", method = { RequestMethod.POST })
 	public DataResponse queryDepartmentList() {
 		DataResponse dr = null;
 		try {
-			List<Department> depts = departmentService.queryAllDepartment();
+//			List<Department> depts = departmentService.queryAllDepartment();
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-			dr.put("depts", depts);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);

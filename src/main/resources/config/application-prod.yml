@@ -1,0 +1,19 @@
+spring:
+  datasource:
+    name: scDataSource
+    url: jdbc:mysql://127.0.0.1:3306/sc_manage?scharacterEncoding=utf8&useSSL=false
+    username: root
+    password: root1234
+    type: org.apache.tomcat.jdbc.pool.DataSource
+    driver-class-name: com.mysql.jdbc.Driver
+    
+logging:
+  config: classpath:config/logback.xml
+  
+server:
+  port: 8090
+  
+system:
+   enableSwagger: true    #是否启用swagger  
+   file:
+     path: /opt/app/upload/scfile

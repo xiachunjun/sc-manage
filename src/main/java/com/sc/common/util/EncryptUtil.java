@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.StandardPasswordEncoder;
 public class EncryptUtil {
 
    //从配置文件中获得 ，秘玥值 
-   private static final String SITE_WIDE_SECRET = "sc-manange-secret-key";  
+   private static final String SITE_WIDE_SECRET = "sc-manage-secret-key";  
    
    private static final PasswordEncoder encoder = new StandardPasswordEncoder(SITE_WIDE_SECRET);  
   
