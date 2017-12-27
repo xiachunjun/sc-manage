@@ -77,6 +77,27 @@ public interface BylawMapper {
 	    "select max(bylaws_code) from sc_bylaws"
 	})
 	Integer getMaxCode();
+
+
+	@Select({
+		"select id, bylaws_code, bylaws_category, bylaws_name, bylaws_no, article_no, ",
+			"article_time, bylaws_content, file_url, data_state ",
+		"from sc_bylaws ",
+		"where data_state = 1 and id=#{id,jdbcType=INTEGER}"	
+	})
+	@Results({
+	    @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+	    @Result(column="bylaws_code", property="bylawsCode", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="bylaws_category", property="bylawsCategory", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="bylaws_name", property="bylawsName", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="bylaws_no", property="bylawsNo", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_no", property="articleNo", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_time", property="articleTime", jdbcType=JdbcType.TIMESTAMP),
+	    @Result(column="bylaws_content", property="bylawsContent", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="file_url", property="fileUrl", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
+	})
+	Bylaw queryById(@Param("id")Integer id);
 	
 	
 	

@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sc.domain.Bylaw;
 import com.sc.model.request.BylawModel;
 
 public interface IBylawService {
@@ -16,7 +17,7 @@ public interface IBylawService {
 	 * @param file
 	 * @param request
 	 */
-	void saveBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request);
+	void saveBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request, String userLoginName);
 
 	/**
 	 * 查询规章制度
@@ -30,7 +31,7 @@ public interface IBylawService {
 	 * @param file
 	 * @param request
 	 */
-	void updateBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request);
+	void updateBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request, String userLoginName);
 
 	/**
 	 * 删除规章制度
@@ -44,5 +45,12 @@ public interface IBylawService {
 	 * @return
 	 */
 	String queryFileUrlById(Integer bylawsId);
+
+	/**
+	 * 根据id，查询规章制度
+	 * @param id
+	 * @return
+	 */
+	Bylaw queryById(Integer id);
 
 }

@@ -8,8 +8,8 @@ public class PositionModel {
 	/** 部门code */
 	private String departmentCode;
 
-	/** 岗位名称code */
-	private String positionCode;
+	/** 岗位名称 */
+	private String positionName;
 
 	/** 责任人(用户code) */
 	private String userCode;
@@ -22,12 +22,12 @@ public class PositionModel {
 		this.id = id;
 	}
 
-	public String getPositionCode() {
-		return positionCode;
+	public String getPositionName() {
+		return positionName;
 	}
 
-	public void setPositionCode(String positionCode) {
-		this.positionCode = positionCode;
+	public void setPositionName(String positionName) {
+		this.positionName = positionName;
 	}
 
 	public String getDepartmentCode() {
