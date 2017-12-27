@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.ScException;
+import com.sc.common.util.ListUtils;
 import com.sc.dao.PositionMapper;
 import com.sc.domain.Position;
 import com.sc.model.request.PositionModel;
@@ -109,35 +110,7 @@ public class PositionServiceImpl implements IPositionService {
 		if (null == maxCode) {
 			record.setPositionCode(CommonConstant.FIRST_CODE);
 		} else {
-			int length = String.valueOf(maxCode).length();
-			switch (length) {
-			case 1:
-				record.setPositionCode("0000000" + (maxCode + 1));
-				break;
-			case 2:
-				record.setPositionCode("000000" + (maxCode + 1));
-				break;
-			case 3:
-				record.setPositionCode("00000" + (maxCode + 1));
-				break;
-			case 4:
-				record.setPositionCode("0000" + (maxCode + 1));
-				break;
-			case 5:
-				record.setPositionCode("000" + (maxCode + 1));
-				break;
-			case 6:
-				record.setPositionCode("00" + (maxCode + 1));
-				break;
-			case 7:
-				record.setPositionCode("0" + (maxCode + 1));
-				break;
-			case 8:
-				record.setPositionCode("" + (maxCode + 1));
-				break;
-			default:
-				throw new ScException("超过最大长度");
-			}
+			record.setPositionCode(ListUtils.addZero2Str(maxCode, 8));
 		}
 		return record;
 	}

@@ -23,6 +23,7 @@ import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.ScException;
 import com.sc.common.util.DateUtil;
 import com.sc.common.util.FileUtil;
+import com.sc.common.util.ListUtils;
 import com.sc.common.util.UuidUtil;
 import com.sc.dao.BylawMapper;
 import com.sc.domain.Bylaw;
@@ -132,35 +133,7 @@ public class BylawServiceImpl implements IBylawService {
 		if (null == maxCode) {
 			record.setBylawsCode(CommonConstant.FIRST_CODE);
 		} else {
-			int length = String.valueOf(maxCode).length();
-			switch (length) {
-			case 1:
-				record.setBylawsCode("0000000" + (maxCode + 1));
-				break;
-			case 2:
-				record.setBylawsCode("000000" + (maxCode + 1));
-				break;
-			case 3:
-				record.setBylawsCode("00000" + (maxCode + 1));
-				break;
-			case 4:
-				record.setBylawsCode("0000" + (maxCode + 1));
-				break;
-			case 5:
-				record.setBylawsCode("000" + (maxCode + 1));
-				break;
-			case 6:
-				record.setBylawsCode("00" + (maxCode + 1));
-				break;
-			case 7:
-				record.setBylawsCode("0" + (maxCode + 1));
-				break;
-			case 8:
-				record.setBylawsCode("" + (maxCode + 1));
-				break;
-			default:
-				throw new ScException("超过最大长度");
-			}
+			record.setBylawsCode(ListUtils.addZero2Str(maxCode, 8));
 		}
 		record.setArticleTime(DateUtil.str2Date(bylawModel.getArtTime()));
 		record.setId(null);

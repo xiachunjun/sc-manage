@@ -159,6 +159,7 @@ public class ListUtils {
 		return nf.format(numObj);
 	}
 	
+	
 	/**
 	 * 获取指定对象的指定属性值（去除private,protected的限制）
 	 * 

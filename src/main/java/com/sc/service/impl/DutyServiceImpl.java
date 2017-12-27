@@ -6,8 +6,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -19,7 +17,7 @@ import com.sc.service.IDutyService;
 @Service
 public class DutyServiceImpl implements IDutyService {
 
-	private static final Logger logger = LoggerFactory.getLogger(DutyServiceImpl.class);
+	//private static final Logger logger = LoggerFactory.getLogger(DutyServiceImpl.class);
 	
 	@Autowired
 	private DutyMapper dutyMapper;
