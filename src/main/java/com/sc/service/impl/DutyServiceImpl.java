@@ -9,11 +9,11 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.ScException;
 import com.sc.dao.DepartmentMapper;
 import com.sc.dao.PositionMapper;
-import com.sc.domain.Department;
 import com.sc.domain.Position;
 import com.sc.model.request.PositionModel;
 import com.sc.service.IDutyService;
@@ -60,24 +60,6 @@ public class DutyServiceImpl implements IDutyService {
 		}
 	}
 
-	
-	@Override
-	public Map<String, Object> queryDepartmentList() {
-		Map<String, Object> dataMap = new HashMap<String, Object>();
-		List<Department> list = departmentMapper.queryDepartmentList();
-		dataMap.put("departmentList", list);
-		return dataMap;
-	}
-	
-	
-	@Override
-	public Map<String, Object> queryPositionList() {
-		Map<String, Object> dataMap = new HashMap<String, Object>();
-		List<Position> list = positionMapper.queryPositionList();
-		dataMap.put("positionList", list);
-		return dataMap;
-	}
-	
 	
 	/**********************以下为私有方法**********************/
 	

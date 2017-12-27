@@ -21,11 +21,12 @@ import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
 import com.sc.common.util.FileUtil;
+import com.sc.domain.Bylaw;
 import com.sc.model.request.BylawModel;
 import com.sc.service.IBylawService;
 
 /**
- * 规章制度（基本完成，不妥之处再进行修改）
+ * 规章制度
  */
 @RestController
 public class BylawController {
@@ -158,5 +159,34 @@ public class BylawController {
 			}
 		}
 	}
+	
+	
+	/**
+	 * 根据id,查询规章制度
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "/bylaw/queryById", method = { RequestMethod.GET })
+	public DataResponse queryById(@RequestParam(name = "id", required = true) Integer id) {
+		DataResponse dr = null;
+		try {
+			Bylaw bylaw = bylawService.queryById(id);
+			if(null == bylaw){
+				dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_NULL);
+			}else{
+				dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+				dr.put("bylaw", bylaw);
+			}
+		} catch (ScException e) {
+			logger.error(e.getMessage());
+			dr = new DataResponse(e);
+		} catch (Exception e) {
+			logger.error("根据id, 查询规章制度异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
+	
 
 }

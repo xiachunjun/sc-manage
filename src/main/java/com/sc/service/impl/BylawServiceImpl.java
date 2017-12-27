@@ -106,6 +106,14 @@ public class BylawServiceImpl implements IBylawService {
 	public String queryFileUrlById(Integer bylawsId) {
 		return bylawMapper.queryFileUrlById(bylawsId);
 	}
+	
+	
+	@Override
+	public Bylaw queryById(Integer id) {
+		Bylaw bylaw = bylawMapper.queryById(id);
+		return bylaw;
+	}
+	
 
 	/********************** 以下为私有方法 **********************/
 

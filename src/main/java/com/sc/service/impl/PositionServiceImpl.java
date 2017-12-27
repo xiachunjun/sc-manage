@@ -31,7 +31,7 @@ public class PositionServiceImpl implements IPositionService {
 		}else{
 			return null;
 		}
-		List<Position> list =positionMapper.queryDutyByCondition(sb.toString());
+		List<Position> list =positionMapper.queryDutyByCondition(sb.substring(0, sb.length()-4));
 		return list;
 	}
 

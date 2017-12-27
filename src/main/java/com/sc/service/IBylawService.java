@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.sc.domain.Bylaw;
 import com.sc.model.request.BylawModel;
 
 public interface IBylawService {
@@ -44,5 +45,12 @@ public interface IBylawService {
 	 * @return
 	 */
 	String queryFileUrlById(Integer bylawsId);
+
+	/**
+	 * 根据id，查询规章制度
+	 * @param id
+	 * @return
+	 */
+	Bylaw queryById(Integer id);
 
 }
