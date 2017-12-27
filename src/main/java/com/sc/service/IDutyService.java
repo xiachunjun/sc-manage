@@ -36,6 +36,12 @@ public interface IDutyService {
 	 * @return
 	 */
 	Map<String, Object> queryPositionList();
+	
+	/**
+	 * 编辑岗位责任人
+	 * @return
+	 */
+	public void editPosition(PositionModel positionModel);
 
 	
 }
