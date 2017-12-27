@@ -40,6 +40,10 @@ public interface IPositionService {
 	 */
 	void updatePosition(PositionModel positionModel, String userLoginName);
 	
-	
+	/**
+	 * 编辑岗位责任人
+	 * @return
+	 */
+	public void editPosition(PositionModel positionModel);
 	
 }

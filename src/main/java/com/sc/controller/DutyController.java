@@ -1,5 +1,6 @@
 package com.sc.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import org.slf4j.Logger;
@@ -30,9 +31,9 @@ public class DutyController {
 	public DataResponse queryDutyByDeptCode(@RequestParam(name="deptCode", required=true)String deptCode){
 		DataResponse dr = null;
 		try {
-			Map<String, Object> dataMap = dutyService.queryDutyByDeptCode(deptCode);
+			List<Map<String, Object>> dataMap = dutyService.queryDutyByDeptCode(deptCode);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-			dr.setDataMap(dataMap);
+			dr.put("deptDutyList", dataMap);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);
@@ -51,9 +52,9 @@ public class DutyController {
 	public DataResponse queryDutyByPostCode(@RequestParam(name="postCode", required=true)String postCode){
 		DataResponse dr = null;
 		try {
-			Map<String, Object> dataMap = dutyService.queryDutyByPostCode(postCode);
+			List<Map<String, Object>> dataMap = dutyService.queryDutyByPostCode(postCode);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-			dr.setDataMap(dataMap);
+			dr.put("posiDutyList", dataMap);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);
