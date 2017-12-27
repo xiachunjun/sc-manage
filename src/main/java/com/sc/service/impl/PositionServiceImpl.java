@@ -39,7 +39,7 @@ public class PositionServiceImpl implements IPositionService {
 		} else {
 			return null;
 		}
-		List<Position> list = positionMapper.queryDutyByCondition(sb.substring(0, sb.length() - 4));
+		List<Position> list = positionMapper.queryDutyByCondition(sb.toString());
 		return list;
 	}
 
@@ -148,8 +148,8 @@ public class PositionServiceImpl implements IPositionService {
 		if (!StringUtils.isEmpty(positionModel.getDepartmentCode())) {
 			sb.append(" p.ref_department_code=" + positionModel.getDepartmentCode() + " and");
 		}
-		if (!StringUtils.isEmpty(positionModel.getPositionName())) {
-			sb.append(" p.position_name=" + positionModel.getPositionName() + " and");
+		if (!StringUtils.isEmpty(positionModel.getPositionCode())) {
+			sb.append(" p.position_code=" + positionModel.getPositionCode() + " and");
 		}
 		if (!StringUtils.isEmpty(positionModel.getUserCode())) {
 			sb.append(" p.ref_user_code=" + positionModel.getUserCode() + " and");
