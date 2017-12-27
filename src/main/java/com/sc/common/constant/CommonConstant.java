@@ -19,5 +19,10 @@ public class CommonConstant {
 	public static final String FAILED_MSG = "failedMsg";
 
 	
+	/**每日信息*/
+	public static final String ALL = "all";   //表示查询所有天数
+	public static final String NOW = "now";   //表示查询当天
+	
+	
 	
 }

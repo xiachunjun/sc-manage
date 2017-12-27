@@ -6,7 +6,6 @@ import java.util.Date;
 
 public class DateUtil {
 
-	
 	public static String date2Str(Date date){
 		return new SimpleDateFormat("yyyy/MM/dd").format(date);
 	}
@@ -21,7 +20,12 @@ public class DateUtil {
 		return d;
 	}
 
+	public static String date2Str2(Date date){
+		return new SimpleDateFormat("yyyy-MM-dd").format(date);
+	}
+	
 //	public static void main(String[] args) {
 //		System.out.println(date2Str(str2Date("2017-01-01")));
 //	}
+	
 }

@@ -146,7 +146,7 @@ public class BylawController {
 	 * @param response
 	 * @return
 	 */
-	@RequestMapping(value = "/bylaw/download", method = { RequestMethod.GET })
+	@RequestMapping(value = "/bylaw/download", method = { RequestMethod.POST })
 	public void downloadFile(@RequestParam(name = "bylawsId", required = true) Integer bylawsId,
 			HttpServletRequest request, HttpServletResponse response) {
 		String filePath = bylawService.queryFileUrlById(bylawsId);
@@ -169,7 +169,7 @@ public class BylawController {
 	 * @param id
 	 * @return
 	 */
-	@RequestMapping(value = "/bylaw/queryById", method = { RequestMethod.GET })
+	@RequestMapping(value = "/bylaw/queryById", method = { RequestMethod.POST })
 	public DataResponse queryById(@RequestParam(name = "id", required = true) Integer id) {
 		DataResponse dr = null;
 		try {
