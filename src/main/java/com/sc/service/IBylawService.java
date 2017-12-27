@@ -17,7 +17,7 @@ public interface IBylawService {
 	 * @param file
 	 * @param request
 	 */
-	void saveBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request);
+	void saveBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request, String userLoginName);
 
 	/**
 	 * 查询规章制度
@@ -31,7 +31,7 @@ public interface IBylawService {
 	 * @param file
 	 * @param request
 	 */
-	void updateBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request);
+	void updateBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request, String userLoginName);
 
 	/**
 	 * 删除规章制度

@@ -8,6 +8,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -41,8 +42,9 @@ public class BylawServiceImpl implements IBylawService {
 
 	@Transactional
 	@Override
-	public void saveBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request) {
-		Bylaw record = setBylawProperties(bylawModel, file);
+	public void saveBylaw(BylawModel bylawModel, MultipartFile file, 
+			HttpServletRequest request, String userLoginName) {
+		Bylaw record = setBylawProperties(bylawModel, file, request, userLoginName);
 		int flag = bylawMapper.saveBylaw(record);
 		if (flag != 1) {
 			throw new ScException("保存规章制度出错");
@@ -78,11 +80,14 @@ public class BylawServiceImpl implements IBylawService {
 		return dataMap;
 	}
 
+	
 	@Transactional
 	@Override
-	public void updateBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request) {
+	public void updateBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request, String userLoginName) {
 		Bylaw record = new Bylaw();
 		BeanUtils.copyProperties(bylawModel, record);
+		record.setUpdateTime(new Date());
+		record.setUpdateUser(StringUtils.isEmpty(userLoginName) ? "SYS" : userLoginName);
 		if (null != file) {
 			uploadAndSetFileUrl(file, record);
 		}
@@ -91,6 +96,7 @@ public class BylawServiceImpl implements IBylawService {
 			throw new ScException("修改规章制度出错");
 		}
 	}
+	
 
 	@Transactional
 	@Override
@@ -117,7 +123,8 @@ public class BylawServiceImpl implements IBylawService {
 
 	/********************** 以下为私有方法 **********************/
 
-	private Bylaw setBylawProperties(BylawModel bylawModel, MultipartFile file) {
+	private Bylaw setBylawProperties(BylawModel bylawModel, MultipartFile file, 
+			HttpServletRequest request, String userLoginName) {
 		Bylaw record = new Bylaw();
 		BeanUtils.copyProperties(bylawModel, record);
 		// 设置bylawCode
@@ -159,8 +166,8 @@ public class BylawServiceImpl implements IBylawService {
 		record.setId(null);
 		record.setDataState(1);
 		record.setDataVersion(1);
-		record.setCreateUser("SYS");
-		record.setUpdateUser("SYS");
+		record.setCreateUser(StringUtils.isEmpty(userLoginName) ? "SYS" : userLoginName);
+		record.setUpdateUser(record.getCreateUser());
 		record.setCreateTime(new Date());
 		record.setUpdateTime(record.getCreateTime());
 		// 处理File文件

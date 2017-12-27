@@ -46,13 +46,15 @@ public class BylawController {
 	public DataResponse saveBylaw(@Valid BylawModel bylawModel, HttpServletRequest request) {
 		DataResponse dr = null;
 		try {
+			//获取当前登录人
+			String userLoginName = String.valueOf(request.getSession().getAttribute(CommonConstant.USER_LOGIN_NAME));
 			//这里的文件校验工作可以自定义校验器，省事，所以先这么写
 			if (bylawModel.getFile() == null) {
 				dr = new DataResponse(ResponseEnum.RESPONSE_FAIL);
 				dr.put(CommonConstant.FAILED_MSG, "附件文件不能为空！");
 				return dr;
 			}
-			bylawService.saveBylaw(bylawModel, bylawModel.getFile(), request);
+			bylawService.saveBylaw(bylawModel, bylawModel.getFile(), request, userLoginName);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
@@ -101,7 +103,8 @@ public class BylawController {
 				dr.put(CommonConstant.FAILED_MSG, "记录ID不能为空！");
 				return dr;
 			}
-			bylawService.updateBylaw(bylawModel, bylawModel.getFile(), request);
+			String userLoginName = String.valueOf(request.getSession().getAttribute(CommonConstant.USER_LOGIN_NAME));
+			bylawService.updateBylaw(bylawModel, bylawModel.getFile(), request, userLoginName);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
