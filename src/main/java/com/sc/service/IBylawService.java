@@ -53,4 +53,11 @@ public interface IBylawService {
 	 */
 	Bylaw queryById(Integer id);
 
+	/**
+	 * 查询各个类型规章制度的数量
+	 * @return
+	 */
+	Map<String, Object> queryCountGroupBylawCategory();
+
+	
 }
