@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8" />
-<title>规章制度-新增</title>
+<title>责任清单-编辑</title>
 
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -41,26 +41,24 @@
 	</div>
 	<div class="main-container ace-save-state" id="main-container">
 		<script type="text/javascript">
-        try {
-            ace.settings.loadState('main-container')
-        } catch (e) {
-        }
-    </script>
+			try {
+				ace.settings.loadState('main-container')
+			} catch (e) {}
+		</script>
 
 		<div id="sidebar" class="sidebar  responsive  ace-save-state">
 			<script type="text/javascript">
-            try {
-                ace.settings.loadState('sidebar')
-            } catch (e) {
-            }
-        </script>
+				try {
+					ace.settings.loadState('sidebar')
+				} catch (e) {}
+			</script>
 			<ul class="nav nav-list">
 				<li class="center active open"><a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">责任晒板</span>
 				</a>
 					<ul class="submenu">
-						<li class=""><a href="duty.html"> 责任清单 </a></li>
+						<li class="active"><a href="duty.html"> 责任清单 </a></li>
 
-						<li class="active"><a href="bylaws.html"> 规章制度 </a></li>
+						<li class=""><a href="bylaws.html"> 规章制度 </a></li>
 
 						<li class=""><a href="#"> 计划完成情况 </a></li>
 						<li class=""><a href="#"> 绩效考核 </a></li>
@@ -92,10 +90,10 @@
 					<div class="row">
 						<div class="col-sm-12" style="font-size: 13px;padding-left: 20px;">
 							<div class="col-sm-6 pull-left">
-								<span>当前位置</span> > <span>责任晒板</span> > <span>规章制度</span>
+								<span>当前位置</span> > <span>责任晒板</span> > <span>责任清单</span>
 							</div>
 							<div class="col-sm-6 text-right" style="padding-right: 20px;">
-							<button class="btn btn-white radius-4" onclick="window.location.href='bylaws.html';">返回</button>
+								<button class="btn btn-white radius-4" onclick="window.location.href='duty.html';">返回</button>
 							</div>
 						</div>
 					</div>
@@ -106,59 +104,39 @@
 							<div class="row">
 								<div class="space-6"></div>
 								<div class="col-sm-12">
-									<div class="col-sm-offset-4" style="font-size: 18px; font-weight: bold;">院规章制度</div>
+									<div class="col-sm-offset-4" style="font-size: 18px; font-weight: bold;">责任清单-编辑</div>
 									<div class="space-6"></div>
-									<form id="addBylawsForm" class="form-horizontal" role="form" enctype="multipart/form-data" method="post">
+									<form id="editDutyForm" class="form-horizontal" role="form" onsubmit="return false;">
 										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="bylawsCategory">分类</label>
+											<label class="col-sm-3 control-label no-padding-right" for="departmentCode">部门</label>
 											<div class="col-sm-9">
-												<select class="col-xs-10 col-sm-5" id="bylawsCategory" name="bylawsCategory">
-													<option></option>
-													<option value="XZGL">行政管理</option>
-													<option value="TJBZ">条件保障</option>
-													<option value="CWGL">财务管理</option>
+												<select class="col-xs-10 col-sm-5" id="departmentCode" name="departmentCode">
+
 												</select>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="bylawsName">名称</label>
+											<label class="col-sm-3 control-label no-padding-right" for="positionCode">岗位</label>
 											<div class="col-sm-9">
-												<input type="text" id="bylawsName" name="bylawsName" placeholder="输入名称" class="col-xs-10 col-sm-5" />
+												<select class="col-xs-10 col-sm-5" id="positionCode" name="positionCode">
+
+												</select>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="bylawsNo">编号</label>
+											<label class="col-sm-3 control-label no-padding-right" for="userCode">责任人</label>
 											<div class="col-sm-9">
-												<input type="text" id="bylawsNo" name="bylawsNo" placeholder="输入编号" class="col-xs-10 col-sm-5" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="articleNo">发文文号</label>
-											<div class="col-sm-9">
-												<input type="text" id="articleNo" name="articleNo" placeholder="输入发文文号" class="col-xs-10 col-sm-5" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="artTime">发文时间</label>
-											<div class="col-sm-9">
-												<input class="col-xs-10 col-sm-5 date-picker" readonly="readonly" id="artTime" name="artTime" type="text" data-date-format="yyyy-mm-dd" placeholder="输入发文时间" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="artTime">附件上传</label>
-											<div class="col-sm-9">
-												<div class="col-xs-10 col-sm-5">
-													<input id="file-upload" type="file" name="file" />
-												</div>
+												<select class="col-xs-10 col-sm-5" id="userCode" name="userCode">
+
+												</select>
 											</div>
 										</div>
 										<div class="form-group">
 											<div class="col-sm-offset-4">
-												<button class="btn btn-primary radius-4">保存</button>
+												<button id="saveBtn" class="btn btn-primary radius-4">保存</button>
 												<button class="btn btn-primary radius-4">重置</button>
 											</div>
 										</div>
-
 									</form>
 								</div>
 							</div>
@@ -177,11 +155,11 @@
 	</div>
 	<script src="assets/js/jquery-1.11.3.min.js"></script>
 	<script type="text/javascript">
-    if ('ontouchstart' in document.documentElement)
-        document
-            .write("<script src='assets/js/jquery.mobile.custom.min.js'>"
-                + "<" + "/script>");
-</script>
+		if ('ontouchstart' in document.documentElement)
+			document
+				.write("<script src='assets/js/jquery.mobile.custom.min.js'>"
+					+ "<" + "/script>");
+	</script>
 	<script src="assets/js/bootstrap.min.js"></script>
 	<script src="assets/js/jquery.form.js"></script>
 
@@ -190,31 +168,15 @@
 	<script src="assets/js/ace.min.js"></script>
 	<script src="assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="assets/js/ace-elements.min.js"></script>
+	<script src="assets/js/jquery.serializejson.min.js"></script>
 
 	<script type="text/javascript">
-    jQuery(function ($) {
-        $('.date-picker').datepicker({
-            autoclose: true,
-            todayHighlight: true
-        })
-            .next().on(ace.click_event, function () {
-            $(this).prev().focus();
-        })
-        $('#file-upload').ace_file_input({
-            no_file: '未选择文件',
-            btn_choose: '选择文件',
-            btn_change: '重新选择',
-            droppable: false,
-            onchange: null,
-            thumbnail: false //| true | large
-            //whitelist:'gif|png|jpg|jpeg'
-            //blacklist:'exe|php'
-            //onchange:''
-            //
-        });
-    });
-
-</script>
+		jQuery(function($) {
+			$('#departmentCode').on('change', function(e) {
+				renderPosition();
+			});
+		});
+	</script>
 	<script type="text/javascript">
 		$(document).ready(function() {
 			$.ajax({
@@ -230,6 +192,8 @@
 					if (resultCode == '000000' & dataMap != null) {
 						var userLoginName = dataMap.userLoginName;
 						$("#userName").html(userLoginName);
+						renderDept();
+						renderUser();
 					} else {
 						window.location.href = "login.html";
 					}
@@ -241,52 +205,156 @@
 			});
 		});
 		$("#logoutBtn").on('click', function(e) {
-				$.ajax({
-					type : 'POST',
-					url : '/user/logout',
-					data : null,
-					headers : {
-						'Content-Type' : 'application/json'
-					},
-					success : function(data) {
-						var resultCode = data.resultCode;
-						var dataMap = data.dataMap;
-						if (resultCode == '000000') {
-							window.location.href = "login.html";
-						}
-					},
-					dataType : 'json',
-					error : function(data) {
-						alert("获取登录信息异常-" + JSON.stringify(data));
+			$.ajax({
+				type : 'POST',
+				url : '/user/logout',
+				data : null,
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000') {
+						window.location.href = "login.html";
 					}
-				});
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取登录信息异常-" + JSON.stringify(data));
+				}
 			});
+		});
+	
+		function renderDept() {
+			$.ajax({
+				type : 'POST',
+				url : '/department/queryAll',
+				data : null,
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						var ht = "";
+						var depts = dataMap.depts;
+						if (depts && depts.length > 0) {
+							for (i = 0; i < depts.length; i++) {
+								ht = ht + "<option value='" + depts[i].departmentCode + "'>" + depts[i].departmentName + "</option>";
+							}
+							$("#departmentCode").html(ht);
+						}
+						renderPosition();
+					} else {
+						alert("获取部门列表失败！");
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取信息异常-" + JSON.stringify(data));
+				}
+			});
+		}
+	
+		function renderPosition(deptCode) {
+			var da = {};
+			if (!deptCode) {
+				deptCode = $("#departmentCode").val();
+			}
+			da.departmentCode = deptCode;
+			$.ajax({
+				type : 'POST',
+				url : '/position/queryByDeptCode',
+				data : JSON.stringify(da),
+				headers : {
+					"Content-Type" : "application/json"
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					var ht = "";
+					if (resultCode == '000000' & dataMap != null) {
+						var positions = dataMap.positions;
+						if (positions && positions.length > 0) {
+							for (i = 0; i < positions.length; i++) {
+								ht = ht + "<option value='" + positions[i].positionCode + "'>" + positions[i].positionName + "</option>";
+							}
+						}
+						$("#positionCode").html(ht);
+					} else {
+						alert("获取信息异常-" + JSON.stringify(data));
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取信息异常-" + JSON.stringify(data));
+				}
+			});
+		}
+	
+		function renderUser() {
+			$.ajax({
+				type : 'POST',
+				url : '/user/query/list',
+				data : null,
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						var ht = "";
+						var userList = dataMap.userList;
+						if (userList && userList.length > 0) {
+							for (i = 0; i < userList.length; i++) {
+								ht = ht + "<option value='" + userList[i].userCode + "'>" + userList[i].userLoginName + "</option>";
+							}
+							$("#userCode").html(ht);
+						}
+					} else {
+						alert("获取信息异常-" + JSON.stringify(data));
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取信息异常-" + JSON.stringify(data));
+				}
+			});
+		}
 	</script>
 	<script type="text/javascript">
-    //表单提交事件
-    $('#addBylawsForm').submit(function () {
-        $("#addBylawsForm").ajaxSubmit({
-            url: "/bylaw/save",
-            type: "POST",
-            dataType: "JSON",
-            clearForm: true,
-            resetForm: true,
-            timeout: 5000,
-            success: function (respData) {
-                if('000000'===respData.resultCode){
-                    alert("保存成功");
-                }else {
-                    alert("保存失败,稍后重试...");
-                }
-                $('.remove').click();
-            },
-            beforeSubmit: function (formData) {
-                console.log(formData);
-            }
-        });
-        return false;
-    });
-</script>
+	
+		$("#saveBtn").on("click", function() {
+			if (!window.confirm('确认提交？')) {
+				return;
+			}
+			var paramJson = $('#editDutyForm').serializeJSON();
+			$.ajax({
+				type : 'POST',
+				url : '/position/editPosition',
+				data : JSON.stringify(paramJson),
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000') {
+						alert("保存成功");
+					} else {
+						alert("保存失败");
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取信息异常-" + JSON.stringify(data));
+				}
+			});
+		});
+	</script>
 
 
 </body>

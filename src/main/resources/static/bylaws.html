@@ -130,8 +130,9 @@ table.tftable td {
 								<span>当前位置</span> > <span>责任晒板</span> > <span>规章制度</span>
 							</div>
 							<div class="col-sm-6 text-right" style="padding-right: 20px;">
-								<a href="add-bylaws.html"><button
-										class="btn btn-white radius-4">新增</button></a>
+								<button class="btn btn-white radius-4" onclick="hiddenMore()">保存</button>
+								<button class="btn btn-white radius-4" onclick="window.location.href='add-bylaws.html';">新增</button>
+								<button class="btn btn-white radius-4" onclick="showMore()">修改</button>
 							</div>
 						</div>
 					</div>
@@ -303,8 +304,6 @@ table.tftable td {
               var   second=now.getSeconds();  */    
               return   (1900+year)+"年"+month+"月"+date+"日";     
          }     
-         
-                  
 	</script>
 
 </body>
