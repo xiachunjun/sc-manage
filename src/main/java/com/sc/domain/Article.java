@@ -9,6 +9,9 @@ public class Article {
 	/**联系人*/
 	private String articleLinkUser;
 	
+	/**联系人手机号*/
+	private String articleLinkUserPhone;
+	
 	/**签发人*/
 	private String articleSignUser;
 	
@@ -36,6 +39,7 @@ public class Article {
 
     private Date updateTime;
 
+    
 	public Integer getId() {
 		return id;
 	}
@@ -46,6 +50,14 @@ public class Article {
 
 	public String getArticleSignUser() {
 		return articleSignUser;
+	}
+
+	public String getArticleLinkUserPhone() {
+		return articleLinkUserPhone;
+	}
+
+	public void setArticleLinkUserPhone(String articleLinkUserPhone) {
+		this.articleLinkUserPhone = articleLinkUserPhone;
 	}
 
 	public String getSecrecyLevel() {

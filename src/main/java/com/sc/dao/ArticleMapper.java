@@ -15,10 +15,10 @@ public interface ArticleMapper {
 
 	@Insert({
 		"insert into sc_articles(",
-			"article_link_user, article_sign_user, secrecy_level, article_time, article_title, article_content, ",
+			"article_link_user, article_link_user_phone, article_sign_user, secrecy_level, article_time, article_title, article_content, ",
 			"data_state, data_version, create_user, update_user, create_time, update_time) ",
 		"values(",
-			"#{articleLinkUser,jdbcType=VARCHAR}, #{articleSignUser,jdbcType=VARCHAR}, ",
+			"#{articleLinkUser,jdbcType=VARCHAR}, #{articleLinkUserPhone,jdbcType=VARCHAR}, #{articleSignUser,jdbcType=VARCHAR}, ",
 			"#{secrecyLevel,jdbcType=VARCHAR}, #{articleTime,jdbcType=TIMESTAMP}, ",
 			"#{articleTitle,jdbcType=VARCHAR}, #{articleContent,jdbcType=VARCHAR}, ",
 			"#{dataState,jdbcType=INTEGER}, #{dataVersion,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, ",
@@ -29,14 +29,16 @@ public interface ArticleMapper {
 	
 	
 	@Select({
-		"select id, article_link_user, article_sign_user, secrecy_level, ",
+		"select id, article_link_user, article_link_user_phone, article_sign_user, secrecy_level, ",
 		 	"article_time, article_title, article_content, data_state ",
 		"from sc_articles ",
-		"where data_state = 1"	
+		"where data_state = 1 ",
+		"order by article_time desc"
 	})
 	@Results({
 	    @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
 	    @Result(column="article_link_user", property="articleLinkUser", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_link_user_phone", property="articleLinkUserPhone", jdbcType=JdbcType.VARCHAR),
 	    @Result(column="article_sign_user", property="articleSignUser", jdbcType=JdbcType.VARCHAR),
 	    @Result(column="secrecy_level", property="secrecyLevel", jdbcType=JdbcType.VARCHAR),
 	    @Result(column="article_time", property="articleTime", jdbcType=JdbcType.TIMESTAMP),
@@ -47,7 +49,25 @@ public interface ArticleMapper {
 	List<Article> queryArticle();
 	
 	
-	
+	@Select({
+		"select id, article_link_user, article_link_user_phone, article_sign_user, secrecy_level, ",
+		 	"article_time, article_title, article_content, data_state ",
+		"from sc_articles ",
+		"where data_state = 1 and to_days(article_time) = to_days(now()) ",
+		"order by article_time desc"
+	})
+	@Results({
+	    @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+	    @Result(column="article_link_user", property="articleLinkUser", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_link_user_phone", property="articleLinkUserPhone", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_sign_user", property="articleSignUser", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="secrecy_level", property="secrecyLevel", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_time", property="articleTime", jdbcType=JdbcType.TIMESTAMP),
+	    @Result(column="article_title", property="articleTitle", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_content", property="articleContent", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
+	})
+	List<Article> queryNowDayArticle();
 	
 	
 }
