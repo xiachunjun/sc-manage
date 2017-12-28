@@ -191,5 +191,26 @@ public class BylawController {
 	}
 	
 	
+	/**
+	 * 查询各个类型规章制度的数量
+	 * @return
+	 */
+	@RequestMapping(value = "/bylaw/queryCountByCategory", method = { RequestMethod.POST })
+	public DataResponse queryCountGroupBylawCategory() {
+		DataResponse dr = null;
+		try {
+			Map<String, Object> dataMap = bylawService.queryCountGroupBylawCategory();
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+			dr.setDataMap(dataMap);
+		} catch (ScException e) {
+			logger.error(e.getMessage());
+			dr = new DataResponse(e);
+		} catch (Exception e) {
+			logger.error("查询各个类型规章制度的数量异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
 
 }

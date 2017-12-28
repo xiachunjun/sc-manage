@@ -28,6 +28,7 @@ import com.sc.common.util.UuidUtil;
 import com.sc.dao.BylawMapper;
 import com.sc.domain.Bylaw;
 import com.sc.model.request.BylawModel;
+import com.sc.model.response.BylawCountGroupByCategory;
 import com.sc.service.IBylawService;
 
 @Service
@@ -122,6 +123,23 @@ public class BylawServiceImpl implements IBylawService {
 	}
 	
 
+	@Override
+	public Map<String, Object> queryCountGroupBylawCategory() {
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		List<BylawCountGroupByCategory> list = bylawMapper.queryCountGroupBylawCategory();
+		if(!CollectionUtils.isEmpty(list)){
+			for (BylawCountGroupByCategory groupResult : list) {
+				switch(groupResult.getBylawsCategory()){
+					case CommonConstant.XZGL_STR : dataMap.put(CommonConstant.XZGL, groupResult.getCount()); break;
+					case CommonConstant.TJBZ_STR : dataMap.put(CommonConstant.TJBZ, groupResult.getCount()); break;
+					case CommonConstant.CWGL_STR : dataMap.put(CommonConstant.CWGL, groupResult.getCount()); break;
+				}
+			}
+		}
+		return dataMap;
+	}
+	
+	
 	/********************** 以下为私有方法 **********************/
 
 	private Bylaw setBylawProperties(BylawModel bylawModel, MultipartFile file, 

@@ -14,6 +14,7 @@ import org.apache.ibatis.type.JdbcType;
 
 import com.sc.dao.provider.BylawSqlProvider;
 import com.sc.domain.Bylaw;
+import com.sc.model.response.BylawCountGroupByCategory;
 
 public interface BylawMapper {
 
@@ -98,6 +99,14 @@ public interface BylawMapper {
 	    @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
 	})
 	Bylaw queryById(@Param("id")Integer id);
+
+
+	@Select({
+		"select bylaws_category as bylawsCategory, count(1) as count from sc_bylaws ",
+		"where data_state = 1 ",
+		"group by bylaws_category"
+	})
+	List<BylawCountGroupByCategory> queryCountGroupBylawCategory();
 	
 	
 	

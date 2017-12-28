@@ -57,6 +57,19 @@ public interface DutyMapper {
 		"where data_state=1 and duty_type='DEPT' ",
 		"and ref_department_code=#{refDepartmentCode, jdbcType=VARCHAR}"
 	})
+	@Results({
+	    @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+	    @Result(column="duty_code", property="dutyCode", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="ref_department_code", property="refDepartmentCode", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="ref_position_code", property="refPositionCode", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="duty_type", property="dutyType", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="duty_level", property="dutyLevel", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="duty_name", property="dutyName", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="duty_introduce", property="dutyIntroduce", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="parent_code", property="parentCode", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="data_memo", property="dataMemo", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
+	})
 	List<Duty> queryDutyByDeptCode(@Param("refDepartmentCode")String deptCode);
 
 
@@ -65,6 +78,19 @@ public interface DutyMapper {
 		"from sc_duty ",
 		"where data_state=1 and duty_type='POSI' ",
 		"and ref_position_code=#{refPositionCode, jdbcType=VARCHAR}"	
+	})
+	@Results({
+	    @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+	    @Result(column="duty_code", property="dutyCode", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="ref_department_code", property="refDepartmentCode", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="ref_position_code", property="refPositionCode", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="duty_type", property="dutyType", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="duty_level", property="dutyLevel", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="duty_name", property="dutyName", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="duty_introduce", property="dutyIntroduce", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="parent_code", property="parentCode", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="data_memo", property="dataMemo", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
 	})
 	List<Duty> queryDutyByPostCode(@Param("refPositionCode")String postCode);
 
