@@ -110,7 +110,7 @@ public class PositionServiceImpl implements IPositionService {
 		if (null == maxCode) {
 			record.setPositionCode(CommonConstant.FIRST_CODE);
 		} else {
-			record.setPositionCode(ListUtils.addZero2Str(maxCode, 8));
+			record.setPositionCode(ListUtils.addZero2Str(maxCode+1, 8));
 		}
 		return record;
 	}

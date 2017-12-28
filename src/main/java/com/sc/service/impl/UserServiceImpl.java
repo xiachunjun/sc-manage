@@ -83,7 +83,7 @@ public class UserServiceImpl implements IUserService {
 		if(null == maxCode){
 			record.setUserCode(CommonConstant.FIRST_CODE);
 		}else{
-			record.setUserCode(ListUtils.addZero2Str(maxCode, 8));
+			record.setUserCode(ListUtils.addZero2Str(maxCode+1, 8));
 		}
 		//对密码进行PasswordEncoder加密（相同的密码，每次生成的结果都不一样）
 		record.setUserLoginPwd(EncryptUtil.encrypt(userModel.getUserLoginPwd()));

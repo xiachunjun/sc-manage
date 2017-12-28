@@ -151,7 +151,7 @@ public class BylawServiceImpl implements IBylawService {
 		if (null == maxCode) {
 			record.setBylawsCode(CommonConstant.FIRST_CODE);
 		} else {
-			record.setBylawsCode(ListUtils.addZero2Str(maxCode, 8));
+			record.setBylawsCode(ListUtils.addZero2Str(maxCode+1, 8));
 		}
 		record.setArticleTime(DateUtil.str2Date(bylawModel.getArtTime()));
 		record.setId(null);
