@@ -26,6 +26,9 @@ public class CommonConstant {
 	public static final String ALL = "all";   //表示查询所有天数
 	public static final String NOW = "now";   //表示查询当天
 	
+	/**一二级职责*/
+	public static final String ONE = "1";
+	public static final String TWO = "2";
 	
 	
 }
