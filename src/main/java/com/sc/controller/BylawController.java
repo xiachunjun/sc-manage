@@ -195,7 +195,7 @@ public class BylawController {
 	 * 查询各个类型规章制度的数量
 	 * @return
 	 */
-	@RequestMapping(value = "/bylaw/queryCountByCategory", method = { RequestMethod.GET })
+	@RequestMapping(value = "/bylaw/queryCountByCategory", method = { RequestMethod.POST })
 	public DataResponse queryCountGroupBylawCategory() {
 		DataResponse dr = null;
 		try {
