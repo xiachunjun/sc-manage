@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.ScException;
 import com.sc.common.util.EncryptUtil;
+import com.sc.common.util.ListUtils;
 import com.sc.dao.UserMapper;
 import com.sc.domain.User;
 import com.sc.model.request.UserModel;
@@ -82,18 +83,7 @@ public class UserServiceImpl implements IUserService {
 		if(null == maxCode){
 			record.setUserCode(CommonConstant.FIRST_CODE);
 		}else{
-			int length = String.valueOf(maxCode).length();
-			switch(length){
-				case 1 : record.setUserCode("0000000"+(maxCode+1));  break;
-				case 2 : record.setUserCode("000000"+(maxCode+1));  break;
-				case 3 : record.setUserCode("00000"+(maxCode+1));  break;
-				case 4 : record.setUserCode("0000"+(maxCode+1));  break;
-				case 5 : record.setUserCode("000"+(maxCode+1));  break;
-				case 6 : record.setUserCode("00"+(maxCode+1));  break;
-				case 7 : record.setUserCode("0"+(maxCode+1));  break;
-				case 8 : record.setUserCode(""+(maxCode+1));  break;
-				default: throw new ScException("超过最大长度");
-			}
+			record.setUserCode(ListUtils.addZero2Str(maxCode, 8));
 		}
 		//对密码进行PasswordEncoder加密（相同的密码，每次生成的结果都不一样）
 		record.setUserLoginPwd(EncryptUtil.encrypt(userModel.getUserLoginPwd()));
