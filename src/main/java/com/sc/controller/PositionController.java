@@ -148,5 +148,26 @@ public class PositionController {
 		return dr;
 	}
 	
+	/**
+	 * 编辑岗位责任人
+	 * 
+	 * @return
+	 */
+	@RequestMapping(value = "/position/editPosition", method = { RequestMethod.POST })
+	public DataResponse editPosition(@RequestBody PositionModel positionModel) {
+		DataResponse dr = null;
+		try {
+			positionService.editPosition(positionModel);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+		} catch (ScException e) {
+			logger.error(e.getMessage());
+			dr = new DataResponse(e);
+		} catch (Exception e) {
+			logger.error("编辑岗位责任人异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
 	
 }
