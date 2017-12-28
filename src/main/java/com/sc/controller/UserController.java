@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.DataResponse;
-import com.sc.common.constant.ScException;
 import com.sc.common.constant.ResponseEnum;
+import com.sc.common.constant.ScException;
 import com.sc.model.request.UserModel;
 import com.sc.service.IUserService;
 

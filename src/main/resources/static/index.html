@@ -318,27 +318,7 @@ table.tftable td {
 										<div class="space-6"></div>
 										<div class="row">
 											<div class="col-sm-12">
-												<table class="tftable" border="1">
-													<tr>
-														<th>序号</th>
-														<th>规章制度</th>
-														<th>数量</th>
-													</tr>
-													<tr>
-														<td>1</td>
-														<td>行政管理</td>
-														<td>30</td>
-													</tr>
-													<tr>
-														<td>2</td>
-														<td>条件保障</td>
-														<td>20</td>
-													</tr>
-													<tr>
-														<td>3</td>
-														<td>财务管理</td>
-														<td>40</td>
-													</tr>
+												<table id="bylawCategoryGroup" class="tftable" border="1">
 												</table>
 											</div>
 										</div>
@@ -395,6 +375,7 @@ table.tftable td {
 					if (resultCode == '000000' & dataMap != null) {
 						var userLoginName = dataMap.userLoginName;
 						$("#userName").html(userLoginName);
+						queryBylawCategoryCountData();
 					} else {
 						window.location.href = "login.html";
 					}
@@ -427,6 +408,49 @@ table.tftable td {
 					}
 				});
 			});
+		
+		<!--查询各个规章制度数量接口-->
+		function queryBylawCategoryCountData() {
+			$.ajax({
+				type : 'POST',
+				url : '/bylaw/queryCountByCategory',
+				data : null,
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						dataListRender(dataMap);
+					} else {
+						alert("查询各规章制度数量失败！");
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取各规章制度数量异常-" + JSON.stringify(data));
+				}
+			});
+		}
+		
+		function dataListRender(dataMap) {
+			var ht = "<tr><th>序号</th><th>规章制度</th><th>数量</th></tr>";
+			
+			ht = ht + "<tr class='center'><td>" + 1 + "</td>";
+			ht = ht + "<td>行政管理</td>>";
+			ht = ht + "<td>" + dataMap.CWGL + "</td>";
+			
+			ht = ht + "<tr class='center'><td>" + 2 + "</td>";
+			ht = ht + "<td>条件保障</td>>";
+			ht = ht + "<td>" + dataMap.TJBZ + "</td>";
+			
+			ht = ht + "<tr class='center'><td>" + 3 + "</td>";
+			ht = ht + "<td>财务管理</td>>";
+			ht = ht + "<td>" + dataMap.XZGL + "</td>";
+			
+			$("#bylawCategoryGroup").html(ht);
+		}
 	</script>
 	<script type="text/javascript">
 		jQuery(function($) {

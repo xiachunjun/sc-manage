@@ -128,6 +128,9 @@ public class BylawServiceImpl implements IBylawService {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		List<BylawCountGroupByCategory> list = bylawMapper.queryCountGroupBylawCategory();
 		if(!CollectionUtils.isEmpty(list)){
+			dataMap.put(CommonConstant.XZGL, 0);
+			dataMap.put(CommonConstant.TJBZ, 0);
+			dataMap.put(CommonConstant.CWGL, 0);
 			for (BylawCountGroupByCategory groupResult : list) {
 				switch(groupResult.getBylawsCategory()){
 					case CommonConstant.XZGL_STR : dataMap.put(CommonConstant.XZGL, groupResult.getCount()); break;
