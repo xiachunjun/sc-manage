@@ -7,29 +7,34 @@ import java.util.Map;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.ScException;
 import com.sc.common.util.DateUtil;
-import com.sc.model.request.DayMessageModel;
-import com.sc.service.IDayMessageService;
+import com.sc.dao.ArticleMapper;
+import com.sc.model.request.ArticleModel;
+import com.sc.service.IArticleService;
 
 @Service
-public class DayMessageServiceImpl implements IDayMessageService {
+public class ArticleServiceImpl implements IArticleService {
 
-	private static final Logger logger = LoggerFactory.getLogger(DayMessageServiceImpl.class);	
+	private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);	
+	
+	@Autowired
+	private ArticleMapper articleMapper;
 	
 	
 	@Transactional
 	@Override
-	public void saveDayMessage(DayMessageModel dayMessageModel) {
+	public void saveArticle(ArticleModel articleModel) {
 		
 	}
 
 	@Override
-	public Map<String, Object> queryAllDayMessage(String day) {
+	public Map<String, Object> queryAllArticle(String day) {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
 		if(StringUtils.equalsIgnoreCase(day, CommonConstant.ALL)){
 			//查询所有天数

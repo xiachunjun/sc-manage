@@ -2,6 +2,9 @@ package com.sc.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,32 +16,32 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
-import com.sc.model.request.DayMessageModel;
-import com.sc.service.IDayMessageService;
+import com.sc.model.request.ArticleModel;
+import com.sc.service.IArticleService;
 
 /**
  * 每日信息
  * 
  */
 @RestController
-public class DayMessageController {
+public class ArticleController {
 
-	private static final Logger logger = LoggerFactory.getLogger(DayMessageController.class);	
+	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);	
 	
 	@Autowired
-	private IDayMessageService dayMessageService;
+	private IArticleService articleService;
 	
 	
 	/**
 	 * 保存每日信息
-	 * @param dayMessageModel
+	 * @param articleModel
 	 * @return
 	 */
-	@RequestMapping(value = "/dayMessage/save", method = {RequestMethod.POST})
-	public DataResponse saveDayMessage(DayMessageModel dayMessageModel){
+	@RequestMapping(value = "/article/save", method = {RequestMethod.POST})
+	public DataResponse saveArticle(ArticleModel articleModel){
 		DataResponse dr = null;
 		try {
-			dayMessageService.saveDayMessage(dayMessageModel);
+			articleService.saveArticle(articleModel);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
@@ -56,11 +59,11 @@ public class DayMessageController {
 	 * 当参数day为all时，表示查询所有天数信息列表； 当为now时，表示查询当天信息列表
 	 * @return
 	 */
-	@RequestMapping(value = "/dayMessage/query/allday", method = {RequestMethod.POST})
-	public DataResponse queryAllDayMessage(@RequestParam(name="day", required=true, defaultValue="now")String day){
+	@RequestMapping(value = "/article/query/allday", method = {RequestMethod.POST})
+	public DataResponse queryAllArticle(@RequestParam(name="day", required=true, defaultValue="now")String day){
 		DataResponse dr = null;
 		try {
-			Map<String, Object> dataMap = dayMessageService.queryAllDayMessage(day);
+			Map<String, Object> dataMap = articleService.queryAllArticle(day);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.setDataMap(dataMap);
 		} catch (ScException e) {
@@ -71,6 +74,16 @@ public class DayMessageController {
 			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
+	}
+	
+	
+	/**
+	 * 下载文件
+	 */
+	@RequestMapping(value = "/article/download", method = { RequestMethod.POST })
+	public void downloadFile(@RequestParam(name = "id", required = true) Integer id,
+			HttpServletRequest request, HttpServletResponse response) {
+		
 	}
 	
 	
