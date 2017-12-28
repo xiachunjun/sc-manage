@@ -33,7 +33,8 @@ public interface PositionMapper {
 
 	
 	@Select({
-		"select d.department_name as departmentName, ",
+		"select ",
+		    "d.department_name as departmentName, p.ref_department_code as refDepartmentCode, ",
 			"p.id, p.position_code as positionCode, p.position_name as positionName, ",
 			"u.user_login_name as userLoginName",
 		"from sc_positions p ",

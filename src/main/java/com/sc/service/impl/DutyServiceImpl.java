@@ -29,9 +29,8 @@ public class DutyServiceImpl implements IDutyService {
 		List<Map<String, Object>> allList = new ArrayList<Map<String, Object>>();
 		List<Duty> deptDutyList = dutyMapper.queryDutyByDeptCode(deptCode);
 		if(!CollectionUtils.isEmpty(deptDutyList)){
-			List<String> twoList = new ArrayList<String>();
 			for (Duty duty : deptDutyList) {
-				Map<String, Object> map = putLev2ToLev1(deptDutyList, twoList, duty);
+				Map<String, Object> map = putLev2ToLev1(deptDutyList, duty);
 				if(map != null){
 					allList.add(map);
 				}
@@ -46,9 +45,8 @@ public class DutyServiceImpl implements IDutyService {
 		List<Map<String, Object>> allList = new ArrayList<Map<String, Object>>();
 		List<Duty> posiDutyList = dutyMapper.queryDutyByPostCode(postCode);
 		if(!CollectionUtils.isEmpty(posiDutyList)){
-			List<String> twoList = new ArrayList<String>();
 			for (Duty duty : posiDutyList) {
-				Map<String, Object> map = putLev2ToLev1(posiDutyList, twoList, duty);
+				Map<String, Object> map = putLev2ToLev1(posiDutyList, duty);
 				if(map != null){
 					allList.add(map);
 				}
@@ -60,10 +58,11 @@ public class DutyServiceImpl implements IDutyService {
 	
 	/********************以下为私有方法*********************/
 	
-	private Map<String, Object> putLev2ToLev1(List<Duty> deptDutyList, List<String> twoList, Duty duty) {
+	private Map<String, Object> putLev2ToLev1(List<Duty> deptDutyList, Duty duty) {
 		if(StringUtils.equals(CommonConstant.ONE, duty.getDutyLevel())){
 			Map<String, Object> dataMap2 = new HashMap<String, Object>();
-			dataMap2.put(CommonConstant.ONE, duty.getDutyIntroduce());
+			List<String> twoList = new ArrayList<String>();
+			dataMap2.put(CommonConstant.ONE_STR, duty.getDutyIntroduce());
 			for (Duty duty2 : deptDutyList) {
 				if(StringUtils.equals(duty2.getParentCode(), duty.getDutyCode())){
 					if(StringUtils.equals(CommonConstant.TWO, duty2.getDutyLevel())){
@@ -71,7 +70,7 @@ public class DutyServiceImpl implements IDutyService {
 					}
 				}
 			}
-			dataMap2.put(CommonConstant.TWO, twoList);
+			dataMap2.put(CommonConstant.TWO_STR, twoList);
 			return dataMap2;
 		}
 		return null;

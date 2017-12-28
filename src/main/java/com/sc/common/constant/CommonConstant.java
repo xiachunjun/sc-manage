@@ -30,5 +30,7 @@ public class CommonConstant {
 	public static final String ONE = "1";
 	public static final String TWO = "2";
 	
+	public static final String ONE_STR = "one";
+	public static final String TWO_STR = "two";
 	
 }

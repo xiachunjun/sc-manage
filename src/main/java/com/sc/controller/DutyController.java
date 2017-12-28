@@ -49,10 +49,10 @@ public class DutyController {
 	 * 根据岗位code, 查询一二级职责
 	 */
 	@RequestMapping(value = "/duty/queryByPostCode", method = {RequestMethod.POST})
-	public DataResponse queryDutyByPostCode(@RequestParam(name="postCode", required=true)String postCode){
+	public DataResponse queryDutyByPostCode(@RequestParam(name="posiCode", required=true)String posiCode){
 		DataResponse dr = null;
 		try {
-			List<Map<String, Object>> dataMap = dutyService.queryDutyByPostCode(postCode);
+			List<Map<String, Object>> dataMap = dutyService.queryDutyByPostCode(posiCode);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.put("posiDutyList", dataMap);
 		} catch (ScException e) {

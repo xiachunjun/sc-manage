@@ -285,8 +285,8 @@ table.tftable td {
 				for (var i = 0; i < dataList.length; i++) {
 					var posi = dataList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td>" + posi.departmentName + "</td>>";
-					ht = ht + "<td>" + posi.positionName + "</td>";
+					ht = ht + "<td><a href='dept-duty-list.html?deptCode="+posi.refDepartmentCode+"&deptName="+posi.departmentName+"' style='text-decoration:none;'>" + posi.departmentName + "</a></td>";
+					ht = ht + "<td><a href='posi-duty-list.html?posiCode="+posi.positionCode+"&posiName="+posi.positionName+"' style='text-decoration:none;'>" + posi.positionName + "</a></td>";
 					ht = ht + "<td>" + posi.userLoginName + "</td>";
 				}
 			}else{
@@ -294,7 +294,6 @@ table.tftable td {
 			}
 			$("#tfhover").html(ht);
 		}
-	
 	
 	
 		function renderDept() {

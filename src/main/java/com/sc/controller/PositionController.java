@@ -55,7 +55,7 @@ public class PositionController {
 	}
 	
 	/**
-	 * 查询所有部门
+	 * 根据部门编号，查询岗位列表
 	 * 
 	 * @param positionModel
 	 * @return
