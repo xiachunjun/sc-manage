@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
@@ -68,6 +69,36 @@ public interface ArticleMapper {
 	    @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
 	})
 	List<Article> queryNowDayArticle();
+
+
+	@Select({
+		"select date_format(article_time,'%Y-%m-%d')",
+		"from sc_articles ",
+		"where data_state = 1 ",
+		"group by date_format(article_time,'%Y-%m-%d') ",
+		"order by article_time desc"
+	})
+	List<String> queryGroupByArticleTime();
+
+	
+	@Select({
+		"select article_content from sc_articles ",
+		"where data_state = 1 ",
+		"and date_format(article_time,'%Y-%m-%d')=#{queryTime,jdbcType=VARCHAR}"
+	})
+	List<String> queryArticleContentsByArticleTime(@Param("queryTime")String queryTime);
+
+
+	@Select({
+		"select article_content from sc_articles ",
+		"where data_state = 1 ",
+		"and id=#{id,jdbcType=INTEGER}"
+	})
+	List<String> queryArticleContentById(Integer id);
+	
+	
+	
+	
 	
 	
 }

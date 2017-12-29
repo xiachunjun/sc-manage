@@ -1,5 +1,6 @@
 package com.sc.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.sc.model.request.ArticleModel;
@@ -18,6 +19,14 @@ public interface IArticleService {
 	 * @return
 	 */
 	Map<String, Object> queryAllArticle(String day);
+
+	/**
+	 * 查询内容详情
+	 * @param id
+	 * @param queryTime
+	 * @return
+	 */
+	List<String> queryArticleContent(Integer id, String queryTime);
 
 	
 }

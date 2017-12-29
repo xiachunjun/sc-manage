@@ -13,3 +13,4 @@ out/
 .tern-project
 .idea
 *.log
+*.log.*

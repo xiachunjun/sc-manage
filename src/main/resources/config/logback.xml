@@ -38,5 +38,6 @@
 	<logger name="com.ibatis" level="debug" />
 	<root level="debug">
 		<appender-ref ref="baselog" />
+		<appender-ref ref="STDOUT" />
 	</root>
 </configuration>  
