@@ -134,9 +134,9 @@ public class BylawServiceImpl implements IBylawService {
 		if(!CollectionUtils.isEmpty(list)){
 			for (BylawCountGroupByCategory groupResult : list) {
 				switch(groupResult.getBylawsCategory()){
-					case CommonConstant.XZGL_STR : dataMap.put(CommonConstant.XZGL, groupResult.getCount()); break;
-					case CommonConstant.TJBZ_STR : dataMap.put(CommonConstant.TJBZ, groupResult.getCount()); break;
-					case CommonConstant.CWGL_STR : dataMap.put(CommonConstant.CWGL, groupResult.getCount()); break;
+					case CommonConstant.XZGL : dataMap.put(CommonConstant.XZGL, groupResult.getCount()); break;
+					case CommonConstant.TJBZ : dataMap.put(CommonConstant.TJBZ, groupResult.getCount()); break;
+					case CommonConstant.CWGL : dataMap.put(CommonConstant.CWGL, groupResult.getCount()); break;
 				}
 			}
 		}
