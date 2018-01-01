@@ -13256,9 +13256,22 @@ li.item-orange2 {
     border-left-color: #F79263
 }
 
+.padding-right-1{
+	padding-right: 30px;
+}
+
+.a-decoration-none > a:HOVER{
+	text-decoration: none;
+}
+
 li.item-red {
     border-left-color: #D53F40
 }
+
+li.item-red.bd-left-color{
+    border-left-color: #DDD
+}
+
 
 li.item-red2 {
     border-left-color: #D15B47

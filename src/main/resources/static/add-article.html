@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta charset="utf-8" />
+<title>每日信息-新增</title>
+
+<meta name="description" content="overview &amp; stats" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+<!-- bootstrap & fontawesome -->
+<link rel="stylesheet" href="assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="assets/css/sc.css" />
+<link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+
+<link rel="stylesheet" href="assets/css/bootstrap-datepicker3.min.css" />
+
+<!-- ace styles -->
+<link rel="stylesheet" href="assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+
+<!-- ace settings handler -->
+<script src="assets/js/ace-extra.min.js"></script>
+
+</head>
+<body class="no-skin">
+	<div id="navbar" class="navbar navbar-default ace-save-state">
+		<div class="navbar-container ace-save-state" id="navbar-container">
+			<div class="navbar-header pull-left">
+				<a href="index.html" class="navbar-brand"> <small> CSSC MARIC 中国船舶及海洋工程设计研究院“晒态势、促提升”信息系统</small>
+				</a>
+			</div>
+			<div class="navbar-buttons navbar-header pull-right" role="navigation">
+				<ul class="nav ace-nav">
+					<li><span class="cursor-pointer"><img class="nav-user-photo" src="assets/images/u57.png" /> <span class="user-info" id="userName"></span></span> <span class="cursor-pointer"><img class="nav-user-photo" src="assets/images/u59.png" /></span><span id="logoutBtn" class="cursor-pointer"><img
+							class="nav-user-photo" src="assets/images/u61.png" /></span></li>
+				</ul>
+			</div>
+		</div>
+	</div>
+	<div class="main-container ace-save-state" id="main-container">
+		<script type="text/javascript">
+        try {
+            ace.settings.loadState('main-container')
+        } catch (e) {
+        }
+    </script>
+
+		<div id="sidebar" class="sidebar  responsive  ace-save-state">
+			<script type="text/javascript">
+            try {
+                ace.settings.loadState('sidebar')
+            } catch (e) {
+            }
+        </script>
+			<ul class="nav nav-list">
+				<li class="center active open"><a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">责任晒板</span>
+				</a>
+					<ul class="submenu">
+						<li class=""><a href="duty.html"> 责任清单 </a></li>
+
+						<li class="active"><a href="bylaws.html"> 规章制度 </a></li>
+
+						<li class=""><a href="#"> 计划完成情况 </a></li>
+						<li class=""><a href="#"> 绩效考核 </a></li>
+					</ul></li>
+				<li class="center"><a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">任务晒板</span>
+				</a>
+					<ul class="submenu">
+						<li class=""><a href="#"> 任务新建 </a></li>
+
+						<li class=""><a href="#"> 任务执行 </a></li>
+
+						<li class=""><a href="#"> 任务归档 </a></li>
+						<li class=""><a href="#"> 任务统计 </a></li>
+					</ul></li>
+				<li class="center"><a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">数据晒板</span>
+				</a>
+					<ul class="submenu">
+						<li class=""><a href="#"> 总体经营数据 </a></li>
+
+						<li class=""><a href="#"> 部门监管数据 </a></li>
+						<li class=""><a href="#"> 数据填报 </a></li>
+					</ul></li>
+			</ul>
+		</div>
+
+		<div class="main-content">
+			<div class="main-content-inner">
+				<div class="breadcrumbs ace-save-state">
+					<div class="row">
+						<div class="col-sm-12" style="font-size: 13px;padding-left: 20px;">
+							<div class="col-sm-6 pull-left">
+								<span>当前位置</span> > <span>责任晒板</span> > <span>规章制度</span>
+							</div>
+							<div class="col-sm-6 text-right" style="padding-right: 20px;">
+							<button class="btn btn-white radius-4" onclick="window.location.href='index.html'">返回</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="page-content">
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="row">
+								<div class="space-6"></div>
+								<div class="col-sm-12">
+									<div class="col-sm-offset-4" style="font-size: 18px; font-weight: bold;">院规章制度</div>
+									<div class="space-6"></div>
+									<form id="addBylawsForm" class="form-horizontal" role="form" enctype="multipart/form-data" method="post">
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="bylawsCategory">分类</label>
+											<div class="col-sm-9">
+												<select class="col-xs-10 col-sm-5" id="bylawsCategory" name="bylawsCategory">
+													<option></option>
+													<option value="XZGL">行政管理</option>
+													<option value="TJBZ">条件保障</option>
+													<option value="CWGL">财务管理</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="bylawsName">名称</label>
+											<div class="col-sm-9">
+												<input type="text" id="bylawsName" name="bylawsName" placeholder="输入名称" class="col-xs-10 col-sm-5" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="bylawsNo">编号</label>
+											<div class="col-sm-9">
+												<input type="text" id="bylawsNo" name="bylawsNo" placeholder="输入编号" class="col-xs-10 col-sm-5" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="articleNo">发文文号</label>
+											<div class="col-sm-9">
+												<input type="text" id="articleNo" name="articleNo" placeholder="输入发文文号" class="col-xs-10 col-sm-5" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="artTime">发文时间</label>
+											<div class="col-sm-9">
+												<input class="col-xs-10 col-sm-5 date-picker" readonly="readonly" id="artTime" name="artTime" type="text" data-date-format="yyyy-mm-dd" placeholder="输入发文时间" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="artTime">附件上传</label>
+											<div class="col-sm-9">
+												<div class="col-xs-10 col-sm-5">
+													<input id="file-upload" type="file" name="file" />
+												</div>
+											</div>
+										</div>
+										<div class="form-group">
+											<div class="col-sm-offset-4">
+												<button class="btn btn-primary radius-4">保存</button>
+												<button class="btn btn-primary radius-4">重置</button>
+											</div>
+										</div>
+
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="footer">
+			<div class="footer-inner">
+				<div class="footer-content">
+					<span class="white">版权所有：北京中船信息科技有限公司</span>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="assets/js/jquery-1.11.3.min.js"></script>
+	<script type="text/javascript">
+    if ('ontouchstart' in document.documentElement)
+        document
+            .write("<script src='assets/js/jquery.mobile.custom.min.js'>"
+                + "<" + "/script>");
+</script>
+	<script src="assets/js/bootstrap.min.js"></script>
+	<script src="assets/js/jquery.form.js"></script>
+
+
+	<!-- ace scripts -->
+	<script src="assets/js/ace.min.js"></script>
+	<script src="assets/js/bootstrap-datepicker.min.js"></script>
+	<script src="assets/js/ace-elements.min.js"></script>
+
+	<script type="text/javascript">
+    jQuery(function ($) {
+        $('.date-picker').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        })
+            .next().on(ace.click_event, function () {
+            $(this).prev().focus();
+        })
+        $('#file-upload').ace_file_input({
+            no_file: '未选择文件',
+            btn_choose: '选择文件',
+            btn_change: '重新选择',
+            droppable: false,
+            onchange: null,
+            thumbnail: false //| true | large
+            //whitelist:'gif|png|jpg|jpeg'
+            //blacklist:'exe|php'
+            //onchange:''
+            //
+        });
+    });
+
+</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.ajax({
+				type : 'POST',
+				url : '/user/currentUser',
+				data : null,
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						var userLoginName = dataMap.userLoginName;
+						$("#userName").html(userLoginName);
+					} else {
+						window.location.href = "login.html";
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取登录信息异常-" + JSON.stringify(data));
+				}
+			});
+		});
+		$("#logoutBtn").on('click', function(e) {
+				$.ajax({
+					type : 'POST',
+					url : '/user/logout',
+					data : null,
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					success : function(data) {
+						var resultCode = data.resultCode;
+						var dataMap = data.dataMap;
+						if (resultCode == '000000') {
+							window.location.href = "login.html";
+						}
+					},
+					dataType : 'json',
+					error : function(data) {
+						alert("获取登录信息异常-" + JSON.stringify(data));
+					}
+				});
+			});
+	</script>
+	<script type="text/javascript">
+    //表单提交事件
+    $('#addBylawsForm').submit(function () {
+        $("#addBylawsForm").ajaxSubmit({
+            url: "/bylaw/save",
+            type: "POST",
+            dataType: "JSON",
+            clearForm: true,
+            resetForm: true,
+            timeout: 5000,
+            success: function (respData) {
+                if('000000'===respData.resultCode){
+                    alert("保存成功");
+                }else {
+                    alert("保存失败,稍后重试...");
+                }
+                $('.remove').click();
+            },
+            beforeSubmit: function (formData) {
+                console.log(formData);
+            }
+        });
+        return false;
+    });
+</script>
+
+
+</body>
+</html>
