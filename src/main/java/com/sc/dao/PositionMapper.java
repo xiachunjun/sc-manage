@@ -40,7 +40,7 @@ public interface PositionMapper {
 		"from sc_positions p ",
 		"left join sc_users u on p.ref_user_code=u.user_code ",
 		"left join sc_departments d on p.ref_department_code=d.department_code ",
-		"where ${condition}"
+		"where ${condition} order by id "
 	})
 	List<Position> queryDutyByCondition(@Param("condition")String condition);
 

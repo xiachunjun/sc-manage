@@ -131,7 +131,7 @@ table.tftable td {
 							</div>
 							<div class="col-sm-6 text-right" style="padding-right: 20px;">
 								<button class="btn btn-white radius-4" onclick="">编辑</button>
-								<button class="btn btn-white radius-4" onclick="">返回</button>
+								<button class="btn btn-white radius-4" onclick="window.location.href='duty.html'">返回</button>
 							</div>
 						</div>
 					</div>
@@ -266,11 +266,24 @@ table.tftable td {
 			var posiDutyList = dataMap.posiDutyList;
 			if (posiDutyList && posiDutyList.length > 0) {
 				var indexNo = 1;
+				
 				for (var i = 0; i < posiDutyList.length; i++) {
-					var posiDuty = posiDutyList[i];
+					var posiDutyLevel1 = posiDutyList[i];
+					var posiDutyLevel2=posiDutyLevel1.two;
+					if(posiDutyLevel2 && posiDutyLevel2.length > 0){
+					posiDutyLevel2.forEach(function(value,index,posiDutyLevel2){
+    						ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
+    						if(0===index){
+    							ht = ht + "<td rowspan='"+posiDutyLevel2.length+"'>" + posiDutyLevel1.one + "</td>";
+    						}
+    						ht = ht + "<td>"+value+"</td>";
+  					});
+					
+					}else{
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td>" + posiDuty.one + "</td>";
-					ht = ht + "<td>" + posiDuty.two + "</td>";
+					ht = ht + "<td>" + posiDutyLevel1.one + "</td>";
+					ht = ht + "<td>&nbsp;</td>";
+					}
 				}
 			}
 			$("#tfhover").html(ht);
