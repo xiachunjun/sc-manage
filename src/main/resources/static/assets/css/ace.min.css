@@ -13260,7 +13260,7 @@ li.item-orange2 {
 	padding-right: 30px;
 }
 
-.a-decoration-none > a:HOVER{
+a:HOVER{
 	text-decoration: none;
 }
 
