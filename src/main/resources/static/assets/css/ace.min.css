@@ -7037,6 +7037,9 @@ button.btn:active {
     border-radius: 4px
 }
 
+.radius-2 {
+    border-radius: 2px
+}
 .badge.radius-4 {
     border-radius: 4px
 }
