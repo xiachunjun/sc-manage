@@ -253,11 +253,11 @@ table.tftable td {
 				for (var i = 0; i < tjbzList.length; i++) {
 					var tjbz = tjbzList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='/bylaw/download?bylawsId="+xzgl.id+"'>" + tjbz.bylawsName + "</a></td>";
+					ht = ht + "<td><a href='/bylaw/download?bylawsId="+tjbz.id+"'>" + tjbz.bylawsName + "</a></td>";
 					ht = ht + "<td>" + tjbz.bylawsNo + "</td>";
 					ht = ht + "<td>" + tjbz.articleNo + "</td>";
 					ht = ht + "<td>" + formatDate(tjbz.articleTime) + "</td>";
-					ht = ht + "<td itemid='"+xzgl.id+"'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
+					ht = ht + "<td itemid='"+tjbz.id+"'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
 				}
 			}
 			if (cwglList && cwglList.length > 0) {
@@ -266,11 +266,11 @@ table.tftable td {
 				for (var i = 0; i < cwglList.length; i++) {
 					var cwgl = cwglList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='/bylaw/download?bylawsId="+xzgl.id+"'>" + cwgl.bylawsName + "</a></td>>";
+					ht = ht + "<td><a href='/bylaw/download?bylawsId="+cwgl.id+"'>" + cwgl.bylawsName + "</a></td>>";
 					ht = ht + "<td>" + cwgl.bylawsNo + "</td>";
 					ht = ht + "<td>" + cwgl.articleNo + "</td>";
 					ht = ht + "<td>" + formatDate(cwgl.articleTime) + "</td>";
-					ht = ht + "<td itemid='"+xzgl.id+"'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
+					ht = ht + "<td itemid='"+cwgl.id+"'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
 				}
 			}
 			$("#tfhover").html(ht);

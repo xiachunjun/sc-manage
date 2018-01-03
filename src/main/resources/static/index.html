@@ -383,6 +383,7 @@ table.tftable td {
 				dataType : 'json',
 				error : function(data) {
 					alert("获取登录信息异常-" + JSON.stringify(data));
+					window.location.href = "login.html";
 				}
 			});
 		});
