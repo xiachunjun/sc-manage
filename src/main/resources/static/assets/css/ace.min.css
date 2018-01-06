@@ -16514,8 +16514,9 @@ div.dataTables_processing {
 }
 
 .wysiwyg-editor {
-    max-height: 250px;
-    height: 250px;
+    max-height: 450px;
+    height: 450px;
+    width:100%;
     background-color: #F7F8FA;
     border-collapse: separate;
     border: 1px solid #BBC0CA;
@@ -16723,7 +16724,7 @@ div.dataTables_processing {
 }
 
 .widget-body .wysiwyg-editor {
-    border-width: 0
+    /* border-width: 0 */
 }
 
 .wysiwyg-speech-input {

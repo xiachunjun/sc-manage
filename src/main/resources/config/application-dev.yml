@@ -1,12 +1,30 @@
 spring:
   datasource:
     name: scDataSource
-    url: jdbc:mysql://127.0.0.1:3306/sc_manage?scharacterEncoding=utf8&useSSL=false
+    url: jdbc:mysql://127.0.0.1:3306/sc_manage?characterEncoding=utf8&useSSL=false
     username: root
-    password: root1234
+    password: 123456
     type: org.apache.tomcat.jdbc.pool.DataSource
     driver-class-name: com.mysql.jdbc.Driver
-    
+  freemarker:
+      templateLoaderPath: classpath:/templates/
+      suffix: .html
+      cache: false
+      charset: UTF-8
+      check-template-location: true
+      content-type: text/html
+      expose-request-attributes: true
+      expose-session-attributes: true
+      settings:
+        localizedLookup: false
+        datetime_format: yyyy-MM-dd HH:mm:ss
+        date_format: yyyy-MM-dd
+        number_format: #.##
+  redis:
+    host: 127.0.0.1
+    port: 6379
+
+ 
 logging:
   config: classpath:config/logback.xml
   
@@ -16,7 +34,4 @@ server:
 system:
    enableSwagger: true    #是否启用swagger  
    file:
-     path: C:/tmp/
-   
-   
-  
+     path: /Users/xcj/git/sc-manage/tmp/

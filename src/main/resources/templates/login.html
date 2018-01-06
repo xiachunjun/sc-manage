@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta charset="utf-8" />
+<title>登录</title>
+
+<meta name="description" content="User login page" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+<!-- bootstrap & fontawesome -->
+<link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+<!-- text fonts -->
+<link rel="stylesheet" href="../static/assets/css/fonts.googleapis.com.css" />
+
+<!-- ace styles -->
+<link rel="stylesheet" href="../static/assets/css/ace.min.css" />
+
+<link rel="stylesheet" href="../static/assets/css/ace-rtl.min.css" />
+
+</head>
+
+<body class="login-layout">
+	<div style="position:absolute; left:0; top:0; width:100%; height:100%">
+		<img src="../static/assets/images/u953.jpg" width="100%" height="100%"/>
+	</div>
+	<div class="main-container">
+		<div class="main-content">
+			<div class="row">
+				<div class="col-sm-10 col-sm-offset-1">
+					<div class="login-container">
+						<div class="center">
+							<h1>
+								<span class="white" id="id-text2">“晒态势、促提升”信息系统</span>
+							</h1>
+							<h4 class="blue" id="id-company-text">&copy; 中国船舶及海洋工程设计研究院</h4>
+						</div>
+
+						<div class="space-6"></div>
+
+						<div class="position-relative">
+							<div id="login-box" class="login-box visible widget-box no-border">
+								<div class="widget-body">
+									<div class="widget-main">
+										<h4 class="header blue lighter bigger">
+											<i class="ace-icon fa fa-coffee green"></i> 系统登录
+										</h4>
+										<div class="space-6"></div>
+										<form id="loginForm">
+											<fieldset>
+												<label class="block clearfix"> <span class="block input-icon input-icon-right"> <input id="userLoginName" type="text" name="userLoginName" class="form-control" placeholder="用户名" /> <i class="ace-icon fa fa-user"></i>
+												</span>
+												</label> <label class="block clearfix"> <span class="block input-icon input-icon-right"> <input id="userLoginPwd" type="password" name="userLoginPwd" class="form-control" placeholder="密码" /> <i class="ace-icon fa fa-lock"></i>
+												</span>
+												</label>
+												<div class="space"></div>
+												<div class="clearfix">
+													<!-- <label class="inline"> <input type="checkbox" class="ace" /> <span class="lbl">记住我</span>
+													</label> -->
+													<button type="button" class="width-35 pull-right btn btn-sm btn-primary">
+														<i class="ace-icon fa fa-key"></i> <span id="loginBtn" class="bigger-110">登录</span>
+													</button>
+												</div>
+											</fieldset>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script src="../static/assets/js/jquery-1.11.3.min.js"></script>
+	<script src="../static/assets/js/jquery.form.js"></script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.ajax({
+				type : 'POST',
+				url : '/user/currentUser',
+				data : null,
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						var userLoginName = dataMap.userLoginName;
+						window.location.href = "index.html";
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取登录信息异常-" + JSON.stringify(data));
+				}
+			});
+		});
+	
+		$(document).keyup(function(e) {
+			if (e.keyCode == 13) {
+				var userLoginName = $("#userLoginName").val();
+				var userLoginPwd = $("#userLoginPwd").val();
+				if (userLoginName.length > 0 && userLoginPwd.length > 0) {
+					$('#loginBtn').click();
+				}
+			}
+		});
+	</script>
+
+	<script type="text/javascript">
+		if ('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
+	</script>
+	<script type="text/javascript">
+		jQuery(function($) {
+			$('#loginBtn').on('click', function() {
+				$("#loginForm").ajaxSubmit({
+					url : "/user/login",
+					type : "POST",
+					dataType : "JSON",
+					clearForm : true,
+					resetForm : true,
+					timeout : 5000,
+					success : function(respData) {
+						if ('000000' === respData.resultCode) {
+							window.location.href = "index.html";
+						} else {
+							alert("登录失败,请稍后重试...");
+						}
+					},
+					beforeSubmit : function(formData) {
+						console.log(formData);
+					}
+				});
+			});
+		});
+	</script>
+</body>
+</html>
