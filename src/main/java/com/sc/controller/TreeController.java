@@ -13,27 +13,53 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
-import com.sc.service.IMenuService;
+import com.sc.service.ITreeService;
 
-
+/**
+ * 菜单栏相关功能
+ *
+ */
 @RestController
-public class MenuController {
+public class TreeController {
 
-	private static final Logger logger = LoggerFactory.getLogger(MenuController.class);
+	private static final Logger logger = LoggerFactory.getLogger(TreeController.class);
 	
 	@Autowired
-	private IMenuService menuService;
+	private ITreeService treeService;
 	
 	
 	/**
-	 * 查询父菜单列表
+	 * 点击事件加载树节点
+	 * @param pid
 	 * @return
 	 */
-	@RequestMapping(value = "/menu/query/parentList", method = RequestMethod.POST)
-	public DataResponse queryParentMenutList(){
+	@RequestMapping(value = "/tree/show/node/byPid", method = RequestMethod.POST)
+	public DataResponse queryShowTreeNodeByPid(@RequestParam(value="pid", required=true)Integer pid){
 		DataResponse dr = null;
 		try {
-			Map<String, Object> dataMap = menuService.queryParentMenutList();
+			Map<String, Object> dataMap = treeService.queryShowTreeNodeByPid(pid);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+			dr.setDataMap(dataMap);
+		} catch (ScException e) {
+			logger.error(e.getMessage());
+			dr = new DataResponse(e);
+		} catch (Exception e) {
+			logger.error("根据pid, 查询子菜单列表异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
+	
+	/**
+	 * 一次性加载树节点， 不采取
+	 * @return
+	 */
+	@RequestMapping(value = "/tree/query/all", method = RequestMethod.POST)
+	public DataResponse queryAllTree(){
+		DataResponse dr = null;
+		try {
+			Map<String, Object> dataMap = treeService.queryAllTree();
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.setDataMap(dataMap);
 		} catch (ScException e) {
@@ -47,28 +73,7 @@ public class MenuController {
 	}
 	
 	
-	/**
-	 * 根据parentMenuCode, 查询子菜单列表
-	 * @param parentMenuCode
-	 * @return
-	 */
-	@RequestMapping(value = "/menu/query/List/byParentMenuCode", method = RequestMethod.POST)
-	public DataResponse queryMenutListByParentMenuCode(
-			@RequestParam(value="parentMenuCode", required=true)String parentMenuCode){
-		DataResponse dr = null;
-		try {
-			Map<String, Object> dataMap = menuService.queryMenutListByParentMenuCode(parentMenuCode);
-			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-			dr.setDataMap(dataMap);
-		} catch (ScException e) {
-			logger.error(e.getMessage());
-			dr = new DataResponse(e);
-		} catch (Exception e) {
-			logger.error("根据code, 查询子菜单列表异常", e);
-			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
-		}
-		return dr;
-	}
+	
 	
 	
 	

@@ -34,23 +34,21 @@ public class ArticleController {
 	@Autowired
 	private IArticleService articleService;
 	
-	
 	/**
-	 * 保存每日信息
-	 * @param articleModel
-	 * @return
+	 * 编制信息  （院办公室人员发起，开放给院办公室）
 	 */
 	@RequestMapping(value = "/article/save", method = {RequestMethod.POST})
-	public DataResponse saveArticle(ArticleModel articleModel){
+	public DataResponse saveArticle(ArticleModel articleModel, HttpServletRequest request){
 		DataResponse dr = null;
 		try {
+			articleModel.setUserLoginName(String.valueOf(request.getSession().getAttribute(CommonConstant.USER_LOGIN_NAME)));
 			articleService.saveArticle(articleModel);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);
 		} catch (Exception e) {
-			logger.error("保存每日信息异常", e);
+			logger.error("保存编制信息异常", e);
 			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
@@ -58,9 +56,63 @@ public class ArticleController {
 	
 	
 	/**
+	 * 查询待审批信息 （院办公室可见，审批流上的领导可见，未审批完成的信息显示在这里）
+	 */
+	@RequestMapping(value = "/article/query/notAudit", method = {RequestMethod.POST})
+	public DataResponse queryNotAuditArticle(HttpServletRequest request){
+		DataResponse dr = null;
+		try {
+			String userLoginName = String.valueOf(request.getSession().getAttribute(CommonConstant.USER_LOGIN_NAME));
+			Map<String, Object> dataMap = articleService.queryNotAuditArticle(userLoginName);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+			dr.setDataMap(dataMap);
+		} catch (ScException e) {
+			logger.error(e.getMessage());
+			dr = new DataResponse(e);
+		} catch (Exception e) {
+			logger.error("查询待审批信息异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
+	
+	/**
+	 * 签发
+	 */
+	@RequestMapping(value = "/article/audit", method = {RequestMethod.POST})
+	public DataResponse auditArticle(@RequestParam(value="id", required=true)Integer id, 
+			HttpServletRequest request){
+		DataResponse dr = null;
+		try {
+			String userLoginName = String.valueOf(request.getSession().getAttribute(CommonConstant.USER_LOGIN_NAME));
+			articleService.auditArticle(id, userLoginName);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+		} catch (ScException e) {
+			logger.error(e.getMessage());
+			dr = new DataResponse(e);
+		} catch (Exception e) {
+			logger.error("签发信息异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
+	
+	/**
+	 * 下载
+	 */
+	@RequestMapping(value = "/article/download", method = { RequestMethod.POST })
+	public void downloadFile(@RequestParam(name = "id", required = true) Integer id,
+			HttpServletRequest request, HttpServletResponse response) {
+		//把信息内容下载到文件中
+		
+	}
+	
+	
+	/**
 	 * 查询‘每日信息’列表
 	 * 当参数day为all时，表示查询所有天数信息列表； 当为now时，表示查询当天信息列表
-	 * @return
 	 */
 	@RequestMapping(value = "/article/query/allday", method = {RequestMethod.POST})
 	public DataResponse queryAllArticle(@RequestParam(name="day", required=true, defaultValue="now")String day){
@@ -85,9 +137,6 @@ public class ArticleController {
 	 * 
 	 * 请求参数有id, 说明请求的是具体一条记录内容
 	 * 请求参数有queryTime, 说明请求的是具体那一天所有记录内容, 格式：yyyy-MM-dd
-	 * @param id
-	 * @param queryTime
-	 * @return
 	 */
 	@RequestMapping(value = "/article/query/content", method = {RequestMethod.POST})
 	public DataResponse queryArticleContent(Integer id, String queryTime){
@@ -109,13 +158,6 @@ public class ArticleController {
 			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
-	}
-	
-	
-	@RequestMapping(value = "/article/download", method = { RequestMethod.POST })
-	public void downloadFile(@RequestParam(name = "id", required = true) Integer id,
-			HttpServletRequest request, HttpServletResponse response) {
-		
 	}
 	
 	

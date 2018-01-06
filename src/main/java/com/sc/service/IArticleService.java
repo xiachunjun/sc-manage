@@ -28,5 +28,19 @@ public interface IArticleService {
 	 */
 	List<String> queryArticleContent(Integer id, String queryTime);
 
+	/**
+	 * 查询待审批信息
+	 * @param userLoginName
+	 * @return
+	 */
+	Map<String, Object> queryNotAuditArticle(String userLoginName);
+
+	/**
+	 * 签发
+	 * @param id
+	 * @param userLoginName
+	 */
+	void auditArticle(Integer id, String userLoginName);
+
 	
 }

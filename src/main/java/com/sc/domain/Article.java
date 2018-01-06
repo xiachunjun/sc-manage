@@ -27,6 +27,7 @@ public class Article {
 	/**内容*/
 	private String articleContent;
 	
+	/**待审核0， 审核通过1， 审核不通过2*/
 	private Integer dataState;
 
     private Integer dataVersion;

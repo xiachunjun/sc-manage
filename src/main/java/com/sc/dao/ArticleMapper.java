@@ -8,6 +8,7 @@ import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.Update;
 import org.apache.ibatis.type.JdbcType;
 
 import com.sc.domain.Article;
@@ -95,9 +96,54 @@ public interface ArticleMapper {
 		"and id=#{id,jdbcType=INTEGER}"
 	})
 	List<String> queryArticleContentById(Integer id);
+
+
+	@Select({
+		"select id, article_link_user, article_link_user_phone, article_sign_user, secrecy_level, ",
+		 	"article_time, article_title, article_content, data_state ",
+		"from sc_articles ",
+		"where data_state = 0 and article_sign_user = #{userLoginName,jdbcType=VARCHAR} ",
+		"order by article_time desc"
+	})
+	@Results({
+	    @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+	    @Result(column="article_link_user", property="articleLinkUser", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_link_user_phone", property="articleLinkUserPhone", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_sign_user", property="articleSignUser", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="secrecy_level", property="secrecyLevel", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_time", property="articleTime", jdbcType=JdbcType.TIMESTAMP),
+	    @Result(column="article_title", property="articleTitle", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_content", property="articleContent", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
+	})
+	List<Article> queryNotAuditArticle(@Param("userLoginName")String userLoginName);
+
 	
 	
-	
+	@Select({
+		"select id, article_link_user, article_link_user_phone, article_sign_user, secrecy_level, ",
+		 	"article_time, article_title, article_content, data_state ",
+		"from sc_articles ",
+		"where id=#{id,jdbcType=INTEGER}"
+	})
+	@Results({
+	    @Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+	    @Result(column="article_link_user", property="articleLinkUser", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_link_user_phone", property="articleLinkUserPhone", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_sign_user", property="articleSignUser", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="secrecy_level", property="secrecyLevel", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_time", property="articleTime", jdbcType=JdbcType.TIMESTAMP),
+	    @Result(column="article_title", property="articleTitle", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="article_content", property="articleContent", jdbcType=JdbcType.VARCHAR),
+	    @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
+	})
+	Article queryById(Integer id);
+
+
+	@Update({
+		"update sc_articles set data_state=1, update_time=now() where id=#{id,jdbcType=INTEGER}"
+	})
+	int updateDataState(Integer id);
 	
 	
 	

@@ -8,33 +8,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
-import com.sc.dao.MenuMapper;
-import com.sc.domain.Menu;
-import com.sc.service.IMenuService;
+import com.sc.dao.TreeMapper;
+import com.sc.domain.Tree;
+import com.sc.service.ITreeService;
 
 @Service
-public class MenuServiceImpl implements IMenuService {
+public class TreeServiceImpl implements ITreeService {
 
 	@Autowired
-	private MenuMapper menuMapper;
+	private TreeMapper menuMapper;
 
 	@Override
-	public Map<String, Object> queryParentMenutList() {
+	public Map<String, Object> queryAllTree() {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		List<Menu> list = menuMapper.queryParentMenutList();
+		List<Tree> list = menuMapper.queryAllTree();
 		if(!CollectionUtils.isEmpty(list)){
-			dataMap.put("parentMenuList", list);
+			dataMap.put("treeList", list);
 		}
 		return dataMap;
 	}
 	
 
 	@Override
-	public Map<String, Object> queryMenutListByParentMenuCode(String parentMenuCode) {
+	public Map<String, Object> queryShowTreeNodeByPid(Integer pid){
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		List<Menu> list = menuMapper.queryMenutListByParentMenuCode(parentMenuCode);
+		List<Tree> list = menuMapper.queryShowTreeNodeByPid(pid);
 		if(!CollectionUtils.isEmpty(list)){
-			dataMap.put("childMenuList", list);
+			dataMap.put("treeList", list);
 		}
 		return dataMap;
 	}

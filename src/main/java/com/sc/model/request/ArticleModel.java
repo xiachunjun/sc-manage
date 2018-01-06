@@ -24,6 +24,10 @@ public class ArticleModel {
 	/**内容*/
 	private String articleContent;
 
+	//附加值
+	private String userLoginName;
+	
+	
 	public String getArticleLinkUser() {
 		return articleLinkUser;
 	}
@@ -78,6 +82,14 @@ public class ArticleModel {
 
 	public void setArticleContent(String articleContent) {
 		this.articleContent = articleContent;
+	}
+
+	public String getUserLoginName() {
+		return userLoginName;
+	}
+
+	public void setUserLoginName(String userLoginName) {
+		this.userLoginName = userLoginName;
 	}
 	
 	

@@ -13,6 +13,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
@@ -33,7 +35,7 @@ public class ArticleServiceImpl implements IArticleService {
 	private ArticleMapper articleMapper;
 	
 	
-	@Transactional
+	@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=false)
 	@Override
 	public void saveArticle(ArticleModel articleModel) {
 		Article record = setArticleProperty(articleModel);
@@ -43,6 +45,32 @@ public class ArticleServiceImpl implements IArticleService {
 		}
 	}
 
+	@Override
+	public Map<String, Object> queryNotAuditArticle(String userLoginName) {
+		//TODO 院办公室可见，审批流上的领导可见, 如果登录用户是院办公室人，也可以查询到
+		Map<String, Object> dataMap = new HashMap<String, Object>();
+		dataMap.put("articleList", articleMapper.queryNotAuditArticle(userLoginName));
+		return dataMap;
+	}
+	
+	
+	@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=false)
+	@Override
+	public void auditArticle(Integer id, String userLoginName) {
+		Article article = articleMapper.queryById(id);
+		if(null != article){
+			//只有签发人可以签发
+			if(StringUtils.equals(userLoginName, article.getArticleSignUser())){
+				int flag = articleMapper.updateDataState(id);
+				if(flag != 1){
+					throw new ScException("签发信息出错");
+				}
+			}
+		}
+		
+	}
+	
+	
 
 	@Override
 	public Map<String, Object> queryAllArticle(String day) {
@@ -102,9 +130,9 @@ public class ArticleServiceImpl implements IArticleService {
 		BeanUtils.copyProperties(articleModel, record);
 		record.setArticleTime(DateUtil.str2Date(articleModel.getArtTime()));
 		record.setId(null);
-		record.setDataState(1);
+		record.setDataState(0);
 		record.setDataVersion(1);
-		record.setCreateUser("SYS");
+		record.setCreateUser(articleModel.getUserLoginName());
 		record.setUpdateUser(record.getCreateUser());
 		record.setCreateTime(new Date());
 		record.setUpdateTime(record.getCreateTime());
