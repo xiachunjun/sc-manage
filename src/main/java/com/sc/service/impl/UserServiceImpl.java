@@ -5,8 +5,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -52,7 +50,7 @@ public class UserServiceImpl implements IUserService {
 
 
 	@Override
-	public void login(UserModel userModel, HttpServletRequest request) {
+	public User login(UserModel userModel) {
 		User loginUser = userMapper.selectUserByLoginName(userModel.getUserLoginName());
 		if(loginUser == null){
 			throw new ScException("对不起! 该登录用户名不存在");
@@ -60,7 +58,7 @@ public class UserServiceImpl implements IUserService {
 		if(!EncryptUtil.match(userModel.getUserLoginPwd(), loginUser.getUserLoginPwd())){
 			throw new ScException("对不起! 密码错误，请重新输入");
 		}
-		request.getSession().setAttribute(CommonConstant.USER_LOGIN_NAME, loginUser.getUserLoginName());
+		return loginUser;
 	}
 	
 	

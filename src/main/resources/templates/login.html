@@ -8,17 +8,9 @@
 <meta name="description" content="User login page" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-<!-- bootstrap & fontawesome -->
 <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" />
-<link rel="stylesheet" href="assets/font-awesome/4.5.0/css/font-awesome.min.css" />
-
-<!-- text fonts -->
 <link rel="stylesheet" href="../static/assets/css/fonts.googleapis.com.css" />
-
-<!-- ace styles -->
 <link rel="stylesheet" href="../static/assets/css/ace.min.css" />
-
-<link rel="stylesheet" href="../static/assets/css/ace-rtl.min.css" />
 
 </head>
 
@@ -77,28 +69,6 @@
 	<script src="../static/assets/js/jquery-1.11.3.min.js"></script>
 	<script src="../static/assets/js/jquery.form.js"></script>
 	<script type="text/javascript">
-		$(document).ready(function() {
-			$.ajax({
-				type : 'POST',
-				url : '/user/currentUser',
-				data : null,
-				headers : {
-					'Content-Type' : 'application/json'
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					var dataMap = data.dataMap;
-					if (resultCode == '000000' & dataMap != null) {
-						var userLoginName = dataMap.userLoginName;
-						window.location.href = "index.html";
-					}
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("获取登录信息异常-" + JSON.stringify(data));
-				}
-			});
-		});
 	
 		$(document).keyup(function(e) {
 			if (e.keyCode == 13) {
@@ -110,15 +80,11 @@
 			}
 		});
 	</script>
-
-	<script type="text/javascript">
-		if ('ontouchstart' in document.documentElement) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>" + "<" + "/script>");
-	</script>
 	<script type="text/javascript">
 		jQuery(function($) {
 			$('#loginBtn').on('click', function() {
 				$("#loginForm").ajaxSubmit({
-					url : "/user/login",
+					url : "/outer/user/login",
 					type : "POST",
 					dataType : "JSON",
 					clearForm : true,
@@ -126,7 +92,7 @@
 					timeout : 5000,
 					success : function(respData) {
 						if ('000000' === respData.resultCode) {
-							window.location.href = "index.html";
+							window.location.href = "/index";
 						} else {
 							alert("登录失败,请稍后重试...");
 						}

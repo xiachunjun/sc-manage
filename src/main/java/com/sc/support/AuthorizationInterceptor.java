@@ -25,28 +25,20 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 			throws Exception {
 		try {
+			System.out.println("path==="+request.getRequestURL());
 			String accessToken = getAccessToken(request);
 			logger.debug("AuthorizationInterceptor.preHandle==", accessToken);
 			AuthUser authUser = tokenService.getUserByAccessToken(accessToken);
 			if (null != authUser) {
 				UserContext.setAuthUser(authUser);
-				logger.info("当前用户为：", JSONObject.toJSON(authUser));
+				logger.info("当前用户为："+JSONObject.toJSON(authUser));
+				request.setAttribute(CommonConstant.USER_LOGIN_NAME, authUser.getUserLoginName());
 				return true;
 			}
 		} catch (Exception e) {
 			logger.error("AuthorizationInterceptor.preHandle===", e);
 		}
-		
-		request.getRequestDispatcher("/login").forward(request, response); 
-//		DataResponse dataResponse = new DataResponse(ResponseEnum.RESPONSE_NOT_LOGIN);
-//		String jsonStr = JSONObject.toJSONString(dataResponse);
-//		logger.info("AuthorizationInterceptor.preHandle==用户未登录：" + jsonStr);
-//		response.setContentType("application/json");
-//		response.setCharacterEncoding("UTF-8");
-//		PrintWriter out = response.getWriter();
-//		out.println(jsonStr);
-//		out.flush();
-//		out.close();
+		response.sendRedirect("/outer/login");
 		return false;
 	}
 

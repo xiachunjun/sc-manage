@@ -41,9 +41,9 @@ public class DutyServiceImpl implements IDutyService {
 
 	
 	@Override
-	public List<Map<String, Object>> queryDutyByPostCode(String postCode) {
+	public List<Map<String, Object>> queryDutyByPosiCode(String posiCode) {
 		List<Map<String, Object>> allList = new ArrayList<Map<String, Object>>();
-		List<Duty> posiDutyList = dutyMapper.queryDutyByPostCode(postCode);
+		List<Duty> posiDutyList = dutyMapper.queryDutyByPostCode(posiCode);
 		if(!CollectionUtils.isEmpty(posiDutyList)){
 			for (Duty duty : posiDutyList) {
 				Map<String, Object> map = putLev2ToLev1(posiDutyList, duty);

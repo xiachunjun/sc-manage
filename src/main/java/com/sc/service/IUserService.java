@@ -2,8 +2,7 @@ package com.sc.service;
 
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
+import com.sc.domain.User;
 import com.sc.model.request.UserModel;
 
 public interface IUserService {
@@ -19,7 +18,7 @@ public interface IUserService {
 	 * @param userModel
 	 * @param request
 	 */
-	void login(UserModel userModel, HttpServletRequest request);
+	User login(UserModel userModel);
 
 	/**
 	 * 查询用户列表

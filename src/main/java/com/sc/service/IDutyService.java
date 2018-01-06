@@ -14,10 +14,10 @@ public interface IDutyService {
 
 	/**
 	 * 根据岗位code, 查询一二级职责
-	 * @param postCode
+	 * @param posiCode
 	 * @return
 	 */
-	List<Map<String, Object>> queryDutyByPostCode(String postCode);
+	List<Map<String, Object>> queryDutyByPosiCode(String posiCode);
 
 	
 }

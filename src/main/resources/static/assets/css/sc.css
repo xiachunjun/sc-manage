@@ -48,3 +48,26 @@
 .str_wrap img {
 	max-width: none !important;
 }
+
+table.tftable {
+	color: #333333;
+	width: 100%;
+	border: 1px #729ea5;
+	border-collapse: collapse;
+}
+
+table.tftable th {
+	background-color: #acc8cc;
+	border: 1px solid #729ea5;
+	padding: 8px;
+	text-align: center;
+}
+
+table.tftable tr {
+	background-color: #ffffff;
+}
+
+table.tftable td {
+	border: 1px solid #729ea5;
+	padding: 8px;
+}
