@@ -9,13 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 <!-- bootstrap & fontawesome -->
-<link rel="stylesheet" href="/static/assets/css/bootstrap.min.css" />
-<link rel="stylesheet" href="/static/assets/css/sc.css" />
-<link rel="stylesheet" href="/static/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
-
-<link rel="stylesheet" href="/static/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
-
-<script src="/static/assets/js/ace-extra.min.js"></script>
+<#include "/parts/common-css.html">	
 
 <style type="text/css">
 table.tftable {
@@ -280,11 +274,10 @@ table.tftable td {
 			</div>
 		</div>
 	</div>
-	<#include "/parts/footer.html">	
+	<#include "/parts/footer.html">
 	
-	<script src="/static/assets/js/jquery-1.11.3.min.js"></script>
+	<#include "/parts/common-js.html">
 	<script src="/static/assets/js/jquery.liMarquee.js"></script>
-	<script src="/static/assets/js/bootstrap.min.js"></script>
 	<script src="/static/assets/js/jquery-ui.custom.min.js"></script>
 	<script src="/static/assets/js/jquery.ui.touch-punch.min.js"></script>
 	<script src="/static/assets/js/jquery.easypiechart.min.js"></script>
@@ -293,63 +286,8 @@ table.tftable td {
 	<script src="/static/assets/js/jquery.flot.pie.min.js"></script>
 	<script src="/static/assets/js/jquery.flot.resize.min.js"></script>
 	<script src="/static/assets/js/ace-elements.min.js"></script>
-	<script src="/static/assets/js/ace.min.js"></script>
 	<script type="text/javascript">
-		if ('ontouchstart' in document.documentElement)
-			document
-				.write("<script src='assets/js/jquery.mobile.custom.min.js'>"
-					+ "<" + "/script>");
-	</script>
-	<script type="text/javascript">
-		$(document).ready(function() {
-			$.ajax({
-				type : 'POST',
-				url : '/user/currentUser',
-				data : null,
-				headers : {
-					'Content-Type' : 'application/json'
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					var dataMap = data.dataMap;
-					if (resultCode == '000000' & dataMap != null) {
-						var userLoginName = dataMap.userLoginName;
-						$("#userName").html(userLoginName);
-						queryBylawCategoryCountData();
-					} else {
-						window.location.href = "/login";
-					}
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("获取登录信息异常-" + JSON.stringify(data));
-					window.location.href = "/login";
-				}
-			});
-		});
-		
-		$("#logoutBtn").on('click', function(e) {
-				$.ajax({
-					type : 'POST',
-					url : '/user/logout',
-					data : null,
-					headers : {
-						'Content-Type' : 'application/json'
-					},
-					success : function(data) {
-						var resultCode = data.resultCode;
-						var dataMap = data.dataMap;
-						if (resultCode == '000000') {
-							window.location.href = "login.html";
-						}
-					},
-					dataType : 'json',
-					error : function(data) {
-						alert("获取登录信息异常-" + JSON.stringify(data));
-					}
-				});
-			});
-		
+		queryBylawCategoryCountData();
 		<!--查询各个规章制度数量接口-->
 		function queryBylawCategoryCountData() {
 			$.ajax({
@@ -378,17 +316,17 @@ table.tftable td {
 		function dataListRender(dataMap) {
 			var ht = "<tr><th>序号</th><th>规章制度</th><th>数量</th></tr>";
 			
-			ht = ht + "<tr class='center'><td>" + 1 + "</td>";
-			ht = ht + "<td>财务管理</td>>";
-			ht = ht + "<td>" + dataMap.CWGL + "</td>";
+			ht = ht + "<tr><td>" + 1 + "</td>";
+			ht = ht + "<td>财务管理</td>";
+			ht = ht + "<td>" + dataMap.CWGL + "</td></tr>";
 			
-			ht = ht + "<tr class='center'><td>" + 2 + "</td>";
-			ht = ht + "<td>条件保障</td>>";
-			ht = ht + "<td>" + dataMap.TJBZ + "</td>";
+			ht = ht + "<tr><td>" + 2 + "</td>";
+			ht = ht + "<td>条件保障</td>";
+			ht = ht + "<td>" + dataMap.TJBZ + "</td></tr>";
 			
-			ht = ht + "<tr class='center'><td>" + 3 + "</td>";
-			ht = ht + "<td>行政管理</td>>";
-			ht = ht + "<td>" + dataMap.XZGL + "</td>";
+			ht = ht + "<tr><td>" + 3 + "</td>";
+			ht = ht + "<td>行政管理</td>";
+			ht = ht + "<td>" + dataMap.XZGL + "</td></tr>";
 			
 			$("#bylawCategoryGroup").html(ht);
 		}
@@ -488,10 +426,6 @@ table.tftable td {
 	
 			drawPieChart(placeholder, data);
 	
-			/**
-			 we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
-			 so that's not needed actually.
-			 */
 			placeholder.data('chart', data);
 			placeholder.data('draw', drawPieChart);
 	

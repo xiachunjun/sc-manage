@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.ScException;
+import com.sc.domain.User;
 
 @Component
 public class TokenService {
@@ -24,9 +25,9 @@ public class TokenService {
 	 * @param user
 	 * @return
 	 */
-	public void generateAccessToken(final AuthUser authUser) {
+	public AuthUser generateAccessToken(AuthUser authUser) {
 		if (null == authUser) {
-			throw new ScException("TokenService.generateAccessToken===user为空！");
+			throw new ScException("TokenService.generateAccessToken===authUser为空！");
 		}
 		authUser.setAccessToken(UUID.randomUUID().toString());
 		try {
@@ -35,6 +36,14 @@ public class TokenService {
 			logger.error("TokenService.generateAccessToken===", e);
 			throw new ScException(e);
 		}
+		return authUser;
+	}
+	
+	public AuthUser generateAccessTokenByUser(User user) {
+		if (null == user) {
+			throw new ScException("TokenService.generateAccessTokenByUser===user为空！");
+		}
+		return this.generateAccessToken(new AuthUser(user));
 	}
 
 	public AuthUser getUserByAccessToken(String accessToken) {
