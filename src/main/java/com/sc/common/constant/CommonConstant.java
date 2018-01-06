@@ -2,6 +2,8 @@ package com.sc.common.constant;
 
 public class CommonConstant {
 
+	public static final String ACCESS_TOKEN_KEY = "access_token";
+
 	/** 规章制度分类 */
 	public static final String XZGL = "XZGL";//行政管理
 	public static final String TJBZ = "TJBZ";//条件保障

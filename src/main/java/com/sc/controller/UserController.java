@@ -7,9 +7,10 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.DataResponse;
@@ -22,7 +23,7 @@ import com.sc.service.IUserService;
  * 用户注册+登录+退出
  *
  */
-@RestController
+@Controller
 public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);	
@@ -30,13 +31,17 @@ public class UserController {
 	@Autowired
 	private IUserService userService;
 	
-	
+	  @RequestMapping("/outer/login")  
+	    public String loginPage(Map<String,Object> map){  
+	       return"/login";  
+	    } 
 	/**
 	 * 注册用户
 	 * @param userModel
 	 * @return
 	 */
 	@RequestMapping(value = "/user/register", method = {RequestMethod.POST})
+	@ResponseBody
 	public DataResponse register(UserModel userModel){
 		DataResponse dr = null;
 		try {
@@ -59,6 +64,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/user/login", method = {RequestMethod.POST})
+	@ResponseBody
 	public DataResponse login(UserModel userModel, HttpServletRequest request){
 		DataResponse dr = null;
 		try {
@@ -81,6 +87,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/user/logout", method = {RequestMethod.POST})
+	@ResponseBody
 	public DataResponse logout(HttpServletRequest request){
 		request.getSession().removeAttribute(CommonConstant.USER_LOGIN_NAME);
 		return new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
@@ -92,6 +99,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/user/query/list", method = {RequestMethod.POST})
+	@ResponseBody
 	public DataResponse queryUsertList(){
 		DataResponse dr = null;
 		try {
@@ -114,6 +122,7 @@ public class UserController {
 	 * @return
 	 */
 	@RequestMapping(value = "/user/currentUser", method = { RequestMethod.POST })
+	@ResponseBody
 	public DataResponse queryCurrentUser(HttpServletRequest request) {
 		DataResponse dr = null;
 		try {

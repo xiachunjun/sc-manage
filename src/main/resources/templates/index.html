@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta charset="utf-8" />
+<title>首页</title>
+
+<meta name="description" content="overview &amp; stats" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+
+<!-- bootstrap & fontawesome -->
+<link rel="stylesheet" href="/static/assets/css/bootstrap.min.css" />
+<link rel="stylesheet" href="/static/assets/css/sc.css" />
+<link rel="stylesheet" href="/static/assets/font-awesome/4.5.0/css/font-awesome.min.css" />
+
+<link rel="stylesheet" href="/static/assets/css/ace.min.css" class="ace-main-stylesheet" id="main-ace-style" />
+
+<script src="/static/assets/js/ace-extra.min.js"></script>
+
+<style type="text/css">
+table.tftable {
+	color: #333333;
+	width: 100%;
+	border: 1px #729ea5;
+	border-collapse: collapse;
+}
+
+table.tftable th {
+	background-color: #acc8cc;
+	border: 1px solid #729ea5;
+	padding: 8px;
+	text-align: left;
+}
+
+table.tftable tr {
+	background-color: #ffffff;
+}
+
+table.tftable td {
+	border: 1px solid #729ea5;
+	padding: 8px;
+}
+</style>
+</head>
+<body class="no-skin">
+<#include "/parts/header.html">
+	<div class="main-container ace-save-state" id="main-container">
+		<script type="text/javascript">
+			try {
+				ace.settings.loadState('main-container')
+			} catch (e) {}
+		</script>
+
+	<#include "/parts/asider.html">	
+
+		<div class="main-content">
+			<div class="main-content-inner">
+				<div class="breadcrumbs ace-save-state">
+					<div class="row">
+						<div class="col-sm-2" style="color:red;font-size: 13px;padding-left: 20px;" />
+						最新资讯：
+					</div>
+					<div class="col-sm-10 swrap"></div>
+				</div>
+			</div>
+			<div class="page-content">
+				<div class="row">
+					<div class="col-xs-12">
+						<div class="row">
+							<div class="space-6"></div>
+							<div class="col-sm-4">
+								<div class="widget-box transparent">
+									<div class="widget-header widget-header-flat">
+										<h4 class="widget-title">数据晒板</h4>
+										<div class="widget-toolbar">
+											<a href="#"> 详情 > </a>
+										</div>
+									</div>
+
+									<div class="widget-body">
+										<div class="space-6"></div>
+										<div class="col-xs-12" style="height: 15em;">
+											<div class="row">
+												<div class="col-sm-6">
+													<div class="center" style="font-size: 15px">营业收入</div>
+													<div class="center" style="font-size: 50px;color: #FF3333;padding-bottom: 30px;font-weight: bold;">2000</div>
+													<div style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
+													<div style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">2%</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="center" style="font-size: 15px">利润总额</div>
+													<div class="center" style="font-size: 50px;color: #FF3333;padding-bottom: 30px;font-weight: bold;">1000</div>
+													<div style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
+													<div style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">3%</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="vspace-12-sm"></div>
+							<div class="col-sm-4">
+								<div class="widget-box transparent">
+									<div class="widget-header widget-header-flat">
+										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">每日信息</h4>
+										<div class="widget-toolbar">
+											<a href="article-list.html"> 详情 > </a>
+										</div>
+									</div>
+
+									<div class="widget-body">
+										<div class="space-6"></div>
+										<div class="col-xs-12">
+											<div class="row">
+												<div class="col-sm-12" style="height: 15em;">
+													<div class="str1 str_wrap" style="height:100%;">
+														<table>
+															<tr>
+																<td style="width: 60%">七〇八所邢文华所长参与XX会</td>
+																<td style="padding:5px 15px 5px 15px;">内部</td>
+																<td>2017-12-01</td>
+															</tr>
+															<tr>
+																<td style="width: 60%">七〇八所全员学习十九大精神</td>
+																<td style="padding:5px 15px 5px 15px;">内部</td>
+																<td>2017-12-01</td>
+															</tr>
+															<tr>
+																<td style="width: 60%">放假通知</td>
+																<td style="padding:5px 15px 5px 15px;">内部</td>
+																<td>2017-12-01</td>
+															</tr>
+															<tr>
+																<td style="width: 60%">七〇八所邢文华所长参加世界海事技术大会</td>
+																<td style="padding:5px 15px 5px 15px;">内部</td>
+																<td>2017-12-01</td>
+															</tr>
+															<tr>
+																<td style="width: 60%">七〇八所邢文华所长参加世界海事技术大会</td>
+																<td style="padding:5px 15px 5px 15px;">内部</td>
+																<td>2017-12-01</td>
+															</tr>
+															<tr>
+																<td style="width: 60%">七〇八所邢文华所长参加世界海事技术大会</td>
+																<td style="padding:5px 15px 5px 15px;">内部</td>
+																<td>2017-12-01</td>
+															</tr>
+
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="widget-box transparent">
+									<div class="widget-header widget-header-flat">
+										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">领导安排</h4>
+										<div class="widget-toolbar">
+											<a href="#"> 详情 > </a>
+										</div>
+									</div>
+
+									<div class="widget-body">
+										<div class="space-6"></div>
+										<div class="col-xs-12" style="height: 15em;">
+											<div class="row">
+												<div class="col-sm-8">
+													<table class="tftable" border="1">
+														<tr>
+															<th></th>
+															<th>上午</th>
+															<th>下午</th>
+														</tr>
+														<tr>
+															<td>张三三</td>
+															<td>在所日常</td>
+															<td>在所日常</td>
+														</tr>
+														<tr>
+															<td>李四四</td>
+															<td>在所日常</td>
+															<td>在所日常</td>
+														</tr>
+														<tr>
+															<td>王五</td>
+															<td>在所日常</td>
+															<td>在所日常</td>
+														</tr>
+														<tr>
+															<td>赵六</td>
+															<td>在所日常</td>
+															<td>在所日常</td>
+														</tr>
+													</table>
+												</div>
+												<div class="col-sm-4">这里要放一个日历</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="hr hr32 hr-dotted"></div>
+						<div class="row">
+							<div class="col-sm-4">
+								<div class="widget-box transparent">
+									<div class="widget-header widget-header-flat">
+										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">任务晒板</h4>
+										<div class="widget-toolbar">
+											<a href="#"> 详情 > </a>
+										</div>
+									</div>
+									<div class="widget-body">
+										<div class="space-6"></div>
+										<div id="piechart-placeholder"></div>
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="widget-box transparent">
+									<div class="widget-header widget-header-flat">
+										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">责任晒板</h4>
+										<div class="widget-toolbar">
+											<a href="duty.html"> 详情 > </a>
+										</div>
+									</div>
+									<div class="widget-body" >
+										<div class="space-6"></div>
+										<table class="tftable" border="1">
+											<tr>
+												<th>序号</th>
+												<th>部门</th>
+												<th>责任清单</th>
+											</tr>
+											<tr>
+												<td>1</td>
+												<td>财务部</td>
+												<td><a href="#">查看</a></td>
+											</tr>
+											<tr>
+												<td>2</td>
+												<td>审计部</td>
+												<td><a href="#">查看</a></td>
+											</tr>
+											<tr>
+												<td>3</td>
+												<td>监察部</td>
+												<td><a href="#">查看</a></td>
+											</tr>
+										</table>
+
+									</div>
+								</div>
+							</div>
+							<div class="col-sm-4">
+								<div class="widget-box transparent">
+									<div class="widget-header widget-header-flat">
+										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">规章制度</h4>
+										<div class="widget-toolbar">
+											<a href="bylaws.html"> 详情 > </a>
+										</div>
+									</div>
+									<div class="widget-body">
+										<div class="space-6"></div>
+										<div class="row">
+											<div class="col-sm-12">
+												<table id="bylawCategoryGroup" class="tftable" border="1">
+												</table>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<#include "/parts/footer.html">	
+	
+	<script src="/static/assets/js/jquery-1.11.3.min.js"></script>
+	<script src="/static/assets/js/jquery.liMarquee.js"></script>
+	<script src="/static/assets/js/bootstrap.min.js"></script>
+	<script src="/static/assets/js/jquery-ui.custom.min.js"></script>
+	<script src="/static/assets/js/jquery.ui.touch-punch.min.js"></script>
+	<script src="/static/assets/js/jquery.easypiechart.min.js"></script>
+	<script src="/static/assets/js/jquery.sparkline.index.min.js"></script>
+	<script src="/static/assets/js/jquery.flot.min.js"></script>
+	<script src="/static/assets/js/jquery.flot.pie.min.js"></script>
+	<script src="/static/assets/js/jquery.flot.resize.min.js"></script>
+	<script src="/static/assets/js/ace-elements.min.js"></script>
+	<script src="/static/assets/js/ace.min.js"></script>
+	<script type="text/javascript">
+		if ('ontouchstart' in document.documentElement)
+			document
+				.write("<script src='assets/js/jquery.mobile.custom.min.js'>"
+					+ "<" + "/script>");
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$.ajax({
+				type : 'POST',
+				url : '/user/currentUser',
+				data : null,
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						var userLoginName = dataMap.userLoginName;
+						$("#userName").html(userLoginName);
+						queryBylawCategoryCountData();
+					} else {
+						window.location.href = "/login";
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取登录信息异常-" + JSON.stringify(data));
+					window.location.href = "/login";
+				}
+			});
+		});
+		
+		$("#logoutBtn").on('click', function(e) {
+				$.ajax({
+					type : 'POST',
+					url : '/user/logout',
+					data : null,
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					success : function(data) {
+						var resultCode = data.resultCode;
+						var dataMap = data.dataMap;
+						if (resultCode == '000000') {
+							window.location.href = "login.html";
+						}
+					},
+					dataType : 'json',
+					error : function(data) {
+						alert("获取登录信息异常-" + JSON.stringify(data));
+					}
+				});
+			});
+		
+		<!--查询各个规章制度数量接口-->
+		function queryBylawCategoryCountData() {
+			$.ajax({
+				type : 'POST',
+				url : '/bylaw/queryCountByCategory',
+				data : null,
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						dataListRender(dataMap);
+					} else {
+						alert("查询各规章制度数量失败！");
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取各规章制度数量异常-" + JSON.stringify(data));
+				}
+			});
+		}
+		
+		function dataListRender(dataMap) {
+			var ht = "<tr><th>序号</th><th>规章制度</th><th>数量</th></tr>";
+			
+			ht = ht + "<tr class='center'><td>" + 1 + "</td>";
+			ht = ht + "<td>财务管理</td>>";
+			ht = ht + "<td>" + dataMap.CWGL + "</td>";
+			
+			ht = ht + "<tr class='center'><td>" + 2 + "</td>";
+			ht = ht + "<td>条件保障</td>>";
+			ht = ht + "<td>" + dataMap.TJBZ + "</td>";
+			
+			ht = ht + "<tr class='center'><td>" + 3 + "</td>";
+			ht = ht + "<td>行政管理</td>>";
+			ht = ht + "<td>" + dataMap.XZGL + "</td>";
+			
+			$("#bylawCategoryGroup").html(ht);
+		}
+	</script>
+	<script type="text/javascript">
+		jQuery(function($) {
+			$('.easy-pie-chart.percentage')
+				.each(
+					function() {
+						var $box = $(this).closest('.infobox');
+						var barColor = $(this).data('color')
+						|| (!$box.hasClass('infobox-dark') ? $box
+							.css('color')
+							: 'rgba(255,255,255,0.95)');
+						var trackColor = barColor == 'rgba(255,255,255,0.95)' ? 'rgba(255,255,255,0.25)'
+							: '#E2E2E2';
+						var size = parseInt($(this).data('size')) || 50;
+						$(this)
+							.easyPieChart(
+								{
+									barColor : barColor,
+									trackColor : trackColor,
+									scaleColor : false,
+									lineCap : 'butt',
+									lineWidth : parseInt(size / 10),
+									animate : ace.vars['old_ie'] ? false
+										: 1000,
+									size : size
+								});
+					})
+	
+			$('.sparkline').each(
+				function() {
+					var $box = $(this).closest('.infobox');
+					var barColor = !$box.hasClass('infobox-dark') ? $box
+						.css('color') : '#FFF';
+					$(this).sparkline('html', {
+						tagValuesAttribute : 'data-values',
+						type : 'bar',
+						barColor : barColor,
+						chartRangeMin : $(this).data('min') || 0
+					});
+				});
+	
+			$.resize.throttleWindow = false;
+	
+			var placeholder = $('#piechart-placeholder').css({
+				'width' : '80%',
+				'min-height' : '150px'
+			});
+			var data = [ {
+				label : "正常(50%)",
+				data : 50,
+				color : "#68BC31"
+			}, {
+				label : "超期(12%)",
+				data : 12,
+				color : "#2091CF"
+			}, {
+				label : "严重超期(13%)",
+				data : 13,
+				color : "#AF4E96"
+			}, {
+				label : "已完成(25%)",
+				data : 25,
+				color : "#DA5430"
+			} ]
+	
+			function drawPieChart(placeholder, data, position) {
+				$.plot(placeholder, data, {
+					series : {
+						pie : {
+							show : true,
+							tilt : 0.8,
+							highlight : {
+								opacity : 0.25
+							},
+							stroke : {
+								color : '#fff',
+								width : 2
+							},
+							startAngle : 2
+						}
+					},
+					legend : {
+						show : true,
+						position : position || "ne",
+						labelBoxBorderColor : null,
+						margin : [ -30, 15 ]
+					},
+					grid : {
+						hoverable : true,
+						clickable : true
+					}
+				})
+			}
+	
+			drawPieChart(placeholder, data);
+	
+			/**
+			 we saved the drawing function and the data to redraw with different position later when switching to RTL mode dynamically
+			 so that's not needed actually.
+			 */
+			placeholder.data('chart', data);
+			placeholder.data('draw', drawPieChart);
+	
+			//pie chart tooltip example
+			var $tooltip = $(
+				"<div class='tooltip top in'><div class='tooltip-inner'></div></div>")
+				.hide().appendTo('body');
+			var previousPoint = null;
+	
+			placeholder.on('plothover', function(event, pos, item) {
+				if (item) {
+					if (previousPoint != item.seriesIndex) {
+						previousPoint = item.seriesIndex;
+						var tip = item.series['label'] + " : "
+							+ item.series['percent'] + '%';
+						$tooltip.show().children(0).text(tip);
+					}
+					$tooltip.css({
+						top : pos.pageY + 10,
+						left : pos.pageX + 10
+					});
+				} else {
+					$tooltip.hide();
+					previousPoint = null;
+				}
+	
+			});
+	
+			$(document).one('ajaxloadstart.page', function(e) {
+				$tooltip.remove();
+			});
+	
+			var d1 = [];
+			for (var i = 0; i < Math.PI * 2; i += 0.5) {
+				d1.push([ i, Math.sin(i) ]);
+			}
+	
+			var d2 = [];
+			for (var i = 0; i < Math.PI * 2; i += 0.5) {
+				d2.push([ i, Math.cos(i) ]);
+			}
+	
+			var d3 = [];
+			for (var i = 0; i < Math.PI * 2; i += 0.2) {
+				d3.push([ i, Math.tan(i) ]);
+			}
+	
+	
+			$('#recent-box [data-rel="tooltip"]').tooltip({
+				placement : tooltip_placement
+			});
+	
+			function tooltip_placement(context, source) {
+				var $source = $(source);
+				var $parent = $source.closest('.tab-content')
+				var off1 = $parent.offset();
+				var w1 = $parent.width();
+	
+				var off2 = $source.offset();
+				//var w2 = $source.width();
+	
+				if (parseInt(off2.left) < parseInt(off1.left)
+					+ parseInt(w1 / 2))
+					return 'right';
+				return 'left';
+			}
+	
+			$('.dialogs,.comments').ace_scroll({
+				size : 300
+			});
+			var agent = navigator.userAgent.toLowerCase();
+			if (ace.vars['touch'] && ace.vars['android']) {
+				$('#tasks').on('touchstart', function(e) {
+					var li = $(e.target).closest('#tasks li');
+					if (li.length == 0)
+						return;
+					var label = li.find('label.inline').get(0);
+					if (label == e.target || $.contains(label, e.target))
+						e.stopImmediatePropagation();
+				});
+			}
+	
+			$('#tasks').sortable({
+				opacity : 0.8,
+				revert : true,
+				forceHelperSize : true,
+				placeholder : 'draggable-placeholder',
+				forcePlaceholderSize : true,
+				tolerance : 'pointer',
+				stop : function(event, ui) {
+					//just for Chrome!!!! so that dropdowns on items don't appear below other items after being moved
+					$(ui.item).css('z-index', 'auto');
+				}
+			});
+			$('#tasks').disableSelection();
+			$('#tasks input:checkbox').removeAttr('checked').on('click',
+				function() {
+					if (this.checked)
+						$(this).closest('li').addClass('selected');
+					else
+						$(this).closest('li').removeClass('selected');
+				});
+	
+			//show the dropdowns on top or bottom depending on window height and menu position
+			$('#task-tab .dropdown-hover').on('mouseenter', function(e) {
+				var offset = $(this).offset();
+	
+				var $w = $(window)
+				if (offset.top > $w.scrollTop() + $w.innerHeight() - 100)
+					$(this).addClass('dropup');
+				else
+					$(this).removeClass('dropup');
+			});
+			$('.swrap').html('<a href="#" class="red">中国GDP增长率：7%</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">菠萝的海干散货运价指数：1405</a>&nbsp;&nbsp;&nbsp;&nbsp;<a href="#" class="red">年度国防预算：10443.97亿元</a>');
+			$('.swrap').liMarquee();
+			$('.str1').liMarquee({
+				direction : 'up'
+			});
+		});
+	</script>
+</body>
+</html>
