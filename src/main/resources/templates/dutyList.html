@@ -8,19 +8,19 @@
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-<#include "/parts/common-css.html">
+<#include "/parts/common-css.html"/>
 <link rel="stylesheet" href="/static/assets/css/bootstrap-datepicker3.min.css" />
 
 </head>
 <body class="no-skin">
-	<#include "/parts/header.html">
+	<#include "/parts/header.html"/>
 	<div class="main-container ace-save-state" id="main-container">
 		<script type="text/javascript">
 			try {
 				ace.settings.loadState('main-container')
 			} catch (e) {}
 		</script>
-		<#include "/parts/asider.html">
+		<#include "/parts/asider.html"/>
 
 		<div class="main-content">
 			<div class="main-content-inner">
@@ -31,7 +31,7 @@
 								<span>当前位置</span> > <span>责任晒板</span> > <span>责任清单</span>
 							</div>
 							<div class="col-sm-6 text-right" style="padding-right: 20px;">
-								<button class="btn btn-white radius-4" onclick="window.location.href='edit-duty.html';">编辑</button>
+								<button class="btn btn-white radius-4" onclick="window.location.href='/duty/editDuty';">编辑</button>
 							</div>
 						</div>
 					</div>
@@ -83,10 +83,10 @@
 				</div>
 			</div>
 		</div>
-		<#include "/parts/footer.html">
+		<#include "/parts/footer.html"/>
 	</div>
 	
-	<#include "/parts/common-js.html">
+	<#include "/parts/common-js.html"/>
 	 <script src="/static/assets/js/jquery.form.js"></script> 
 	 <script src="/static/assets/js/ace.min.js"></script>
 	  <script src="/static/assets/js/bootstrap-datepicker.min.js"></script>

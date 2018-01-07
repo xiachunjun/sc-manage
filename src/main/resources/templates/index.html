@@ -8,36 +8,10 @@
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-<!-- bootstrap & fontawesome -->
-<#include "/parts/common-css.html">	
-
-<style type="text/css">
-table.tftable {
-	color: #333333;
-	width: 100%;
-	border: 1px #729ea5;
-	border-collapse: collapse;
-}
-
-table.tftable th {
-	background-color: #acc8cc;
-	border: 1px solid #729ea5;
-	padding: 8px;
-	text-align: left;
-}
-
-table.tftable tr {
-	background-color: #ffffff;
-}
-
-table.tftable td {
-	border: 1px solid #729ea5;
-	padding: 8px;
-}
-</style>
+<#include "/parts/common-css.html"/>
 </head>
 <body class="no-skin">
-<#include "/parts/header.html">
+	<#include "/parts/header.html"/>
 	<div class="main-container ace-save-state" id="main-container">
 		<script type="text/javascript">
 			try {
@@ -45,7 +19,7 @@ table.tftable td {
 			} catch (e) {}
 		</script>
 
-	<#include "/parts/asider.html">	
+		<#include "/parts/asider.html"/>
 
 		<div class="main-content">
 			<div class="main-content-inner">
@@ -98,10 +72,9 @@ table.tftable td {
 									<div class="widget-header widget-header-flat">
 										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">每日信息</h4>
 										<div class="widget-toolbar">
-											<a href="article-list.html"> 详情 > </a>
+											<a href="/article/articleList"> 详情 > </a>
 										</div>
 									</div>
-
 									<div class="widget-body">
 										<div class="space-6"></div>
 										<div class="col-xs-12">
@@ -221,7 +194,7 @@ table.tftable td {
 											<a href="duty.html"> 详情 > </a>
 										</div>
 									</div>
-									<div class="widget-body" >
+									<div class="widget-body">
 										<div class="space-6"></div>
 										<table class="tftable" border="1">
 											<tr>
@@ -274,9 +247,9 @@ table.tftable td {
 			</div>
 		</div>
 	</div>
-	<#include "/parts/footer.html">
-	
-	<#include "/parts/common-js.html">
+	<#include "/parts/footer.html"/>
+
+	<#include "/parts/common-js.html"/>
 	<script src="/static/assets/js/jquery.liMarquee.js"></script>
 	<script src="/static/assets/js/jquery-ui.custom.min.js"></script>
 	<script src="/static/assets/js/jquery.ui.touch-punch.min.js"></script>

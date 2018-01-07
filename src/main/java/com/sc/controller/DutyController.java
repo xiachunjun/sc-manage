@@ -27,8 +27,13 @@ public class DutyController {
 	private IDutyService dutyService;
 
 	@RequestMapping("/duty/dutyList")
-	public String dutyList(Map<String, Object> map) {
+	public String dutyList() {
 		return "/dutyList";
+	}
+	
+	@RequestMapping("/duty/editDuty")
+	public String editDuty() {
+		return "/editDuty";
 	}
 
 	@RequestMapping("/duty/deptDutyList")

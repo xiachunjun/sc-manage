@@ -10,10 +10,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.DataResponse;
@@ -26,7 +27,7 @@ import com.sc.service.IArticleService;
  * 每日信息
  * 
  */
-@RestController
+@Controller
 public class ArticleController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);	
@@ -34,10 +35,16 @@ public class ArticleController {
 	@Autowired
 	private IArticleService articleService;
 	
+	@RequestMapping("/article/articleList")
+	public String articleList() {
+		return "/articleList";
+	}
+	
 	/**
 	 * 编制信息  （院办公室人员发起，开放给院办公室）
 	 */
 	@RequestMapping(value = "/article/save", method = {RequestMethod.POST})
+	@ResponseBody
 	public DataResponse saveArticle(ArticleModel articleModel, HttpServletRequest request){
 		DataResponse dr = null;
 		try {
@@ -59,6 +66,7 @@ public class ArticleController {
 	 * 查询待审批信息 （院办公室可见，审批流上的领导可见，未审批完成的信息显示在这里）
 	 */
 	@RequestMapping(value = "/article/query/notAudit", method = {RequestMethod.POST})
+	@ResponseBody
 	public DataResponse queryNotAuditArticle(HttpServletRequest request){
 		DataResponse dr = null;
 		try {
@@ -81,6 +89,7 @@ public class ArticleController {
 	 * 签发
 	 */
 	@RequestMapping(value = "/article/audit", method = {RequestMethod.POST})
+	@ResponseBody
 	public DataResponse auditArticle(@RequestParam(value="id", required=true)Integer id, 
 			HttpServletRequest request){
 		DataResponse dr = null;
@@ -115,6 +124,7 @@ public class ArticleController {
 	 * 当参数day为all时，表示查询所有天数信息列表； 当为now时，表示查询当天信息列表
 	 */
 	@RequestMapping(value = "/article/query/allday", method = {RequestMethod.POST})
+	@ResponseBody
 	public DataResponse queryAllArticle(@RequestParam(name="day", required=true, defaultValue="now")String day){
 		DataResponse dr = null;
 		try {
@@ -139,6 +149,7 @@ public class ArticleController {
 	 * 请求参数有queryTime, 说明请求的是具体那一天所有记录内容, 格式：yyyy-MM-dd
 	 */
 	@RequestMapping(value = "/article/query/content", method = {RequestMethod.POST})
+	@ResponseBody
 	public DataResponse queryArticleContent(Integer id, String queryTime){
 		DataResponse dr = null;
 		try {
