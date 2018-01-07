@@ -11,10 +11,11 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.DataResponse;
@@ -28,14 +29,24 @@ import com.sc.service.IBylawService;
 /**
  * 规章制度
  */
-@RestController
+@Controller
 public class BylawController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BylawController.class);
 
 	@Autowired
 	private IBylawService bylawService;
-
+	
+	@RequestMapping("/bylaw/bylawList")
+	public String bylawList() {
+		return "/bylawList";
+	}
+	
+	@RequestMapping("/bylaw/addBylaw")
+	public String addBylaw() {
+		return "/addBylaw";
+	}
+	
 	/**
 	 * 新增规章制度
 	 * 
@@ -43,6 +54,7 @@ public class BylawController {
 	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/save", method = { RequestMethod.POST })
+	@ResponseBody
 	public DataResponse saveBylaw(@Valid BylawModel bylawModel, HttpServletRequest request) {
 		DataResponse dr = null;
 		try {
@@ -72,6 +84,7 @@ public class BylawController {
 	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/query/list", method = { RequestMethod.POST })
+	@ResponseBody
 	public DataResponse queryBylaw() {
 		DataResponse dr = null;
 		try {
@@ -95,6 +108,7 @@ public class BylawController {
 	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/update", method = { RequestMethod.POST })
+	@ResponseBody
 	public DataResponse updateBylaw(BylawModel bylawModel, HttpServletRequest request) {
 		DataResponse dr = null;
 		try {
@@ -123,6 +137,7 @@ public class BylawController {
 	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/delete", method = { RequestMethod.POST })
+	@ResponseBody
 	public DataResponse deleteBylaw(@RequestParam(name = "bylawsId", required = true) Integer bylawsId) {
 		DataResponse dr = null;
 		try {
@@ -170,6 +185,7 @@ public class BylawController {
 	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/queryById", method = { RequestMethod.POST })
+	@ResponseBody
 	public DataResponse queryById(@RequestParam(name = "id", required = true) Integer id) {
 		DataResponse dr = null;
 		try {
@@ -196,6 +212,7 @@ public class BylawController {
 	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/queryCountByCategory", method = { RequestMethod.POST })
+	@ResponseBody
 	public DataResponse queryCountGroupBylawCategory() {
 		DataResponse dr = null;
 		try {
