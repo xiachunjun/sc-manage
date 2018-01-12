@@ -35,7 +35,11 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 	@Override
 	public void addInterceptors(InterceptorRegistry registry) {
 		InterceptorRegistration customer = registry.addInterceptor(authorizationInterceptor);
-		customer.excludePathPatterns("/**");
+		customer.excludePathPatterns("/outer/**");
+		
+		customer.excludePathPatterns("/swagger-resources/**");
+		customer.excludePathPatterns("/v2/**");
+		
 		customer.addPathPatterns("/**");
 	}
 

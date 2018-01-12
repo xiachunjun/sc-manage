@@ -50,7 +50,7 @@ public class UserController {
 	 * @param userModel
 	 * @return
 	 */
-	@RequestMapping(value = "/user/register", method = { RequestMethod.POST })
+	@RequestMapping(value = "/outer/user/register", method = { RequestMethod.POST })
 	@ResponseBody
 	public DataResponse register(UserModel userModel) {
 		DataResponse dr = null;
