@@ -9,6 +9,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 <#include "/parts/common-css.html"/>
+<link rel="stylesheet" href="/static/assets/css/sc-calendar.css" />
 </head>
 <body class="no-skin">
 	<#include "/parts/header.html"/>
@@ -163,7 +164,9 @@
 														</tr>
 													</table>
 												</div>
-												<div class="col-sm-4">这里要放一个日历</div>
+												<div id="sc-calendar"  class="col-sm-4">
+												
+												</div>
 											</div>
 										</div>
 									</div>
@@ -259,6 +262,7 @@
 	<script src="/static/assets/js/jquery.flot.pie.min.js"></script>
 	<script src="/static/assets/js/jquery.flot.resize.min.js"></script>
 	<script src="/static/assets/js/ace-elements.min.js"></script>
+	<script src="/static/assets/js/sc-calendar.js"></script>
 	<script type="text/javascript">
 		queryBylawCategoryCountData();
 		<!--查询各个规章制度数量接口-->
@@ -518,6 +522,7 @@
 				direction : 'up'
 			});
 		});
+		createCalendar("sc-calendar");
 	</script>
 </body>
 </html>
