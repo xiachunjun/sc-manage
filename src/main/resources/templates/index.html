@@ -40,30 +40,93 @@
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title">数据晒板</h4>
+										<h4 class="widget-title">消息中心</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
 									</div>
-
 									<div class="widget-body">
-										<div class="space-6"></div>
-										<div class="col-xs-12" style="height: 15em;">
-											<div class="row">
-												<div class="col-sm-6">
-													<div class="center" style="font-size: 15px">营业收入</div>
-													<div class="center" style="font-size: 50px;color: #FF3333;padding-bottom: 30px;font-weight: bold;">2000</div>
-													<div style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
-													<div style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">2%</div>
+										<div class="widget-box transparent" id="recent-box">
+											<div class="widget-header">
+												<div class="widget-toolbar no-border" style="width: 100%;">
+													<ul class="nav nav-tabs" id="recent-tab">
+														<li class="active"><a data-toggle="tab" href="#task-tab">消息提醒</a></li>
+														<li><a data-toggle="tab" href="#member-tab">待办事项</a></li>
+													</ul>
 												</div>
-												<div class="col-sm-6">
-													<div class="center" style="font-size: 15px">利润总额</div>
-													<div class="center" style="font-size: 50px;color: #FF3333;padding-bottom: 30px;font-weight: bold;">1000</div>
-													<div style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
-													<div style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">3%</div>
+											</div>
+											<div class="widget-body">
+												<div class="widget-main padding-4">
+													<div class="tab-content padding-8">
+														<div id="task-tab" class="tab-pane active">
+															<table class="tftable" border="1">
+																<tr>
+																	<th></th>
+																	<th>上午</th>
+																	<th>下午</th>
+																</tr>
+																<tr>
+																	<td>李四四</td>
+																	<td>在所日常</td>
+																	<td>在所日常</td>
+																</tr>
+																<tr>
+																	<td>王五</td>
+																	<td>在所日常</td>
+																	<td>在所日常</td>
+																</tr>
+																<tr>
+																	<td>赵六</td>
+																	<td>在所日常</td>
+																	<td>在所日常</td>
+																</tr>
+																<tr>
+																	<td>赵六</td>
+																	<td>在所日常</td>
+																	<td>在所日常</td>
+																</tr>
+															</table>
+														</div>
+
+														<div id="member-tab" class="tab-pane">
+															<div class="clearfix">
+																<table class="tftable" border="1">
+																	<tr>
+																		<th></th>
+																		<th>上午</th>
+																		<th>下午</th>
+																	</tr>
+																	<tr>
+																		<td>张三三</td>
+																		<td>在所日常</td>
+																		<td>在所日常</td>
+																	</tr>
+																	<tr>
+																		<td>李四四</td>
+																		<td>在所日常</td>
+																		<td>在所日常</td>
+																	</tr>
+																	<tr>
+																		<td>王五</td>
+																		<td>在所日常</td>
+																		<td>在所日常</td>
+																	</tr>
+																	<tr>
+																		<td>赵六</td>
+																		<td>在所日常</td>
+																		<td>在所日常</td>
+																	</tr>
+																</table>
+															</div>
+
+														</div>
+													</div>
 												</div>
 											</div>
 										</div>
+
+
+
 									</div>
 								</div>
 							</div>
@@ -71,7 +134,8 @@
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">每日信息</h4>
+										<h4 class="widget-title"
+											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">每日信息</h4>
 										<div class="widget-toolbar">
 											<a href="/article/articleList"> 详情 > </a>
 										</div>
@@ -80,7 +144,7 @@
 										<div class="space-6"></div>
 										<div class="col-xs-12">
 											<div class="row">
-												<div class="col-sm-12" style="height: 15em;">
+												<div class="col-sm-12" style="height: 17em;">
 													<div class="str1 str_wrap" style="height:100%;">
 														<table>
 															<tr>
@@ -125,7 +189,8 @@
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">领导安排</h4>
+										<h4 class="widget-title"
+											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">领导安排</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
@@ -153,20 +218,21 @@
 															<td>在所日常</td>
 														</tr>
 														<tr>
-															<td>王五</td>
-															<td>在所日常</td>
-															<td>在所日常</td>
-														</tr>
-														<tr>
 															<td>赵六</td>
 															<td>在所日常</td>
 															<td>在所日常</td>
 														</tr>
+														<td>赵六</td>
+														<td>在所日常</td>
+														<td>在所日常</td>
+														</tr>
+														<td>赵六</td>
+														<td>在所日常</td>
+														<td>在所日常</td>
+														</tr>
 													</table>
 												</div>
-												<div id="sc-calendar"  class="col-sm-4">
-												
-												</div>
+												<div id="sc-calendar" class="col-sm-4"></div>
 											</div>
 										</div>
 									</div>
@@ -174,11 +240,13 @@
 							</div>
 						</div>
 						<div class="hr hr32 hr-dotted"></div>
+
 						<div class="row">
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">任务晒板</h4>
+										<h4 class="widget-title"
+											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">任务晒板</h4>
 										<div class="widget-toolbar">
 											<a href="#"> 详情 > </a>
 										</div>
@@ -192,7 +260,8 @@
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">责任晒板</h4>
+										<h4 class="widget-title"
+											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">责任晒板</h4>
 										<div class="widget-toolbar">
 											<a href="duty.html"> 详情 > </a>
 										</div>
@@ -220,15 +289,186 @@
 												<td>监察部</td>
 												<td><a href="#">查看</a></td>
 											</tr>
+											<tr>
+												<td>4</td>
+												<td>战略规划部</td>
+												<td><a href="#">查看</a></td>
+											</tr>
+											<tr>
+												<td>5</td>
+												<td>党群工作部</td>
+												<td><a href="#">查看</a></td>
+											</tr>
+
 										</table>
 
 									</div>
 								</div>
 							</div>
+
 							<div class="col-sm-4">
 								<div class="widget-box transparent">
 									<div class="widget-header widget-header-flat">
-										<h4 class="widget-title" style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">规章制度</h4>
+										<h4 class="widget-title">数据晒板</h4>
+										<div class="widget-toolbar">
+											<a href="#"> 详情 > </a>
+										</div>
+									</div>
+
+									<div class="widget-body">
+										<div class="space-6"></div>
+										<div class="col-xs-12" style="height: 17em;">
+											<div class="row">
+												<div class="col-sm-6">
+													<div class="center" style="font-size: 15px">营业收入</div>
+													<div class="center"
+														style="font-size: 50px;color: #FF3333;padding-bottom: 40%;padding-top: 10%;font-weight: bold;">2000</div>
+													<div style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
+													<div style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">2%</div>
+												</div>
+												<div class="col-sm-6">
+													<div class="center" style="font-size: 15px">利润总额</div>
+													<div class="center"
+														style="font-size: 50px;color: #FF3333;padding-bottom: 40%;padding-top: 10%;font-weight: bold;">1000</div>
+													<div style="border-bottom: 1px black solid;text-align: right;">单位：万元</div>
+													<div style="font-size: 22px;text-align: right;color: #FF3333;font-weight: bold;">3%</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="hr hr32 hr-dotted"></div>
+
+						<div class="row">
+							<div class="space-6"></div>
+							<div class="col-sm-4">
+								<div class="widget-box transparent">
+									<div class="widget-header widget-header-flat">
+										<h4 class="widget-title">法律咨询</h4>
+										<div class="widget-toolbar">
+											<a href="#"> 详情 > </a>
+										</div>
+									</div>
+
+									<div class="widget-body">
+										<div class="space-6"></div>
+										<div class="col-xs-12">
+											<div class="row">
+												<div class="col-sm-12">
+													<div class="law-div" style="height:100%;">
+														<table>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title" colspan="2"><div
+																		style="text-align: right;width: 100%;padding-right: 20px;pa">
+																		<a href="#">我要咨询</a>
+																	</div></td>
+															</tr>
+														</table>
+													</div>
+
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+							<div class="vspace-12-sm"></div>
+							<div class="col-sm-4">
+								<div class="widget-box transparent">
+									<div class="widget-header widget-header-flat">
+										<h4 class="widget-title"
+											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">法律宣传</h4>
+										<div class="widget-toolbar">
+											<a href="/article/articleList"> 详情 > </a>
+										</div>
+									</div>
+									<div class="widget-body">
+										<div class="space-6"></div>
+										<div class="col-xs-12">
+											<div class="row">
+												<div class="col-sm-12">
+												<div class="law-div" style="height:100%;">
+														<table>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+															<tr>
+																<td class="td-title">工伤的范畴是哪些？</td>
+																<td>2017-12-1</td>
+															</tr>
+														</table>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+
+							<div class="col-sm-4">
+								<div class="widget-box transparent">
+									<div class="widget-header widget-header-flat">
+										<h4 class="widget-title"
+											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">规章制度</h4>
 										<div class="widget-toolbar">
 											<a href="bylaws.html"> 详情 > </a>
 										</div>
@@ -245,6 +485,8 @@
 								</div>
 							</div>
 						</div>
+
+
 					</div>
 				</div>
 			</div>
@@ -289,22 +531,22 @@
 				}
 			});
 		}
-		
+	
 		function dataListRender(dataMap) {
 			var ht = "<tr><th>序号</th><th>规章制度</th><th>数量</th></tr>";
-			
+	
 			ht = ht + "<tr><td>" + 1 + "</td>";
 			ht = ht + "<td>财务管理</td>";
 			ht = ht + "<td>" + dataMap.CWGL + "</td></tr>";
-			
+	
 			ht = ht + "<tr><td>" + 2 + "</td>";
 			ht = ht + "<td>条件保障</td>";
 			ht = ht + "<td>" + dataMap.TJBZ + "</td></tr>";
-			
+	
 			ht = ht + "<tr><td>" + 3 + "</td>";
 			ht = ht + "<td>行政管理</td>";
 			ht = ht + "<td>" + dataMap.XZGL + "</td></tr>";
-			
+	
 			$("#bylawCategoryGroup").html(ht);
 		}
 	</script>
