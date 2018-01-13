@@ -71,3 +71,19 @@ table.tftable td {
 	border: 1px solid #729ea5;
 	padding: 8px;
 }
+
+.law-div {
+	width: 100%;
+}
+
+.law-div table{
+	width:100%;
+	border: 1px solid #ddd;
+}
+.law-div table td{
+	border: 1px solid #ddd;
+}
+.law-div .td-title {
+	width: 75%;
+	padding: 2px 0 2px 3px;
+}
