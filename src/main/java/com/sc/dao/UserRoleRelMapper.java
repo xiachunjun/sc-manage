@@ -5,11 +5,13 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.type.JdbcType;
 
+import com.sc.domain.Role;
 import com.sc.domain.UserRoleRel;
 
 public interface UserRoleRelMapper {
@@ -61,6 +63,15 @@ public interface UserRoleRelMapper {
 		"delete from sc_user_role_rel where id=#{id,jdbcType=INTEGER}"
 	})
 	int deleteUserRoleRelById(Integer id);
+
+
+	@Select({
+		"select b.role_code as roleCode, b.role_name as roleName ",
+		"from sc_user_role_rel a ",
+		"left join sc_roles b on a.rel_role_code=b.role_code ",
+		"where a.data_state=1 and a.rel_user_code=#{userCode,jdbcType=VARCHAR}"
+	})
+	Role queryUserRoleByUserCode(@Param("userCode")String userCode);
 	
 	
 	
