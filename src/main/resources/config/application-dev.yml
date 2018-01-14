@@ -35,3 +35,5 @@ system:
    enableSwagger: true    #是否启用swagger  
    file:
      path: /Users/xcj/git/sc-manage/tmp/
+   ehcache:
+     path: D:/temp  
