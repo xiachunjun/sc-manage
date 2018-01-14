@@ -5,12 +5,14 @@ import java.util.List;
 import org.apache.ibatis.annotations.Delete;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Options;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Result;
 import org.apache.ibatis.annotations.Results;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.type.JdbcType;
 
 import com.sc.domain.Menu;
+import com.sc.model.response.MenuResult;
 
 public interface MenuMapper {
 
@@ -68,6 +70,28 @@ public interface MenuMapper {
 		"delete from sc_menus where id=#{id,jdbcType=INTEGER}"
 	})
 	int deleteMenuById(Integer id);
+
+
+	@Select({
+		"select a.id, a.menu_code as menuCode, a.menu_name as menuName, a.menu_level as menuLevel, ",
+			"a.partent_code as parentCode, a.rel_resouce_code as relResouceCode, a.data_state as dataState, ",
+			"b.res_name as resName, b.res_url as resUrl, b.res_type as resType, b.res_level as resLevel ",
+		"from sc_menus a ",
+		"left join sc_resources b on a.rel_resouce_code=b.res_code ",
+		"where a.data_state=1 and a.menu_level=#{menuLevel,jdbcType=VARCHAR}"
+	})
+	MenuResult queryListByMenuLevel(@Param("menuLevel")String menuLevel);
+
+	
+	@Select({
+		"select a.id, a.menu_code as menuCode, a.menu_name as menuName, a.menu_level as menuLevel, ",
+			"a.partent_code as parentCode, a.rel_resouce_code as relResouceCode, a.data_state as dataState, ",
+			"b.res_name as resName, b.res_url as resUrl, b.res_type as resType, b.res_level as resLevel ",
+		"from sc_menus a ",
+		"left join sc_resources b on a.rel_resouce_code=b.res_code ",
+		"where a.data_state=1 and a.partent_code=#{parentCode,jdbcType=VARCHAR}"
+	})
+	MenuResult queryListByParentCode(@Param("parentCode")String parentCode);
 	
 	
 }
