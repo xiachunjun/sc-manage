@@ -49,68 +49,73 @@
 											<li data-step="5"><span class="step">5</span> <span class="title">结束</span></li>
 										</ul>
 									</div>
-									</div>
+								</div>
 								<div class="space-6"></div>
 								<div class="col-sm-12">
 									<div class="col-sm-offset-5" style="font-size: 18px; font-weight: bold;">新建计划</div>
-									
 									<div class="space-6"></div>
-									<form id="addBylawsForm" class="form-horizontal" role="form" enctype="multipart/form-data" method="post">
+									<form id="addPlanForm" class="form-horizontal" role="form" onsubmit="return false;">
 										<div class="form-group">
-											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right" for="bylawsName">制定人</label>
+											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right"
+												for="formulateUser">制定人</label>
 											<div class="col-sm-2">
-												<input  readonly="readonly" type="text" id="bylawsName" name="bylawsName" value="张三"/>
+												<input readonly="readonly" type="text" id="formulateUser" name="formulateUser"
+													value="张三" />
 											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="bylawsName">部门</label>
+											<label class="col-sm-1 control-label no-padding-right" for="formulateDept">部门</label>
 											<div class="col-sm-2">
-												<input  readonly="readonly" type="text" id="bylawsName" name="bylawsName" value="张三"/>
+												<input readonly="readonly" type="text" id="formulateDept" name="formulateDept"
+													value="院办公室" />
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right" for="bylawsName">岗位</label>
+											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right" for="position">岗位</label>
 											<div class="col-sm-2">
-												<input  readonly="readonly" type="text" id="bylawsName" name="bylawsName" value="张三"/>
+												<input readonly="readonly" type="text" id="position" name="position" value="企业规划" />
 											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="bylawsName">计划日期</label>
+											<label class="col-sm-1 control-label no-padding-right" for="planDate">计划日期</label>
 											<div class="col-sm-2">
-												<input class="date-picker" readonly="readonly" type="text" data-date-format="yyyy-mm-dd" placeholder="日期" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right" for="bylawsName">开始日期</label>
-											<div class="col-sm-2">
-												<input class="date-picker" readonly="readonly" type="text" data-date-format="yyyy-mm-dd" placeholder="日期" />
-											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="bylawsName">结束日期</label>
-											<div class="col-sm-2">
-												<input class="date-picker" readonly="readonly" type="text" data-date-format="yyyy-mm-dd" placeholder="日期" />
+												<input name="planDate" class="date-picker" readonly="readonly" type="text"
+													data-date-format="yyyy-mm-dd" placeholder="日期" />
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right" for="bylawsName">工作类型</label>
+											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right"
+												for="planBeginTime">开始日期</label>
+											<div class="col-sm-2">
+												<input name="planBeginTime" class="date-picker" readonly="readonly" type="text"
+													data-date-format="yyyy-mm-dd" placeholder="开始时间" />
+											</div>
+											<label class="col-sm-1 control-label no-padding-right" for="planEndTime">结束日期</label>
+											<div class="col-sm-2">
+												<input name="planEndTime" class="date-picker" readonly="readonly" type="text"
+													data-date-format="yyyy-mm-dd" placeholder="结束时间" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right" for="planType">工作类型</label>
 											<div class="col-sm-2" style="padding-right: 1px;">
-												<select style="width: 100%" id="bylawsCategory" name="bylawsCategory">
+												<select style="width: 100%" id="planType" name="planType">
 													<option></option>
-													<option value="XZGL">常规</option>
-													<option value="TJBZ">计划外</option>
-													<option value="CWGL">重点</option>
+													<option value="0">常规</option>
+													<option value="1">计划外</option>
+													<option value="2">重点</option>
 												</select>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="bylawsName">计划内容</label>
+											<label class="col-sm-3 control-label no-padding-right" for="planContent">计划内容</label>
 											<div class="col-sm-5">
-											<textarea rows="5" cols="" style="width: 100%"></textarea>
-											</div>
-										</div>
-										
-										<div class="form-group">
-											<div class="col-sm-offset-5">
-												<button class="btn btn-primary radius-4">保存</button>
-												<button class="btn btn-primary radius-4">重置</button>
+												<textarea name="planContent" rows="5" cols="" style="width: 100%"></textarea>
 											</div>
 										</div>
 
+										<div class="form-group">
+											<div class="col-sm-offset-5">
+												<button id="submitBtn" class="btn btn-primary radius-4">保存</button>
+												<button class="btn btn-primary radius-4">重置</button>
+											</div>
+										</div>
 									</form>
 								</div>
 							</div>
@@ -122,10 +127,10 @@
 		<#include "/parts/footer.html"/>
 	</div>
 	<#include "/parts/common-js.html"/>
-	<script src="/static/assets/js/jquery.form.js"></script>
+
 	<script src="/static/assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="/static/assets/js/ace-elements.min.js"></script>
-
+	<#include "/parts/submit-form-with-js.html"/>
 	<script type="text/javascript">
 		jQuery(function($) {
 			$('.date-picker').datepicker({
@@ -135,34 +140,16 @@
 				.next().on(ace.click_event, function() {
 				$(this).prev().focus();
 			});
-		});
-	</script>
-	<script type="text/javascript">
-		//表单提交事件
-		$('#addBylawsForm').submit(function() {
-			$("#addBylawsForm").ajaxSubmit({
-				url : "/bylaw/save",
-				type : "POST",
-				dataType : "JSON",
-				clearForm : true,
-				resetForm : true,
-				timeout : 5000,
-				success : function(respData) {
-					if ('000000' === respData.resultCode) {
-						alert("保存成功");
-					} else {
-						alert("保存失败,稍后重试...");
-					}
-					$('.remove').click();
-				},
-				beforeSubmit : function(formData) {
-					console.log(formData);
+			
+			$("#submitBtn").on('click',function(){
+			submitForm(
+				{
+					'formId' : 'addPlanForm',
+					'url' : '/plan/addPlanPost'
 				}
+			);
 			});
-			return false;
 		});
 	</script>
-
-
 </body>
 </html>

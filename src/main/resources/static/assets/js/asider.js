@@ -4,5 +4,5 @@ var asiderMenu=function(){
 	var parentCode=$(menu).attr('parent-menu-code');
 	$(menu).addClass('active');
 	$("#"+parentCode).addClass('open');
-}();
+}
 asiderMenu();
