@@ -31,6 +31,22 @@ public class PlanController {
 	@Autowired
 	private IPlanService planService;
 	
+	@RequestMapping("/plan/planList")
+	public String planList() {
+		return "/planList";
+	}
+	
+	@RequestMapping("/plan/planManage")
+	public String planManage() {
+		return "/planManage";
+	}
+	
+	@RequestMapping("/plan/addPlan")
+	public String addPlan() {
+		return "/addPlan";
+	}
+	
+	
 	/**
 	 * 保存个人月度计划完成情况
 	 */
@@ -121,8 +137,6 @@ public class PlanController {
 		}
 		return dr;
 	}
-	
-	
 	
 	
 }
