@@ -97,5 +97,52 @@ public class PlanServiceImpl implements IPlanService {
 	}
 	
 	
+	@Transactional
+	@Override
+	public void updatePlan(List<PlanModel> planModels) {
+		if(CollectionUtils.isEmpty(planModels)){
+			throw new ScException("请输入要修改的记录");
+		}
+		AuthUser authUser = UserContext.getAuthUser();
+		//TODO 先查询修改的记录是否存在领导添加的
+		List<Integer> ids = new ArrayList<Integer>();
+		for (PlanModel planModel : planModels) {
+			ids.add(planModel.getId());
+		}
+		List<Plan> pList = planMapper.selectListByIdList(ids);
+		for (Plan plan : pList) {
+			//TODO
+		}
+		
+		for (PlanModel planModel : planModels) {
+			Plan record = new Plan();
+			record.setId(planModel.getId());
+			record.setPlanContent(planModel.getPlanContent());
+			record.setPlanType(planModel.getPlanType());
+			record.setUpdateUser(authUser.getUserLoginName());
+			int result = planMapper.updatePlanById(record);
+			if(result != 1){
+				throw new ScException("修改计划情况出错");
+			}
+		}
+	}
+	
+	
+	@Transactional
+	@Override
+	public void deletePlanById(Integer id) {
+		AuthUser authUser = UserContext.getAuthUser();
+		Plan plan = planMapper.selectById(id);
+		if(plan == null){
+			throw new ScException("对不起，找不到该记录!");
+		}
+		//TODO 先查询该条记录是否是领导添加的, 如果是领导添加的，则提示没有改权限进行删除； 如果是领导自己或者等级更高？
+		
+		int result = planMapper.deleteById(id);
+		if(result != 1){
+			throw new ScException("删除计划情况出错");
+		}
+	}
+	
 	
 }

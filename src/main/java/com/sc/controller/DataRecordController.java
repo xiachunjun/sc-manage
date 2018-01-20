@@ -31,7 +31,7 @@ public class DataRecordController {
 	/**
 	 * 保存数据填报
 	 */
-	@RequestMapping(value = "/outer/dataRecord/save", method = { RequestMethod.POST })
+	@RequestMapping(value = "/dataRecord/save", method = { RequestMethod.POST })
 	@ResponseBody
 	public DataResponse saveDataRecord(@RequestBody List<DataRecordModel> dataRecordModels) {
 		DataResponse dr = null;

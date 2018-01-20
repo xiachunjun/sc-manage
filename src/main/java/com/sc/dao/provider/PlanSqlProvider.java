@@ -4,6 +4,8 @@ import java.text.MessageFormat;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.ibatis.jdbc.SQL;
+
 import com.sc.domain.Plan;
 
 public class PlanSqlProvider {
@@ -34,6 +36,25 @@ public class PlanSqlProvider {
         }  
         return sb.toString();  
     }  
+	
+	
+	public String updateById(final Plan record){  
+		return new SQL() {{  
+			UPDATE("sc_plans");
+				if(record.getPlanContent() != null) {  
+					SET("plan_content = #{planContent,jdbcType=VARCHAR}");  
+				}
+				if(record.getPlanType() != null) {  
+					SET("plan_type = #{planType,jdbcType=INTEGER}");  
+				}  
+				if(record.getUpdateUser() != null) {  
+					SET("update_user=#{updateUser,jdbcType=VARCHAR}");  
+				}
+				SET("update_time=now()");
+			WHERE("id=#{id,jdbcType=INTEGER}");  
+		}}.toString();  
+	} 
+	
 	
 	
 }

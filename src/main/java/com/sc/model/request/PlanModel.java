@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class PlanModel {
 
+	private Integer id;
+	
 	/**所属部门*/
 	private String refDept;
 	/**责任人*/
@@ -34,6 +36,12 @@ public class PlanModel {
 	private Date checkTime;
 	
 	
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
+	}
 	public String getRefDept() {
 		return refDept;
 	}

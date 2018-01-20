@@ -21,5 +21,17 @@ public interface IPlanService {
 	 */
 	List<Plan> queryPlanByTab(QueryPlanModel planModel);
 
+	/**
+	 * 修改计划情况
+	 * @param planModels
+	 */
+	void updatePlan(List<PlanModel> planModels);
+
+	/**
+	 * 单条删除计划情况
+	 * @param id
+	 */
+	void deletePlanById(Integer id);
+
 	
 }
