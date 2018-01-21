@@ -95,52 +95,54 @@
 	<script type="text/javascript">
 		$(function(){
 			$.post("/department/queryAll", null, function(data,textStatus){
-				 if(data.resultCode === '000000'){
-					$("#refDept option").remove();
-			        var deptList = data.dataMap.depts;
-			        if(deptList!=null && deptList.length>0){
-			        	var $option2 = $("<option>请选择</option>");
-			        	$("#refDept").append($option2);
-			            for(var i=0;i<deptList.length;i++){
-				            var code = deptList[i].departmentCode;
-				            var name = deptList[i].departmentName;
-				            //添加到所属部门的下拉菜单中
-				            var $option = $("<option></option>");
-				            $option.attr("value",code);
-				            $option.text(name);
-				            $("#refDept").append($option);
-			            }
-			        }
-				 }
+			 if(data.resultCode === '000000'){
+				$("#refDept option").remove();
+		        var deptList = data.dataMap.depts;
+		        if(deptList!=null && deptList.length>0){
+		        	var $option2 = $("<option>请选择</option>");
+		        	$("#refDept").append($option2);
+		            for(var i=0;i<deptList.length;i++){
+			            var code = deptList[i].departmentCode;
+			            var name = deptList[i].departmentName;
+			            //添加到所属部门的下拉菜单中
+			            var $option = $("<option></option>");
+			            $option.attr("value",code);
+			            $option.text(name);
+			            $("#refDept").append($option);
+		            }
+		        }
+			 }
 	       });
 		})
 		//二级联动
 		function findPosition(o){
 	      var deptCode = document.getElementById("refDept").value;
 	      $.ajax({
-	    	    type: 'post',
-	    	    url: '/position/queryByDeptCode',
-	    	    data : JSON.stringify({"departmentCode":deptCode}),
-				headers : {
-					"Content-Type" : "application/json"
-				},
-	    	    success: function (data) { //返回json结果
-	    	    	if(data.resultCode === '000000'){
-	   	    		 $("#refPosi option").remove();
-	   	  	         var posiList = data.dataMap.positions;
-	   	  	         if(posiList!=null && posiList.length>0){
-	   	  	            for(var i=0;i<posiList.length;i++){
-	   	  		            var code = posiList[i].positionCode;
-	   	  		            var name = posiList[i].positionName;
-	   	  		            //添加到所属岗位的下拉菜单中
-	   	  		            var $option = $("<option></option>");
-	   	  		            $option.attr("value",code);
-	   	  		            $option.text(name);
-	   	  		            $("#refPosi").append($option);
-	   	  	            }
-	   	  	         }
-	   	    	   }
-	    	    }
+    	    type: 'post',
+    	    url: '/position/queryByDeptCode',
+    	    data : JSON.stringify({"departmentCode":deptCode}),
+			headers : {
+				"Content-Type" : "application/json"
+			},
+    	    success: function (data) { //返回json结果
+    	    	if(data.resultCode === '000000'){
+   	    		 $("#refPosi option").remove();
+   	  	         var posiList = data.dataMap.positions;
+   	  	         if(posiList!=null && posiList.length>0){
+   	  	        	var $option2 = $("<option>请选择</option>");
+	        		$("#refPosi").append($option2);
+   	  	            for(var i=0;i<posiList.length;i++){
+   	  		            var code = posiList[i].positionCode;
+   	  		            var name = posiList[i].positionName;
+   	  		            //添加到所属岗位的下拉菜单中
+   	  		            var $option = $("<option></option>");
+   	  		            $option.attr("value",code);
+   	  		            $option.text(name);
+   	  		            $("#refPosi").append($option);
+   	  	            }
+   	  	         }
+   	    	   }
+    	    }
 	      });
 		}
 		
