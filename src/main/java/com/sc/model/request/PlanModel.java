@@ -18,7 +18,7 @@ public class PlanModel {
 	private Integer planType;
 	/**计划创建日期*/
 	private Date planDate;
-	/**责任人*/
+	/**执行人*/
 	private String planMainPerson;
 	/**计划内容*/
 	private String planContent;

@@ -14,7 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import com.sc.support.AuthorizationInterceptor;
 
 @Configuration
-@EnableWebMvc
+//@EnableWebMvc   //这个注解会是的前端传来的时间有时区问题
 @ComponentScan({"com.sc.controller" ,"com.sc.support"})
 public class WebConfig extends WebMvcConfigurerAdapter {
 	static Logger logger = LoggerFactory.getLogger(WebConfig.class);

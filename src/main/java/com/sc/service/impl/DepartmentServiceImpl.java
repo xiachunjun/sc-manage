@@ -21,4 +21,9 @@ public class DepartmentServiceImpl implements IDepartmentService {
 		return list;
 	}
 
+	@Override
+	public Department queryByCode(String departmentCode) {
+		return departmentMapper.queryByCode(departmentCode);
+	}
+
 }

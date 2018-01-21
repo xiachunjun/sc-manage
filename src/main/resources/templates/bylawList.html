@@ -54,6 +54,7 @@
 		<#include "/parts/footer.html"/>
 	</div>
 <#include "/parts/common-js.html"/>
+<script src="/static/assets/js/sc-date.js"></script>
 	<script type="text/javascript">
 		function queryData() {
 			$.ajax({
@@ -94,7 +95,7 @@
 					ht = ht + "<td><a href='/bylaw/download?bylawsId=" + xzgl.id + "'>" + xzgl.bylawsName + "</a></td>>";
 					ht = ht + "<td>" + xzgl.bylawsNo + "</td>";
 					ht = ht + "<td>" + xzgl.articleNo + "</td>";
-					ht = ht + "<td>" + formatDate(xzgl.articleTime) + "</td>";
+					ht = ht + "<td>" + formatDate(xzgl.articleTime,true) + "</td>";
 					ht = ht + "<td itemid='" + xzgl.id + "'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
 				}
 			}
@@ -107,7 +108,7 @@
 					ht = ht + "<td><a href='/bylaw/download?bylawsId=" + tjbz.id + "'>" + tjbz.bylawsName + "</a></td>";
 					ht = ht + "<td>" + tjbz.bylawsNo + "</td>";
 					ht = ht + "<td>" + tjbz.articleNo + "</td>";
-					ht = ht + "<td>" + formatDate(tjbz.articleTime) + "</td>";
+					ht = ht + "<td>" + formatDate(tjbz.articleTime,true) + "</td>";
 					ht = ht + "<td itemid='" + tjbz.id + "'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
 				}
 			}
@@ -120,23 +121,11 @@
 					ht = ht + "<td><a href='/bylaw/download?bylawsId=" + cwgl.id + "'>" + cwgl.bylawsName + "</a></td>>";
 					ht = ht + "<td>" + cwgl.bylawsNo + "</td>";
 					ht = ht + "<td>" + cwgl.articleNo + "</td>";
-					ht = ht + "<td>" + formatDate(cwgl.articleTime) + "</td>";
+					ht = ht + "<td>" + formatDate(cwgl.articleTime,true) + "</td>";
 					ht = ht + "<td itemid='" + cwgl.id + "'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
 				}
 			}
 			$("#tfhover").html(ht);
-		}
-	
-	
-		function formatDate(timestampStr) {
-			var now = new Date(timestampStr);
-			var year = now.getYear();
-			var month = now.getMonth() + 1;
-			var date = now.getDate();
-			/* var   hour=now.getHours();     
-			var   minute=now.getMinutes();     
-			var   second=now.getSeconds();  */
-			return (1900 + year) + "年" + month + "月" + date + "日";
 		}
 	
 		function detailItem(obj) {

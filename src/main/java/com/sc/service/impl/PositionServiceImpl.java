@@ -93,6 +93,12 @@ public class PositionServiceImpl implements IPositionService {
 
 	}
 
+	@Override
+	public Position queryByCode(String positionCode) {
+		return positionMapper.queryByCode(positionCode);
+	}
+	
+	
 	/********************** 以下为私有方法 **********************/
 
 	private Position setPositionProperty(PositionModel positionModel, String userLoginName) {
@@ -129,5 +135,6 @@ public class PositionServiceImpl implements IPositionService {
 		}
 		return sb.substring(0, sb.length() - 4);
 	}
+
 
 }

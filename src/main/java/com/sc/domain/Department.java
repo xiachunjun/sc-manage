@@ -8,50 +8,60 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
  * 部门
  */
 public class Department {
-	
+
 	private Integer id;
-	
-	/**所属企业，企业表业务主键*/
+	/** 部门负责人 */
+	private String refUserCode;
+
+	/** 所属企业，企业表业务主键 */
 	private String refCompanyCode;
-	
-	/**部门业务主键*/
+
+	/** 部门业务主键 */
 	private String departmentCode;
-	
-	/**部门名称*/
+
+	/** 部门名称 */
 	private String departmentName;
-	
-	/**部门类型*/
+
+	/** 部门类型 */
 	private String departmentType;
-	
-	/**部门级别*/
+
+	/** 部门级别 */
 	private String departmentLevel;
-	
-	/**上级部门code*/
+
+	/** 上级部门code */
 	private String parentDepartmentCode;
-	
+
 	@JsonIgnore
 	private String dataMemo;
-	
+
 	@JsonIgnore
 	private Integer dataState;
 
 	@JsonIgnore
-    private Integer dataVersion;
+	private Integer dataVersion;
 
 	@JsonIgnore
-    private String createUser;
+	private String createUser;
 
 	@JsonIgnore
-    private String updateUser;
+	private String updateUser;
 
 	@JsonIgnore
-    private Date createTime;
+	private Date createTime;
 
 	@JsonIgnore
-    private Date updateTime;
+	private Date updateTime;
 
 	public Integer getId() {
 		return id;
+	}
+
+	public String getRefUserCode() {
+		return refUserCode;
+	}
+
+	public void setRefUserCode(String refUserCode) {
+		this.refUserCode = refUserCode;
 	}
 
 	public String getRefCompanyCode() {
@@ -162,5 +172,4 @@ public class Department {
 		this.updateTime = updateTime;
 	}
 
-    
 }

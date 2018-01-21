@@ -20,7 +20,7 @@ public interface PlanMapper {
 
 	@Insert({
 		"insert into sc_plans(",
-				"(ref_dept, ref_user, ref_position, plan_name, plan_type, plan_date, "
+				"ref_dept, ref_user, ref_position, plan_name, plan_type, plan_date, "
         		+ "plan_main_person, plan_content, plan_begin_time, plan_end_time,"
         		+ "rate_of_progress, progress_info, check_user, check_time,"
         		+ "data_state, data_version, create_user, update_user, create_time, update_time) ",
@@ -30,8 +30,8 @@ public interface PlanMapper {
 			"#{planMainPerson,jdbcType=VARCHAR}, #{planContent,jdbcType=VARCHAR}, #{planBeginTime,jdbcType=TIMESTAMP}, ",
 			"#{planEndTime,jdbcType=TIMESTAMP}, #{rateOfProgress,jdbcType=VARCHAR}, #{progressInfo,jdbcType=VARCHAR}, ",
 			"#{checkUser,jdbcType=VARCHAR}, #{checkTime,jdbcType=TIMESTAMP}, ",
-			"#{dataState,jdbcType=INTEGER}, #{dataVersion,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, ",
-			"#{updateUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
+			"1,0, #{createUser,jdbcType=VARCHAR}, ",
+			"#{updateUser,jdbcType=VARCHAR}, now(), now())"
 	})
 	@Options(useGeneratedKeys=true, keyProperty="id")
 	int savePlan(Plan record);
