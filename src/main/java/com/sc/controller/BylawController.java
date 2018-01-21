@@ -5,7 +5,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
@@ -55,7 +54,7 @@ public class BylawController {
 	 */
 	@RequestMapping(value = "/bylaw/save", method = { RequestMethod.POST })
 	@ResponseBody
-	public DataResponse saveBylaw(@Valid BylawModel bylawModel, HttpServletRequest request) {
+	public DataResponse saveBylaw(BylawModel bylawModel, HttpServletRequest request) {
 		DataResponse dr = null;
 		try {
 			//获取当前登录人

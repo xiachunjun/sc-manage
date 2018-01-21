@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sc.common.constant.CommonConstant;
@@ -27,10 +28,6 @@ import com.sc.service.IUserService;
 import com.sc.support.AuthUser;
 import com.sc.support.TokenService;
 
-/**
- * 用户注册+登录+退出
- *
- */
 @Controller
 public class UserController {
 
@@ -38,10 +35,15 @@ public class UserController {
 
 	@Autowired
 	private IUserService userService;
-
 	@Autowired
 	private TokenService tokenService;
 
+	
+	@RequestMapping("/outer/register")
+	public String registerPage(Map<String, Object> map) {
+		return "/addUser";
+	}
+	
 	@RequestMapping("/outer/login")
 	public String loginPage(Map<String, Object> map) {
 		return "/login";
@@ -49,9 +51,6 @@ public class UserController {
 
 	/**
 	 * 注册用户
-	 * 
-	 * @param userModel
-	 * @return
 	 */
 	@RequestMapping(value = "/outer/user/register", method = { RequestMethod.POST })
 	@ResponseBody
@@ -72,9 +71,6 @@ public class UserController {
 
 	/**
 	 * 用户登录
-	 * 
-	 * @param userModel
-	 * @return
 	 */
 	@RequestMapping(value = "/outer/user/login", method = { RequestMethod.POST })
 	@ResponseBody
@@ -99,9 +95,6 @@ public class UserController {
 
 	/**
 	 * 用户退出
-	 * 
-	 * @param request
-	 * @return
 	 */
 	@RequestMapping(value = "/user/logout", method = { RequestMethod.POST })
 	@ResponseBody
@@ -112,8 +105,6 @@ public class UserController {
 
 	/**
 	 * 查询用户列表
-	 * 
-	 * @return
 	 */
 	@RequestMapping(value = "/user/query/list", method = { RequestMethod.POST })
 	@ResponseBody
@@ -141,8 +132,6 @@ public class UserController {
 
 	/**
 	 * 查询当前用户
-	 * 
-	 * @return
 	 */
 	@RequestMapping(value = "/user/currentUser", method = { RequestMethod.POST })
 	@ResponseBody
@@ -162,6 +151,31 @@ public class UserController {
 		}
 		return dr;
 	}
+	
+	
+	/**
+	 * 修改密码
+	 */
+	@RequestMapping(value = "/user/pwd/update", method = { RequestMethod.POST })
+	@ResponseBody
+	public DataResponse updatePwd(@RequestParam(name="id", required=true)Integer id, 
+			@RequestParam(name="password", required=true)String password) {
+		DataResponse dr = null;
+		try {
+			userService.updatePwdById(id, password);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+		} catch (ScException e) {
+			logger.error(e.getMessage());
+			dr = new DataResponse(e);
+		} catch (Exception e) {
+			logger.error("修改密码异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
+	
+	/************************以下为私有方法****************************/
 
 	private DataResponse produceToken(User user, HttpServletRequest request, HttpServletResponse response) {
 		if (null == user) {
@@ -178,4 +192,5 @@ public class UserController {
 		dr.put(CommonConstant.ACCESS_TOKEN_KEY, authUser.getAccessToken());
 		return dr;
 	}
+	
 }

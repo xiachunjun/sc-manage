@@ -32,5 +32,12 @@ public interface IUserService {
 	 */
 	List<User> queryByDept(String deptCode);
 
+	/**
+	 * 修改密码
+	 * @param id
+	 * @param password
+	 */
+	void updatePwdById(Integer id, String password);
+
 	
 }
