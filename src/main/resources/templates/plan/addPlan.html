@@ -55,17 +55,18 @@
 									<div class="col-sm-offset-5" style="font-size: 18px; font-weight: bold;">新建计划</div>
 									<div class="space-6"></div>
 									<form id="addPlanForm" class="form-horizontal" role="form" onsubmit="return false;">
+									<input type="hidden" name="formulateUser" value="${authUser.userCode!''}" />
+									<input type="hidden" name="formulateUser" value="${dept.departmentCode!''}" />
 										<div class="form-group">
 											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right"
 												for="formulateUser">制定人</label>
 											<div class="col-sm-2">
-												<input readonly="readonly" type="text" id="formulateUser" name="formulateUser"
-													value="张三" />
+											
+												<input readonly="readonly" type="text" 	value="${authUser.userName!''}" />
 											</div>
 											<label class="col-sm-1 control-label no-padding-right" for="formulateDept">部门</label>
 											<div class="col-sm-2">
-												<input readonly="readonly" type="text" id="formulateDept" name="formulateDept"
-													value="院办公室" />
+												<input readonly="readonly" type="text"  value="${dept.departmentName!''}" />
 											</div>
 										</div>
 										<div class="form-group">
@@ -75,8 +76,8 @@
 											</div>
 											<label class="col-sm-1 control-label no-padding-right" for="planDate">计划日期</label>
 											<div class="col-sm-2">
-												<input name="planDate" class="date-picker" readonly="readonly" type="text"
-													data-date-format="yyyy-mm-dd" placeholder="日期" />
+												<input id="planDate" name="planDate" class="date-picker" readonly="readonly" type="text"
+													data-date-format="yyyy-mm-dd" value=""/>
 											</div>
 										</div>
 										<div class="form-group">
@@ -127,9 +128,9 @@
 		<#include "/parts/footer.html"/>
 	</div>
 	<#include "/parts/common-js.html"/>
-
 	<script src="/static/assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="/static/assets/js/ace-elements.min.js"></script>
+	<script src="/static/assets/js/sc-date.js"></script>
 	<#include "/parts/submit-form-with-js.html"/>
 	<script type="text/javascript">
 		jQuery(function($) {
@@ -150,6 +151,7 @@
 			);
 			});
 		});
+		$("#planDate").val(formatDate1(null,true));
 	</script>
 </body>
 </html>

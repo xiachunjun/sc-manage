@@ -20,15 +20,17 @@ public interface IPositionService {
 	 * @return
 	 */
 	List<Position> queryByDeptCode(String deptCode);
-	
+
 	/**
 	 * 新增责任清单
+	 * 
 	 * @param positionModel
 	 */
 	void savePosition(PositionModel positionModel, String userLoginName);
 
 	/**
 	 * 条件查询责任清单
+	 * 
 	 * @param positionModel
 	 * @return
 	 */
@@ -36,14 +38,23 @@ public interface IPositionService {
 
 	/**
 	 * 修改责任清单
+	 * 
 	 * @param positionModel
 	 */
 	void updatePosition(PositionModel positionModel, String userLoginName);
-	
+
 	/**
 	 * 编辑岗位责任人
+	 * 
 	 * @return
 	 */
 	public void editPosition(PositionModel positionModel);
-	
+
+	/**
+	 * 根据code查
+	 * 
+	 * @return
+	 */
+	Position queryByCode(String positionCode);
+
 }

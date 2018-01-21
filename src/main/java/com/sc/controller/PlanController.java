@@ -16,10 +16,14 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
+import com.sc.domain.Department;
 import com.sc.domain.Plan;
+import com.sc.domain.Position;
 import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
+import com.sc.service.IDepartmentService;
 import com.sc.service.IPlanService;
+import com.sc.service.IPositionService;
 import com.sc.support.AuthUser;
 import com.sc.support.UserContext;
 
@@ -34,22 +38,31 @@ public class PlanController {
 	@Autowired
 	private IPlanService planService;
 	
+	@Autowired
+	private IPositionService positionService;
+	
+	@Autowired
+	private IDepartmentService departmentService;
+	
 	@RequestMapping("/plan/planList")
 	public String planList() {
-		return "/planList";
+		return "/plan/planList";
 	}
 	
 	@RequestMapping("/plan/planManage")
 	public String planManage() {
-		return "/planManage";
+		return "/plan/planManage";
 	}
 	
 	@RequestMapping("/plan/addPlan")
 	public ModelAndView addPlan() {
-		AuthUser authUser=UserContext.getAuthUser();
-		
 		ModelAndView mv=new ModelAndView("/plan/addPlan");
-		
+		AuthUser authUser=UserContext.getAuthUser();
+		Position posi= positionService.queryByCode(authUser.getRefPosi());
+		Department dept=departmentService.queryByCode(authUser.getRefDept());
+		mv.addObject("authUser", authUser);
+		mv.addObject("posi", posi);
+		mv.addObject("dept", dept);
 		return mv;
 	}
 	
