@@ -16,6 +16,10 @@ public class AuthUser {
 
 	private String accessToken;
 
+	private String refDept;
+
+	private String refPosi;
+
 	public AuthUser() {
 
 	}
@@ -26,6 +30,8 @@ public class AuthUser {
 		this.userName = user.getUserName();
 		this.userLoginName = user.getUserLoginName();
 		// this.userMobile = user.getUserMobile();
+		this.refDept = user.getRefDept();
+		this.refPosi = user.getRefPosi();
 	}
 
 	public Integer getId() {
@@ -74,6 +80,22 @@ public class AuthUser {
 
 	public void setAccessToken(String accessToken) {
 		this.accessToken = accessToken;
+	}
+
+	public String getRefDept() {
+		return refDept;
+	}
+
+	public void setRefDept(String refDept) {
+		this.refDept = refDept;
+	}
+
+	public String getRefPosi() {
+		return refPosi;
+	}
+
+	public void setRefPosi(String refPosi) {
+		this.refPosi = refPosi;
 	}
 
 }

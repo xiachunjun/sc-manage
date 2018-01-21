@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
@@ -19,6 +20,8 @@ import com.sc.domain.Plan;
 import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
 import com.sc.service.IPlanService;
+import com.sc.support.AuthUser;
+import com.sc.support.UserContext;
 
 /**
  * 计划完成情况
@@ -42,8 +45,12 @@ public class PlanController {
 	}
 	
 	@RequestMapping("/plan/addPlan")
-	public String addPlan() {
-		return "/addPlan";
+	public ModelAndView addPlan() {
+		AuthUser authUser=UserContext.getAuthUser();
+		
+		ModelAndView mv=new ModelAndView("/plan/addPlan");
+		
+		return mv;
 	}
 	
 	
@@ -133,6 +140,27 @@ public class PlanController {
 			dr = new DataResponse(e);
 		} catch (Exception e) {
 			logger.error("单条删除计划完成情况异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
+	
+	/**
+	 * 新建计划
+	 */
+	@RequestMapping(value = "/plan/addPlanPost", method = { RequestMethod.POST })
+	@ResponseBody
+	public DataResponse addPlanPost(@RequestBody PlanModel planModel) {
+		DataResponse dr = null;
+		try {
+			planService.addPlan(planModel);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+		} catch (ScException e) {
+			logger.error(e.getMessage());
+			dr = new DataResponse(e);
+		} catch (Exception e) {
+			logger.error("新建计划异常", e);
 			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
