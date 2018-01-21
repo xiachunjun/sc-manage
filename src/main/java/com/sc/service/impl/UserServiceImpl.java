@@ -71,6 +71,17 @@ public class UserServiceImpl implements IUserService {
 	}
 	
 	
+	@Transactional
+	@Override
+	public void updatePwdById(Integer id, String password) {
+		String encryptPwd = EncryptUtil.encrypt(password);
+		int result = userMapper.updatePwdById(id, encryptPwd);
+		if(result != 1){
+			throw new ScException("修改密码异常");
+		}
+	}
+	
+	
 	/**********************以下为私有方法**********************/
 	
 	private User setUserProperty(UserModel userModel) {

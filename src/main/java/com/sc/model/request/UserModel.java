@@ -8,6 +8,11 @@ public class UserModel {
 	/**登录密码*/
 	private String userLoginPwd;
 
+	/**所属部门*/
+	private String refDept;
+	
+	/**所属职位*/
+	private String refPosi;
 	
 	public String getUserLoginName() {
 		return userLoginName;
@@ -23,6 +28,22 @@ public class UserModel {
 
 	public void setUserLoginPwd(String userLoginPwd) {
 		this.userLoginPwd = userLoginPwd;
+	}
+
+	public String getRefDept() {
+		return refDept;
+	}
+
+	public String getRefPosi() {
+		return refPosi;
+	}
+
+	public void setRefDept(String refDept) {
+		this.refDept = refDept;
+	}
+
+	public void setRefPosi(String refPosi) {
+		this.refPosi = refPosi;
 	}
 	
 	

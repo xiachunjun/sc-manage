@@ -26,5 +26,12 @@ public interface IUserService {
 	 */
 	Map<String, Object> queryUsertList();
 
+	/**
+	 * 修改密码
+	 * @param id
+	 * @param password
+	 */
+	void updatePwdById(Integer id, String password);
+
 	
 }

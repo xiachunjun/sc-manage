@@ -24,16 +24,15 @@ public interface UserMapper {
     @Insert({
         "insert into sc_users (user_code, ",
         	"user_login_name, user_login_pwd, ",
-        	"user_id_card, user_name, user_nickname, ",
+        	"user_id_card, user_name, user_nickname, ref_dept, ref_posi,",
         	"data_state, data_version, create_user, ",
         	"update_user, create_time, update_time)",
         "values (#{userCode,jdbcType=VARCHAR}, ",
         	"#{userLoginName,jdbcType=VARCHAR}, #{userLoginPwd,jdbcType=VARCHAR}, ",
         	"#{userIdCard,jdbcType=VARCHAR}, #{userName,jdbcType=VARCHAR}, ",
-        	"#{userNickname,jdbcType=VARCHAR}, #{dataState,jdbcType=INTEGER}, ",
-        	"#{dataVersion,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, ",
-        	"#{updateUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, ",
-        	"#{updateTime,jdbcType=TIMESTAMP})"
+        	"#{userNickname,jdbcType=VARCHAR}, #{refDept,jdbcType=VARCHAR}, #{refPosi,jdbcType=VARCHAR},",
+        	"#{dataState,jdbcType=INTEGER}, #{dataVersion,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, ",
+        	"#{updateUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
     })
     @Options(useGeneratedKeys=true, keyProperty="id")
     int insert(User record);
@@ -155,6 +154,15 @@ public interface UserMapper {
     	"select max(user_code) from sc_users"
     })
     Integer getMaxCode();
+
+    
+    @Update({
+    	"update sc_users set ",
+    		"user_login_pwd=#{userLoginPwd,jdbcType=VARCHAR}, ",
+    		"update_time = now() ",
+    	"where id=#{id,jdbcType=INTEGER}"
+    })
+	int updatePwdById(@Param("id")Integer id, @Param("userLoginPwd")String encryptPwd);
     
 	
 }
