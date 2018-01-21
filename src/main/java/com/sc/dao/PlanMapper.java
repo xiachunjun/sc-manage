@@ -30,8 +30,8 @@ public interface PlanMapper {
 			"#{planMainPerson,jdbcType=VARCHAR}, #{planContent,jdbcType=VARCHAR}, #{planBeginTime,jdbcType=TIMESTAMP}, ",
 			"#{planEndTime,jdbcType=TIMESTAMP}, #{rateOfProgress,jdbcType=VARCHAR}, #{progressInfo,jdbcType=VARCHAR}, ",
 			"#{checkUser,jdbcType=VARCHAR}, #{checkTime,jdbcType=TIMESTAMP}, ",
-			"#{dataState,jdbcType=INTEGER}, #{dataVersion,jdbcType=INTEGER}, #{createUser,jdbcType=VARCHAR}, ",
-			"#{updateUser,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP})"
+			"1,0, #{createUser,jdbcType=VARCHAR}, ",
+			"#{updateUser,jdbcType=VARCHAR}, now(), now())"
 	})
 	@Options(useGeneratedKeys=true, keyProperty="id")
 	int savePlan(Plan record);

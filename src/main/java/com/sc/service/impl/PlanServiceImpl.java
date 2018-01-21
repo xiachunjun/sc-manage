@@ -14,12 +14,15 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.sc.common.constant.ScException;
-import com.sc.controller.DataRecordController;
 import com.sc.dao.PlanMapper;
+import com.sc.domain.Department;
 import com.sc.domain.Plan;
+import com.sc.domain.Position;
 import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
+import com.sc.service.IDepartmentService;
 import com.sc.service.IPlanService;
+import com.sc.service.IPositionService;
 import com.sc.support.AuthUser;
 import com.sc.support.UserContext;
 
@@ -30,6 +33,12 @@ public class PlanServiceImpl implements IPlanService {
 
 	@Autowired
 	private PlanMapper planMapper;
+	
+	@Autowired
+	private IPositionService positionService;
+	
+	@Autowired
+	private IDepartmentService departmentService;
 
 	@Transactional
 	@Override
@@ -154,6 +163,15 @@ public class PlanServiceImpl implements IPlanService {
 		try {
 			Plan plan = new Plan();
 			BeanUtils.copyProperties(planModel, plan);
+			AuthUser authUser=UserContext.getAuthUser();
+			Department dept=departmentService.queryByCode(authUser.getRefDept());			
+			plan.setRefDept(authUser.getRefDept());
+			plan.setRefUser(authUser.getUserCode());
+			plan.setRefPosition(authUser.getRefPosi());
+			plan.setPlanMainPerson(authUser.getRefDept());
+			plan.setCheckUser(dept.getRefUserCode());
+			plan.setCreateUser(authUser.getUserCode());
+			plan.setUpdateUser(authUser.getUserCode());
 			planMapper.savePlan(plan);
 		} catch (Exception e) {
 			logger.error("PlanServiceImpl.addPlan===", e);
