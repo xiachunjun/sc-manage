@@ -55,3 +55,46 @@ function dateComplement(target) {
 		return target;
 	}
 }
+
+var dateList =function getDateList(initOption) {
+	var format1 = 'yyyy-MM-dd';
+	var format2 = 'yyyy-MM';
+	var format3 = 'yyyy年MM月dd日';
+	var format4 = 'yyyy年MM月';
+	var	option={
+				'format':format1,
+				'size':12
+		};
+	if (!!initOption.format) {
+		option.format = initOption.format;
+	}
+	if (!!initOption.size) {
+		option.size = initOption.size;
+	}
+	var now = new Date();
+	var result = [];
+	for (var i = 0; i < option.size; i++) {
+		var obj=new Object();
+		var m = now.getMonth() + 1;
+		var date = now.getDate();
+		if (format1 == option.format) {
+			obj.key=now.getFullYear() + "-" + dateComplement(m) + "-" + dateComplement(date);
+			obj.value=now.getFullYear() + "-" + dateComplement(m) + "-" + dateComplement(date);
+			result.push(obj);
+		} else if (format2 == option.format) {
+			obj.key=now.getFullYear() + "-" + dateComplement(m);
+			obj.value=now.getFullYear() + "-" + dateComplement(m);
+			result.push(obj);
+		} else if (format3 == option.format) {
+			obj.key=now.getFullYear() + "-" + dateComplement(m) + "-" + dateComplement(date);
+			obj.value=now.getFullYear() + "年" + dateComplement(m) + "月" + dateComplement(date) + "日";
+			result.push(obj);
+		} else if (format4 == option.format) {
+			obj.key=now.getFullYear() + "-" + dateComplement(m);
+			obj.value=now.getFullYear() + "年" + dateComplement(m) + "月";
+			result.push(obj);
+		}
+		now.setMonth(now.getMonth() - 1);
+	}
+	return result;
+}

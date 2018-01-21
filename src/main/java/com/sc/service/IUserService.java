@@ -1,5 +1,6 @@
 package com.sc.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.sc.domain.User;
@@ -24,7 +25,12 @@ public interface IUserService {
 	 * 查询用户列表
 	 * @return
 	 */
-	Map<String, Object> queryUsertList();
+	List<User> queryUsertList();
+	/**
+	 * 获取部门下的全部用户
+	 * @return
+	 */
+	List<User> queryByDept(String deptCode);
 
 	
 }

@@ -1,15 +1,18 @@
 package com.sc.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -114,12 +117,18 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/query/list", method = { RequestMethod.POST })
 	@ResponseBody
-	public DataResponse queryUsertList() {
+	public DataResponse queryUsertList(@RequestBody Map<String, String> paramMap) {
 		DataResponse dr = null;
 		try {
-			Map<String, Object> dataMap = userService.queryUsertList();
+			List<User> userList = null;
+			if (paramMap.get("deptCode")!=null) {
+				String deptCode = String.valueOf(paramMap.get("deptCode"));
+				userList = userService.queryByDept(deptCode);
+			} else {
+				userList = userService.queryUsertList();
+			}
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-			dr.setDataMap(dataMap);
+			dr.put("userList", userList);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);

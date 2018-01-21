@@ -1,9 +1,11 @@
 package com.sc.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -19,11 +21,13 @@ import com.sc.common.constant.ScException;
 import com.sc.domain.Department;
 import com.sc.domain.Plan;
 import com.sc.domain.Position;
+import com.sc.domain.User;
 import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
 import com.sc.service.IDepartmentService;
 import com.sc.service.IPlanService;
 import com.sc.service.IPositionService;
+import com.sc.service.IUserService;
 import com.sc.support.AuthUser;
 import com.sc.support.UserContext;
 
@@ -34,39 +38,48 @@ import com.sc.support.UserContext;
 public class PlanController {
 
 	private static final Logger logger = LoggerFactory.getLogger(DataRecordController.class);
-	
+
 	@Autowired
 	private IPlanService planService;
-	
+
 	@Autowired
 	private IPositionService positionService;
-	
+
 	@Autowired
 	private IDepartmentService departmentService;
-	
+
+	@Autowired
+	private IUserService userService;
+
 	@RequestMapping("/plan/planList")
 	public String planList() {
 		return "/plan/planList";
 	}
-	
+
 	@RequestMapping("/plan/planManage")
-	public String planManage() {
-		return "/plan/planManage";
-	}
-	
-	@RequestMapping("/plan/addPlan")
-	public ModelAndView addPlan() {
-		ModelAndView mv=new ModelAndView("/plan/addPlan");
-		AuthUser authUser=UserContext.getAuthUser();
-		Position posi= positionService.queryByCode(authUser.getRefPosi());
-		Department dept=departmentService.queryByCode(authUser.getRefDept());
+	public ModelAndView planManage() {
+		ModelAndView mv = new ModelAndView("/plan/planManage");
+		AuthUser authUser = UserContext.getAuthUser();
+		Position posi = positionService.queryByCode(authUser.getRefPosi());
+		Department dept = departmentService.queryByCode(authUser.getRefDept());
 		mv.addObject("authUser", authUser);
 		mv.addObject("posi", posi);
 		mv.addObject("dept", dept);
 		return mv;
 	}
-	
-	
+
+	@RequestMapping("/plan/addPlan")
+	public ModelAndView addPlan() {
+		ModelAndView mv = new ModelAndView("/plan/addPlan");
+		AuthUser authUser = UserContext.getAuthUser();
+		Position posi = positionService.queryByCode(authUser.getRefPosi());
+		Department dept = departmentService.queryByCode(authUser.getRefDept());
+		mv.addObject("authUser", authUser);
+		mv.addObject("posi", posi);
+		mv.addObject("dept", dept);
+		return mv;
+	}
+
 	/**
 	 * 保存个人月度计划完成情况
 	 */
@@ -86,11 +99,9 @@ public class PlanController {
 		}
 		return dr;
 	}
-	
-	
+
 	/**
-	 * 查询计划列表
-	 * tab传参: 1待办计划，2在办计划，3我的计划
+	 * 查询计划列表 tab传参: 1待办计划，2在办计划，3我的计划
 	 */
 	@RequestMapping(value = "/plan/query", method = { RequestMethod.POST })
 	@ResponseBody
@@ -109,11 +120,10 @@ public class PlanController {
 		}
 		return dr;
 	}
-	
-	
+
 	/**
-	 * 修改计划
-	 * 描述：上级领导的新增部分，下级员工不可修改和删除，若员工认为计划不妥，可线下向上级领导申请，由上级领导进行修改
+	 * 修改计划 描述：上级领导的新增部分，下级员工不可修改和删除，若员工认为计划不妥，可线下向上级领导申请，由上级领导进行修改
+	 * 
 	 * @param planModels
 	 * @return
 	 */
@@ -133,17 +143,16 @@ public class PlanController {
 		}
 		return dr;
 	}
-	
-	
+
 	/**
-	 * 删除计划情况
-	 * 描述：上级领导的新增部分，下级员工不可修改和删除，若员工认为计划不妥，可线下向上级领导申请，由上级领导进行修改
+	 * 删除计划情况 描述：上级领导的新增部分，下级员工不可修改和删除，若员工认为计划不妥，可线下向上级领导申请，由上级领导进行修改
+	 * 
 	 * @param id
 	 * @return
 	 */
 	@RequestMapping(value = "/plan/delete", method = { RequestMethod.POST })
 	@ResponseBody
-	public DataResponse deletePlan(@RequestParam(name="id", required=true)Integer id) {
+	public DataResponse deletePlan(@RequestParam(name = "id", required = true) Integer id) {
 		DataResponse dr = null;
 		try {
 			planService.deletePlanById(id);
@@ -157,8 +166,7 @@ public class PlanController {
 		}
 		return dr;
 	}
-	
-	
+
 	/**
 	 * 新建计划
 	 */
@@ -178,6 +186,5 @@ public class PlanController {
 		}
 		return dr;
 	}
-	
-	
+
 }

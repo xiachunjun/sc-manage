@@ -437,7 +437,7 @@
 			$.ajax({
 				type : 'POST',
 				url : '/user/query/list',
-				data : null,
+				data :  JSON.stringify({}),
 				headers : {
 					'Content-Type' : 'application/json'
 				},

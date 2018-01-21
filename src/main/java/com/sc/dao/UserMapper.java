@@ -149,6 +149,24 @@ public interface UserMapper {
         @Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER)
     })
     List<User> selectUserList();
+    
+    @Select({
+    	"select",
+    	"id, user_code, user_login_name, user_name, user_nickname, data_state,ref_dept,ref_posi ",
+    	"from sc_users ",
+    	"where data_state=1 and ref_dept=#{deptCode,jdbcType=VARCHAR}"
+    })
+    @Results({
+    	@Result(column="id", property="id", jdbcType=JdbcType.INTEGER, id=true),
+    	@Result(column="user_code", property="userCode", jdbcType=JdbcType.VARCHAR),
+    	@Result(column="user_login_name", property="userLoginName", jdbcType=JdbcType.VARCHAR),
+    	@Result(column="user_name", property="userName", jdbcType=JdbcType.VARCHAR),
+    	@Result(column="user_nickname", property="userNickname", jdbcType=JdbcType.VARCHAR),
+    	@Result(column="data_state", property="dataState", jdbcType=JdbcType.INTEGER),
+    	 @Result(column="ref_dept", property="refDept", jdbcType=JdbcType.VARCHAR),
+         @Result(column="ref_posi", property="refPosi", jdbcType=JdbcType.VARCHAR)
+    })
+    List<User> queryByDept(@Param("deptCode")String deptCode);
 
     
     @Select({
