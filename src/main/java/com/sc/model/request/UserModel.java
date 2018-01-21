@@ -2,18 +2,20 @@ package com.sc.model.request;
 
 public class UserModel {
 
-	/**用户登录名*/
+	/** 用户登录名 */
 	private String userLoginName;
 
-	/**登录密码*/
+	/** 登录密码 */
 	private String userLoginPwd;
 
-	/**所属部门*/
+	private String userName;
+
+	/** 所属部门 */
 	private String refDept;
-	
-	/**所属职位*/
+
+	/** 所属职位 */
 	private String refPosi;
-	
+
 	public String getUserLoginName() {
 		return userLoginName;
 	}
@@ -45,6 +47,13 @@ public class UserModel {
 	public void setRefPosi(String refPosi) {
 		this.refPosi = refPosi;
 	}
-	
-	
+
+	public String getUserName() {
+		return userName;
+	}
+
+	public void setUserName(String userName) {
+		this.userName = userName;
+	}
+
 }
