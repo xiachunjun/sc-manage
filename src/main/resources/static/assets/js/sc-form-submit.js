@@ -18,9 +18,8 @@ var submitForm = function queryData(option) {
 		},
 		success : function(data) {
 			var resultCode = data.resultCode;
-			var dataMap = data.dataMap;
-			if (resultCode == '000000' & dataMap != null) {
-				alert("操作成功!")
+			if (resultCode == '000000') {
+				alert("操作成功!");
 			} else {
 				alert("操作异常!");
 			}
