@@ -58,10 +58,8 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="refDept">所属部门</label>
 											<div class="col-sm-9">
-												<select class="col-xs-10 col-sm-5" id="refDept" name="refDept">
-													<option></option>
-													<option value="00000001">所办公室</option>
-													<option value="00000002">经营计划部</option>
+												<select class="col-xs-10 col-sm-5" id="refDept" name="refDept" onchange="if(this.value != '')findPosition(this)">
+													<option>请选择</option>
 												</select>
 											</div>
 										</div>
@@ -69,9 +67,7 @@
 											<label class="col-sm-3 control-label no-padding-right" for="refPosi">所属岗位</label>
 											<div class="col-sm-9">
 												<select class="col-xs-10 col-sm-5" id="refPosi" name="refPosi">
-													<option></option>
-													<option value="00000001">保密员A</option>
-													<option value="00000002">保密员B</option>
+													<option>请选择</option>
 												</select>
 											</div>
 										</div>
@@ -97,29 +93,57 @@
 	<script src="/static/assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script type="text/javascript">
-		jQuery(function($) {
-			$('.date-picker').datepicker({
-				autoclose : true,
-				todayHighlight : true
-			})
-				.next().on(ace.click_event, function() {
-				$(this).prev().focus();
-			});
-			$('#file-upload').ace_file_input({
-				no_file : '未选择文件',
-				btn_choose : '选择文件',
-				btn_change : '重新选择',
-				droppable : false,
-				onchange : null,
-				thumbnail : false //| true | large
-			//whitelist:'gif|png|jpg|jpeg'
-			//blacklist:'exe|php'
-			//onchange:''
-			//
-			});
-		});
-	</script>
-	<script type="text/javascript">
+		$(function(){
+			$.post("/department/queryAll", null, function(data,textStatus){
+				 if(data.resultCode === '000000'){
+					$("#refDept option").remove();
+			        var deptList = data.dataMap.depts;
+			        if(deptList!=null && deptList.length>0){
+			        	var $option2 = $("<option>请选择</option>");
+			        	$("#refDept").append($option2);
+			            for(var i=0;i<deptList.length;i++){
+				            var code = deptList[i].departmentCode;
+				            var name = deptList[i].departmentName;
+				            //添加到所属部门的下拉菜单中
+				            var $option = $("<option></option>");
+				            $option.attr("value",code);
+				            $option.text(name);
+				            $("#refDept").append($option);
+			            }
+			        }
+				 }
+	       });
+		})
+		//二级联动
+		function findPosition(o){
+	      var deptCode = document.getElementById("refDept").value;
+	      $.ajax({
+	    	    type: 'post',
+	    	    url: '/position/queryByDeptCode',
+	    	    data : JSON.stringify({"departmentCode":deptCode}),
+				headers : {
+					"Content-Type" : "application/json"
+				},
+	    	    success: function (data) { //返回json结果
+	    	    	if(data.resultCode === '000000'){
+	   	    		 $("#refPosi option").remove();
+	   	  	         var posiList = data.dataMap.positions;
+	   	  	         if(posiList!=null && posiList.length>0){
+	   	  	            for(var i=0;i<posiList.length;i++){
+	   	  		            var code = posiList[i].positionCode;
+	   	  		            var name = posiList[i].positionName;
+	   	  		            //添加到所属岗位的下拉菜单中
+	   	  		            var $option = $("<option></option>");
+	   	  		            $option.attr("value",code);
+	   	  		            $option.text(name);
+	   	  		            $("#refPosi").append($option);
+	   	  	            }
+	   	  	         }
+	   	    	   }
+	    	    }
+	      });
+		}
+		
 		//表单提交事件
 		$('#addUserForm').submit(function() {
 			$("#addUserForm").ajaxSubmit({
