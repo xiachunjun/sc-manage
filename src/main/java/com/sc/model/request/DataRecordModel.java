@@ -4,28 +4,28 @@ import java.util.Date;
 
 public class DataRecordModel {
 
-private String refDeptCode;
-	
-	/**数据时间*/
+	private String refDeptCode;
+
+	/** 数据时间 */
 	private Date recordTime;
-	
-	/**指标名称*/
+
+	/** 指标名称 */
 	private String recordName;
-	
-	/**计量单位（1-百分比，2-亿元，3-美元，4-元）*/
+
+	/** 计量单位（1-百分比，2-亿元，3-美元，4-元） */
 	private Integer recordUnit;
-	
-	/**指标值*/
+
+	/** 指标值 */
 	private Float recordValue;
-	
+
 	private Float targetValue;
-	
-	/**完成度*/
+
+	/** 完成度 */
 	private String rateOfProgress;
-	
-	/**完成情况*/
+
+	/** 完成情况 */
 	private String progressInfo;
-	
+
 	private String recordMemo;
 
 	public String getRefDeptCode() {
@@ -99,6 +99,5 @@ private String refDeptCode;
 	public void setRecordMemo(String recordMemo) {
 		this.recordMemo = recordMemo;
 	}
-	
-	
+
 }

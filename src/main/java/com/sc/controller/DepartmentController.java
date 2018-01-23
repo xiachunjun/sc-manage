@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
-import com.sc.domain.Department;
+import com.sc.domain.DepartmentDomain;
 import com.sc.service.IDepartmentService;
 
 /**
@@ -32,11 +32,11 @@ public class DepartmentController {
 	 * @param positionModel
 	 * @return
 	 */
-	@RequestMapping(value = "/department/queryAll", method = { RequestMethod.POST })
-	public DataResponse queryDepartmentList() {
+	@RequestMapping(value = "/department/queryDeptList", method = { RequestMethod.POST })
+	public DataResponse queryDeptList() {
 		DataResponse dr = null;
 		try {
-			List<Department> depts = departmentService.queryAllDepartment();
+			List<DepartmentDomain> depts = departmentService.queryByDataState(1);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.put("depts", depts);
 		} catch (ScException e) {

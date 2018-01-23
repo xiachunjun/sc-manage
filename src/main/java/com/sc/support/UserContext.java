@@ -10,5 +10,13 @@ public class UserContext {
 	public static AuthUser getAuthUser() {
 		return USER_LOCAL.get();
 	}
+	
+	public static String getLoginName(){
+		if(null==USER_LOCAL.get()){
+			return "SYS";
+		}else {
+			return USER_LOCAL.get().getUserLoginName();
+		}
+	}
 
 }

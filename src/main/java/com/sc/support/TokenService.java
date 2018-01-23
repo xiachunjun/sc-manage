@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.ScException;
-import com.sc.domain.User;
+import com.sc.domain.UserDomain;
 
 @Component
 public class TokenService {
@@ -38,12 +38,12 @@ public class TokenService {
 		}
 		return authUser;
 	}
-	
-	public AuthUser generateAccessTokenByUser(User user) {
-		if (null == user) {
-			throw new ScException("TokenService.generateAccessTokenByUser===user为空！");
+
+	public AuthUser generateAccessTokenByUser(UserDomain userDomain) {
+		if (null == userDomain) {
+			throw new ScException("TokenService.generateAccessTokenByUser===userDomain为空！");
 		}
-		return this.generateAccessToken(new AuthUser(user));
+		return this.generateAccessToken(new AuthUser(userDomain));
 	}
 
 	public AuthUser getUserByAccessToken(String accessToken) {
@@ -61,4 +61,18 @@ public class TokenService {
 		return authUser;
 	}
 
+	/**
+	 * 登出
+	 * 
+	 * @param authUser
+	 * @return
+	 */
+	public AuthUser logout(AuthUser authUser) {
+		try {
+			redisCache.delete(CommonConstant.ACCESS_TOKEN_KEY + authUser.getAccessToken());
+		} catch (Exception e) {
+			logger.error("TokenService.logout===", e);
+		}
+		return authUser;
+	}
 }

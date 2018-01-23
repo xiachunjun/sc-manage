@@ -15,9 +15,9 @@ import org.springframework.util.CollectionUtils;
 
 import com.sc.common.constant.ScException;
 import com.sc.dao.PlanMapper;
-import com.sc.domain.Department;
-import com.sc.domain.Plan;
-import com.sc.domain.Position;
+import com.sc.domain.DepartmentDomain;
+import com.sc.domain.PlanDomain;
+import com.sc.domain.PositionDomain;
 import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
 import com.sc.service.IDepartmentService;
@@ -46,9 +46,9 @@ public class PlanServiceImpl implements IPlanService {
 		if (CollectionUtils.isEmpty(planModels)) {
 			throw new ScException("请填写个人计划完成情况");
 		}
-		List<Plan> list = new ArrayList<Plan>();
+		List<PlanDomain> list = new ArrayList<PlanDomain>();
 		for (PlanModel planModel : planModels) {
-			Plan record = new Plan();
+			PlanDomain record = new PlanDomain();
 			BeanUtils.copyProperties(planModel, record);
 			// TODO 具体业务待修改
 			record.setId(null);
@@ -60,53 +60,54 @@ public class PlanServiceImpl implements IPlanService {
 			record.setUpdateTime(record.getCreateTime());
 			list.add(record);
 		}
-		int flag = planMapper.batchInsert(list);
-		if (flag <= 0) {
-			throw new ScException("填写个人计划完成情况出错");
-		}
+//		int flag = planMapper.batchInsert(list);
+//		if (flag <= 0) {
+//			throw new ScException("填写个人计划完成情况出错");
+//		}
 	}
 
 	@Override
-	public List<Plan> queryPlanByTab(QueryPlanModel planModel) {
-		if (null == planModel) {
-			planModel = new QueryPlanModel();
-			planModel.setTab(1); // 默认是查询待办计划
-		}
-		// 查看当前登录人的身份，不同身份拥有不同的查询内容
-		AuthUser authUser = UserContext.getAuthUser();
-
-		// 封装请求条件
-		StringBuffer sb = new StringBuffer();
-		sb.append(" p.data_state = 1 and");
-		if (StringUtils.isNoneBlank(planModel.getRefDept())) {
-			sb.append(" p.ref_dept='" + planModel.getRefDept() + "'");
-		} else {
-			throw new ScException("请选择部门");
-		}
-		if (StringUtils.isNoneBlank(planModel.getPlanMainPerson())) {
-			sb.append(" p.plan_main_person='" + planModel.getPlanMainPerson() + "'");
-		}
-		if (StringUtils.isNoneBlank(planModel.getRateOfProgress())) {
-			sb.append(" p.rate_of_progress='" + planModel.getRateOfProgress() + "'");
-		}
-		if (planModel.getPlanDate() != null) {
-			sb.append(" date_format(p.ref_dept, '%Y%m')=" + "date_format(" + planModel.getRefDept() + ", '%Y%m')");
-		}
-		// 判断查询的是哪个tab
-		if (planModel.getTab() == 1) { // 1待办计划
-			sb.append(" p.progress_info = '待办'");
-			// TODO 查询该登录用户是否是该部门领导
-			sb.append(" p.ref_user='" + authUser.getUserLoginName() + "'");
-
-		} else if (planModel.getTab() == 2) { // 2在办计划
-			sb.append(" p.progress_info != '结束'");
-			// TODO 查询该登录用户是否是该部门领导
-			sb.append(" p.ref_user='" + authUser.getUserLoginName() + "'");
-
-		} else if (planModel.getTab() == 3) { // 3我的计划
-			sb.append(" p.ref_user='" + authUser.getUserLoginName() + "'");
-		}
-		return planMapper.selectListByCondition(sb.toString());
+	public List<PlanDomain> queryPlanByTab(QueryPlanModel planModel) {
+//		if (null == planModel) {
+//			planModel = new QueryPlanModel();
+//			planModel.setTab(1); // 默认是查询待办计划
+//		}
+//		// 查看当前登录人的身份，不同身份拥有不同的查询内容
+//		AuthUser authUser = UserContext.getAuthUser();
+//
+//		// 封装请求条件
+//		StringBuffer sb = new StringBuffer();
+//		sb.append(" p.data_state = 1 and");
+//		if (StringUtils.isNoneBlank(planModel.getRefDept())) {
+//			sb.append(" p.ref_dept='" + planModel.getRefDept() + "'");
+//		} else {
+//			throw new ScException("请选择部门");
+//		}
+//		if (StringUtils.isNoneBlank(planModel.getPlanMainPerson())) {
+//			sb.append(" p.plan_main_person='" + planModel.getPlanMainPerson() + "'");
+//		}
+//		if (StringUtils.isNoneBlank(planModel.getRateOfProgress())) {
+//			sb.append(" p.rate_of_progress='" + planModel.getRateOfProgress() + "'");
+//		}
+//		if (planModel.getPlanDate() != null) {
+//			sb.append(" date_format(p.ref_dept, '%Y%m')=" + "date_format(" + planModel.getRefDept() + ", '%Y%m')");
+//		}
+//		// 判断查询的是哪个tab
+//		if (planModel.getTab() == 1) { // 1待办计划
+//			sb.append(" p.progress_info = '待办'");
+//			// TODO 查询该登录用户是否是该部门领导
+//			sb.append(" p.ref_user='" + authUser.getUserLoginName() + "'");
+//
+//		} else if (planModel.getTab() == 2) { // 2在办计划
+//			sb.append(" p.progress_info != '结束'");
+//			// TODO 查询该登录用户是否是该部门领导
+//			sb.append(" p.ref_user='" + authUser.getUserLoginName() + "'");
+//
+//		} else if (planModel.getTab() == 3) { // 3我的计划
+//			sb.append(" p.ref_user='" + authUser.getUserLoginName() + "'");
+//		}
+//		return planMapper.selectListByCondition(sb.toString());
+		return null;
 	}
 
 	@Transactional
@@ -121,21 +122,20 @@ public class PlanServiceImpl implements IPlanService {
 		for (PlanModel planModel : planModels) {
 			ids.add(planModel.getId());
 		}
-		List<Plan> pList = planMapper.selectListByIdList(ids);
-		for (Plan plan : pList) {
-			// TODO
-		}
+//		List<PlanDomain> pList = planMapper.selectListByIdList(ids);
+//		for (PlanDomain plan : pList) {
+//			// TODO
+//		}
 
 		for (PlanModel planModel : planModels) {
-			Plan record = new Plan();
+			PlanDomain record = new PlanDomain();
 			record.setId(planModel.getId());
-			record.setPlanContent(planModel.getPlanContent());
 			record.setPlanType(planModel.getPlanType());
 			record.setUpdateUser(authUser.getUserLoginName());
-			int result = planMapper.updatePlanById(record);
-			if (result != 1) {
-				throw new ScException("修改计划情况出错");
-			}
+//			int result = planMapper.updatePlanById(record);
+//			if (result != 1) {
+//				throw new ScException("修改计划情况出错");
+//			}
 		}
 	}
 
@@ -143,16 +143,16 @@ public class PlanServiceImpl implements IPlanService {
 	@Override
 	public void deletePlanById(Integer id) {
 		AuthUser authUser = UserContext.getAuthUser();
-		Plan plan = planMapper.selectById(id);
-		if (plan == null) {
-			throw new ScException("对不起，找不到该记录!");
-		}
+//		PlanDomain planDomain = planMapper.selectById(id);
+//		if (planDomain == null) {
+//			throw new ScException("对不起，找不到该记录!");
+//		}
 		// TODO 先查询该条记录是否是领导添加的, 如果是领导添加的，则提示没有改权限进行删除； 如果是领导自己或者等级更高？
 
-		int result = planMapper.deleteById(id);
-		if (result != 1) {
-			throw new ScException("删除计划情况出错");
-		}
+//		int result = planMapper.deleteById(id);
+//		if (result != 1) {
+//			throw new ScException("删除计划情况出错");
+//		}
 	}
 
 	@Override
@@ -161,18 +161,13 @@ public class PlanServiceImpl implements IPlanService {
 			throw new ScException("planModel为空!");
 		}
 		try {
-			Plan plan = new Plan();
+			PlanDomain plan = new PlanDomain();
 			BeanUtils.copyProperties(planModel, plan);
-			AuthUser authUser=UserContext.getAuthUser();
-			Department dept=departmentService.queryByCode(authUser.getRefDept());			
-			plan.setRefDept(authUser.getRefDept());
-			plan.setRefUser(authUser.getUserCode());
-			plan.setRefPosition(authUser.getRefPosi());
-			plan.setPlanMainPerson(authUser.getRefDept());
-			plan.setCheckUser(dept.getRefUserCode());
-			plan.setCreateUser(authUser.getUserCode());
-			plan.setUpdateUser(authUser.getUserCode());
-			planMapper.savePlan(plan);
+//			AuthUser authUser=UserContext.getAuthUser();
+//			plan.setRefUser(authUser.getUserCode());
+//			plan.setCreateUser(authUser.getUserCode());
+//			plan.setUpdateUser(authUser.getUserCode());
+//			planMapper.savePlan(plan);
 		} catch (Exception e) {
 			logger.error("PlanServiceImpl.addPlan===", e);
 			throw new ScException("planModel为空!");

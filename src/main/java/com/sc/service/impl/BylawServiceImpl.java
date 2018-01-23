@@ -1,14 +1,10 @@
 package com.sc.service.impl;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -17,16 +13,12 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
-import org.springframework.web.multipart.MultipartFile;
 
+import com.alibaba.fastjson.JSON;
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.ScException;
-import com.sc.common.util.DateUtil;
-import com.sc.common.util.FileUtil;
-import com.sc.common.util.ListUtils;
-import com.sc.common.util.UuidUtil;
 import com.sc.dao.BylawMapper;
-import com.sc.domain.Bylaw;
+import com.sc.domain.BylawDomain;
 import com.sc.model.request.BylawModel;
 import com.sc.model.response.BylawCountGroupByCategory;
 import com.sc.service.IBylawService;
@@ -44,10 +36,11 @@ public class BylawServiceImpl implements IBylawService {
 
 	@Transactional
 	@Override
-	public void saveBylaw(BylawModel bylawModel, MultipartFile file, 
-			HttpServletRequest request, String userLoginName) {
-		Bylaw record = setBylawProperties(bylawModel, file, request, userLoginName);
-		int flag = bylawMapper.saveBylaw(record);
+	public void saveBylaw(BylawModel bylawModel) {
+		logger.info("BylawServiceImpl.saveBylaw=="+JSON.toJSONString(bylawModel));
+		BylawDomain bylawDomain = new BylawDomain();
+		BeanUtils.copyProperties(bylawModel, bylawDomain);
+		int flag = bylawMapper.insert(bylawDomain);
 		if (flag != 1) {
 			throw new ScException("保存规章制度出错");
 		}
@@ -56,13 +49,13 @@ public class BylawServiceImpl implements IBylawService {
 	@Override
 	public Map<String, Object> queryBylawList() {
 		Map<String, Object> dataMap = new HashMap<String, Object>();
-		List<Bylaw> list = bylawMapper.queryBylaw();
+		List<BylawDomain> list = bylawMapper.selectAll();
 		// 后端对数据进行处理
-		List<Bylaw> xzglList = new ArrayList<Bylaw>();
-		List<Bylaw> tjbzList = new ArrayList<Bylaw>();
-		List<Bylaw> cwglList = new ArrayList<Bylaw>();
+		List<BylawDomain> xzglList = new ArrayList<BylawDomain>();
+		List<BylawDomain> tjbzList = new ArrayList<BylawDomain>();
+		List<BylawDomain> cwglList = new ArrayList<BylawDomain>();
 		if (!CollectionUtils.isEmpty(list)) {
-			for (Bylaw bylaw : list) {
+			for (BylawDomain bylaw : list) {
 				switch (bylaw.getBylawsCategory().trim()) {
 				case CommonConstant.XZGL:
 					xzglList.add(bylaw);
@@ -82,46 +75,34 @@ public class BylawServiceImpl implements IBylawService {
 		return dataMap;
 	}
 
-	
 	@Transactional
 	@Override
-	public void updateBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request, String userLoginName) {
-		Bylaw record = new Bylaw();
-		BeanUtils.copyProperties(bylawModel, record);
-		record.setUpdateTime(new Date());
-		record.setUpdateUser(StringUtils.isEmpty(userLoginName) ? "SYS" : userLoginName);
-		if (null != file) {
-			uploadAndSetFileUrl(file, record);
-		}
-		int flag = bylawMapper.updateBylaw(record);
+	public void updateBylaw(BylawModel bylawModel) {
+		logger.info("BylawServiceImpl.updateBylaw=="+JSON.toJSONString(bylawModel));
+		BylawDomain bylawDomain = new BylawDomain();
+		BeanUtils.copyProperties(bylawModel, bylawDomain);
+		int flag = bylawMapper.updateByPrimaryKey(bylawDomain);
 		if (flag != 1) {
 			throw new ScException("修改规章制度出错");
 		}
 	}
-	
 
 	@Transactional
 	@Override
-	public void deleteBylaw(Integer bylawsId) {
-		String userName = "SYS";
-		int flag = bylawMapper.updateStatus(bylawsId, userName);
+	public void deleteBylaw(Integer id) {
+		logger.info("BylawServiceImpl.deleteBylaw=="+JSON.toJSONString(id));
+		int flag = bylawMapper.updateState(id, 0);// 状态更新到0表示失效
 		if (flag != 1) {
 			throw new ScException("删除规章制度出错");
 		}
 	}
 
 	@Override
-	public String queryFileUrlById(Integer bylawsId) {
-		return bylawMapper.queryFileUrlById(bylawsId);
+	public BylawDomain queryById(Integer id) {
+		logger.info("BylawServiceImpl.queryById=="+JSON.toJSONString(id));
+		BylawDomain bylawDomain = bylawMapper.selectByPrimaryKey(id);
+		return bylawDomain;
 	}
-	
-	
-	@Override
-	public Bylaw queryById(Integer id) {
-		Bylaw bylaw = bylawMapper.queryById(id);
-		return bylaw;
-	}
-	
 
 	@Override
 	public Map<String, Object> queryCountGroupBylawCategory() {
@@ -129,61 +110,24 @@ public class BylawServiceImpl implements IBylawService {
 		dataMap.put(CommonConstant.XZGL, 0);
 		dataMap.put(CommonConstant.TJBZ, 0);
 		dataMap.put(CommonConstant.CWGL, 0);
-		
+
 		List<BylawCountGroupByCategory> list = bylawMapper.queryCountGroupBylawCategory();
-		if(!CollectionUtils.isEmpty(list)){
+		if (!CollectionUtils.isEmpty(list)) {
 			for (BylawCountGroupByCategory groupResult : list) {
-				switch(groupResult.getBylawsCategory()){
-					case CommonConstant.XZGL : dataMap.put(CommonConstant.XZGL, groupResult.getCount()); break;
-					case CommonConstant.TJBZ : dataMap.put(CommonConstant.TJBZ, groupResult.getCount()); break;
-					case CommonConstant.CWGL : dataMap.put(CommonConstant.CWGL, groupResult.getCount()); break;
+				switch (groupResult.getBylawsCategory()) {
+				case CommonConstant.XZGL:
+					dataMap.put(CommonConstant.XZGL, groupResult.getCount());
+					break;
+				case CommonConstant.TJBZ:
+					dataMap.put(CommonConstant.TJBZ, groupResult.getCount());
+					break;
+				case CommonConstant.CWGL:
+					dataMap.put(CommonConstant.CWGL, groupResult.getCount());
+					break;
 				}
 			}
 		}
 		return dataMap;
-	}
-	
-	
-	/********************** 以下为私有方法 **********************/
-
-	private Bylaw setBylawProperties(BylawModel bylawModel, MultipartFile file, 
-			HttpServletRequest request, String userLoginName) {
-		Bylaw record = new Bylaw();
-		BeanUtils.copyProperties(bylawModel, record);
-		// 设置bylawCode
-		Integer maxCode = bylawMapper.getMaxCode();
-		if (null == maxCode) {
-			record.setBylawsCode(CommonConstant.FIRST_CODE);
-		} else {
-			record.setBylawsCode(ListUtils.addZero2Str(maxCode+1, 8));
-		}
-		record.setArticleTime(DateUtil.str2Date(bylawModel.getArtTime()));
-		record.setId(null);
-		record.setDataState(1);
-		record.setDataVersion(1);
-		record.setCreateUser(StringUtils.isEmpty(userLoginName) ? "SYS" : userLoginName);
-		record.setUpdateUser(record.getCreateUser());
-		record.setCreateTime(new Date());
-		record.setUpdateTime(record.getCreateTime());
-		// 处理File文件
-		if (null != file) {
-			uploadAndSetFileUrl(file, record);
-		}
-		return record;
-	}
-
-	private void uploadAndSetFileUrl(MultipartFile file, Bylaw record) {
-		// String contentType = file.getContentType();
-		String fileName = file.getOriginalFilename();
-		String realFilePath = filePath + UuidUtil.getUUID() + "/";
-		try {
-			FileUtil.uploadFile(file.getBytes(), realFilePath, fileName);
-		} catch (Exception e) {
-			logger.error("上传附件置服务器异常", e);
-			throw new ScException("保存上传附件出错");
-		}
-		record.setFileUrl(realFilePath + fileName);
-		// record.setBylawsContent("规章制度内容");
 	}
 
 }

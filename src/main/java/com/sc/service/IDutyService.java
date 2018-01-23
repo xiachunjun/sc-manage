@@ -3,21 +3,24 @@ package com.sc.service;
 import java.util.List;
 import java.util.Map;
 
+import com.sc.domain.DutyDomain;
+
 public interface IDutyService {
 
-	/**
-	 * 根据部门code, 查询一二级职责
-	 * @param deptCode
-	 * @return
-	 */
-	List<Map<String, Object>> queryDutyByDeptCode(String deptCode);
+	void saveDuty(DutyDomain dutyDomain);
+
+	void updateDuty(DutyDomain dutyDomain);
+
+	void deleteDuty(Integer id);
+
+	void queryById(Integer id);
 
 	/**
-	 * 根据岗位code, 查询一二级职责
-	 * @param posiCode
+	 * 根据部门, 查询一二级职责
+	 * 
+	 * @param deptId
 	 * @return
 	 */
-	List<Map<String, Object>> queryDutyByPosiCode(String posiCode);
+	List<Map<String, Object>> queryByDeptOrPosi(Integer refId,String type);
 
-	
 }

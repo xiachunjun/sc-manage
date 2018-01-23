@@ -1,60 +1,41 @@
 package com.sc.service;
 
 import java.util.List;
-import java.util.Map;
 
-import com.sc.domain.Position;
+import com.sc.domain.PositionDomain;
 import com.sc.model.request.PositionModel;
 
 public interface IPositionService {
-	/**
-	 * 查全部
-	 * 
-	 * @return
-	 */
-	List<Position> queryAllPosition();
 
 	/**
-	 * 根据部门代码查
-	 * 
-	 * @return
-	 */
-	List<Position> queryByDeptCode(String deptCode);
-
-	/**
-	 * 新增责任清单
+	 * 新增
 	 * 
 	 * @param positionModel
 	 */
-	void savePosition(PositionModel positionModel, String userLoginName);
+	void savePosition(PositionModel positionModel);
 
 	/**
-	 * 条件查询责任清单
-	 * 
-	 * @param positionModel
-	 * @return
-	 */
-	Map<String, Object> queryPositionByCondition(PositionModel positionModel);
-
-	/**
-	 * 修改责任清单
+	 * 修改
 	 * 
 	 * @param positionModel
 	 */
-	void updatePosition(PositionModel positionModel, String userLoginName);
+	void updatePosition(PositionModel positionModel);
 
 	/**
-	 * 编辑岗位责任人
+	 * 删除
+	 */
+	void delatePosition(Integer id);
+
+	/**
+	 * 根据id查明细
+	 */
+	void queryPositionById(Integer id);
+
+	/**
+	 * 查询部门下全部岗位
 	 * 
 	 * @return
 	 */
-	public void editPosition(PositionModel positionModel);
-
-	/**
-	 * 根据code查
-	 * 
-	 * @return
-	 */
-	Position queryByCode(String positionCode);
+	List<PositionDomain> queryByDept(Integer deptId);
 
 }

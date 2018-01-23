@@ -28,12 +28,12 @@ public class DutyController {
 
 	@RequestMapping("/duty/dutyList")
 	public String dutyList() {
-		return "/dutyList";
+		return "/duty/dutyList";
 	}
 	
 	@RequestMapping("/duty/editDuty")
 	public String editDuty() {
-		return "/editDuty";
+		return "/duty/editDuty";
 	}
 
 	@RequestMapping("/duty/deptDutyList")

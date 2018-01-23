@@ -8,19 +8,19 @@
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-<#include "/parts/common-css.html"/>
+<#include "/common/parts/common-css.html"/>
 <link rel="stylesheet" href="/static/assets/css/bootstrap-datepicker3.min.css" />
 
 </head>
 <body class="no-skin">
-	<#include "/parts/header.html"/>
+	<#include "/common/parts/header.html"/>
 	<div class="main-container ace-save-state" id="main-container">
 		<script type="text/javascript">
 			try {
 				ace.settings.loadState('main-container')
 			} catch (e) {}
 		</script>
-		<#include "/parts/asider.html"/>
+		<#include "/common/parts/asider.html"/>
 
 		<div class="main-content">
 			<div class="main-content-inner">
@@ -104,10 +104,10 @@
 				</div>
 			</div>
 		</div>
-		<#include "/parts/footer.html"/>
+		<#include "/common/parts/footer.html"/>
 	</div>
 
-	<#include "/parts/common-js.html"/>
+	<#include "/common/parts/common-js.html"/>
 	<script src="/static/assets/js/jquery.form.js"></script>
 	<script src="/static/assets/js/ace.min.js"></script>
 	<script src="/static/assets/js/bootstrap-datepicker.min.js"></script>

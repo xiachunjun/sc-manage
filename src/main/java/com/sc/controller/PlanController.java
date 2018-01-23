@@ -1,11 +1,9 @@
 package com.sc.controller;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -18,10 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
-import com.sc.domain.Department;
-import com.sc.domain.Plan;
-import com.sc.domain.Position;
-import com.sc.domain.User;
+import com.sc.domain.PlanDomain;
 import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
 import com.sc.service.IDepartmentService;
@@ -60,11 +55,11 @@ public class PlanController {
 	public ModelAndView planManage() {
 		ModelAndView mv = new ModelAndView("/plan/planManage");
 		AuthUser authUser = UserContext.getAuthUser();
-		Position posi = positionService.queryByCode(authUser.getRefPosi());
-		Department dept = departmentService.queryByCode(authUser.getRefDept());
+//		Position posi = positionService.queryByCode(authUser.getRefPosi());
+//		Department dept = departmentService.queryByCode(authUser.getRefDept());
 		mv.addObject("authUser", authUser);
-		mv.addObject("posi", posi);
-		mv.addObject("dept", dept);
+//		mv.addObject("posi", posi);
+//		mv.addObject("dept", dept);
 		return mv;
 	}
 
@@ -72,11 +67,11 @@ public class PlanController {
 	public ModelAndView addPlan() {
 		ModelAndView mv = new ModelAndView("/plan/addPlan");
 		AuthUser authUser = UserContext.getAuthUser();
-		Position posi = positionService.queryByCode(authUser.getRefPosi());
-		Department dept = departmentService.queryByCode(authUser.getRefDept());
+//		Position posi = positionService.queryByCode(authUser.getRefPosi());
+//		Department dept = departmentService.queryByCode(authUser.getRefDept());
 		mv.addObject("authUser", authUser);
-		mv.addObject("posi", posi);
-		mv.addObject("dept", dept);
+//		mv.addObject("posi", posi);
+//		mv.addObject("dept", dept);
 		return mv;
 	}
 
@@ -108,7 +103,7 @@ public class PlanController {
 	public DataResponse queryPlan(QueryPlanModel planModel) {
 		DataResponse dr = null;
 		try {
-			List<Plan> list = planService.queryPlanByTab(planModel);
+			List<PlanDomain> list = planService.queryPlanByTab(planModel);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.put("planList", list);
 		} catch (ScException e) {

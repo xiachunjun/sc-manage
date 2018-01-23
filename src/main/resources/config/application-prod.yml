@@ -16,4 +16,4 @@ server:
 system:
    enableSwagger: true    #是否启用swagger  
    file:
-     path: /opt/app/upload/scfile
+     path: C:/opt/sc-manage/upload/

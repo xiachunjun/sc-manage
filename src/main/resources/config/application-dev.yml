@@ -7,7 +7,7 @@ spring:
     type: org.apache.tomcat.jdbc.pool.DataSource
     driver-class-name: com.mysql.jdbc.Driver
   freemarker:
-      templateLoaderPath: classpath:/templates/
+      templateLoaderPath: classpath:/templates
       suffix: .html
       cache: false
       charset: UTF-8

@@ -1,18 +1,27 @@
 package com.sc.model.request;
 
 public class PositionModel {
-
-	// 用于修改操作时传入后端，表示记录id
 	private Integer id;
 
-	/** 部门code */
-	private String departmentCode;
+	/**
+	 * 所属部门
+	 */
+	private Integer refDeptId;
 
-	/** 岗位名称 */
-	private String positionCode;
+	/**
+	 * 岗位名称
+	 */
+	private String posiName;
 
-	/** 责任人(用户code) */
-	private String userCode;
+	/**
+	 * 岗位描述
+	 */
+	private String posiIntroduce;
+
+	/**
+	 * 备注
+	 */
+	private String dataMemo;
 
 	public Integer getId() {
 		return id;
@@ -22,28 +31,36 @@ public class PositionModel {
 		this.id = id;
 	}
 
-	public String getPositionCode() {
-		return positionCode;
+	public Integer getRefDeptId() {
+		return refDeptId;
 	}
 
-	public void setPositionCode(String positionCode) {
-		this.positionCode = positionCode;
+	public void setRefDeptId(Integer refDeptId) {
+		this.refDeptId = refDeptId;
 	}
 
-	public String getDepartmentCode() {
-		return departmentCode;
+	public String getPosiName() {
+		return posiName;
 	}
 
-	public void setDepartmentCode(String departmentCode) {
-		this.departmentCode = departmentCode;
+	public void setPosiName(String posiName) {
+		this.posiName = posiName;
 	}
 
-	public String getUserCode() {
-		return userCode;
+	public String getPosiIntroduce() {
+		return posiIntroduce;
 	}
 
-	public void setUserCode(String userCode) {
-		this.userCode = userCode;
+	public void setPosiIntroduce(String posiIntroduce) {
+		this.posiIntroduce = posiIntroduce;
+	}
+
+	public String getDataMemo() {
+		return dataMemo;
+	}
+
+	public void setDataMemo(String dataMemo) {
+		this.dataMemo = dataMemo;
 	}
 
 }

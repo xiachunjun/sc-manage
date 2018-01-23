@@ -8,7 +8,7 @@ import org.mybatis.generator.config.xml.ConfigurationParser;
 import org.mybatis.generator.internal.DefaultShellCallback;
 
 public class MapperGenerator {
-    public static void main1(String[] args) {
+    public static void main(String[] args) {
         List<String> warnings = new ArrayList<String>();
         final boolean overwrite = true;
         File configFile = new File("/Users/xcj/git/sc-manage/src/test/resources/mysqlGeneratorConfig.xml");

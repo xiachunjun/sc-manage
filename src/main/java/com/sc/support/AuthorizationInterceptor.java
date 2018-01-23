@@ -32,7 +32,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 			if (null != authUser) {
 				UserContext.setAuthUser(authUser);
 				logger.info("当前用户为："+JSONObject.toJSON(authUser));
-				request.setAttribute(CommonConstant.USER_LOGIN_NAME, authUser.getUserLoginName());
+				request.setAttribute(CommonConstant.USER_NAME, authUser.getUserName());
 				return true;
 			}
 		} catch (Exception e) {

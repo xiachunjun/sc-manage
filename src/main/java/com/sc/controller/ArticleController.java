@@ -22,6 +22,7 @@ import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
 import com.sc.model.request.ArticleModel;
 import com.sc.service.IArticleService;
+import com.sc.support.UserContext;
 
 /**
  * 每日信息
@@ -47,17 +48,17 @@ public class ArticleController {
 	@ResponseBody
 	public DataResponse saveArticle(ArticleModel articleModel, HttpServletRequest request){
 		DataResponse dr = null;
-		try {
-			articleModel.setUserLoginName(String.valueOf(request.getSession().getAttribute(CommonConstant.USER_LOGIN_NAME)));
-			articleService.saveArticle(articleModel);
-			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-		} catch (ScException e) {
-			logger.error(e.getMessage());
-			dr = new DataResponse(e);
-		} catch (Exception e) {
-			logger.error("保存编制信息异常", e);
-			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
-		}
+//		try {
+//			articleModel.setUserCode(UserContext.getUserCode());
+//			articleService.saveArticle(articleModel);
+//			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+//		} catch (ScException e) {
+//			logger.error(e.getMessage());
+//			dr = new DataResponse(e);
+//		} catch (Exception e) {
+//			logger.error("保存编制信息异常", e);
+//			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+//		}
 		return dr;
 	}
 	
@@ -70,8 +71,7 @@ public class ArticleController {
 	public DataResponse queryNotAuditArticle(HttpServletRequest request){
 		DataResponse dr = null;
 		try {
-			String userLoginName = String.valueOf(request.getSession().getAttribute(CommonConstant.USER_LOGIN_NAME));
-			Map<String, Object> dataMap = articleService.queryNotAuditArticle(userLoginName);
+			Map<String, Object> dataMap = articleService.queryNotAuditArticle(UserContext.getLoginName());
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.setDataMap(dataMap);
 		} catch (ScException e) {
@@ -94,8 +94,7 @@ public class ArticleController {
 			HttpServletRequest request){
 		DataResponse dr = null;
 		try {
-			String userLoginName = String.valueOf(request.getSession().getAttribute(CommonConstant.USER_LOGIN_NAME));
-			articleService.auditArticle(id, userLoginName);
+			articleService.auditArticle(id, UserContext.getLoginName());
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
