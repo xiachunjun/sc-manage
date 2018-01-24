@@ -1,6 +1,7 @@
 package com.sc.controller;
 
 import java.io.File;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -35,6 +36,7 @@ import com.sc.service.IBylawService;
 public class BylawController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BylawController.class);
+	
 	@Value("${system.file.path}")
 	private String filePath; // 上传的附件的存储路径
 	@Autowired
@@ -50,11 +52,9 @@ public class BylawController {
 		return "/addBylaw";
 	}
 
+	
 	/**
 	 * 新增规章制度
-	 * 
-	 * @param bylawSaveModel
-	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/save", method = { RequestMethod.POST })
 	@ResponseBody
@@ -67,7 +67,7 @@ public class BylawController {
 				dr.put(CommonConstant.FAILED_MSG, "附件文件不能为空！");
 				return dr;
 			}
-			String fileUrl=this.uploadFile(bylawModel.getFile());
+			String fileUrl = this.uploadFile(bylawModel.getFile());
 			bylawModel.setFile(null);
 			bylawModel.setFileUrl(fileUrl);
 			bylawService.saveBylaw(bylawModel);
@@ -82,19 +82,18 @@ public class BylawController {
 		return dr;
 	}
 
+	
 	/**
 	 * 查询规章制度列表
-	 * 
-	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/query/list", method = { RequestMethod.POST })
 	@ResponseBody
 	public DataResponse queryBylaw() {
 		DataResponse dr = null;
 		try {
-			Map<String, Object> dataMap = bylawService.queryBylawList();
+			Map<String, List<BylawDomain>> dataMap = bylawService.queryBylawList();
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-			dr.setDataMap(dataMap);
+			dr.put("bylawList", dataMap);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);
@@ -105,11 +104,9 @@ public class BylawController {
 		return dr;
 	}
 
+	
 	/**
 	 * 修改规章制度
-	 * 
-	 * @param bylawSaveModel
-	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/update", method = { RequestMethod.POST })
 	@ResponseBody
@@ -121,9 +118,11 @@ public class BylawController {
 				dr.put(CommonConstant.FAILED_MSG, "记录ID不能为空！");
 				return dr;
 			}
-			String fileUrl=this.uploadFile(bylawModel.getFile());
-			bylawModel.setFile(null);
-			bylawModel.setFileUrl(fileUrl);
+			if(null != bylawModel.getFile()){
+				String fileUrl=this.uploadFile(bylawModel.getFile());
+				bylawModel.setFile(null);
+				bylawModel.setFileUrl(fileUrl);
+			}
 			bylawService.updateBylaw(bylawModel);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
@@ -136,11 +135,9 @@ public class BylawController {
 		return dr;
 	}
 
+	
 	/**
 	 * 删除规章制度
-	 * 
-	 * @param bylawsCode
-	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/delete", method = { RequestMethod.POST })
 	@ResponseBody
@@ -159,19 +156,15 @@ public class BylawController {
 		return dr;
 	}
 
+	
 	/**
 	 * 下载文件
-	 * 
-	 * @param bylawsCode
-	 * @param request
-	 * @param response
-	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/download", method = { RequestMethod.GET })
 	public void downloadFile(@RequestParam(name = "bylawsId", required = true) Integer bylawsId,
 			HttpServletRequest request, HttpServletResponse response) {
 		BylawDomain bylawDomain = bylawService.queryById(bylawsId);
-		if (StringUtils.isEmpty(bylawDomain.getFileUrl())) {
+		if (null == bylawDomain || StringUtils.isEmpty(bylawDomain.getFileUrl())) {
 			logger.warn("该主键id:{}，对应的文件路径为空", bylawsId);
 		} else {
 			File file = new File(bylawDomain.getFileUrl());
@@ -183,12 +176,10 @@ public class BylawController {
 			}
 		}
 	}
+	
 
 	/**
 	 * 根据id,查询规章制度
-	 * 
-	 * @param id
-	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/queryById", method = { RequestMethod.POST })
 	@ResponseBody
@@ -212,10 +203,9 @@ public class BylawController {
 		return dr;
 	}
 
+	
 	/**
 	 * 查询各个类型规章制度的数量
-	 * 
-	 * @return
 	 */
 	@RequestMapping(value = "/bylaw/queryCountByCategory", method = { RequestMethod.POST })
 	@ResponseBody
@@ -235,6 +225,9 @@ public class BylawController {
 		return dr;
 	}
 
+	
+	/******************以下为私有方法******************/
+	
 	private String uploadFile(MultipartFile file) {
 		String fileName = file.getOriginalFilename();
 		String realFilePath = filePath + UuidUtil.getUUID() + "/";
@@ -246,4 +239,5 @@ public class BylawController {
 		}
 		return realFilePath + fileName;
 	}
+	
 }

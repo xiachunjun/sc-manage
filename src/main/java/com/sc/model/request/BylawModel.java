@@ -2,35 +2,30 @@ package com.sc.model.request;
 
 import java.util.Date;
 
-import javax.validation.constraints.NotNull;
-
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
 public class BylawModel {
+	
 	private Integer id;
+	
 	/**
 	 * 规则制度分类
 	 */
-	@NotBlank(message = "规则制度分类不能为空")
 	private String bylawsCategory;
 
 	/**
 	 * 名称
 	 */
-	@NotBlank(message = "名称不能为空")
 	private String bylawsName;
 
 	/**
 	 * 编号
 	 */
-	@NotBlank(message = "编号不能为空")
 	private String bylawsNo;
 
 	/**
 	 * 发文文号
 	 */
-	@NotBlank(message = "发文文号不能为空")
 	private String articleNo;
 
 	/**
@@ -43,9 +38,9 @@ public class BylawModel {
 	 */
 	private String fileUrl;
 
-	@NotNull(message = "文件不能为空")
 	private MultipartFile file;
 
+	
 	public Integer getId() {
 		return id;
 	}

@@ -1,9 +1,16 @@
 package com.sc.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class PlanDetailDomain {
-    private Integer id;
+import javax.persistence.Table;
+
+import com.sc.domain.base.BaseDomain;
+
+@Table(name="sc_plan_details")
+public class PlanDetailDomain extends BaseDomain implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 
     /**
      * sc_plans表的id
@@ -29,26 +36,6 @@ public class PlanDetailDomain {
      * 结束时间
      */
     private Date endTime;
-
-    private Integer dataState;
-
-    private Integer dataVersion;
-
-    private String createUser;
-
-    private String updateUser;
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public Integer getRefPlanId() {
         return refPlanId;
@@ -90,51 +77,5 @@ public class PlanDetailDomain {
         this.endTime = endTime;
     }
 
-    public Integer getDataState() {
-        return dataState;
-    }
-
-    public void setDataState(Integer dataState) {
-        this.dataState = dataState;
-    }
-
-    public Integer getDataVersion() {
-        return dataVersion;
-    }
-
-    public void setDataVersion(Integer dataVersion) {
-        this.dataVersion = dataVersion;
-    }
-
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser == null ? null : createUser.trim();
-    }
-
-    public String getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser == null ? null : updateUser.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+    
 }

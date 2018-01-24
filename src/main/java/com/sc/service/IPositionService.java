@@ -8,34 +8,28 @@ import com.sc.model.request.PositionModel;
 public interface IPositionService {
 
 	/**
-	 * 新增
-	 * 
+	 * 保存部门岗位
 	 * @param positionModel
 	 */
 	void savePosition(PositionModel positionModel);
+	
+	/**
+	 * 根据部门id, 查询所有岗位
+	 * @param deptId
+	 * @return
+	 */
+	List<PositionDomain> queryListByDeptId(Integer deptId);
 
 	/**
-	 * 修改
-	 * 
+	 * 修改岗位
 	 * @param positionModel
 	 */
 	void updatePosition(PositionModel positionModel);
-
+	
 	/**
-	 * 删除
+	 * 删除岗位
+	 * @param id
 	 */
-	void delatePosition(Integer id);
-
-	/**
-	 * 根据id查明细
-	 */
-	void queryPositionById(Integer id);
-
-	/**
-	 * 查询部门下全部岗位
-	 * 
-	 * @return
-	 */
-	List<PositionDomain> queryByDept(Integer deptId);
-
+	void deletePosition(Integer id);
+	
 }

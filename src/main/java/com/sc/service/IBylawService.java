@@ -1,5 +1,6 @@
 package com.sc.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.sc.domain.BylawDomain;
@@ -19,7 +20,7 @@ public interface IBylawService {
 	 * 查询规章制度
 	 * @return
 	 */
-	Map<String, Object> queryBylawList();
+	Map<String, List<BylawDomain>> queryBylawList();
 
 	/**
 	 * 修改规章制度

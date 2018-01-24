@@ -7,12 +7,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
 import com.sc.domain.DepartmentDomain;
+import com.sc.model.request.DepartmentModel;
 import com.sc.service.IDepartmentService;
 
 /**
@@ -26,11 +28,26 @@ public class DepartmentController {
 	@Autowired
 	private IDepartmentService departmentService;
 
+	
+	/**
+	 * 新增部门
+	 */
+	@RequestMapping(value = "/department/add", method = { RequestMethod.POST })
+	public DataResponse saveDepartment(DepartmentModel departmentModel) {
+		DataResponse dr = null;
+		try {
+			departmentService.saveDepartment(departmentModel);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+		} catch (Exception e) {
+			logger.error("新增部门异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
+	
 	/**
 	 * 查询所有部门
-	 * 
-	 * @param positionModel
-	 * @return
 	 */
 	@RequestMapping(value = "/department/queryDeptList", method = { RequestMethod.POST })
 	public DataResponse queryDeptList() {
@@ -49,4 +66,39 @@ public class DepartmentController {
 		return dr;
 	}
 
+	
+	/**
+	 * 修改部门
+	 */
+	@RequestMapping(value = "/department/update", method = { RequestMethod.POST })
+	public DataResponse updateDepartment(DepartmentModel departmentModel) {
+		DataResponse dr = null;
+		try {
+			departmentService.updateDepartment(departmentModel);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+		} catch (Exception e) {
+			logger.error("修改部门异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
+	
+	/**
+	 * 删除部门
+	 */
+	@RequestMapping(value = "/department/delete", method = { RequestMethod.POST })
+	public DataResponse deleteDepartment(@RequestParam(name="id", required=true)Integer id) {
+		DataResponse dr = null;
+		try {
+			departmentService.deleteDepartmentById(id);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+		} catch (Exception e) {
+			logger.error("删除部门异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
+	
 }

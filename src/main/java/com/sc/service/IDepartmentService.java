@@ -9,24 +9,20 @@ public interface IDepartmentService {
 
 	/**
 	 * 保存
-	 * 
 	 * @param departmentModel
 	 */
 	void saveDepartment(DepartmentModel departmentModel);
 
 	/**
 	 * 修改
-	 * 
 	 * @param departmentModel
 	 */
 	void updateDepartment(DepartmentModel departmentModel);
 
 	/**
 	 * 删除
-	 * 
-	 * @param departmentModel
 	 */
-	void deleteDepartment(DepartmentModel departmentModel);
+	void deleteDepartmentById(Integer id);
 
 	/**
 	 * 根据状态查询

@@ -24,8 +24,8 @@ public class TreeController {
 
 	private static final Logger logger = LoggerFactory.getLogger(TreeController.class);
 	
-	@Autowired
-	private ITreeService treeService;
+//	@Autowired
+//	private ITreeService treeService;
 	
 	
 	/**
@@ -37,9 +37,9 @@ public class TreeController {
 	public DataResponse queryShowTreeNodeByPid(@RequestParam(value="pid", required=true)Integer pid){
 		DataResponse dr = null;
 		try {
-			Map<String, Object> dataMap = treeService.queryShowTreeNodeByPid(pid);
-			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-			dr.setDataMap(dataMap);
+			//Map<String, Object> dataMap = treeService.queryShowTreeNodeByPid(pid);
+			//dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+			//dr.setDataMap(dataMap);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);
@@ -59,9 +59,9 @@ public class TreeController {
 	public DataResponse queryAllTree(){
 		DataResponse dr = null;
 		try {
-			Map<String, Object> dataMap = treeService.queryAllTree();
-			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-			dr.setDataMap(dataMap);
+//			Map<String, Object> dataMap = treeService.queryAllTree();
+//			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+//			dr.setDataMap(dataMap);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);

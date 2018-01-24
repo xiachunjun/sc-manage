@@ -1,13 +1,9 @@
 package com.sc.service.impl;
 
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.BeanUtils;
@@ -16,11 +12,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.CollectionUtils;
 
-import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.ScException;
-import com.sc.common.util.DateUtil;
 import com.sc.dao.ArticleMapper;
 import com.sc.domain.ArticleDomain;
 import com.sc.model.request.ArticleModel;
@@ -31,8 +24,8 @@ public class ArticleServiceImpl implements IArticleService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);	
 	
-	@Autowired
-	private ArticleMapper articleMapper;
+//	@Autowired
+//	private ArticleMapper articleMapper;
 	
 	
 	@Transactional(isolation=Isolation.DEFAULT,propagation=Propagation.REQUIRED,readOnly=false)
@@ -40,10 +33,10 @@ public class ArticleServiceImpl implements IArticleService {
 	public void saveArticle(ArticleModel articleModel) {
 		ArticleDomain articleDomain = new ArticleDomain();
 		BeanUtils.copyProperties(articleModel, articleDomain);
-		int flag = articleMapper.insert(articleDomain);
-		if (flag != 1) {
-			throw new ScException("保存每日信息出错");
-		}
+//		int flag = articleMapper.insert(articleDomain);
+//		if (flag != 1) {
+//			throw new ScException("保存每日信息出错");
+//		}
 	}
 
 	@Override

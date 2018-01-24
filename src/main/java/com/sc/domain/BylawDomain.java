@@ -1,9 +1,16 @@
 package com.sc.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class BylawDomain {
-    private Integer id;
+import javax.persistence.Table;
+
+import com.sc.domain.base.BaseDomain;
+
+@Table(name="sc_bylaws")
+public class BylawDomain extends BaseDomain implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 
     /**
      * 名称
@@ -32,30 +39,10 @@ public class BylawDomain {
 
     private String bylawsCategory;
 
-    private Integer dataState;
-
-    private Integer dataVersion;
-
-    private String createUser;
-
-    private String updateUser;
-
-    private Date createTime;
-
-    private Date updateTime;
-
     /**
      * 规章制度内容
      */
     private String bylawsContent;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getBylawsName() {
         return bylawsName;
@@ -105,54 +92,6 @@ public class BylawDomain {
         this.bylawsCategory = bylawsCategory == null ? null : bylawsCategory.trim();
     }
 
-    public Integer getDataState() {
-        return dataState;
-    }
-
-    public void setDataState(Integer dataState) {
-        this.dataState = dataState;
-    }
-
-    public Integer getDataVersion() {
-        return dataVersion;
-    }
-
-    public void setDataVersion(Integer dataVersion) {
-        this.dataVersion = dataVersion;
-    }
-
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser == null ? null : createUser.trim();
-    }
-
-    public String getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser == null ? null : updateUser.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
     public String getBylawsContent() {
         return bylawsContent;
     }
@@ -160,4 +99,5 @@ public class BylawDomain {
     public void setBylawsContent(String bylawsContent) {
         this.bylawsContent = bylawsContent == null ? null : bylawsContent.trim();
     }
+    
 }

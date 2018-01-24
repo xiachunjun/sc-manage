@@ -1,9 +1,15 @@
 package com.sc.domain;
 
-import java.util.Date;
+import java.io.Serializable;
 
-public class UserDomain {
-    private Integer id;
+import javax.persistence.Table;
+
+import com.sc.domain.base.BaseDomain;
+
+@Table(name="sc_users")
+public class UserDomain extends BaseDomain implements Serializable{
+   
+	private static final long serialVersionUID = 1L;
 
     /**
      * 登录名
@@ -29,26 +35,6 @@ public class UserDomain {
      * 昵称
      */
     private String userNickname;
-
-    private Integer dataState;
-
-    private Integer dataVersion;
-
-    private String createUser;
-
-    private String updateUser;
-
-    private Date createTime;
-
-    private Date updateTime;
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getUserLoginName() {
         return userLoginName;
@@ -90,51 +76,5 @@ public class UserDomain {
         this.userNickname = userNickname == null ? null : userNickname.trim();
     }
 
-    public Integer getDataState() {
-        return dataState;
-    }
-
-    public void setDataState(Integer dataState) {
-        this.dataState = dataState;
-    }
-
-    public Integer getDataVersion() {
-        return dataVersion;
-    }
-
-    public void setDataVersion(Integer dataVersion) {
-        this.dataVersion = dataVersion;
-    }
-
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser == null ? null : createUser.trim();
-    }
-
-    public String getUpdateUser() {
-        return updateUser;
-    }
-
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser == null ? null : updateUser.trim();
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public Date getUpdateTime() {
-        return updateTime;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
+   
 }
