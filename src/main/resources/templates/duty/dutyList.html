@@ -45,20 +45,20 @@
 									<div class="space-6"></div>
 									<form id="queryForm" class="form-horizontal" role="form" onsubmit="return false;">
 										<div class="form-group">
-											<label class="col-sm-2 control-label no-padding-right" for="departmentCode">部门</label>
+											<label class="col-sm-2 control-label no-padding-right" for="refDeptId">部门</label>
 											<div class="col-sm-2">
-												<select style="width: 80%;" id="departmentCode" name="departmentCode">
+												<select style="width: 80%;" id="refDeptId" name="refDeptId">
 
 												</select>
 											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="positionCode">岗位</label>
+											<label class="col-sm-1 control-label no-padding-right" for="refPosiId">岗位</label>
 											<div class="col-sm-2">
-												<select style="width: 80%;" id="positionCode" name="positionCode">
+												<select style="width: 80%;" id="refPosiId" name="refPosiId">
 												</select>
 											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="userCode">责任人</label>
+											<label class="col-sm-1 control-label no-padding-right" for="refUserId">责任人</label>
 											<div class="col-sm-2">
-												<select style="width: 80%;" id="userCode" name="userCode">
+												<select style="width: 80%;" id="refUserId" name="refUserId">
 												</select>
 											</div>
 											<div class="col-sm-2 align-left">
@@ -97,9 +97,9 @@
 		$('#departmentCode').on('change', function(e) {
 			renderPosition();
 		});
-		queryData();
+	/* 	queryData();
 		renderDept();
-		renderUser();
+		renderUser(); */
 	});
 	
 		function queryData() {
@@ -155,6 +155,7 @@
 				type : 'POST',
 				url : '/department/queryAll',
 				data : null,
+				async:false,
 				headers : {
 					'Content-Type' : 'application/json'
 				},
