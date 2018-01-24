@@ -1,5 +1,6 @@
 package com.sc.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,11 +18,13 @@ import com.alibaba.fastjson.JSON;
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.ScException;
 import com.sc.common.util.CommonUtils;
+import com.sc.common.util.DateUtil;
 import com.sc.dao.BylawMapper;
 import com.sc.domain.BylawDomain;
 import com.sc.model.request.BylawModel;
 import com.sc.model.response.BylawCountGroupByCategory;
 import com.sc.service.IBylawService;
+import com.sc.support.UserContext;
 
 @Service
 public class BylawServiceImpl implements IBylawService {
@@ -40,7 +43,14 @@ public class BylawServiceImpl implements IBylawService {
 		logger.info("BylawServiceImpl.saveBylaw=="+JSON.toJSONString(bylawModel));
 		BylawDomain bylawDomain = new BylawDomain();
 		BeanUtils.copyProperties(bylawModel, bylawDomain);
-		//TODO 还有其他默认值
+		bylawDomain.setArticleTime(DateUtil.str2Date(bylawModel.getArtTime())); //转换时间
+		bylawDomain.setId(null);
+		bylawDomain.setDataState(1);
+		bylawDomain.setDataVersion(1);
+		bylawDomain.setCreateUser(UserContext.getLoginName());
+		bylawDomain.setUpdateUser(bylawDomain.getCreateUser());
+		bylawDomain.setCreateTime(new Date());
+		bylawDomain.setUpdateTime(bylawDomain.getCreateTime());
 		int flag = bylawMapper.insertSelective(bylawDomain);
 		if (flag != 1) {
 			throw new ScException("保存规章制度出错");

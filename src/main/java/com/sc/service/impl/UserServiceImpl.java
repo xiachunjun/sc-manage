@@ -11,7 +11,9 @@ import org.springframework.transaction.annotation.Transactional;
 import com.sc.common.constant.ScException;
 import com.sc.common.util.EncryptUtil;
 import com.sc.dao.UserMapper;
+import com.sc.dao.UserPosiRelMapper;
 import com.sc.domain.UserDomain;
+import com.sc.domain.UserPosiRelDomain;
 import com.sc.model.request.UpdateUserPwdModel;
 import com.sc.model.request.UserModel;
 import com.sc.service.IUserService;
@@ -22,7 +24,9 @@ public class UserServiceImpl implements IUserService {
 
 	@Autowired
 	private UserMapper userMapper;
-
+	@Autowired
+	private UserPosiRelMapper userPosiRelMapper;
+	
 	
 	@Transactional
 	@Override
@@ -33,9 +37,33 @@ public class UserServiceImpl implements IUserService {
 		if (userDomain == null) {
 			userDomain = new UserDomain();
 			BeanUtils.copyProperties(userModel, userDomain);
+			userDomain.setUserLoginPwd(EncryptUtil.encrypt(userModel.getUserLoginPwd()));
+			userDomain.setId(null);
+			userDomain.setDataState(1);
+			userDomain.setDataVersion(1);
+			userDomain.setCreateUser(UserContext.getLoginName());
+			userDomain.setUpdateUser(userDomain.getCreateUser());
+			userDomain.setCreateTime(new Date());
+			userDomain.setUpdateTime(userDomain.getCreateTime());
 			int flag = userMapper.insertSelective(userDomain);
 			if (flag != 1) {
 				throw new ScException("添加用户出错");
+			}else{
+				//添加到用户与岗位关系表
+				UserPosiRelDomain userPosiRel = new UserPosiRelDomain();
+				userPosiRel.setId(null);
+				userPosiRel.setRefUserId(userDomain.getId());
+				userPosiRel.setRefPosiId(userModel.getRefPosiId());
+				userPosiRel.setDataState(1);
+				userPosiRel.setDataVersion(1);
+				userPosiRel.setCreateUser(UserContext.getLoginName());
+				userPosiRel.setUpdateUser(userPosiRel.getCreateUser());
+				userPosiRel.setCreateTime(new Date());
+				userPosiRel.setUpdateTime(userPosiRel.getCreateTime());
+				int flag2 = userPosiRelMapper.insertSelective(userPosiRel);
+				if (flag2 != 1) {
+					throw new ScException("添加用户出错");
+				}
 			}
 		} else {
 			throw new ScException("该用户名已存在，请重新设置");

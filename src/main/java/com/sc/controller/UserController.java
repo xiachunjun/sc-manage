@@ -53,7 +53,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/addUserPost", method = { RequestMethod.POST })
 	@ResponseBody
-	public DataResponse addUserPost(@RequestBody UserModel userModel) {
+	public DataResponse addUserPost(UserModel userModel) {
 		DataResponse dr = null;
 		try {
 			userService.saveUser(userModel);

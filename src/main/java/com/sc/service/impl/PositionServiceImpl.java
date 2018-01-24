@@ -37,6 +37,7 @@ public class PositionServiceImpl implements IPositionService {
 	public List<PositionDomain> queryListByDeptId(Integer deptId) {
 		PositionDomain record = new PositionDomain();
 		record.setRefDeptId(deptId);
+		record.setDataState(1);
 		return positionMapper.select(record);
 	}
 	

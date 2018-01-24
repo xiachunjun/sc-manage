@@ -32,7 +32,8 @@ public class BylawModel {
 	 * 发文时间
 	 */
 	private Date articleTime;
-
+	private String artTime;
+	
 	/**
 	 * （如果不直接保存内容，则以文件或页面的形式保存）
 	 */
@@ -105,4 +106,13 @@ public class BylawModel {
 		this.file = file;
 	}
 
+	public String getArtTime() {
+		return artTime;
+	}
+
+	public void setArtTime(String artTime) {
+		this.artTime = artTime;
+	}
+
+	
 }

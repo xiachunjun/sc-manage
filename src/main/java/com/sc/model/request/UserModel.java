@@ -28,6 +28,9 @@ public class UserModel {
 	 */
 	private String userNickname;
 
+	/**所属岗位id*/
+	private Integer refPosiId;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -76,4 +79,13 @@ public class UserModel {
 		this.userNickname = userNickname;
 	}
 
+	public Integer getRefPosiId() {
+		return refPosiId;
+	}
+
+	public void setRefPosiId(Integer refPosiId) {
+		this.refPosiId = refPosiId;
+	}
+	
+	
 }

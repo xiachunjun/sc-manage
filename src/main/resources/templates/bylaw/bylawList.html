@@ -83,9 +83,9 @@
 	
 		function dataListRender(dataMap) {
 			var ht = "<tr><th>序号</th><th>名称</th><th>编号</th><th>发文文号</th><th>发文时间</th><th>操作</th></tr>";
-			var cwglList = dataMap.CWGL;
-			var tjbzList = dataMap.TJBZ;
-			var xzglList = dataMap.XZGL;
+			var cwglList = dataMap.bylawList.CWGL;
+			var tjbzList = dataMap.bylawList.TJBZ;
+			var xzglList = dataMap.bylawList.XZGL;
 			if (xzglList && xzglList.length > 0) {
 				var indexNo = 1;
 				ht = ht + "<tr><td colspan='6'>一、行政管理</td></tr>";
@@ -130,14 +130,31 @@
 	
 		function detailItem(obj) {
 			var itemId = $(obj).parent().attr('itemid');
-			alert("功能正在紧张开发中。。。。。。");
-	
+			$.ajax({
+				type : 'POST',
+				url : '/bylaw/queryById',
+				data : {"bylawsId": itemId},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					if (resultCode != '000000') {
+						alert("查看详情失败！");
+					} else {
+						var bylaw = data.dataMap.bylaw
+						//TODO 弹出框
+						alert(JSON.stringify(bylaw));
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("删除规章制度异常-" + JSON.stringify(data));
+				}
+			});
 		}
 	
 		function updateItem(obj) {
 			var itemId = $(obj).parent().attr('itemid');
 			alert("功能正在紧张开发中。。。。。。");
-	
+			//TODO 弹出一个form表单
 		}
 	
 	

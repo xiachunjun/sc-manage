@@ -29,7 +29,7 @@
 								<span>当前位置</span> > <span>用户管理</span> > <span>添加用户</span>
 							</div>
 							<div class="col-sm-6 text-right" style="padding-right: 20px;">
-								<button class="btn btn-white radius-4" onclick="window.location.href='/bylaw/bylawList';">返回</button>
+								<button class="btn btn-white radius-4" onclick="window.location.href='/page/user/addUser';">返回</button>
 							</div>
 						</div>
 					</div>
@@ -62,17 +62,17 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="refDept">所属部门</label>
+											<label class="col-sm-3 control-label no-padding-right" for="refDeptId">所属部门</label>
 											<div class="col-sm-9">
-												<select class="col-xs-10 col-sm-5" id="refDept" name="refDept" onchange="if(this.value != '')findPosition(this)">
+												<select class="col-xs-10 col-sm-5" id="refDeptId" name="refDeptId" onchange="if(this.value != '')findPosition(this)">
 													<option>请选择</option>
 												</select>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="refPosi">所属岗位</label>
+											<label class="col-sm-3 control-label no-padding-right" for="refPosiId">所属岗位</label>
 											<div class="col-sm-9">
-												<select class="col-xs-10 col-sm-5" id="refPosi" name="refPosi">
+												<select class="col-xs-10 col-sm-5" id="refPosiId" name="refPosiId">
 													<option>请选择</option>
 												</select>
 											</div>
@@ -100,21 +100,19 @@
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			$.post("/department/queryAll", null, function(data,textStatus){
+			$.post("/department/queryDeptList", null, function(data,textStatus){
 			 if(data.resultCode === '000000'){
-				$("#refDept option").remove();
+				$("#refDeptId option").remove();
 		        var deptList = data.dataMap.depts;
 		        if(deptList!=null && deptList.length>0){
 		        	var $option2 = $("<option>请选择</option>");
-		        	$("#refDept").append($option2);
+		        	$("#refDeptId").append($option2);
 		            for(var i=0;i<deptList.length;i++){
-			            var code = deptList[i].departmentCode;
-			            var name = deptList[i].departmentName;
 			            //添加到所属部门的下拉菜单中
 			            var $option = $("<option></option>");
-			            $option.attr("value",code);
-			            $option.text(name);
-			            $("#refDept").append($option);
+			            $option.attr("value",deptList[i].id);
+			            $option.text(deptList[i].deptName);
+			            $("#refDeptId").append($option);
 		            }
 		        }
 			 }
@@ -122,29 +120,24 @@
 		})
 		//二级联动
 		function findPosition(o){
-	      var deptCode = document.getElementById("refDept").value;
+	      var deptId = document.getElementById("refDeptId").value;
 	      $.ajax({
     	    type: 'post',
-    	    url: '/position/queryByDeptCode',
-    	    data : JSON.stringify({"departmentCode":deptCode}),
-			headers : {
-				"Content-Type" : "application/json"
-			},
+    	    url: '/position/queryByDept',
+    	    data : {"deptId":deptId},
     	    success: function (data) { //返回json结果
     	    	if(data.resultCode === '000000'){
-   	    		 $("#refPosi option").remove();
+   	    		 $("#refPosiId option").remove();
    	  	         var posiList = data.dataMap.positions;
    	  	         if(posiList!=null && posiList.length>0){
    	  	        	var $option2 = $("<option>请选择</option>");
-	        		$("#refPosi").append($option2);
+	        		$("#refPosiId").append($option2);
    	  	            for(var i=0;i<posiList.length;i++){
-   	  		            var code = posiList[i].positionCode;
-   	  		            var name = posiList[i].positionName;
    	  		            //添加到所属岗位的下拉菜单中
    	  		            var $option = $("<option></option>");
-   	  		            $option.attr("value",code);
-   	  		            $option.text(name);
-   	  		            $("#refPosi").append($option);
+   	  		            $option.attr("value", posiList[i].id);
+   	  		            $option.text(posiList[i].posiName);
+   	  		            $("#refPosiId").append($option);
    	  	            }
    	  	         }
    	    	   }
@@ -155,7 +148,7 @@
 		//表单提交事件
 		$('#addUserForm').submit(function() {
 			$("#addUserForm").ajaxSubmit({
-				url : "/outer/user/register",
+				url : "/user/addUserPost",
 				type : "POST",
 				dataType : "JSON",
 				clearForm : true,

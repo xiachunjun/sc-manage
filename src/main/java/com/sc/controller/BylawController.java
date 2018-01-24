@@ -183,7 +183,7 @@ public class BylawController {
 	 */
 	@RequestMapping(value = "/bylaw/queryById", method = { RequestMethod.POST })
 	@ResponseBody
-	public DataResponse queryById(@RequestParam(name = "id", required = true) Integer id) {
+	public DataResponse queryById(@RequestParam(name = "bylawsId", required = true) Integer id) {
 		DataResponse dr = null;
 		try {
 			BylawDomain bylawDomain = bylawService.queryById(id);
