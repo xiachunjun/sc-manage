@@ -9,11 +9,15 @@ import com.sc.model.request.QueryPlanModel;
 public interface IPlanService {
 
 	/**
-	 * 保存个人月度计划完成情况
-	 * 
-	 * @param planModels
+	 * 新增
+	 * @param planModel
 	 */
-	void savePlan(List<PlanModel> planModels);
+	void addPlan(PlanModel planModel);
+	
+	/**
+	 * 新建
+	 */
+	void savePlanList(List<PlanModel> planModels);
 
 	/**
 	 * 根据条件，查询计划列表
@@ -37,11 +41,5 @@ public interface IPlanService {
 	 */
 	void deletePlanById(Integer id);
 
-	/**
-	 * 单一添加
-	 * 
-	 * @param planModel
-	 */
-	void addPlan(PlanModel planModel);
 
 }

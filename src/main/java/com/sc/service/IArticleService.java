@@ -38,9 +38,9 @@ public interface IArticleService {
 	/**
 	 * 签发
 	 * @param id
-	 * @param userLoginName
+	 * @param signUserCheckState
 	 */
-	void auditArticle(Integer id, String userLoginName);
+	void auditArticle(Integer id, String signUserCheckState);
 
 	
 }

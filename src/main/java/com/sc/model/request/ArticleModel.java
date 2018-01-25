@@ -3,6 +3,7 @@ package com.sc.model.request;
 import java.util.Date;
 
 public class ArticleModel {
+	
 	private Integer id;
 
 	/**
@@ -39,12 +40,16 @@ public class ArticleModel {
 	 * 文章时间
 	 */
 	private Date articleTime;
-
+	private String artTime;
+	
 	/**
 	 * 标题
 	 */
 	private String articleTitle;
 
+	/**信息内容*/
+	private String articleContent;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -117,4 +122,21 @@ public class ArticleModel {
 		this.articleTitle = articleTitle;
 	}
 
+	public String getArtTime() {
+		return artTime;
+	}
+
+	public String getArticleContent() {
+		return articleContent;
+	}
+
+	public void setArtTime(String artTime) {
+		this.artTime = artTime;
+	}
+
+	public void setArticleContent(String articleContent) {
+		this.articleContent = articleContent;
+	}
+	
+	
 }

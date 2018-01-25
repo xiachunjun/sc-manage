@@ -46,10 +46,6 @@ public class PlanController {
 	@Autowired
 	private IUserService userService;
 
-	@RequestMapping("/plan/planList")
-	public String planList() {
-		return "/plan/planList";
-	}
 
 	@RequestMapping("/plan/planManage")
 	public ModelAndView planManage() {
@@ -75,21 +71,44 @@ public class PlanController {
 		return mv;
 	}
 
+	
 	/**
-	 * 保存个人月度计划完成情况
+	 * 单条新增计划
 	 */
-	@RequestMapping(value = "/plan/save", method = { RequestMethod.POST })
+	@RequestMapping(value = "/plan/addPlanPost", method = { RequestMethod.POST })
 	@ResponseBody
-	public DataResponse savePlan(@RequestBody List<PlanModel> planModels) {
+	public DataResponse addPlanPost(@RequestBody PlanModel planModel) {
 		DataResponse dr = null;
 		try {
-			planService.savePlan(planModels);
+			planService.addPlan(planModel);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);
 		} catch (Exception e) {
-			logger.error("保存个人月度计划完成情况异常", e);
+			logger.error("新建计划异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+
+	
+	
+	/**
+	 * 新建（新增多条）
+	 */
+	@RequestMapping(value = "/plan/saveList", method = { RequestMethod.POST })
+	@ResponseBody
+	public DataResponse savePlanList(@RequestBody List<PlanModel> planModels) {
+		DataResponse dr = null;
+		try {
+			planService.savePlanList(planModels);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+		} catch (ScException e) {
+			logger.error(e.getMessage());
+			dr = new DataResponse(e);
+		} catch (Exception e) {
+			logger.error("新建个人月度计划完成情况异常", e);
 			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
@@ -110,7 +129,7 @@ public class PlanController {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);
 		} catch (Exception e) {
-			logger.error("保存个人月度计划完成情况异常", e);
+			logger.error("查询个人月度计划完成情况异常", e);
 			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
 		return dr;
@@ -162,24 +181,5 @@ public class PlanController {
 		return dr;
 	}
 
-	/**
-	 * 新建计划
-	 */
-	@RequestMapping(value = "/plan/addPlanPost", method = { RequestMethod.POST })
-	@ResponseBody
-	public DataResponse addPlanPost(@RequestBody PlanModel planModel) {
-		DataResponse dr = null;
-		try {
-			planService.addPlan(planModel);
-			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-		} catch (ScException e) {
-			logger.error(e.getMessage());
-			dr = new DataResponse(e);
-		} catch (Exception e) {
-			logger.error("新建计划异常", e);
-			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
-		}
-		return dr;
-	}
-
+	
 }

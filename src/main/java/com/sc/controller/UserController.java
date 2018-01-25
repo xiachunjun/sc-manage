@@ -38,10 +38,6 @@ public class UserController {
 	@Autowired
 	private TokenService tokenService;
 
-	@RequestMapping("/user/addUser")
-	public String addUser() {
-		return "/user/addUser";
-	}
 
 	@RequestMapping("/outer/login")
 	public String loginPage(Map<String, Object> map) {

@@ -36,29 +36,23 @@ public class ArticleController {
 	@Autowired
 	private IArticleService articleService;
 	
-	@RequestMapping("/article/articleList")
-	public String articleList() {
-		return "/articleList";
-	}
-	
 	/**
-	 * 编制信息  （院办公室人员发起，开放给院办公室）
+	 * 编制信息  （权限：院办公室人员发起，开放给院办公室）----（新增每日信息）
 	 */
-	@RequestMapping(value = "/article/save", method = {RequestMethod.POST})
+	@RequestMapping(value = "/article/add", method = {RequestMethod.POST})
 	@ResponseBody
-	public DataResponse saveArticle(ArticleModel articleModel, HttpServletRequest request){
+	public DataResponse saveArticle(ArticleModel articleModel){
 		DataResponse dr = null;
-//		try {
-//			articleModel.setUserCode(UserContext.getUserCode());
-//			articleService.saveArticle(articleModel);
-//			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-//		} catch (ScException e) {
-//			logger.error(e.getMessage());
-//			dr = new DataResponse(e);
-//		} catch (Exception e) {
-//			logger.error("保存编制信息异常", e);
-//			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
-//		}
+		try {
+			articleService.saveArticle(articleModel);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+		} catch (ScException e) {
+			logger.error(e.getMessage());
+			dr = new DataResponse(e);
+		} catch (Exception e) {
+			logger.error("保存编制信息异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
 		return dr;
 	}
 	
@@ -86,15 +80,15 @@ public class ArticleController {
 	
 	
 	/**
-	 * 签发
+	 * 签发 ?  
 	 */
 	@RequestMapping(value = "/article/audit", method = {RequestMethod.POST})
 	@ResponseBody
 	public DataResponse auditArticle(@RequestParam(value="id", required=true)Integer id, 
-			HttpServletRequest request){
+			@RequestParam(value="signUserCheckState", required=true)String signUserCheckState){
 		DataResponse dr = null;
 		try {
-			articleService.auditArticle(id, UserContext.getLoginName());
+			articleService.auditArticle(id, signUserCheckState);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());

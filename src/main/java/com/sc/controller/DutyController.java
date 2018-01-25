@@ -31,16 +31,6 @@ public class DutyController {
 	private IDutyService dutyService;
 
 	
-	@RequestMapping("/duty/dutyList")
-	public String dutyList() {
-		return "/duty/dutyList";
-	}
-	
-	@RequestMapping("/duty/editDuty")
-	public String editDuty() {
-		return "/duty/editDuty";
-	}
-
 	@RequestMapping("/duty/deptDutyList")
 	public ModelAndView deptDutyList(@RequestParam Map<String, Object> map) {
 		ModelAndView mv = new ModelAndView("dutyDetail");

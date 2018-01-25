@@ -1,5 +1,6 @@
 package com.sc.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.BeanUtils;
@@ -12,6 +13,7 @@ import com.sc.dao.DepartmentMapper;
 import com.sc.domain.DepartmentDomain;
 import com.sc.model.request.DepartmentModel;
 import com.sc.service.IDepartmentService;
+import com.sc.support.UserContext;
 
 @Service
 public class DepartmentServiceImpl implements IDepartmentService {
@@ -39,7 +41,13 @@ public class DepartmentServiceImpl implements IDepartmentService {
 	public void saveDepartment(DepartmentModel departmentModel) {
 		DepartmentDomain record = new DepartmentDomain();
 		BeanUtils.copyProperties(departmentModel, record);
-		//TODO 待修改
+		record.setId(null);
+		record.setDataState(1);
+		record.setDataVersion(1);
+		record.setCreateUser(UserContext.getLoginName());
+		record.setUpdateUser(record.getCreateUser());
+		record.setCreateTime(new Date());
+		record.setUpdateTime(record.getCreateTime());
 		int flag = departmentMapper.insertSelective(record);
 		if (flag != 1) {
 			throw new ScException("保存部门出错");
@@ -52,7 +60,8 @@ public class DepartmentServiceImpl implements IDepartmentService {
 	public void updateDepartment(DepartmentModel departmentModel) {
 		DepartmentDomain record = new DepartmentDomain();
 		BeanUtils.copyProperties(departmentModel, record);
-		//TODO 修改信息
+		record.setUpdateUser(UserContext.getLoginName());
+		record.setUpdateTime(new Date());
 		int flag = departmentMapper.updateByPrimaryKeySelective(record);
 		if (flag != 1) {
 			throw new ScException("修改部门出错");
@@ -66,6 +75,8 @@ public class DepartmentServiceImpl implements IDepartmentService {
 		DepartmentDomain record = new DepartmentDomain();
 		record.setId(id);
 		record.setDataState(0);
+		record.setUpdateUser(UserContext.getLoginName());
+		record.setUpdateTime(new Date());
 		int flag = departmentMapper.updateByPrimaryKey(record);
 		if (flag != 1) {
 			throw new ScException("删除部门出错");
