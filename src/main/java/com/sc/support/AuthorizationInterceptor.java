@@ -27,7 +27,7 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 		try {
 			System.out.println("path==="+request.getRequestURL());
 			String accessToken = getAccessToken(request);
-			logger.debug("AuthorizationInterceptor.preHandle==", accessToken);
+			logger.debug("AuthorizationInterceptor.preHandle==" + accessToken);
 			AuthUser authUser = tokenService.getUserByAccessToken(accessToken);
 			if (null != authUser) {
 				UserContext.setAuthUser(authUser);
