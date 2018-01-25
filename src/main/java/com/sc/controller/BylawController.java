@@ -42,16 +42,6 @@ public class BylawController {
 	@Autowired
 	private IBylawService bylawService;
 
-	@RequestMapping("/bylaw/bylawList")
-	public String bylawList() {
-		return "/bylaw/bylawList";
-	}
-
-	@RequestMapping("/bylaw/addBylaw")
-	public String addBylaw() {
-		return "/addBylaw";
-	}
-
 	
 	/**
 	 * 新增规章制度
