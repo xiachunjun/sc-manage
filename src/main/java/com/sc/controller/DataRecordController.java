@@ -25,8 +25,8 @@ public class DataRecordController {
 
 	private static final Logger logger = LoggerFactory.getLogger(DataRecordController.class);
 	
-//	@Autowired
-//	private IDataRecordService dataRecordService;
+	@Autowired
+	private IDataRecordService dataRecordService;
 	
 	/**
 	 * 保存数据填报
@@ -36,7 +36,7 @@ public class DataRecordController {
 	public DataResponse saveDataRecord(@RequestBody List<DataRecordModel> dataRecordModels) {
 		DataResponse dr = null;
 		try {
-			//dataRecordService.saveDataRecord(dataRecordModels);
+			dataRecordService.saveDataRecord(dataRecordModels);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());

@@ -10,7 +10,7 @@ public interface IDataRecordService {
 	 * 保存数据填报
 	 * @param List<DataRecordModel>
 	 */
-	//void saveDataRecord(List<DataRecordModel> dataRecordModel);
+	void saveDataRecord(List<DataRecordModel> dataRecordModel);
 
 	
 }

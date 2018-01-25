@@ -1,36 +1,54 @@
-package com.sc.model.request;
+package com.sc.domain;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class DataRecordModel {
+import javax.persistence.Table;
 
-	private String refDeptCode;
+import com.sc.domain.base.BaseDomain;
 
-	/** 数据时间 */
-	private Date recordTime;
-	private String redTime;
+@Table(name="sc_data_records")
+public class DataRecordDomain extends BaseDomain implements Serializable{
+
+	private static final long serialVersionUID = 1L;
+
+	/**所属部门*/
+	private Integer refDeptId;
 	
-	/** 指标名称 */
+	/**数据类型（1-默认）*/
+	private Integer recordType;
+	
+	/**数据时间*/
+	private Date recordTime;
+	
+	/**指标名称*/
 	private String recordName;
-
-	/** 计量单位（1-百分比，2-亿元，3-美元，4-元） */
+	
+	/**计量单位（1-百分比，2-亿元，3-美元，4-元）*/
 	private Integer recordUnit;
-
-	/** 指标值 */
+	
+	/**指标值*/
 	private Float recordValue;
-
+	
+	/**目标值*/
 	private Float targetValue;
-
-	/** 完成度 */
+	
+	/**完成度*/
 	private String rateOfProgress;
-
-	/** 完成情况 */
+	
+	/**完成情况*/
 	private String progressInfo;
-
+	
+	/**备注*/
 	private String recordMemo;
 
-	public String getRefDeptCode() {
-		return refDeptCode;
+	
+	public Integer getRefDeptId() {
+		return refDeptId;
+	}
+
+	public Integer getRecordType() {
+		return recordType;
 	}
 
 	public Date getRecordTime() {
@@ -65,8 +83,12 @@ public class DataRecordModel {
 		return recordMemo;
 	}
 
-	public void setRefDeptCode(String refDeptCode) {
-		this.refDeptCode = refDeptCode;
+	public void setRefDeptId(Integer refDeptId) {
+		this.refDeptId = refDeptId;
+	}
+
+	public void setRecordType(Integer recordType) {
+		this.recordType = recordType;
 	}
 
 	public void setRecordTime(Date recordTime) {
@@ -100,13 +122,6 @@ public class DataRecordModel {
 	public void setRecordMemo(String recordMemo) {
 		this.recordMemo = recordMemo;
 	}
-
-	public String getRedTime() {
-		return redTime;
-	}
-
-	public void setRedTime(String redTime) {
-		this.redTime = redTime;
-	}
+	
 	
 }
