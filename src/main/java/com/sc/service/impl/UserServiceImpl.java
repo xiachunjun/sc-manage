@@ -113,8 +113,8 @@ public class UserServiceImpl implements IUserService {
 
 	
 	@Override
-	public List<UserDomain> queryByDept(String deptCode) {
-		return null;
+	public List<UserDomain> queryByDeptId(Integer deptId) {
+		return userMapper.queryUserListByDeptId(deptId);
 	}
 
 

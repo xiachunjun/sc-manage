@@ -107,9 +107,8 @@ public class UserController {
 		DataResponse dr = null;
 		try {
 			List<UserDomain> userList = null;
-			if (paramMap.get("deptCode") != null) {
-				String deptCode = String.valueOf(paramMap.get("deptCode"));
-				userList = userService.queryByDept(deptCode);
+			if (paramMap.get("deptId") != null) {
+				userList = userService.queryByDeptId(Integer.parseInt(paramMap.get("deptId")));
 			} else {
 				userList = userService.queryUsertList();
 			}

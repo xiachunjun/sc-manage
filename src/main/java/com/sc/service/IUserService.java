@@ -35,7 +35,7 @@ public interface IUserService {
 	 * 
 	 * @return
 	 */
-	List<UserDomain> queryByDept(String deptCode);
+	List<UserDomain> queryByDeptId(Integer deptId);
 
 	/**
 	 * 修改密码
