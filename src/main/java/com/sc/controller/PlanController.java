@@ -17,6 +17,7 @@ import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
 import com.sc.domain.PlanDomain;
+import com.sc.model.request.PlanDetailModel;
 import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
 import com.sc.model.response.UserInfoResult;
@@ -66,7 +67,7 @@ public class PlanController {
 
 	
 	/**
-	 * 单条新增计划
+	 * 新增（添加到sc_plans表）
 	 */
 	@RequestMapping(value = "/plan/addPlanPost", method = { RequestMethod.POST })
 	@ResponseBody
@@ -88,14 +89,14 @@ public class PlanController {
 	
 	
 	/**
-	 * 新建（新增多条）
+	 * 新建（添加到sc_plan_details表）
 	 */
 	@RequestMapping(value = "/plan/saveList", method = { RequestMethod.POST })
 	@ResponseBody
-	public DataResponse savePlanList(@RequestBody List<PlanModel> planModels) {
+	public DataResponse savePlanList(@RequestBody List<PlanDetailModel> planDetailModels) {
 		DataResponse dr = null;
 		try {
-			planService.savePlanList(planModels);
+			planService.savePlanDetailList(planDetailModels);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());

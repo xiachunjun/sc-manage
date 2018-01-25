@@ -12,13 +12,14 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.sc.common.constant.ScException;
+import com.sc.dao.PlanDetailMapper;
 import com.sc.dao.PlanMapper;
+import com.sc.domain.PlanDetailDomain;
 import com.sc.domain.PlanDomain;
+import com.sc.model.request.PlanDetailModel;
 import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
-import com.sc.service.IDepartmentService;
 import com.sc.service.IPlanService;
-import com.sc.service.IPositionService;
 import com.sc.support.AuthUser;
 import com.sc.support.UserContext;
 
@@ -30,10 +31,8 @@ public class PlanServiceImpl implements IPlanService {
 	@Autowired
 	private PlanMapper planMapper;
 	@Autowired
-	private IPositionService positionService;
-	@Autowired
-	private IDepartmentService departmentService;
-
+	private PlanDetailMapper planDetailMapper;
+	
 	
 	@Transactional
 	@Override
@@ -57,14 +56,14 @@ public class PlanServiceImpl implements IPlanService {
 	
 	@Transactional
 	@Override
-	public void savePlanList(List<PlanModel> planModels) {
-		if (CollectionUtils.isEmpty(planModels)) {
+	public void savePlanDetailList(List<PlanDetailModel> planDetailModels) {
+		if (CollectionUtils.isEmpty(planDetailModels)) {
 			throw new ScException("请填写个人计划完成情况");
 		}
-		List<PlanDomain> list = new ArrayList<PlanDomain>();
-		for (PlanModel planModel : planModels) {
-			PlanDomain record = new PlanDomain();
-			BeanUtils.copyProperties(planModel, record);
+		List<PlanDetailDomain> list = new ArrayList<PlanDetailDomain>();
+		for (PlanDetailModel planDetailModel : planDetailModels) {
+			PlanDetailDomain record = new PlanDetailDomain();
+			BeanUtils.copyProperties(planDetailModel, record);
 			// TODO 具体业务待修改
 			record.setId(null);
 			record.setDataState(1);
@@ -75,7 +74,7 @@ public class PlanServiceImpl implements IPlanService {
 			record.setUpdateTime(record.getCreateTime());
 			list.add(record);
 		}
-		int flag = planMapper.insertList(list);
+		int flag = planDetailMapper.insertList(list);
 		//int flag = planMapper.batchInsert(list);
 		if (flag <= 0) {
 			throw new ScException("新建出错");
