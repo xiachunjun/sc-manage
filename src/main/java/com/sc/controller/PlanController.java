@@ -19,9 +19,8 @@ import com.sc.common.constant.ScException;
 import com.sc.domain.PlanDomain;
 import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
-import com.sc.service.IDepartmentService;
+import com.sc.model.response.UserInfoResult;
 import com.sc.service.IPlanService;
-import com.sc.service.IPositionService;
 import com.sc.service.IUserService;
 import com.sc.support.AuthUser;
 import com.sc.support.UserContext;
@@ -36,13 +35,6 @@ public class PlanController {
 
 	@Autowired
 	private IPlanService planService;
-
-	@Autowired
-	private IPositionService positionService;
-
-	@Autowired
-	private IDepartmentService departmentService;
-
 	@Autowired
 	private IUserService userService;
 
@@ -51,23 +43,24 @@ public class PlanController {
 	public ModelAndView planManage() {
 		ModelAndView mv = new ModelAndView("/plan/planManage");
 		AuthUser authUser = UserContext.getAuthUser();
-//		Position posi = positionService.queryByCode(authUser.getRefPosi());
-//		Department dept = departmentService.queryByCode(authUser.getRefDept());
-		mv.addObject("authUser", authUser);
-//		mv.addObject("posi", posi);
-//		mv.addObject("dept", dept);
+		if(null != authUser){
+			//查询登录人的姓名，部门，岗位
+			UserInfoResult userInfo = userService.queryUserInfoByUserId(authUser.getId());
+			mv.addObject("userInfo", userInfo);
+		}
 		return mv;
 	}
 
+	
 	@RequestMapping("/plan/addPlan")
 	public ModelAndView addPlan() {
 		ModelAndView mv = new ModelAndView("/plan/addPlan");
 		AuthUser authUser = UserContext.getAuthUser();
-//		Position posi = positionService.queryByCode(authUser.getRefPosi());
-//		Department dept = departmentService.queryByCode(authUser.getRefDept());
-		mv.addObject("authUser", authUser);
-//		mv.addObject("posi", posi);
-//		mv.addObject("dept", dept);
+		if(null != authUser){
+			//查询登录人的姓名，部门，岗位
+			UserInfoResult userInfo = userService.queryUserInfoByUserId(authUser.getId());
+			mv.addObject("userInfo", userInfo);
+		}
 		return mv;
 	}
 

@@ -67,10 +67,10 @@
 																				<form id="needTodoForm" class="form-horizontal" role="form"
 																					onsubmit="return false;">
 																					<div class="form-group">
-																						<label class="col-sm-1 control-label no-padding-right" for="deptCode">部门</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="deptId">部门</label>
 																						<div class="col-sm-2">
-																							<select style="width: 100%;" id="deptCode1" name="deptCode">
-																								<option value="${dept.departmentCode!''}">${dept.departmentName!''}</option>
+																							<select style="width: 100%;" id="deptId" name="deptId">
+																								<option value="${userInfo.deptId!''}">${userInfo.deptName!''}</option>
 																							</select>
 																						</div>
 																						<label class="col-sm-1 control-label no-padding-right" for="refUser">责任人</label>
@@ -138,7 +138,7 @@
 																							<label class="col-sm-1 control-label no-padding-right" for="deptCode">部门</label>
 																							<div class="col-sm-2">
 																								<select style="width: 100%;" id="deptCode2" name="deptCode">
-																									<option value="${dept.departmentCode!''}">${dept.departmentName!''}</option>
+																									<option value="${userInfo.deptId!''}">${userInfo.deptName!''}</option>
 																								</select>
 																							</div>
 																							<label class="col-sm-1 control-label no-padding-right" for="refUser">责任人</label>
@@ -205,7 +205,7 @@
 																						<label class="col-sm-1 control-label no-padding-right" for="deptCode">部门</label>
 																						<div class="col-sm-2">
 																							<select style="width: 100%;" id="deptCode" name="deptCode">
-																								<option value="${dept.departmentCode!''}">${dept.departmentName!''}</option>
+																								<option value="${userInfo.deptId!''}">${userInfo.deptName!''}</option>
 																							</select>
 																						</div>
 																						<label class="col-sm-1 control-label no-padding-right" for="refUser">责任人</label>

@@ -5,6 +5,7 @@ import java.util.List;
 import com.sc.domain.UserDomain;
 import com.sc.model.request.UpdateUserPwdModel;
 import com.sc.model.request.UserModel;
+import com.sc.model.response.UserInfoResult;
 
 public interface IUserService {
 
@@ -41,5 +42,12 @@ public interface IUserService {
 	 * 修改密码
 	 */
 	void updatePwd(UpdateUserPwdModel updateUserPwdModel);
+
+	/**
+	 * 根据用户id, 查询用户的姓名，所属部门，所属岗位
+	 * @param id
+	 * @return
+	 */
+	UserInfoResult queryUserInfoByUserId(Integer id);
 
 }

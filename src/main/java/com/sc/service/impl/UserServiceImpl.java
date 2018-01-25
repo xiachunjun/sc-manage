@@ -16,6 +16,7 @@ import com.sc.domain.UserDomain;
 import com.sc.domain.UserPosiRelDomain;
 import com.sc.model.request.UpdateUserPwdModel;
 import com.sc.model.request.UserModel;
+import com.sc.model.response.UserInfoResult;
 import com.sc.service.IUserService;
 import com.sc.support.UserContext;
 
@@ -118,4 +119,10 @@ public class UserServiceImpl implements IUserService {
 	}
 
 
+	@Override
+	public UserInfoResult queryUserInfoByUserId(Integer id) {
+		return userMapper.queryUserInfoByUserId(id);
+	}
+	
+	
 }
