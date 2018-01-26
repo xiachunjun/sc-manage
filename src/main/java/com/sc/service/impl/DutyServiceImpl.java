@@ -78,10 +78,12 @@ public class DutyServiceImpl implements IDutyService {
 		if(StringUtils.equals("DEPT", type)){
 			record.setRefDeptId(qId);
 			record.setDataState(1);
+			record.setDutyType(type);
 			list = dutyMapper.select(record);
 		}else if(StringUtils.equals("POSI", type)){
 			record.setRefPosiId(qId);
 			record.setDataState(1);
+			record.setDutyType(type);
 			list = dutyMapper.select(record);
 		}
 		//处理一二级职责

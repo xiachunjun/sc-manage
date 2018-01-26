@@ -206,8 +206,8 @@
 				for (var i = 0; i < dutyList.length; i++) {
 					var duty = dutyList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='/duty/queryById?qId="+duty.deptId+"&name="+encodeURI(duty.deptName)+"&type="+encodeURI("DEPT")+"' style='text-decoration:none;'>" + duty.deptName + "</a></td>";
-					ht = ht + "<td><a href='/duty/queryById?qId="+duty.posiId+"&name="+encodeURI(duty.posiName)+"&type="+encodeURI("POSI")+"' style='text-decoration:none;'>" + duty.posiName + "</a></td>";
+					ht = ht + "<td><a href='/to/duty/detail?qId="+duty.deptId+"&name="+encodeURI(duty.deptName)+"&type="+encodeURI("DEPT")+"' style='text-decoration:none;'>" + duty.deptName + "</a></td>";
+					ht = ht + "<td><a href='/to/duty/detail?qId="+duty.posiId+"&name="+encodeURI(duty.posiName)+"&type="+encodeURI("POSI")+"' style='text-decoration:none;'>" + duty.posiName + "</a></td>";
 					ht = ht + "<td>" + duty.userName + "</td>";
 				}
 			}else{

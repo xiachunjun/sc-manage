@@ -31,30 +31,6 @@ public class DutyController {
 	@Autowired
 	private IDutyService dutyService;
 
-	
-	@RequestMapping("/duty/deptDutyList")
-	public ModelAndView deptDutyList(@RequestParam Map<String, Object> map) {
-		ModelAndView mv = new ModelAndView("dutyDetail");
-		map.put("dutyTypeName", "部门");
-		map.put("dutyEntityType", "DEPT");
-		map.put("dutyEntityCode", map.get("deptCode"));
-		map.put("dutyEntityName", map.get("deptName"));
-		mv.addAllObjects(map);
-		return mv;
-	}
-
-	@RequestMapping("/duty/posiDutyList")
-	public ModelAndView posiDutyList(@RequestParam Map<String, Object> map) {
-		ModelAndView mv = new ModelAndView("dutyDetail");
-		map.put("dutyTypeName", "岗位");
-		map.put("dutyEntityType", "POSI");
-		map.put("dutyEntityCode", map.get("posiCode"));
-		map.put("dutyEntityName", map.get("posiName"));
-		mv.addAllObjects(map);
-		return mv;
-	}
-
-	
 	/**
 	 * 新增责任清单
 	 */
@@ -100,36 +76,48 @@ public class DutyController {
 	
 	
 	/**
+	 * 跳转到部门或岗位的一二级职责页面
+	 */
+	@RequestMapping(value = "/to/duty/detail", method = { RequestMethod.GET })
+	public ModelAndView toDutyDetail(@RequestParam(name="qId", required=true)Integer qId,
+			@RequestParam(name="type", required=true)String type,
+			@RequestParam Map<String, Object> map) {
+		ModelAndView mv = new ModelAndView("/duty/dutyDetail");
+		if(StringUtils.equals("DEPT", type)){
+			map.put("dutyTypeName", "部门");
+		}else if(StringUtils.equals("POSI", type)){
+			map.put("dutyTypeName", "岗位");
+		}
+		map.put("dutyEntityType", type);
+		map.put("dutyEntityCode", qId);
+		map.put("dutyEntityName", map.get("name"));
+		mv.addAllObjects(map);
+		return mv;
+	}
+	
+	/**
 	 * 根据部门id 或 岗位id, 查询各自的一二级职责;  直接跳转到一二级职责详情页面
 	 * qId: 为部门或岗位id
 	 * type: DEPT表示部门，  POSI表示岗位
 	 */
-	@RequestMapping(value = "/duty/queryById", method = { RequestMethod.GET })
+	@RequestMapping(value = "/duty/queryByType", method = { RequestMethod.POST })
 	@ResponseBody
-	public ModelAndView queryDutyByDeptId(@RequestParam(name="qId", required=true)Integer qId,
-			@RequestParam(name="type", required=true)String type,
-			@RequestParam Map<String, Object> map) {
-		ModelAndView mv = new ModelAndView("/duty/dutyDetail");
+	public DataResponse queryDutyByDeptId(@RequestParam(name="qId", required=true)Integer qId,
+			@RequestParam(name="type", required=true)String type) {
+		DataResponse dr = null;
 		try {
 			//一二级职责
-			List<Map<String, Object>> dataMap = dutyService.queryDutyByType(qId, type);
-			map.put("dutyList", dataMap);
-			//页面显示
-			if(StringUtils.equals("DEPT", type)){
-				map.put("dutyTypeName", "部门");
-			}else if(StringUtils.equals("POSI", type)){
-				map.put("dutyTypeName", "岗位");
-			}
-			map.put("dutyEntityType", type);
-			map.put("dutyEntityCode", qId);
-			map.put("dutyEntityName", map.get("name"));
-			mv.addAllObjects(map);
+			List<Map<String, Object>> dataMapList = dutyService.queryDutyByType(qId, type);
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+			dr.put("dutyList", dataMapList);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
+			dr = new DataResponse(e);
 		} catch (Exception e) {
 			logger.error("根据部门id或岗位id, 查询各自的一二级职责异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
-		return mv;
+		return dr;
 	}
 
 	

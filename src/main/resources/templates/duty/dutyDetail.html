@@ -45,7 +45,6 @@
 								</div>
 								<div class="col-sm-12">
 									<table id="tfhover" class="tftable" border="1">
-										
 									</table>
 								</div>
 							</div>
@@ -61,7 +60,30 @@
 		function queryData() {
 			var dutyEntityCode = $("#dutyEntity").attr("dutyEntityCode");
 			var dutyEntityType = $("#dutyEntity").attr("dutyEntityType");
-			//TODO  dataListRender($("dutyList"));
+			$.ajax({
+				type : 'POST',
+				url : '/duty/queryByType',
+				data : {
+					'qId' : dutyEntityCode,
+					'type' : dutyEntityType
+				},
+				headers : {
+					'Content-Type' : 'application/x-www-form-urlencoded'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						dataListRender(dataMap);
+					} else {
+						alert("查询职责列表失败！");
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("查询职责列表异常-" + JSON.stringify(data));
+				}
+			});
 		}
 	
 		function dataListRender(dataMap) {
