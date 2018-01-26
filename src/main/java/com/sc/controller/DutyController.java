@@ -3,6 +3,7 @@ package com.sc.controller;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,9 @@ import org.springframework.web.servlet.ModelAndView;
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
-import com.sc.domain.DutyDomain;
 import com.sc.model.request.DutySaveModel;
 import com.sc.model.request.UpdateDutyModel;
+import com.sc.model.response.DutyResult;
 import com.sc.service.IDutyService;
 
 @Controller
@@ -76,15 +77,17 @@ public class DutyController {
 	
 	
 	/**
-	 * 查询责任清单列表
+	 * 条件查询，查询部门与岗位责任清单
+	 * userId:责任人，  deptId:部门，   posiId:岗位
 	 */
 	@RequestMapping(value = "/duty/queryByCondition", method = { RequestMethod.POST })
 	@ResponseBody
-	public DataResponse queryDutyByCondition(Integer deptId, Integer posiId, String dutyName) {
+	public DataResponse queryDutyByCondition(Integer userId, Integer deptId, Integer posiId) {
 		DataResponse dr = null;
 		try {
-			dutyService.queryDutyByCondition(deptId, posiId, dutyName);
+			List<DutyResult> list = dutyService.queryDutyByCondition(userId, deptId, posiId);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+			dr.put("dutyList", list);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);
@@ -97,25 +100,36 @@ public class DutyController {
 	
 	
 	/**
-	 * 根据部门id 或 岗位id, 查询各自的一二级职责
+	 * 根据部门id 或 岗位id, 查询各自的一二级职责;  直接跳转到一二级职责详情页面
+	 * qId: 为部门或岗位id
+	 * type: DEPT表示部门，  POSI表示岗位
 	 */
-	@RequestMapping(value = "/duty/queryById", method = { RequestMethod.POST })
+	@RequestMapping(value = "/duty/queryById", method = { RequestMethod.GET })
 	@ResponseBody
-	public DataResponse queryDutyByDeptId(@RequestParam(name="qId", required=true)Integer qId,
-			@RequestParam(name="type", required=true)String type) {
-		DataResponse dr = null;
+	public ModelAndView queryDutyByDeptId(@RequestParam(name="qId", required=true)Integer qId,
+			@RequestParam(name="type", required=true)String type,
+			@RequestParam Map<String, Object> map) {
+		ModelAndView mv = new ModelAndView("/duty/dutyDetail");
 		try {
-			List<DutyDomain> dataMap = dutyService.queryDutyByType(qId, type);
-			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-			dr.put("dutyList", dataMap);
+			//一二级职责
+			List<Map<String, Object>> dataMap = dutyService.queryDutyByType(qId, type);
+			map.put("dutyList", dataMap);
+			//页面显示
+			if(StringUtils.equals("DEPT", type)){
+				map.put("dutyTypeName", "部门");
+			}else if(StringUtils.equals("POSI", type)){
+				map.put("dutyTypeName", "岗位");
+			}
+			map.put("dutyEntityType", type);
+			map.put("dutyEntityCode", qId);
+			map.put("dutyEntityName", map.get("name"));
+			mv.addAllObjects(map);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
-			dr = new DataResponse(e);
 		} catch (Exception e) {
 			logger.error("根据部门id或岗位id, 查询各自的一二级职责异常", e);
-			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
 		}
-		return dr;
+		return mv;
 	}
 
 	
