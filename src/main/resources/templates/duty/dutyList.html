@@ -47,7 +47,7 @@
 										<div class="form-group">
 											<label class="col-sm-2 control-label no-padding-right" for="deptId">部门</label>
 											<div class="col-sm-2">
-												<select style="width: 80%;" id="deptId" name="deptId" onchange="if(this.value != '')findPosition(this)">
+												<select style="width: 80%;" id="deptId" name="deptId">
 													<option></option>
 												</select>
 											</div>
@@ -97,7 +97,7 @@
 	<script type="text/javascript">
 		$(function(){
 			queryData();
-			
+			//查询所有用户
 			$.ajax({
 				type : 'POST',
 				url : '/user/query/list',
@@ -129,8 +129,8 @@
 					alert("获取信息异常-" + JSON.stringify(data));
 				}
 			});
-			
-			$.post("/department/queryDeptList", null, function(data,textStatus){
+		  //查询所有部门
+		  $.post("/department/queryDeptList", null, function(data,textStatus){
 			 if(data.resultCode === '000000'){
 				$("#deptId option").remove();
 		        var deptList = data.dataMap.depts;
@@ -147,35 +147,26 @@
 		        }
 			 }
 	       });
+		   //查询所有岗位	
+		   $.post("/position/queryPosiList", null, function(data,textStatus){
+			 if(data.resultCode === '000000'){
+				$("#posiId option").remove();
+		        var posiList = data.dataMap.positions;
+		        if(posiList!=null && posiList.length>0){
+		        	var $option2 = $("<option></option>");
+		        	$("#posiId").append($option2);
+		            for(var i=0;i<posiList.length;i++){
+			            //添加到所属部门的下拉菜单中
+			            var $option = $("<option></option>");
+			            $option.attr("value",posiList[i].id);
+			            $option.text(posiList[i].posiName);
+			            $("#posiId").append($option);
+		            }
+		        }
+			 }
+		   });	
 		})
 		
-		//二级联动
-		function findPosition(o){
-	      var deptId = document.getElementById("deptId").value;
-	      $.ajax({
-		    type: 'post',
-		    url: '/position/queryByDept',
-		    data : {"deptId":deptId},
-		    success: function (data) { //返回json结果
-		    	if(data.resultCode === '000000'){
-		    		 $("#posiId option").remove();
-		  	         var posiList = data.dataMap.positions;
-		  	         if(posiList!=null && posiList.length>0){
-		  	        	var $option2 = $("<option></option>");
-	        			$("#posiId").append($option2);
-		  	            for(var i=0;i<posiList.length;i++){
-		  		            //添加到所属岗位的下拉菜单中
-		  		            var $option = $("<option></option>");
-		  		            $option.attr("value", posiList[i].id);
-		  		            $option.text(posiList[i].posiName);
-		  		            $("#posiId").append($option);
-		  	            }
-		  	         }
-		    	}
-		    }
-	      });
-		}
-	
 		function queryData() {
 			var paramJson=$('#queryForm').serializeJSON();
 			$.ajax({

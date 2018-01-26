@@ -40,6 +40,14 @@ public class PositionServiceImpl implements IPositionService {
 		}
 	}
 
+	
+	@Override
+	public List<PositionDomain> queryPosiList() {
+		PositionDomain record = new PositionDomain();
+		record.setDataState(1);
+		return positionMapper.select(record);
+	}
+	
 
 	@Override
 	public List<PositionDomain> queryListByDeptId(Integer deptId) {

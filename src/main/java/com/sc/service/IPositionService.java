@@ -14,6 +14,12 @@ public interface IPositionService {
 	void savePosition(PositionModel positionModel);
 	
 	/**
+	 * 查询所有岗位
+	 * @return
+	 */
+	List<PositionDomain> queryPosiList();
+	
+	/**
 	 * 根据部门id, 查询所有岗位
 	 * @param deptId
 	 * @return
@@ -31,5 +37,7 @@ public interface IPositionService {
 	 * @param id
 	 */
 	void deletePosition(Integer id);
+
+	
 	
 }
