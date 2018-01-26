@@ -12,6 +12,7 @@ import com.sc.common.constant.ScException;
 import com.sc.dao.DepartmentMapper;
 import com.sc.domain.DepartmentDomain;
 import com.sc.model.request.DepartmentModel;
+import com.sc.model.response.DeptPosiResult;
 import com.sc.service.IDepartmentService;
 import com.sc.support.UserContext;
 
@@ -28,7 +29,7 @@ public class DepartmentServiceImpl implements IDepartmentService {
 		return departmentMapper.select(record);
 	}
 
-	
+
 	@Override
 	public DepartmentDomain queryById(Integer id) {
 		DepartmentDomain dd = departmentMapper.selectByPrimaryKey(id);
@@ -84,4 +85,12 @@ public class DepartmentServiceImpl implements IDepartmentService {
 	}
 	
 
+	@Override
+	public List<DeptPosiResult> queryDeptPosiList() {
+		List<DeptPosiResult> list = departmentMapper.queryDeptPosiList();
+		//TODO 数据格式转换，方便前端展示
+		return list;
+	}
+	
+	
 }

@@ -57,7 +57,7 @@ public class PositionServiceImpl implements IPositionService {
 		return positionMapper.select(record);
 	}
 	
-
+	
 	@Transactional
 	@Override
 	public void updatePosition(PositionModel positionModel) {

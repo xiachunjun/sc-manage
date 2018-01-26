@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.sc.domain.DepartmentDomain;
 import com.sc.model.request.DepartmentModel;
+import com.sc.model.response.DeptPosiResult;
 
 public interface IDepartmentService {
 
@@ -38,4 +39,10 @@ public interface IDepartmentService {
 	 */
 	DepartmentDomain queryById(Integer id);
 
+	/**
+	 * 查询各部门对应岗位列表
+	 * @return
+	 */
+	List<DeptPosiResult> queryDeptPosiList();
+	
 }
