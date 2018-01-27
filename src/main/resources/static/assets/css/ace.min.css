@@ -5469,9 +5469,9 @@ body.mob-safari .sidebar.sidebar-fixed {
     bottom: 0
 }
 
-.sidebar ~ .footer .footer-inner {
+/* .sidebar ~ .footer .footer-inner {
     left: 190px
-}
+} */
 
 @media (min-width: 992px) {
     .sidebar.compact ~ .footer .footer-inner {
