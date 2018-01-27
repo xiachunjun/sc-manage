@@ -79,7 +79,6 @@
 											<th>操作时间</th>
 											<th>操作</th>
 										</tr>
-										<tbody id="tableBody"></tbody>
 									</table>
 								</div>
 							</div>
@@ -124,10 +123,9 @@
 					ht = ht + "<td itemid='" + dept.id + "'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
 				}
 			}else{
-				ht=ht+"<tr><td colspan='6'>未查到相关记录</td></tr>";
+			ht=ht+"<tr><td colspan='6'>未查到相关记录</td></tr>";
 			}
-			$("#tableBody").html("");
-			$("#tableBody").append(ht);
+			$("#tfhover").append(ht);
 		}
 	
 		function detailItem(obj) {

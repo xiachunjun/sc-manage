@@ -2,8 +2,15 @@ package com.sc.model.request;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import com.sc.support.ValidatedGroup1;
+
 public class PlanModel {
+	
+	@NotNull(message="ID不能为空",groups={ValidatedGroup1.class})
 	private Integer id;
+	
 	/** 责任人 */
 	private String refUser;
 	/** 岗位 */

@@ -2,11 +2,10 @@ package com.sc.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -16,11 +15,13 @@ import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
 import com.sc.domain.PlanDomain;
-import com.sc.model.request.IDModel;
 import com.sc.model.request.PlanDetailModel;
 import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
 import com.sc.service.IPlanService;
+import com.sc.support.ValidatedGroup1;
+import com.sc.support.ValidatedGroup2;
+import com.sc.support.ValidatedGroup3;
 
 /**
  * 计划完成情况
@@ -37,7 +38,7 @@ public class PlanController {
 	 * 新增（添加到sc_plans表）
 	 */
 	@RequestMapping(value = "/plan/addPlanPost", method = { RequestMethod.POST })
-	public DataResponse addPlanPost(@RequestBody @Valid PlanModel planModel) {
+	public DataResponse addPlanPost(@RequestBody  @Validated(value={ValidatedGroup3.class}) PlanModel planModel) {
 		DataResponse dr = null;
 		try {
 			planService.addPlan(planModel);
@@ -75,7 +76,7 @@ public class PlanController {
 	 * 查询计划列表 tab传参: 1待办计划，2在办计划，3我的计划
 	 */
 	@RequestMapping(value = "/plan/query", method = { RequestMethod.POST })
-	public DataResponse queryPlan(@RequestBody @Valid QueryPlanModel planModel) {
+	public DataResponse queryPlan(@RequestBody  @Validated(value={ValidatedGroup2.class}) QueryPlanModel planModel) {
 		DataResponse dr = null;
 		try {
 			List<PlanDomain> list = planService.queryPlanByTab(planModel);
@@ -117,10 +118,10 @@ public class PlanController {
 	 * 删除计划情况 描述：上级领导的新增部分，下级员工不可修改和删除，若员工认为计划不妥，可线下向上级领导申请，由上级领导进行修改
 	 */
 	@RequestMapping(value = "/plan/delete", method = { RequestMethod.POST })
-	public DataResponse deletePlan(@RequestBody @Valid IDModel idModel) {
+	public DataResponse deletePlan(@RequestBody  @Validated(value={ValidatedGroup1.class}) PlanModel planModel) {
 		DataResponse dr = null;
 		try {
-			planService.deletePlanById(idModel.getId());
+			planService.deletePlanById(planModel.getId());
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());

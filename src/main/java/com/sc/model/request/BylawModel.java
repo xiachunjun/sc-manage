@@ -2,10 +2,15 @@ package com.sc.model.request;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.web.multipart.MultipartFile;
+
+import com.sc.support.ValidatedGroup1;
 
 public class BylawModel {
 	
+	@NotNull(message="ID不能为空",groups={ValidatedGroup1.class})
 	private Integer id;
 	
 	/**

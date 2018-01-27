@@ -2,6 +2,10 @@ package com.sc.model.request;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
+import com.sc.support.ValidatedGroup2;
+
 public class QueryPlanModel {
 
 	/**所属部门*/
@@ -17,6 +21,7 @@ public class QueryPlanModel {
 	private String rateOfProgress;
 	
 	//1待办计划，2在办计划，3我的计划
+	@NotNull(message="tab不能为空",groups={ValidatedGroup2.class})
 	private Integer tab;
 	
 
