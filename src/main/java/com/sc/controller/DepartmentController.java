@@ -32,8 +32,8 @@ public class DepartmentController {
 	/**
 	 * 新增部门
 	 */
-	@RequestMapping(value = "/department/add", method = { RequestMethod.POST })
-	public DataResponse saveDepartment(DepartmentModel departmentModel) {
+	@RequestMapping(value = "/dept/add", method = { RequestMethod.POST })
+	public DataResponse saveDept(DepartmentModel departmentModel) {
 		DataResponse dr = null;
 		try {
 			departmentService.saveDepartment(departmentModel);
@@ -49,7 +49,7 @@ public class DepartmentController {
 	/**
 	 * 查询所有部门
 	 */
-	@RequestMapping(value = "/department/queryDeptList", method = { RequestMethod.POST })
+	@RequestMapping(value = "/dept/queryDeptList", method = { RequestMethod.POST })
 	public DataResponse queryDeptList() {
 		DataResponse dr = null;
 		try {
@@ -70,8 +70,8 @@ public class DepartmentController {
 	/**
 	 * 修改部门
 	 */
-	@RequestMapping(value = "/department/update", method = { RequestMethod.POST })
-	public DataResponse updateDepartment(DepartmentModel departmentModel) {
+	@RequestMapping(value = "/dept/update", method = { RequestMethod.POST })
+	public DataResponse updateDept(DepartmentModel departmentModel) {
 		DataResponse dr = null;
 		try {
 			departmentService.updateDepartment(departmentModel);
@@ -87,8 +87,8 @@ public class DepartmentController {
 	/**
 	 * 删除部门
 	 */
-	@RequestMapping(value = "/department/delete", method = { RequestMethod.POST })
-	public DataResponse deleteDepartment(@RequestParam(name="id", required=true)Integer id) {
+	@RequestMapping(value = "/dept/delete", method = { RequestMethod.POST })
+	public DataResponse deleteDept(@RequestParam(name="id", required=true)Integer id) {
 		DataResponse dr = null;
 		try {
 			departmentService.deleteDepartmentById(id);
