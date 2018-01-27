@@ -17,7 +17,7 @@ public interface UserMapper extends MyMapper<UserDomain>{
 		"from sc_users a ",
 		"left join sc_user_posi_rel b on b.ref_user_id=a.id ",
 		"left join sc_positions c on c.id=b.ref_posi_id ",
-		"where c.ref_dept_id=#{deptId,jdbcType=INTEGER}"
+		"where a.data_state=1 and c.ref_dept_id=#{deptId,jdbcType=INTEGER}"
 	})
 	List<UserDomain> queryUserListByDeptId(@Param("deptId")Integer deptId);
 
@@ -31,9 +31,21 @@ public interface UserMapper extends MyMapper<UserDomain>{
 		"left join sc_user_posi_rel b on b.ref_user_id=a.id ", 
 		"left join sc_positions c on c.id=b.ref_posi_id ", 
 		"left join sc_departments d on d.id=c.ref_dept_id ", 
-		"where a.id=#{id,jdbcType=INTEGER}"		
+		"where a.data_state=1 and a.id=#{id,jdbcType=INTEGER}"		
 	})
 	UserInfoResult queryUserInfoByUserId(Integer id);
 
+	
+	@Select({
+		"select a.id, a.user_login_name as userLoginName, a.user_name as userName,",
+			"a.update_time as updateTime, a.update_user as updateUser ",
+		"from sc_users a ",
+		"left join sc_user_posi_rel b on a.id=b.ref_user_id ",
+		"left join sc_positions c on b.ref_posi_id=c.id ",
+		"left join sc_departments d on c.ref_dept_id=d.id ",
+		"where ${condition} "
+	})
+	List<UserDomain> queryByDeptOrPosiId(@Param("condition")String condition);
+	
 	
 }

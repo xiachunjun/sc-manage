@@ -38,5 +38,12 @@ public interface IPositionService {
 	 */
 	void deletePosition(Integer id);
 
+	/**
+	 * 根据岗位id，查询部门名称
+	 * @param qId
+	 * @return
+	 */
+	String queryDeptNameByPosiId(Integer qId);
+
 	
 }

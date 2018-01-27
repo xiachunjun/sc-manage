@@ -27,6 +27,7 @@ import com.sc.service.IUserService;
 import com.sc.support.AuthUser;
 import com.sc.support.TokenService;
 import com.sc.support.UserContext;
+import com.sc.support.ValidatedGroup1;
 import com.sc.support.ValidatedGroup2;
 import com.sc.support.ValidatedGroup3;
 
@@ -103,6 +104,8 @@ public class UserController {
 			List<UserDomain> userList = null;
 			if (paramMap.get("deptId") != null) {
 				userList = userService.queryByDeptId(Integer.parseInt(paramMap.get("deptId")));
+			}else if (paramMap.get("refDeptId") != null || paramMap.get("refPosiId") != null) {
+				userList = userService.queryByDeptOrPosiId(paramMap);
 			} else {
 				userList = userService.queryUsertList();
 			}
@@ -158,6 +161,27 @@ public class UserController {
 		return dr;
 	}
 
+	
+	/**
+	 * 删除用户
+	 */
+	@RequestMapping(value = "/user/delete", method = { RequestMethod.POST })
+	public DataResponse deleteUserById(@RequestBody @Validated(value = { ValidatedGroup1.class} ) UserModel userModel) {
+		DataResponse dr = null;
+		try {
+			userService.deleteUserById(userModel.getId());
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+		} catch (ScException e) {
+			logger.error(e.getMessage());
+			dr = new DataResponse(e);
+		} catch (Exception e) {
+			logger.error("删除用户异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
+	
 	/************************ 以下为私有方法 ****************************/
 
 	private DataResponse produceToken(UserDomain userDomain, HttpServletRequest request, HttpServletResponse response) {

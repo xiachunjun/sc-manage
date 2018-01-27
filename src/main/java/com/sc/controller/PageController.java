@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.sc.model.response.UserInfoResult;
+import com.sc.service.IPositionService;
 import com.sc.service.IUserService;
 import com.sc.support.AuthUser;
 import com.sc.support.UserContext;
@@ -24,6 +25,9 @@ public class PageController {
 
 	@Autowired
 	private IUserService userService;
+	@Autowired
+	private IPositionService positionService;
+	
 	
     @RequestMapping(value = "/page/{pageName}", method = RequestMethod.GET)
     public String toPage(@PathVariable("pageName") String pageName) {
@@ -55,12 +59,17 @@ public class PageController {
 		ModelAndView mv = new ModelAndView("/duty/dutyDetail");
 		if(StringUtils.equals("DEPT", type)){
 			map.put("dutyTypeName", "部门");
+			map.put("dutyDeptEntityName", map.get("name"));
+			map.put("dutyPosiEntityName", "");
 		}else if(StringUtils.equals("POSI", type)){
+			String deptName = positionService.queryDeptNameByPosiId(qId);
 			map.put("dutyTypeName", "岗位");
+			map.put("dutyDeptEntityName", deptName);
+			map.put("dutyPosiEntityName", map.get("name"));
 		}
 		map.put("dutyEntityType", type);
 		map.put("dutyEntityCode", qId);
-		map.put("dutyEntityName", map.get("name"));
+		
 		mv.addAllObjects(map);
 		return mv;
 	}

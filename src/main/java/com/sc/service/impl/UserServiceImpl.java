@@ -2,7 +2,9 @@ package com.sc.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -124,5 +126,35 @@ public class UserServiceImpl implements IUserService {
 		return userMapper.queryUserInfoByUserId(id);
 	}
 	
+	
+	@Transactional
+	@Override
+	public void deleteUserById(Integer id) {
+		UserDomain record = new UserDomain();
+		record.setId(id);
+		record.setDataState(0);
+		record.setUpdateTime(new Date());
+		record.setUpdateUser(UserContext.getLoginName());
+		int result = userMapper.updateByPrimaryKeySelective(record);
+		if (result != 1) {
+			throw new ScException("删除用户异常");
+		}
+	}
+	
+	
+	@Override
+	public List<UserDomain> queryByDeptOrPosiId(Map<String, String> map) {
+		StringBuffer sbf = new StringBuffer();
+		sbf.append(" a.data_state=1 ");
+		String deptId = map.get("refDeptId");
+		String posiId = map.get("refPosiId");
+		if(null != deptId && !StringUtils.equals("-1", deptId)){
+			sbf.append(" and d.id="+Integer.parseInt(deptId));
+		}
+		if(null != posiId && !StringUtils.equals("-1", posiId)){
+			sbf.append(" and c.id="+posiId);
+		}
+		return userMapper.queryByDeptOrPosiId(sbf.toString());
+	}
 	
 }

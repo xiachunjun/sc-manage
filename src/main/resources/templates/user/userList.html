@@ -46,7 +46,6 @@
 											<label class="col-sm-3 control-label no-padding-right" for="refDeptId">部门</label>
 											<div class="col-sm-2">
 												<select style="width: 80%;" id="refDeptId" name="refDeptId">
-
 												</select>
 											</div>
 											<label class="col-sm-1 control-label no-padding-right" for="refPosiId">岗位</label>
@@ -63,17 +62,18 @@
 							</div> 
 							<div class="row">
 								<div class="space-6"></div>
-								<div class="center" style="font-size: 18px; font-weight: bold;">部门列表</div>
+								<div class="center" style="font-size: 18px; font-weight: bold;">用户列表</div>
 								<div class="col-sm-12">
 									<table id="tfhover" class="tftable" border="1">
 										<tr>
 											<th>序号</th>
-											<th>部门名称</th>
-											<th>备注</th>
+											<th>用户登录名</th>
+											<th>用户姓名</th>
 											<th>操作员</th>
 											<th>操作时间</th>
 											<th>操作</th>
 										</tr>
+										<tbody id="tableBody"></tbody>
 									</table>
 								</div>
 							</div>
@@ -91,36 +91,77 @@
 
 	<script type="text/javascript">
 		jQuery(function($) {
-			load();
+			selectDeptRender();
+			selectPosiRender();
+			$("#queryBtn").on('click', function(e) {
+				e.preventDefault();
+				load();
+			});
 		});
-	
-		var load = function() {
-			submitForm(
-				{
-					'url' : '/dept/queryDeptList',
-					'callBack' : dataListRender
+		  
+		var selectDeptRender = function() {
+			submitForm({
+				'url' : '/dept/queryDeptList',
+				'callBack' : function(rsp) {
+					var ht = "<option value='-1'>全部</option>";
+					var deptList = rsp.dataMap.depts;
+					if (deptList && deptList.length > 0) {
+						for (var i = 0; i < deptList.length; i++) {
+							var dept = deptList[i];
+							ht = ht + "<option value='" + dept.id + "'>" + dept.deptName + "</option>";
+						}
+					}
+					$("#refDeptId").html(ht);
+					load();
 				}
-			);
+			});
+		}
+		var selectPosiRender = function() {
+			submitForm({
+				'url' : '/position/queryPosiList',
+				'callBack' : function(rsp) {
+					var ht = "<option value='-1'>全部</option>";
+					var posiList = rsp.dataMap.positions;
+					if (posiList && posiList.length > 0) {
+						for (var i = 0; i < posiList.length; i++) {
+							var posi = posiList[i];
+							ht = ht + "<option value='" + posi.id + "'>" + posi.posiName + "</option>";
+						}
+					}
+					$("#refPosiId").html(ht);
+					load();
+				}
+			});
+		}
+		
+		var load = function() {
+			submitForm({
+				'formId' : 'queryForm',
+				'url' : '/user/query/list',
+				'catchError' : true,
+				'callBack' : dataListRender
+			});
 		}
 		
 		var dataListRender = function(rsp) {
 			var ht = "";
-			var deptList = rsp.dataMap.depts;
-			if (deptList && deptList.length > 0) {
+			var userList = rsp.dataMap.userList;
+			if (userList && userList.length > 0) {
 				var indexNo = 1;
-				for (var i = 0; i < deptList.length; i++) {
-					var dept = deptList[i];
+				for (var i = 0; i < userList.length; i++) {
+					var user = userList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td>" + dept.deptName + "</td>";
-					ht = ht + "<td>" + dept.dataMemo + "</td>";
-					ht = ht + "<td>" + dept.updateUser + "</td>";
-					ht = ht + "<td>" + formatDate(dept.updateTime, true) + "</td>";
-					ht = ht + "<td itemid='" + dept.id + "'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
+					ht = ht + "<td>" + user.userLoginName + "</td>";
+					ht = ht + "<td>" + user.userName + "</td>";
+					ht = ht + "<td>" + user.updateUser + "</td>";
+					ht = ht + "<td>" + formatDate(user.updateTime, true) + "</td>";
+					ht = ht + "<td itemid='" + user.id + "'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
 				}
 			}else{
-			ht=ht+"<tr><td colspan='6'>未查到相关记录</td></tr>";
+				ht=ht+"<tr><td colspan='6'>未查到相关记录</td></tr>";
 			}
-			$("#tfhover").append(ht);
+			$("#tableBody").html("");
+			$("#tableBody").append(ht);
 		}
 	
 		function detailItem(obj) {
@@ -140,7 +181,7 @@
 			var itemId = $(obj).parent().attr('itemid');
 			del(
 				{
-					url : '/dept/delete',
+					url : '/user/delete',
 					id : itemId,
 					callBack : load
 				}

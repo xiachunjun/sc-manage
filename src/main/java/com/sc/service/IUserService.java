@@ -1,6 +1,7 @@
 package com.sc.service;
 
 import java.util.List;
+import java.util.Map;
 
 import com.sc.domain.UserDomain;
 import com.sc.model.request.UpdateUserPwdModel;
@@ -49,5 +50,17 @@ public interface IUserService {
 	 * @return
 	 */
 	UserInfoResult queryUserInfoByUserId(Integer id);
+
+	/**
+	 * 删除用户
+	 * @param id
+	 */
+	void deleteUserById(Integer id);
+
+	/**
+	 * 根据部门id 或者 岗位id, 查询用户
+	 * @return
+	 */
+	List<UserDomain> queryByDeptOrPosiId(Map<String, String> map);
 
 }

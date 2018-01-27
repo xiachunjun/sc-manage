@@ -87,4 +87,10 @@ public class PositionServiceImpl implements IPositionService {
 	}
 	
 	
+	@Override
+	public String queryDeptNameByPosiId(Integer qId) {
+		return positionMapper.queryDeptNameByPosiId(qId);
+	}
+	
+	
 }
