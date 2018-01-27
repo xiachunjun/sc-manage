@@ -10,7 +10,7 @@
 
 <#include "/common/parts/common-css.html"/>
 
-<link rel="stylesheet" href="assets/css/bootstrap-datepicker3.min.css" />
+<link rel="stylesheet" href="/assets/css/bootstrap-datepicker3.min.css" />
 </head>
 <body class="no-skin">
 	<#include "/common/parts/header.html"/>
@@ -62,9 +62,9 @@
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="userID">责任人</label>
+											<label class="col-sm-3 control-label no-padding-right" for="userId">责任人</label>
 											<div class="col-sm-9">
-												<select class="col-xs-10 col-sm-5" id="userID" name="userID">
+												<select class="col-xs-10 col-sm-5" id="userId" name="userId">
 													<option>请选择</option>
 												</select>
 											</div>
@@ -85,13 +85,15 @@
 		</div>
 		<#include "/common/parts/footer.html"/>
 	</div>
+	
 	<#include "/common/parts/common-js.html"/>
+	<#include "/common/parts/submit-form-js.html"/>
 	<script src="/static/assets/js/jquery.form.js"></script>
 	<script src="/static/assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script src="/static/assets/js/jquery.serializejson.min.js"></script>
 	<script type="text/javascript">
-	$(function(){
+		$(function(){
 		  //查询所有用户
 		  $.ajax({
 			type : 'POST',
@@ -105,10 +107,9 @@
 	   	    		 $("#userId option").remove();
 	   	  	         var userList = data.dataMap.userList;
 	   	  	         if(userList!=null && userList.length>0){
-	   	  	            var $option2 = $("<option></option>");
+	   	  	            var $option2 = $("<option>请选择</option>");
 		        		$("#userId").append($option2);
 	   	  	            for(var i=0; i<userList.length; i++){
-	   	  		            //添加到所属岗位的下拉菜单中
 	   	  		            var $option = $("<option></option>");
 	   	  		            $option.attr("value", userList[i].id);
 	   	  		            $option.text(userList[i].userName);
@@ -124,6 +125,7 @@
 				alert("获取信息异常-" + JSON.stringify(data));
 			}
 		  });
+			
 		  //查询所有部门
 		  $.post("/dept/queryDeptList", null, function(data,textStatus){
 			 if(data.resultCode === '000000'){
@@ -142,64 +144,44 @@
 		        }
 			 }
 	       });
-		   //二级联动
-		   function findPositionByDeptId(o){
-		      var deptId = document.getElementById("deptId").value;
-		      $.ajax({
-			    type: 'post',
-			    url: '/position/queryByDept',
-			    data : JSON.stringify({"refDeptId":deptId}),
-			    dataType : 'json',
-			    headers : {
-					'Content-Type' : 'application/json'
-				},
-			    success: function (data) { //返回json结果
-			    	if(data.resultCode === '000000'){
-			    		 $("#posiId option").remove();
-			  	         var posiList = data.dataMap.positions;
-			  	         if(posiList!=null && posiList.length>0){
-			  	        	var $option2 = $("<option></option>");
-		        			$("#posiId").append($option2);
-			  	            for(var i=0;i<posiList.length;i++){
-			  		            //添加到所属岗位的下拉菜单中
-			  		            var $option = $("<option></option>");
-			  		            $option.attr("value", posiList[i].id);
-			  		            $option.text(posiList[i].posiName);
-			  		            $("#posiId").append($option);
-			  	            }
-			  	         }
-			    	}
-			    }
-		      });
-		   }
 		})
 	 	
-	
-		$("#saveBtn").on("click", function() {
-			if (!window.confirm('确认提交？')) {
-				return;
-			}
-			var paramJson = $('#editDutyForm').serializeJSON();
-			$.ajax({
-				type : 'POST',
-				url : '/position/editPosition',
-				data : JSON.stringify(paramJson),
-				headers : {
-					'Content-Type' : 'application/json'
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					var dataMap = data.dataMap;
-					if (resultCode == '000000') {
-						alert("保存成功");
-					} else {
-						alert("保存失败");
-					}
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("获取信息异常-" + JSON.stringify(data));
-				}
+		//二级联动
+	    function findPositionByDeptId(o){
+	      var deptId = document.getElementById("deptId").value;
+	      $.ajax({
+		    type: 'post',
+		    url: '/position/queryByDept',
+		    data : JSON.stringify({"refDeptId":deptId}),
+		    dataType : 'json',
+		    headers : {
+				'Content-Type' : 'application/json'
+			},
+		    success: function (data) { //返回json结果
+		    	if(data.resultCode === '000000'){
+		    		 $("#posiId option").remove();
+		  	         var posiList = data.dataMap.positions;
+		  	         if(posiList!=null && posiList.length>0){
+		  	        	var $option2 = $("<option></option>");
+	        			$("#posiId").append($option2);
+		  	            for(var i=0;i<posiList.length;i++){
+		  		            //添加到所属岗位的下拉菜单中
+		  		            var $option = $("<option></option>");
+		  		            $option.attr("value", posiList[i].id);
+		  		            $option.text(posiList[i].posiName);
+		  		            $("#posiId").append($option);
+		  	            }
+		  	         }
+		    	}
+		    }
+	      });
+	    }
+		
+		$("#saveBtn").on('click', function(e) {
+			e.preventDefault();
+			submitForm({
+				'formId' : 'editDutyForm',
+				'url' : '/position/editPosition'
 			});
 		});
 	</script>

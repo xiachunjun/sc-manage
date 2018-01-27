@@ -68,7 +68,7 @@ public class PositionController {
 	 * 根据部门id，查询岗位列表
 	 */
 	@RequestMapping(value = "/position/queryByDept", method = { RequestMethod.POST })
-	public DataResponse queryByDept(@RequestBody  PositionModel positionModel) {
+	public DataResponse queryByDept(@RequestBody @Validated(value = { ValidatedGroup3.class}) PositionModel positionModel) {
 		DataResponse dr = null;
 		try {
 			List<PositionDomain> pos = positionService.queryListByDeptId(positionModel.getRefDeptId());
