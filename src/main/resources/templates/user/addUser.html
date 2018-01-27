@@ -79,7 +79,7 @@
 										</div>
 										<div class="form-group">
 											<div class="col-sm-offset-4">
-												<button class="btn btn-primary radius-4">保存</button>
+												<button id="submitBtn" class="btn btn-primary radius-4">保存</button>
 												<button class="btn btn-primary radius-4">重置</button>
 											</div>
 										</div>
@@ -95,12 +95,13 @@
 		<#include "/common/parts/footer.html"/>
 	</div>
 	<#include "/common/parts/common-js.html"/>
+	<#include "/common/parts/submit-form-js.html"/>
 	<script src="/static/assets/js/jquery.form.js"></script>
 	<script src="/static/assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script type="text/javascript">
 		$(function(){
-			$.post("/department/queryDeptList", null, function(data,textStatus){
+			$.post("/dept/queryDeptList", null, function(data,textStatus){
 			 if(data.resultCode === '000000'){
 				$("#refDeptId option").remove();
 		        var deptList = data.dataMap.depts;
@@ -144,29 +145,12 @@
     	    }
 	      });
 		}
-		
-		//表单提交事件
-		$('#addUserForm').submit(function() {
-			$("#addUserForm").ajaxSubmit({
-				url : "/user/addUserPost",
-				type : "POST",
-				dataType : "JSON",
-				clearForm : true,
-				resetForm : true,
-				timeout : 5000,
-				success : function(respData) {
-					if ('000000' === respData.resultCode) {
-						alert("添加成功");
-					} else {
-						alert("添加失败,稍后重试...");
-					}
-					$('.remove').click();
-				},
-				beforeSubmit : function(formData) {
-					console.log(formData);
-				}
+		//添加用户
+		$("#submitBtn").on('click',function(){
+			submitForm({
+				'formId' : 'addUserForm',
+				'url' : '/user/addUserPost'
 			});
-			return false;
 		});
 	</script>
 </body>

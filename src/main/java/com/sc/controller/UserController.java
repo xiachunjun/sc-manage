@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -49,7 +50,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/addUserPost", method = { RequestMethod.POST })
 	@ResponseBody
-	public DataResponse addUserPost(UserModel userModel) {
+	public DataResponse addUserPost(@Valid @RequestBody UserModel userModel) {
 		DataResponse dr = null;
 		try {
 			userService.saveUser(userModel);

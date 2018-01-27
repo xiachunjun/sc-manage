@@ -75,12 +75,12 @@ public class DutyServiceImpl implements IDutyService {
 	public List<Map<String, Object>> queryDutyByType(Integer qId, String type) {
 		List<DutyDomain> list = null;
 		DutyDomain record = new DutyDomain();
-		if(StringUtils.equals("DEPT", type)){
+		if(StringUtils.equals(CommonConstant.DEPT, type)){
 			record.setRefDeptId(qId);
 			record.setDataState(1);
 			record.setDutyType(type);
 			list = dutyMapper.select(record);
-		}else if(StringUtils.equals("POSI", type)){
+		}else if(StringUtils.equals(CommonConstant.POSI, type)){
 			record.setRefPosiId(qId);
 			record.setDataState(1);
 			record.setDutyType(type);
