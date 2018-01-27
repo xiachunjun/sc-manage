@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 
 import com.sc.model.request.DutySaveModel;
+import com.sc.model.request.QueryDeptPosiDutyModel;
+import com.sc.model.request.QueryDutyModel;
 import com.sc.model.request.UpdateDutyModel;
 import com.sc.model.response.DutyResult;
 
@@ -17,20 +19,17 @@ public interface IDutyService {
 
 	/**
 	 * 条件查询责任清单
-	 * @param userId
-	 * @param deptId
-	 * @param posiId
+	 * @param queryDutyModel
 	 * @return
 	 */
-	List<DutyResult> queryDutyByCondition(Integer userId, Integer deptId, Integer posiId);
+	List<DutyResult> queryDutyByCondition(QueryDutyModel queryDutyModel);
 	
 	/**
 	 * 根据部门id 或 岗位id, 查询各自的一二级职责
-	 * @param qId, 部门或岗位id
-	 * @param type: 部门：DEPT, 岗位：POSI
+	 * @param queryDeptPosiDutyModel
 	 * @return
 	 */
-	List<Map<String, Object>> queryDutyByType(Integer qId, String type);
+	List<Map<String, Object>> queryDutyByType(QueryDeptPosiDutyModel queryDeptPosiDutyModel);
 	
 	/**
 	 * 修改责任清单

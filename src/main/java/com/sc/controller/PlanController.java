@@ -2,76 +2,42 @@ package com.sc.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
 import com.sc.domain.PlanDomain;
+import com.sc.model.request.IDModel;
 import com.sc.model.request.PlanDetailModel;
 import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
-import com.sc.model.response.UserInfoResult;
 import com.sc.service.IPlanService;
-import com.sc.service.IUserService;
-import com.sc.support.AuthUser;
-import com.sc.support.UserContext;
 
 /**
  * 计划完成情况
  */
-@Controller
+@RestController
 public class PlanController {
 
 	private static final Logger logger = LoggerFactory.getLogger(DataRecordController.class);
 
 	@Autowired
 	private IPlanService planService;
-	@Autowired
-	private IUserService userService;
 
-
-	@RequestMapping("/plan/planManage")
-	public ModelAndView planManage() {
-		ModelAndView mv = new ModelAndView("/plan/planManage");
-		AuthUser authUser = UserContext.getAuthUser();
-		if(null != authUser){
-			//查询登录人的姓名，部门，岗位
-			UserInfoResult userInfo = userService.queryUserInfoByUserId(authUser.getId());
-			mv.addObject("userInfo", userInfo);
-		}
-		return mv;
-	}
-
-	
-	@RequestMapping("/plan/addPlan")
-	public ModelAndView addPlan() {
-		ModelAndView mv = new ModelAndView("/plan/addPlan");
-		AuthUser authUser = UserContext.getAuthUser();
-		if(null != authUser){
-			//查询登录人的姓名，部门，岗位
-			UserInfoResult userInfo = userService.queryUserInfoByUserId(authUser.getId());
-			mv.addObject("userInfo", userInfo);
-		}
-		return mv;
-	}
-
-	
 	/**
 	 * 新增（添加到sc_plans表）
 	 */
 	@RequestMapping(value = "/plan/addPlanPost", method = { RequestMethod.POST })
-	@ResponseBody
-	public DataResponse addPlanPost(@RequestBody PlanModel planModel) {
+	public DataResponse addPlanPost(@RequestBody @Valid PlanModel planModel) {
 		DataResponse dr = null;
 		try {
 			planService.addPlan(planModel);
@@ -86,13 +52,10 @@ public class PlanController {
 		return dr;
 	}
 
-	
-	
 	/**
 	 * 新建（添加到sc_plan_details表）
 	 */
 	@RequestMapping(value = "/plan/saveList", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse savePlanList(@RequestBody List<PlanDetailModel> planDetailModels) {
 		DataResponse dr = null;
 		try {
@@ -112,8 +75,7 @@ public class PlanController {
 	 * 查询计划列表 tab传参: 1待办计划，2在办计划，3我的计划
 	 */
 	@RequestMapping(value = "/plan/query", method = { RequestMethod.POST })
-	@ResponseBody
-	public DataResponse queryPlan(QueryPlanModel planModel) {
+	public DataResponse queryPlan(@RequestBody @Valid QueryPlanModel planModel) {
 		DataResponse dr = null;
 		try {
 			List<PlanDomain> list = planService.queryPlanByTab(planModel);
@@ -136,7 +98,6 @@ public class PlanController {
 	 * @return
 	 */
 	@RequestMapping(value = "/plan/update", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse updatePlan(@RequestBody List<PlanModel> planModels) {
 		DataResponse dr = null;
 		try {
@@ -154,16 +115,12 @@ public class PlanController {
 
 	/**
 	 * 删除计划情况 描述：上级领导的新增部分，下级员工不可修改和删除，若员工认为计划不妥，可线下向上级领导申请，由上级领导进行修改
-	 * 
-	 * @param id
-	 * @return
 	 */
 	@RequestMapping(value = "/plan/delete", method = { RequestMethod.POST })
-	@ResponseBody
-	public DataResponse deletePlan(@RequestParam(name = "id", required = true) Integer id) {
+	public DataResponse deletePlan(@RequestBody @Valid IDModel idModel) {
 		DataResponse dr = null;
 		try {
-			planService.deletePlanById(id);
+			planService.deletePlanById(idModel.getId());
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());

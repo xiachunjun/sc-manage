@@ -19,6 +19,8 @@ import com.sc.dao.UserPosiRelMapper;
 import com.sc.domain.DutyDomain;
 import com.sc.domain.UserPosiRelDomain;
 import com.sc.model.request.DutySaveModel;
+import com.sc.model.request.QueryDeptPosiDutyModel;
+import com.sc.model.request.QueryDutyModel;
 import com.sc.model.request.UpdateDutyModel;
 import com.sc.model.response.DutyResult;
 import com.sc.service.IDutyService;
@@ -54,17 +56,17 @@ public class DutyServiceImpl implements IDutyService {
 	
 	
 	@Override
-	public List<DutyResult> queryDutyByCondition(Integer userId, Integer deptId, Integer posiId) {
+	public List<DutyResult> queryDutyByCondition(QueryDutyModel queryDutyModel) {
 		StringBuffer sbf = new StringBuffer();
 		sbf.append(" a.data_state=1 ");
-		if(deptId != null){
-			sbf.append(" and a.ref_dept_id="+deptId);
+		if(queryDutyModel.getDeptId() != null){
+			sbf.append(" and a.ref_dept_id="+queryDutyModel.getDeptId());
 		}
-		if(posiId != null){
-			sbf.append(" and a.ref_posi_id="+posiId);
+		if(queryDutyModel.getPosiId() != null){
+			sbf.append(" and a.ref_posi_id="+queryDutyModel.getPosiId());
 		}
-		if(userId != null){
-			sbf.append(" and e.id="+userId);
+		if(queryDutyModel.getUserId() != null){
+			sbf.append(" and e.id="+queryDutyModel.getUserId());
 		}
 		List<DutyResult> list = dutyMapper.selectDutyListByCondition(sbf.toString());
 		return list;
@@ -72,18 +74,18 @@ public class DutyServiceImpl implements IDutyService {
 	
 	
 	@Override
-	public List<Map<String, Object>> queryDutyByType(Integer qId, String type) {
+	public List<Map<String, Object>> queryDutyByType(QueryDeptPosiDutyModel queryDeptPosiDutyModel) {
 		List<DutyDomain> list = null;
 		DutyDomain record = new DutyDomain();
-		if(StringUtils.equals(CommonConstant.DEPT, type)){
-			record.setRefDeptId(qId);
+		if(StringUtils.equals(CommonConstant.DEPT, queryDeptPosiDutyModel.getType())){
+			record.setRefDeptId(queryDeptPosiDutyModel.getqId());
 			record.setDataState(1);
-			record.setDutyType(type);
+			record.setDutyType(queryDeptPosiDutyModel.getType());
 			list = dutyMapper.select(record);
-		}else if(StringUtils.equals(CommonConstant.POSI, type)){
-			record.setRefPosiId(qId);
+		}else if(StringUtils.equals(CommonConstant.POSI, queryDeptPosiDutyModel.getType())){
+			record.setRefPosiId(queryDeptPosiDutyModel.getqId());
 			record.setDataState(1);
-			record.setDutyType(type);
+			record.setDutyType(queryDeptPosiDutyModel.getType());
 			list = dutyMapper.select(record);
 		}
 		//处理一二级职责

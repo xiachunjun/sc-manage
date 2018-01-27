@@ -11,11 +11,10 @@ import javax.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.DataResponse;
@@ -29,7 +28,7 @@ import com.sc.support.AuthUser;
 import com.sc.support.TokenService;
 import com.sc.support.UserContext;
 
-@Controller
+@RestController
 public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -39,17 +38,10 @@ public class UserController {
 	@Autowired
 	private TokenService tokenService;
 
-
-	@RequestMapping("/outer/login")
-	public String loginPage(Map<String, Object> map) {
-		return "/login";
-	}
-
 	/**
 	 * 注册用户
 	 */
 	@RequestMapping(value = "/user/addUserPost", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse addUserPost(@Valid @RequestBody UserModel userModel) {
 		DataResponse dr = null;
 		try {
@@ -69,7 +61,6 @@ public class UserController {
 	 * 用户登录
 	 */
 	@RequestMapping(value = "/outer/user/login", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse login(UserModel userModel, HttpServletRequest request, HttpServletResponse response) {
 		DataResponse dr = null;
 		try {
@@ -93,7 +84,6 @@ public class UserController {
 	 * 用户退出
 	 */
 	@RequestMapping(value = "/user/logout", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse logout() {
 		tokenService.logout(UserContext.getAuthUser());
 		return new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
@@ -103,7 +93,6 @@ public class UserController {
 	 * 查询用户列表
 	 */
 	@RequestMapping(value = "/user/query/list", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse queryUsertList(@RequestBody Map<String, String> paramMap) {
 		DataResponse dr = null;
 		try {
@@ -129,7 +118,6 @@ public class UserController {
 	 * 查询当前用户
 	 */
 	@RequestMapping(value = "/user/currentUser", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse queryCurrentUser(HttpServletRequest request) {
 		DataResponse dr = null;
 		try {
@@ -151,7 +139,6 @@ public class UserController {
 	 * 修改密码
 	 */
 	@RequestMapping(value = "/user/updatePwd", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse updatePwd(@RequestBody UpdateUserPwdModel updateUserPwdModel) {
 		DataResponse dr = null;
 		try {
