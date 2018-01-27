@@ -1,16 +1,27 @@
 package com.sc.model.request;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.sc.support.ValidatedGroup1;
+import com.sc.support.ValidatedGroup2;
+import com.sc.support.ValidatedGroup3;
+
 public class PositionModel {
+	@NotNull(message="ID不能为空",groups={ValidatedGroup1.class})
 	private Integer id;
 
 	/**
 	 * 所属部门
 	 */
+	@NotNull(message="部门ID不能为空" ,groups={ValidatedGroup2.class,ValidatedGroup3.class})
 	private Integer refDeptId;
 
 	/**
 	 * 岗位名称
 	 */
+	@NotBlank(message="岗位名称不能为空" ,groups={ValidatedGroup2.class})
 	private String posiName;
 
 	/**

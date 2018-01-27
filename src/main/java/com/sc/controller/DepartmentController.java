@@ -2,11 +2,10 @@ package com.sc.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -17,9 +16,10 @@ import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
 import com.sc.domain.DepartmentDomain;
 import com.sc.model.request.DepartmentModel;
-import com.sc.model.request.IDModel;
 import com.sc.model.response.DeptPosiResult;
 import com.sc.service.IDepartmentService;
+import com.sc.support.ValidatedGroup1;
+import com.sc.support.ValidatedGroup2;
 
 /**
  * 部门
@@ -37,7 +37,7 @@ public class DepartmentController {
 	 * 新增部门
 	 */
 	@RequestMapping(value = "/dept/add", method = { RequestMethod.POST })
-	public DataResponse saveDept(@RequestBody @Valid DepartmentModel departmentModel) {
+	public DataResponse saveDept(@RequestBody @Validated(value={ValidatedGroup2.class}) DepartmentModel departmentModel) {
 		DataResponse dr = null;
 		try {
 			departmentService.saveDepartment(departmentModel);
@@ -95,7 +95,7 @@ public class DepartmentController {
 	 * 修改部门
 	 */
 	@RequestMapping(value = "/dept/update", method = { RequestMethod.POST })
-	public DataResponse updateDept(DepartmentModel departmentModel) {
+	public DataResponse updateDept(@RequestBody  @Validated(value={ValidatedGroup1.class,ValidatedGroup2.class})DepartmentModel departmentModel) {
 		DataResponse dr = null;
 		try {
 			departmentService.updateDepartment(departmentModel);
@@ -112,10 +112,10 @@ public class DepartmentController {
 	 * 删除部门
 	 */
 	@RequestMapping(value = "/dept/delete", method = { RequestMethod.POST })
-	public DataResponse deleteDept(@RequestBody @Valid IDModel idModel) {
+	public DataResponse deleteDept(@RequestBody  @Validated(value={ValidatedGroup1.class}) DepartmentModel departmentModel) {
 		DataResponse dr = null;
 		try {
-			departmentService.deleteDepartmentById(idModel.getId());
+			departmentService.deleteDepartmentById(departmentModel.getId());
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (Exception e) {
 			logger.error("删除部门异常", e);

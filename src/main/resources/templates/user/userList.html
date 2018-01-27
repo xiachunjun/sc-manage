@@ -79,7 +79,6 @@
 											<th>操作时间</th>
 											<th>操作</th>
 										</tr>
-										<tbody id="tableBody"></tbody>
 									</table>
 								</div>
 							</div>
@@ -126,8 +125,7 @@
 			}else{
 			ht=ht+"<tr><td colspan='6'>未查到相关记录</td></tr>";
 			}
-			$("#tableBody").html("");
-			$("#tableBody").append(ht);
+			$("#tfhover").append(ht);
 		}
 	
 		function detailItem(obj) {

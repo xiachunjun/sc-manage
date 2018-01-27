@@ -4,7 +4,12 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.NotBlank;
 
+import com.sc.support.ValidatedGroup1;
+import com.sc.support.ValidatedGroup2;
+
 public class DepartmentModel {
+	
+	@NotNull(message="ID不能为空",groups={ValidatedGroup1.class})
 	private Integer id;
 
 	/**
@@ -15,7 +20,7 @@ public class DepartmentModel {
 	/**
 	 * 部门名称
 	 */
-	 @NotBlank(message="部门名称不能为空")
+	 @NotBlank(message="部门名称不能为空",groups={ValidatedGroup2.class})
 	private String deptName;
 
 	/**
@@ -36,7 +41,6 @@ public class DepartmentModel {
 	/**
 	 * 备注
 	 */
-	@NotBlank(message="备注不能为空")
 	private String dataMemo;
 
 	public Integer getId() {
