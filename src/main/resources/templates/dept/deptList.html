@@ -71,7 +71,14 @@
 								<div class="center" style="font-size: 18px; font-weight: bold;">部门列表</div>
 								<div class="col-sm-12">
 									<table id="tfhover" class="tftable" border="1">
-
+										<tr>
+											<th>序号</th>
+											<th>部门名称</th>
+											<th>备注</th>
+											<th>操作员</th>
+											<th>操作时间</th>
+											<th>操作</th>
+										</tr>
 									</table>
 								</div>
 							</div>
@@ -102,7 +109,7 @@
 		}
 		
 		var dataListRender = function(rsp) {
-			var ht = "<tr><th>序号</th><th>部门名称</th><th>备注</th><th>操作员</th><th>操作时间</th><th>操作</th></tr>";
+			var ht = "";
 			var deptList = rsp.dataMap.depts;
 			if (deptList && deptList.length > 0) {
 				var indexNo = 1;
@@ -115,8 +122,10 @@
 					ht = ht + "<td>" + formatDate(dept.updateTime, true) + "</td>";
 					ht = ht + "<td itemid='" + dept.id + "'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
 				}
+			}else{
+			ht=ht+"<tr><td colspan='6'>未查到相关记录</td></tr>";
 			}
-			$("#tfhover").html(ht);
+			$("#tfhover").append(ht);
 		}
 	
 		function detailItem(obj) {
