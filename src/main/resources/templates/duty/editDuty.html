@@ -125,7 +125,7 @@
 			}
 		  });
 		  //查询所有部门
-		  $.post("/department/queryDeptList", null, function(data,textStatus){
+		  $.post("/dept/queryDeptList", null, function(data,textStatus){
 			 if(data.resultCode === '000000'){
 				$("#deptId option").remove();
 		        var deptList = data.dataMap.depts;

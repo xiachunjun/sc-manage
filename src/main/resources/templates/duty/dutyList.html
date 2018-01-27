@@ -130,7 +130,7 @@
 				}
 			});
 		  //查询所有部门
-		  $.post("/department/queryDeptList", null, function(data,textStatus){
+		  $.post("/dept/queryDeptList", null, function(data,textStatus){
 			 if(data.resultCode === '000000'){
 				$("#deptId option").remove();
 		        var deptList = data.dataMap.depts;
@@ -168,11 +168,15 @@
 		})
 		
 		function queryData() {
-			var paramJson=$('#queryForm').serializeJSON();
+			var paramJson=$("#queryForm").serializeJSON();;
 			$.ajax({
 				type : 'POST',
 				url : '/duty/queryByCondition',
-				data : paramJson,
+				data : JSON.stringify(paramJson),
+				dataType : 'json',
+				headers : {
+					'Content-Type' : 'application/json'
+				},
 				success : function(data) {
 					var resultCode = data.resultCode;
 					var dataMap = data.dataMap;

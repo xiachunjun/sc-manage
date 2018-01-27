@@ -63,12 +63,13 @@
 			$.ajax({
 				type : 'POST',
 				url : '/duty/queryByType',
-				data : {
+				data : JSON.stringify({
 					'qId' : dutyEntityCode,
 					'type' : dutyEntityType
-				},
+				}),
+				dataType : 'json',
 				headers : {
-					'Content-Type' : 'application/x-www-form-urlencoded'
+					'Content-Type' : 'application/json'
 				},
 				success : function(data) {
 					var resultCode = data.resultCode;

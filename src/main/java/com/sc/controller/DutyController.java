@@ -58,7 +58,7 @@ public class DutyController {
 	 * userId:责任人，  deptId:部门，   posiId:岗位
 	 */
 	@RequestMapping(value = "/duty/queryByCondition", method = { RequestMethod.POST })
-	public DataResponse queryDutyByCondition(@RequestBody @Valid QueryDutyModel queryDutyModel) {
+	public DataResponse queryDutyByCondition(@RequestBody QueryDutyModel queryDutyModel) {
 		DataResponse dr = null;
 		try {
 			List<DutyResult> list = dutyService.queryDutyByCondition(queryDutyModel);
