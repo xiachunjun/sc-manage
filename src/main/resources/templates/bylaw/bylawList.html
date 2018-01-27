@@ -80,7 +80,7 @@
 				for (var i = 0; i < xzglList.length; i++) {
 					var xzgl = xzglList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='/bylaw/download?bylawsId=" + xzgl.id + "'>" + xzgl.bylawsName + "</a></td>>";
+					ht = ht + "<td><a href='/bylaw/download?id=" + xzgl.id + "'>" + xzgl.bylawsName + "</a></td>>";
 					ht = ht + "<td>" + xzgl.bylawsNo + "</td>";
 					ht = ht + "<td>" + xzgl.articleNo + "</td>";
 					ht = ht + "<td>" + formatDate(xzgl.articleTime,true) + "</td>";
@@ -93,7 +93,7 @@
 				for (var i = 0; i < tjbzList.length; i++) {
 					var tjbz = tjbzList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='/bylaw/download?bylawsId=" + tjbz.id + "'>" + tjbz.bylawsName + "</a></td>";
+					ht = ht + "<td><a href='/bylaw/download?id=" + tjbz.id + "'>" + tjbz.bylawsName + "</a></td>";
 					ht = ht + "<td>" + tjbz.bylawsNo + "</td>";
 					ht = ht + "<td>" + tjbz.articleNo + "</td>";
 					ht = ht + "<td>" + formatDate(tjbz.articleTime,true) + "</td>";
@@ -106,7 +106,7 @@
 				for (var i = 0; i < cwglList.length; i++) {
 					var cwgl = cwglList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='/bylaw/download?bylawsId=" + cwgl.id + "'>" + cwgl.bylawsName + "</a></td>>";
+					ht = ht + "<td><a href='/bylaw/download?id=" + cwgl.id + "'>" + cwgl.bylawsName + "</a></td>>";
 					ht = ht + "<td>" + cwgl.bylawsNo + "</td>";
 					ht = ht + "<td>" + cwgl.articleNo + "</td>";
 					ht = ht + "<td>" + formatDate(cwgl.articleTime,true) + "</td>";
@@ -130,7 +130,10 @@
 			$.ajax({
 				type : 'POST',
 				url : '/bylaw/queryById',
-				data : {"bylawsId": itemId},
+				data : JSON.stringify({"id": itemId}),
+				headers : {
+					'Content-Type' : 'application/json'
+				},
 				success : function(data) {
 					var resultCode = data.resultCode;
 					if (resultCode != '000000') {

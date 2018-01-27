@@ -24,8 +24,10 @@ public class DateUtil {
 		return new SimpleDateFormat("yyyy-MM-dd").format(date);
 	}
 	
-//	public static void main(String[] args) {
-//		System.out.println(date2Str(str2Date("2017-01-01")));
-//	}
+	/**生成一连串字符串*/
+	public static String generateStr(Date date){
+		return new SimpleDateFormat("yyyyMMddhhmmssSSSS").format(date);
+	}
+	
 	
 }

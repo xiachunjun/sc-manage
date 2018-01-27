@@ -1,6 +1,7 @@
 package com.sc.controller;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +17,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -24,8 +25,8 @@ import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
+import com.sc.common.util.DateUtil;
 import com.sc.common.util.FileUtil;
-import com.sc.common.util.UuidUtil;
 import com.sc.domain.BylawDomain;
 import com.sc.model.request.BylawModel;
 import com.sc.service.IBylawService;
@@ -149,11 +150,11 @@ public class BylawController {
 	 * 下载文件
 	 */
 	@RequestMapping(value = "/bylaw/download", method = { RequestMethod.GET })
-	public void downloadFile(@RequestBody  @Validated(value={ValidatedGroup1.class}) BylawModel bylawModel,
+	public void downloadFile(@RequestParam(name="id", required=true)Integer id,
 			HttpServletRequest request, HttpServletResponse response) {
-		BylawDomain bylawDomain = bylawService.queryById(bylawModel.getId());
+		BylawDomain bylawDomain = bylawService.queryById(id);
 		if (null == bylawDomain || StringUtils.isEmpty(bylawDomain.getFileUrl())) {
-			logger.warn("该主键id:{}，对应的文件路径为空", bylawModel.getId());
+			logger.warn("该主键id:{}，对应的文件路径为空", id);
 		} else {
 			File file = new File(bylawDomain.getFileUrl());
 			if (file.exists()) {
@@ -195,7 +196,6 @@ public class BylawController {
 	 * 查询各个类型规章制度的数量
 	 */
 	@RequestMapping(value = "/bylaw/queryCountByCategory", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse queryCountGroupBylawCategory() {
 		DataResponse dr = null;
 		try {
@@ -217,7 +217,7 @@ public class BylawController {
 	
 	private String uploadFile(MultipartFile file) {
 		String fileName = file.getOriginalFilename();
-		String realFilePath = filePath + UuidUtil.getUUID() + "/";
+		String realFilePath = filePath + DateUtil.generateStr(new Date()) + "/";
 		try {
 			FileUtil.uploadFile(file.getBytes(), realFilePath, fileName);
 		} catch (Exception e) {

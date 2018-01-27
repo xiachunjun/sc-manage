@@ -48,7 +48,7 @@
 										<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="deptId">部门</label>
 											<div class="col-sm-9">
-												<select class="col-xs-10 col-sm-5" id="deptId" name="deptId" onchange="if(this.value != '')findPosition(this)">
+												<select class="col-xs-10 col-sm-5" id="deptId" name="deptId" onchange="if(this.value != '')findPositionByDeptId(this)">
 													<option>请选择</option>
 												</select>
 											</div>
@@ -143,12 +143,16 @@
 			 }
 	       });
 		   //二级联动
-		   function findPosition(o){
+		   function findPositionByDeptId(o){
 		      var deptId = document.getElementById("deptId").value;
 		      $.ajax({
 			    type: 'post',
 			    url: '/position/queryByDept',
-			    data : {"deptId":deptId},
+			    data : JSON.stringify({"refDeptId":deptId}),
+			    dataType : 'json',
+			    headers : {
+					'Content-Type' : 'application/json'
+				},
 			    success: function (data) { //返回json结果
 			    	if(data.resultCode === '000000'){
 			    		 $("#posiId option").remove();
