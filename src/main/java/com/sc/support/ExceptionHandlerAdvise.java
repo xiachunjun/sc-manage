@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
@@ -46,8 +47,8 @@ public class ExceptionHandlerAdvise {
 				errMap.put(fieldError.getField(), fieldError.getDefaultMessage());
 			}
 		}
-		DataResponse dr = new DataResponse(ResponseEnum.RESPONSE_FAIL);
-		dr.put("input_error", errMap);
+		DataResponse dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_PARAM);
+		dr.put("inputError", errMap);
 		return dr;
 	}
 	
@@ -66,7 +67,7 @@ public class ExceptionHandlerAdvise {
 			}
 		}
 		DataResponse dr = new DataResponse(ResponseEnum.RESPONSE_FAIL);
-		dr.put("input_error", errMap);
+		dr.put(CommonConstant.INPUT_ERROR, errMap);
 		return dr;
 	}
 	

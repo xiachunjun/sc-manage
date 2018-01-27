@@ -10,6 +10,7 @@ public class CommonConstant {
 	public static final String CWGL = "CWGL";//财务管理
 	public static final String DEPT = "DEPT";
 	public static final String POSI = "POSI";
+	public static final String INPUT_ERROR = "inputError";
 	public static final String XZGL_STR = "行政管理";
 	public static final String TJBZ_STR = "条件保障";
 	public static final String CWGL_STR = "财务管理";

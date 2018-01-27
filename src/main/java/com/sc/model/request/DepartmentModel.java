@@ -1,5 +1,9 @@
 package com.sc.model.request;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.NotBlank;
+
 public class DepartmentModel {
 	private Integer id;
 
@@ -11,6 +15,7 @@ public class DepartmentModel {
 	/**
 	 * 部门名称
 	 */
+	 @NotBlank(message="部门名称不能为空")
 	private String deptName;
 
 	/**
@@ -31,6 +36,7 @@ public class DepartmentModel {
 	/**
 	 * 备注
 	 */
+	@NotBlank(message="备注不能为空")
 	private String dataMemo;
 
 	public Integer getId() {

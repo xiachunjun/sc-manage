@@ -38,8 +38,8 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 		} catch (Exception e) {
 			logger.error("AuthorizationInterceptor.preHandle===", e);
 		}
-		//response.sendRedirect("/outer/login");
-		return true;
+		response.sendRedirect("/outer/login");
+		return false;
 	}
 
 	// =================以下是私有方法===================================

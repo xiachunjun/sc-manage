@@ -42,22 +42,24 @@
 								<div class="col-sm-12">
 									<div class="col-sm-offset-4" style="font-size: 18px; font-weight: bold;">新增部门</div>
 									<div class="space-6"></div>
-									<form id="addDeptForm" class="form-horizontal" role="form">
+									<form id="addDeptForm" class="form-horizontal" role="form" onsubmit="return false;">
 										<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="deptName">名称</label>
 											<div class="col-sm-9">
-												<input type="text" id="deptName" name="deptName" placeholder="输入名称" class="col-xs-10 col-sm-5" />
+												<input type="text" id="deptName" name="deptName" placeholder="输入名称"
+													class="col-xs-10 col-sm-5" />
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="dataMemo">备注</label>
 											<div class="col-sm-9">
-												<input type="text" id="dataMemo" name="dataMemo" placeholder="输入备注" class="col-xs-10 col-sm-5" />
+												<input type="text" id="dataMemo" name="dataMemo" placeholder="输入备注"
+													class="col-xs-10 col-sm-5" />
 											</div>
 										</div>
 										<div class="form-group">
 											<div class="col-sm-offset-4">
-												<button class="btn btn-primary radius-4">保存</button>
+												<button id="submitBtn" class="btn btn-primary radius-4">保存</button>
 												<button class="btn btn-primary radius-4">重置</button>
 											</div>
 										</div>
@@ -72,32 +74,18 @@
 	</div>
 	<#include "/common/parts/footer.html"/>
 	<#include "/common/parts/common-js.html"/>
-	<script src="/static/assets/js/bootstrap-datepicker.min.js"></script>
+	<#include "/common/parts/submit-form-js.html"/>
+	
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script type="text/javascript">
-		//表单提交事件
-		$('#addDeptForm').submit(function() {
-			$("#addDeptForm").ajaxSubmit({
-				url : "/dept/add",
-				type : "POST",
-				dataType : "JSON",
-				clearForm : true,
-				resetForm : true,
-				timeout : 5000,
-				success : function(respData) {
-					if ('000000' === respData.resultCode) {
-						alert("添加成功");
-					} else {
-						alert("添加失败,稍后重试...");
-					}
-					$('.remove').click();
-				},
-				beforeSubmit : function(formData) {
-					console.log(formData);
+		$("#submitBtn").on('click',function(){
+			submitForm(
+				{
+					'formId' : 'addDeptForm',
+					'url' : '/dept/add'
 				}
+			);
 			});
-			return false;
-		});
 	</script>
 </body>
 </html>
