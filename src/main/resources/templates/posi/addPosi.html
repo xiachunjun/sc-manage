@@ -3,7 +3,7 @@
 <head>
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8" />
-<title menu-code="00000016">新增岗位</title>
+<title menu-code="00000017">新增岗位</title>
 
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
@@ -41,11 +41,11 @@
 									<div class="col-sm-offset-4" style="font-size: 18px; font-weight: bold;">新增岗位</div>
 									<div class="space-6"></div>
 									<form id="addPosiForm" class="form-horizontal" role="form">
-									<div class="form-group">
+										<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="refDeptId">部门</label>
 											<div class="col-sm-9">
-												<select class="col-xs-10 col-sm-5" id="refDeptId" name="refDeptId" onchange="if(this.value != '')findPosition(this)">
-													<option>请选择</option>
+												<select class="col-xs-10 col-sm-5" id="refDeptId" name="refDeptId">
+													
 												</select>
 											</div>
 										</div>
@@ -91,6 +91,30 @@
 
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script type="text/javascript">
+		
+		jQuery(function($) {
+			selectDeptRender();
+		});
+	
+		var selectDeptRender = function() {
+			submitForm(
+				{
+					'url' : '/dept/queryDeptList',
+					'callBack' : function(rsp) {
+						var ht = "<option>请选择</option>";
+						var deptList = rsp.dataMap.depts;
+						if (deptList && deptList.length > 0) {
+							for (var i = 0; i < deptList.length; i++) {
+								var dept = deptList[i];
+								ht = ht + "<option value='" + dept.id + "'>" + dept.deptName + "</option>";
+							}
+						}
+						$("#refDeptId").html(ht);
+					}
+				}
+			);
+		}
+	
 		$("#submitBtn").on('click', function(e) {
 			e.preventDefault()
 			submitForm(

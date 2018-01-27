@@ -50,7 +50,8 @@
 												</select>
 											</div>
 											<div class="col-sm-2 align-left">
-												<button class="btn btn-white radius-4" style="padding: 4px 12px;" onclick="">查询</button>
+												<button id="queryBtn" class="btn btn-white radius-4" style="padding: 4px 12px;"
+													onclick="">查询</button>
 											</div>
 										</div>
 									</form>
@@ -88,8 +89,13 @@
 	<script src="/static/assets/js/sc-date.js"></script>
 
 	<script type="text/javascript">
+		var deptObj = new Object();
 		jQuery(function($) {
 			selectDeptRender();
+			$("#queryBtn").on('click', function(e) {
+				e.preventDefault();
+				load();
+			});
 	
 		});
 	
@@ -98,11 +104,12 @@
 				{
 					'url' : '/dept/queryDeptList',
 					'callBack' : function(rsp) {
-						var ht = "";
+						var ht = "<option value='-1'>全部</option>";
 						var deptList = rsp.dataMap.depts;
 						if (deptList && deptList.length > 0) {
 							for (var i = 0; i < deptList.length; i++) {
 								var dept = deptList[i];
+								deptObj[dept.id] = dept.deptName;
 								ht = ht + "<option value='" + dept.id + "'>" + dept.deptName + "</option>";
 							}
 						}
@@ -133,7 +140,7 @@
 				for (var i = 0; i < posiList.length; i++) {
 					var posi = posiList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td>" + posi.refDeptId + "</td>";
+					ht = ht + "<td>" + deptObj[posi.refDeptId] + "</td>";
 					ht = ht + "<td>" + posi.posiName + "</td>";
 					ht = ht + "<td>" + posi.posiIntroduce + "</td>";
 					ht = ht + "<td>" + posi.dataMemo + "</td>";
@@ -169,7 +176,7 @@
 			var itemId = $(obj).parent().attr('itemid');
 			del(
 				{
-					url : '/dept/delete',
+					url : '/position/delete',
 					id : itemId,
 					callBack : load
 				}

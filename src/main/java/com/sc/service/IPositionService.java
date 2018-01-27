@@ -20,7 +20,7 @@ public interface IPositionService {
 	List<PositionDomain> queryPosiList();
 	
 	/**
-	 * 根据部门id, 查询所有岗位
+	 * 根据部门id, 查询岗位
 	 * @param deptId
 	 * @return
 	 */
