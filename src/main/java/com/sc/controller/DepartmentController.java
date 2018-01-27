@@ -10,7 +10,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.common.constant.DataResponse;
@@ -18,6 +17,7 @@ import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
 import com.sc.domain.DepartmentDomain;
 import com.sc.model.request.DepartmentModel;
+import com.sc.model.request.IDModel;
 import com.sc.model.response.DeptPosiResult;
 import com.sc.service.IDepartmentService;
 
@@ -112,10 +112,10 @@ public class DepartmentController {
 	 * 删除部门
 	 */
 	@RequestMapping(value = "/dept/delete", method = { RequestMethod.POST })
-	public DataResponse deleteDept(@RequestParam(name="id", required=true)Integer id) {
+	public DataResponse deleteDept(@RequestBody @Valid IDModel idModel) {
 		DataResponse dr = null;
 		try {
-			departmentService.deleteDepartmentById(id);
+			departmentService.deleteDepartmentById(idModel.getId());
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (Exception e) {
 			logger.error("删除部门异常", e);

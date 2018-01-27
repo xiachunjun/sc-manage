@@ -42,7 +42,7 @@
 								<div class="col-sm-12">
 									<div class="col-sm-offset-4" style="font-size: 18px; font-weight: bold;">新增部门</div>
 									<div class="space-6"></div>
-									<form id="addDeptForm" class="form-horizontal" role="form" onsubmit="return false;">
+									<form id="addDeptForm" class="form-horizontal" role="form">
 										<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="deptName">名称</label>
 											<div class="col-sm-9">
@@ -75,17 +75,18 @@
 	<#include "/common/parts/footer.html"/>
 	<#include "/common/parts/common-js.html"/>
 	<#include "/common/parts/submit-form-js.html"/>
-	
+
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script type="text/javascript">
-		$("#submitBtn").on('click',function(){
+		$("#submitBtn").on('click', function(e) {
+			e.preventDefault()
 			submitForm(
 				{
 					'formId' : 'addDeptForm',
 					'url' : '/dept/add'
 				}
 			);
-			});
+		});
 	</script>
 </body>
 </html>

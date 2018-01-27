@@ -37,7 +37,7 @@
 				<div class="page-content">
 					<div class="row">
 						<div class="col-xs-12">
-						<div class="row">
+							<!-- <div class="row">
 								<div class="space-6"></div>
 								<div class="col-sm-12 center">
 									<div class="space-6"></div>
@@ -65,10 +65,10 @@
 										</div>
 									</form>
 								</div>
-							</div>
+							</div> -->
 							<div class="row">
 								<div class="space-6"></div>
-								<div class="center" style="font-size: 18px; font-weight: bold;">中国船舶及海洋工程设计研究院 规章制度</div>
+								<div class="center" style="font-size: 18px; font-weight: bold;">部门列表</div>
 								<div class="col-sm-12">
 									<table id="tfhover" class="tftable" border="1">
 
@@ -80,47 +80,39 @@
 				</div>
 			</div>
 		</div>
-		<#include "/common/parts/footer.html"/>
 	</div>
-<#include "/common/parts/common-js.html"/>
-<script src="/static/assets/js/sc-date.js"></script>
+	<#include "/common/parts/footer.html"/>
+	<#include "/common/parts/common-js.html"/>
+	<#include "/common/parts/submit-form-js.html"/>
+
+	<script src="/static/assets/js/sc-date.js"></script>
+
 	<script type="text/javascript">
-		function queryData() {
-			$.ajax({
-				type : 'POST',
-				url : '/dept/queryDeptList',
-				data : null,
-				headers : {
-					'Content-Type' : 'application/json'
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					var dataMap = data.dataMap;
-					if (resultCode == '000000' & dataMap != null) {
-						dataListRender(dataMap);
-					} else {
-						alert("查询规章制度列表失败！");
-					}
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("获取规章制度异常-" + JSON.stringify(data));
-				}
-			});
-		}
+		jQuery(function($) {
+			load();
+		});
 	
-		function dataListRender(dataMap) {
+		var load = function() {
+			submitForm(
+				{
+					'url' : '/dept/queryDeptList',
+					'callBack' : dataListRender
+				}
+			);
+		}
+		
+		var dataListRender = function(rsp) {
 			var ht = "<tr><th>序号</th><th>部门名称</th><th>备注</th><th>操作员</th><th>操作时间</th><th>操作</th></tr>";
-			var deptList = dataMap.depts;
+			var deptList = rsp.dataMap.depts;
 			if (deptList && deptList.length > 0) {
 				var indexNo = 1;
 				for (var i = 0; i < deptList.length; i++) {
 					var dept = deptList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td>"+ dept.deptName + "</td>";
+					ht = ht + "<td>" + dept.deptName + "</td>";
 					ht = ht + "<td>" + dept.dataMemo + "</td>";
 					ht = ht + "<td>" + dept.updateUser + "</td>";
-					ht = ht + "<td>" + formatDate(updateTime,true) + "</td>";
+					ht = ht + "<td>" + formatDate(dept.updateTime, true) + "</td>";
 					ht = ht + "<td itemid='" + dept.id + "'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
 				}
 			}
@@ -141,33 +133,15 @@
 	
 	
 		function deleteItem(obj) {
-			if (!window.confirm('确认删除？')) {
-				return;
-			}
 			var itemId = $(obj).parent().attr('itemid');
-			$.ajax({
-				type : 'POST',
-				url : '/bylaw/delete',
-				data : {
-					'bylawsId' : itemId
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					if (resultCode == '000000') {
-						queryData();
-					} else {
-						alert("删除规章制度列表失败！");
-					}
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("删除规章制度异常-" + JSON.stringify(data));
+			del(
+				{
+					url : '/dept/delete',
+					id : itemId,
+					callBack : load
 				}
-			});
-	
+			);
 		}
-	
-		queryData();
 	</script>
 
 </body>
