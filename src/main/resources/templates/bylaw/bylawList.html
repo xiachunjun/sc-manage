@@ -53,39 +53,27 @@
 		</div>
 		<#include "/common/parts/footer.html"/>
 	</div>
-<#include "/common/parts/common-js.html"/>
-<script src="/static/assets/js/sc-date.js"></script>
+	
+	<#include "/common/parts/common-js.html"/>
+	<#include "/common/parts/submit-form-js.html"/>
+	<script src="/static/assets/js/sc-date.js"></script>
 	<script type="text/javascript">
-		function queryData() {
-			$.ajax({
-				type : 'POST',
-				url : '/bylaw/query/list',
-				data : null,
-				headers : {
-					'Content-Type' : 'application/json'
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					var dataMap = data.dataMap;
-					if (resultCode == '000000' & dataMap != null) {
-						dataListRender(dataMap);
-					} else {
-						alert("查询规章制度列表失败！");
-					}
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("获取规章制度异常-" + JSON.stringify(data));
-				}
+		jQuery(function($) {
+			load();
+		});
+	
+		var load = function() {
+			submitForm({
+				'url' : '/bylaw/query/list',
+				'callBack' : dataListRender
 			});
 		}
 	
-	
-		function dataListRender(dataMap) {
+		var dataListRender = function(rsp) {
 			var ht = "<tr><th>序号</th><th>名称</th><th>编号</th><th>发文文号</th><th>发文时间</th><th>操作</th></tr>";
-			var cwglList = dataMap.bylawList.CWGL;
-			var tjbzList = dataMap.bylawList.TJBZ;
-			var xzglList = dataMap.bylawList.XZGL;
+			var cwglList = rsp.dataMap.bylawList.CWGL;
+			var tjbzList = rsp.dataMap.bylawList.TJBZ;
+			var xzglList = rsp.dataMap.bylawList.XZGL;
 			if (xzglList && xzglList.length > 0) {
 				var indexNo = 1;
 				ht = ht + "<tr><td colspan='6'>一、行政管理</td></tr>";
@@ -128,6 +116,15 @@
 			$("#tfhover").html(ht);
 		}
 	
+		function deleteItem(obj) {
+			var itemId = $(obj).parent().attr('itemid');
+			del({
+				url : '/bylaw/delete',
+				id : itemId,
+				callBack : load
+			});
+		}
+		
 		function detailItem(obj) {
 			var itemId = $(obj).parent().attr('itemid');
 			$.ajax({
@@ -156,37 +153,6 @@
 			alert("功能正在紧张开发中。。。。。。");
 			//TODO 弹出一个form表单
 		}
-	
-	
-		function deleteItem(obj) {
-			if (!window.confirm('确认删除？')) {
-				return;
-			}
-			var itemId = $(obj).parent().attr('itemid');
-			$.ajax({
-				type : 'POST',
-				url : '/bylaw/delete',
-				data : {
-					'bylawsId' : itemId
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					if (resultCode == '000000') {
-						queryData();
-					} else {
-						alert("删除规章制度列表失败！");
-					}
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("删除规章制度异常-" + JSON.stringify(data));
-				}
-			});
-	
-		}
-	
-		queryData();
 	</script>
-
 </body>
 </html>

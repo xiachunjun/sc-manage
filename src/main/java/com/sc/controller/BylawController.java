@@ -6,17 +6,18 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.sc.common.constant.CommonConstant;
@@ -27,12 +28,13 @@ import com.sc.common.util.FileUtil;
 import com.sc.common.util.UuidUtil;
 import com.sc.domain.BylawDomain;
 import com.sc.model.request.BylawModel;
+import com.sc.model.request.IDModel;
 import com.sc.service.IBylawService;
 
 /**
  * 规章制度
  */
-@Controller
+@RestController
 public class BylawController {
 
 	private static final Logger logger = LoggerFactory.getLogger(BylawController.class);
@@ -47,7 +49,6 @@ public class BylawController {
 	 * 新增规章制度
 	 */
 	@RequestMapping(value = "/bylaw/save", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse saveBylaw(BylawModel bylawModel, HttpServletRequest request) {
 		DataResponse dr = null;
 		try {
@@ -77,7 +78,6 @@ public class BylawController {
 	 * 查询规章制度列表
 	 */
 	@RequestMapping(value = "/bylaw/query/list", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse queryBylaw() {
 		DataResponse dr = null;
 		try {
@@ -99,7 +99,6 @@ public class BylawController {
 	 * 修改规章制度
 	 */
 	@RequestMapping(value = "/bylaw/update", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse updateBylaw(BylawModel bylawModel, HttpServletRequest request) {
 		DataResponse dr = null;
 		try {
@@ -130,11 +129,10 @@ public class BylawController {
 	 * 删除规章制度
 	 */
 	@RequestMapping(value = "/bylaw/delete", method = { RequestMethod.POST })
-	@ResponseBody
-	public DataResponse deleteBylaw(@RequestParam(name = "bylawsId", required = true) Integer bylawsId) {
+	public DataResponse deleteBylaw(@RequestBody @Valid IDModel idModel) {
 		DataResponse dr = null;
 		try {
-			bylawService.deleteBylaw(bylawsId);
+			bylawService.deleteBylaw(idModel.getId());
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
@@ -151,11 +149,11 @@ public class BylawController {
 	 * 下载文件
 	 */
 	@RequestMapping(value = "/bylaw/download", method = { RequestMethod.GET })
-	public void downloadFile(@RequestParam(name = "bylawsId", required = true) Integer bylawsId,
+	public void downloadFile(@RequestBody @Valid IDModel idModel,
 			HttpServletRequest request, HttpServletResponse response) {
-		BylawDomain bylawDomain = bylawService.queryById(bylawsId);
+		BylawDomain bylawDomain = bylawService.queryById(idModel.getId());
 		if (null == bylawDomain || StringUtils.isEmpty(bylawDomain.getFileUrl())) {
-			logger.warn("该主键id:{}，对应的文件路径为空", bylawsId);
+			logger.warn("该主键id:{}，对应的文件路径为空", idModel.getId());
 		} else {
 			File file = new File(bylawDomain.getFileUrl());
 			if (file.exists()) {
@@ -172,11 +170,10 @@ public class BylawController {
 	 * 根据id,查询规章制度
 	 */
 	@RequestMapping(value = "/bylaw/queryById", method = { RequestMethod.POST })
-	@ResponseBody
-	public DataResponse queryById(@RequestParam(name = "bylawsId", required = true) Integer id) {
+	public DataResponse queryById(@RequestBody @Valid IDModel idModel) {
 		DataResponse dr = null;
 		try {
-			BylawDomain bylawDomain = bylawService.queryById(id);
+			BylawDomain bylawDomain = bylawService.queryById(idModel.getId());
 			if (null == bylawDomain) {
 				dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_NULL);
 			} else {
