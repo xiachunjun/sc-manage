@@ -11,6 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -27,6 +28,8 @@ import com.sc.service.IUserService;
 import com.sc.support.AuthUser;
 import com.sc.support.TokenService;
 import com.sc.support.UserContext;
+import com.sc.support.ValidatedGroup2;
+import com.sc.support.ValidatedGroup3;
 
 @Controller
 public class UserController {
@@ -38,7 +41,6 @@ public class UserController {
 	@Autowired
 	private TokenService tokenService;
 
-
 	@RequestMapping("/outer/login")
 	public String loginPage(Map<String, Object> map) {
 		return "/login";
@@ -47,9 +49,9 @@ public class UserController {
 	/**
 	 * 注册用户
 	 */
-	@RequestMapping(value = "/user/addUserPost", method = { RequestMethod.POST })
+	@RequestMapping(value = "/user/add", method = { RequestMethod.POST })
 	@ResponseBody
-	public DataResponse addUserPost(UserModel userModel) {
+	public DataResponse addUserPost(@RequestBody @Validated(value = { ValidatedGroup2.class }) UserModel userModel) {
 		DataResponse dr = null;
 		try {
 			userService.saveUser(userModel);
@@ -69,7 +71,8 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/outer/user/login", method = { RequestMethod.POST })
 	@ResponseBody
-	public DataResponse login(UserModel userModel, HttpServletRequest request, HttpServletResponse response) {
+	public DataResponse login(@RequestBody @Validated(value = { ValidatedGroup3.class }) UserModel userModel,
+			HttpServletRequest request, HttpServletResponse response) {
 		DataResponse dr = null;
 		try {
 			UserDomain userDomain = userService.login(userModel);
@@ -151,7 +154,7 @@ public class UserController {
 	 */
 	@RequestMapping(value = "/user/updatePwd", method = { RequestMethod.POST })
 	@ResponseBody
-	public DataResponse updatePwd(@RequestBody UpdateUserPwdModel updateUserPwdModel) {
+	public DataResponse updatePwd(@RequestBody @Validated UpdateUserPwdModel updateUserPwdModel) {
 		DataResponse dr = null;
 		try {
 			userService.updatePwd(updateUserPwdModel);

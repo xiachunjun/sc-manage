@@ -71,6 +71,9 @@ public class PositionController {
 	public DataResponse queryByDept(@RequestBody @Validated(value = { ValidatedGroup3.class}) PositionModel positionModel) {
 		DataResponse dr = null;
 		try {
+			if(positionModel.getRefDeptId()==-1){
+				positionModel.setRefDeptId(null);
+			}
 			List<PositionDomain> pos = positionService.queryListByDeptId(positionModel.getRefDeptId());
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.put("positions", pos);

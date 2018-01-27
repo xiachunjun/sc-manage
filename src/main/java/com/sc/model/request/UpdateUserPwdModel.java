@@ -1,8 +1,13 @@
 package com.sc.model.request;
 
-public class UpdateUserPwdModel {
-	private Integer id;
+import javax.validation.constraints.NotNull;
 
+import org.hibernate.validator.constraints.NotBlank;
+
+public class UpdateUserPwdModel {
+	@NotNull(message = "ID不能为空")
+	private Integer id;
+	@NotBlank(message = "密码不能为空")
 	private String userLoginPwd;
 
 	public Integer getId() {
