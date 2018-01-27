@@ -30,7 +30,7 @@
 							</div>
 							<div class="col-sm-6 text-right" style="padding-right: 20px;">
 								<button class="btn btn-white radius-4" onclick="">编辑</button>
-								<button class="btn btn-white radius-4" onclick="window.location.href='/duty/dutyList'">返回</button>
+								<button class="btn btn-white radius-4" onclick="window.location.href='/page/duty/dutyList'">返回</button>
 							</div>
 						</div>
 					</div>
@@ -45,7 +45,6 @@
 								</div>
 								<div class="col-sm-12">
 									<table id="tfhover" class="tftable" border="1">
-
 									</table>
 								</div>
 							</div>
@@ -63,10 +62,10 @@
 			var dutyEntityType = $("#dutyEntity").attr("dutyEntityType");
 			$.ajax({
 				type : 'POST',
-				url : '/duty/queryByCondition',
+				url : '/duty/queryByType',
 				data : {
-					'dutyEntityCode' : dutyEntityCode,
-					'dutyEntityType' : dutyEntityType
+					'qId' : dutyEntityCode,
+					'type' : dutyEntityType
 				},
 				headers : {
 					'Content-Type' : 'application/x-www-form-urlencoded'
@@ -97,14 +96,12 @@
 					var dutyLevel2 = dutyLevel1.two;
 					if (dutyLevel2 && dutyLevel2.length > 0) {
 						dutyLevel2.forEach(function(value, index, dutyLevel2) {
-	
 							ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
 							if (0 === index) {
 								ht = ht + "<td rowspan='" + dutyLevel2.length + "'>" + dutyLevel1.one + "</td>";
 							}
 							ht = ht + "<td>" + value + "</td>";
 						});
-	
 					} else {
 						ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
 						ht = ht + "<td>" + dutyLevel1.one + "</td>";

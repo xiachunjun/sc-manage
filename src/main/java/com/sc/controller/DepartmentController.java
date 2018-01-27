@@ -15,6 +15,7 @@ import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
 import com.sc.domain.DepartmentDomain;
 import com.sc.model.request.DepartmentModel;
+import com.sc.model.response.DeptPosiResult;
 import com.sc.service.IDepartmentService;
 
 /**
@@ -68,6 +69,26 @@ public class DepartmentController {
 
 	
 	/**
+	 * 查询各部门对应岗位列表
+	 * @return
+	 */
+	@RequestMapping(value = "/position/queryDeptPosiList", method = { RequestMethod.POST })
+	public DataResponse queryDeptPosiList() {
+		DataResponse dr = null;
+		try {
+			List<DeptPosiResult> dept = departmentService.queryDeptPosiList();
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+			dr.put("depts", dept);
+		} catch (Exception e) {
+			logger.error("查询各部门对应岗位列表异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
+	
+	
+	/**
 	 * 修改部门
 	 */
 	@RequestMapping(value = "/dept/update", method = { RequestMethod.POST })
@@ -99,6 +120,7 @@ public class DepartmentController {
 		}
 		return dr;
 	}
+	
 	
 	
 }

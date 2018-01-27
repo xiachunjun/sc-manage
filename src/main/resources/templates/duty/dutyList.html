@@ -45,20 +45,22 @@
 									<div class="space-6"></div>
 									<form id="queryForm" class="form-horizontal" role="form" onsubmit="return false;">
 										<div class="form-group">
-											<label class="col-sm-2 control-label no-padding-right" for="refDeptId">部门</label>
+											<label class="col-sm-2 control-label no-padding-right" for="deptId">部门</label>
 											<div class="col-sm-2">
-												<select style="width: 80%;" id="refDeptId" name="refDeptId">
-
+												<select style="width: 80%;" id="deptId" name="deptId">
+													<option></option>
 												</select>
 											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="refPosiId">岗位</label>
+											<label class="col-sm-1 control-label no-padding-right" for="posiId">岗位</label>
 											<div class="col-sm-2">
-												<select style="width: 80%;" id="refPosiId" name="refPosiId">
+												<select style="width: 80%;" id="posiId" name="posiId">
+												  	<option></option>
 												</select>
 											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="refUserId">责任人</label>
+											<label class="col-sm-1 control-label no-padding-right" for="userId">责任人</label>
 											<div class="col-sm-2">
-												<select style="width: 80%;" id="refUserId" name="refUserId">
+												<select style="width: 80%;" id="userId" name="userId">
+												  	<option></option>
 												</select>
 											</div>
 											<div class="col-sm-2 align-left">
@@ -93,27 +95,84 @@
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script src="/static/assets/js/jquery.serializejson.min.js"></script>
 	<script type="text/javascript">
-	jQuery(function($) {
-		$('#departmentCode').on('change', function(e) {
-			renderPosition();
-		});
-	/* 	queryData();
-		renderDept();
-		renderUser(); */
-	});
-	
-		function queryData() {
-		var paramJson=$('#queryForm').serializeJSON();
-		if(!paramJson.departmentCode || paramJson.departmentCode.length<8){
-		paramJson.departmentCode="00000001";
-		}
+		$(function(){
+			queryData();
+			//查询所有用户
 			$.ajax({
 				type : 'POST',
-				url : '/position/query/list',
-				data : JSON.stringify(paramJson),
+				url : '/user/query/list',
+				data :  JSON.stringify({}),
 				headers : {
 					'Content-Type' : 'application/json'
 				},
+				success : function(data) {
+					if(data.resultCode === '000000' & data.dataMap != null){
+		   	    		 $("#userId option").remove();
+		   	  	         var userList = data.dataMap.userList;
+		   	  	         if(userList!=null && userList.length>0){
+		   	  	            var $option2 = $("<option></option>");
+			        		$("#userId").append($option2);
+		   	  	            for(var i=0; i<userList.length; i++){
+		   	  		            //添加到所属岗位的下拉菜单中
+		   	  		            var $option = $("<option></option>");
+		   	  		            $option.attr("value", userList[i].id);
+		   	  		            $option.text(userList[i].userName);
+		   	  		       		$("#userId").append($option);
+		   	  	            }
+		   	  	         }
+		   	    	}else {
+						alert("获取信息异常-" + JSON.stringify(data));
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取信息异常-" + JSON.stringify(data));
+				}
+			});
+		  //查询所有部门
+		  $.post("/department/queryDeptList", null, function(data,textStatus){
+			 if(data.resultCode === '000000'){
+				$("#deptId option").remove();
+		        var deptList = data.dataMap.depts;
+		        if(deptList!=null && deptList.length>0){
+		        	var $option2 = $("<option></option>");
+		        	$("#deptId").append($option2);
+		            for(var i=0;i<deptList.length;i++){
+			            //添加到所属部门的下拉菜单中
+			            var $option = $("<option></option>");
+			            $option.attr("value",deptList[i].id);
+			            $option.text(deptList[i].deptName);
+			            $("#deptId").append($option);
+		            }
+		        }
+			 }
+	       });
+		   //查询所有岗位	
+		   $.post("/position/queryPosiList", null, function(data,textStatus){
+			 if(data.resultCode === '000000'){
+				$("#posiId option").remove();
+		        var posiList = data.dataMap.positions;
+		        if(posiList!=null && posiList.length>0){
+		        	var $option2 = $("<option></option>");
+		        	$("#posiId").append($option2);
+		            for(var i=0;i<posiList.length;i++){
+			            //添加到所属部门的下拉菜单中
+			            var $option = $("<option></option>");
+			            $option.attr("value",posiList[i].id);
+			            $option.text(posiList[i].posiName);
+			            $("#posiId").append($option);
+		            }
+		        }
+			 }
+		   });	
+		})
+		
+		function queryData() {
+			var paramJson=$('#queryForm').serializeJSON();
+			$.ajax({
+				type : 'POST',
+				url : '/duty/queryByCondition',
+				data : paramJson,
 				success : function(data) {
 					var resultCode = data.resultCode;
 					var dataMap = data.dataMap;
@@ -130,124 +189,22 @@
 			});
 		}
 	
-	
 		function dataListRender(dataMap) {
 			var ht = "<tr><th>序号</th><th>部门名称</th><th>岗位名称</th><th>责任人</th></tr>";
-			var dataList = dataMap.dataList;
-			if (dataList && dataList.length > 0) {
+			var dutyList = dataMap.dutyList;
+			if (dutyList && dutyList.length > 0) {
 				var indexNo = 1;
-				for (var i = 0; i < dataList.length; i++) {
-					var posi = dataList[i];
+				for (var i = 0; i < dutyList.length; i++) {
+					var duty = dutyList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='/duty/deptDutyList?deptCode="+posi.refDepartmentCode+"&deptName="+encodeURI(posi.departmentName)+"' style='text-decoration:none;'>" + posi.departmentName + "</a></td>";
-					ht = ht + "<td><a href='/duty/posiDutyList?posiCode="+posi.positionCode+"&posiName="+encodeURI(posi.positionName)+"' style='text-decoration:none;'>" + posi.positionName + "</a></td>";
-					ht = ht + "<td>" + posi.userLoginName + "</td>";
+					ht = ht + "<td><a href='/to/duty/detail?qId="+duty.deptId+"&name="+encodeURI(duty.deptName)+"&type="+encodeURI("DEPT")+"' style='text-decoration:none;'>" + duty.deptName + "</a></td>";
+					ht = ht + "<td><a href='/to/duty/detail?qId="+duty.posiId+"&name="+encodeURI(duty.posiName)+"&type="+encodeURI("POSI")+"' style='text-decoration:none;'>" + duty.posiName + "</a></td>";
+					ht = ht + "<td>" + duty.userName + "</td>";
 				}
 			}else{
 				ht = ht + "<tr class='center'><td colspan='4'>未查询到相关记录</td></tr>";
 			}
 			$("#tfhover").html(ht);
-		}
-	
-	
-		function renderDept() {
-			$.ajax({
-				type : 'POST',
-				url : '/department/queryAll',
-				data : null,
-				async:false,
-				headers : {
-					'Content-Type' : 'application/json'
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					var dataMap = data.dataMap;
-					if (resultCode == '000000' & dataMap != null) {
-						var ht = "";
-						var depts = dataMap.depts;
-						if (depts && depts.length > 0) {
-							for (i = 0; i < depts.length; i++) {
-								ht = ht + "<option value='" + depts[i].departmentCode + "'>" + depts[i].departmentName + "</option>";
-							}
-							$("#departmentCode").html(ht);
-						}
-						renderPosition();
-					} else {
-						alert("获取部门列表失败！");
-					}
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("获取信息异常-" + JSON.stringify(data));
-				}
-			});
-		}
-	
-		function renderPosition(deptCode) {
-			var da = {};
-			if (!deptCode) {
-				deptCode = $("#departmentCode").val();
-			}
-			da.departmentCode = deptCode;
-			$.ajax({
-				type : 'POST',
-				url : '/position/queryByDeptCode',
-				data : JSON.stringify(da),
-				headers : {
-					"Content-Type" : "application/json"
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					var dataMap = data.dataMap;
-					var ht = "<option></option>";
-					if (resultCode == '000000' & dataMap != null) {
-						var positions = dataMap.positions;
-						if (positions && positions.length > 0) {
-							for (i = 0; i < positions.length; i++) {
-								ht = ht + "<option value='" + positions[i].positionCode + "'>" + positions[i].positionName + "</option>";
-							}
-						}
-					} else {
-						alert("获取信息异常-" + JSON.stringify(data));
-					}
-					$("#positionCode").html(ht);
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("获取信息异常-" + JSON.stringify(data));
-				}
-			});
-		}
-	
-		function renderUser() {
-			$.ajax({
-				type : 'POST',
-				url : '/user/query/list',
-				data :  JSON.stringify({}),
-				headers : {
-					'Content-Type' : 'application/json'
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					var dataMap = data.dataMap;
-					if (resultCode == '000000' & dataMap != null) {
-						var ht = "<option></option>";
-						var userList = dataMap.userList;
-						if (userList && userList.length > 0) {
-							for (i = 0; i < userList.length; i++) {
-								ht = ht + "<option value='" + userList[i].userCode + "'>" + userList[i].userLoginName + "</option>";
-							}
-							$("#userCode").html(ht);
-						}
-					} else {
-						alert("获取信息异常-" + JSON.stringify(data));
-					}
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("获取信息异常-" + JSON.stringify(data));
-				}
-			});
 		}
 	</script>
 </body>

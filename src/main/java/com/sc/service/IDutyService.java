@@ -1,10 +1,11 @@
 package com.sc.service;
 
 import java.util.List;
+import java.util.Map;
 
-import com.sc.domain.DutyDomain;
 import com.sc.model.request.DutySaveModel;
 import com.sc.model.request.UpdateDutyModel;
+import com.sc.model.response.DutyResult;
 
 public interface IDutyService {
 
@@ -16,12 +17,12 @@ public interface IDutyService {
 
 	/**
 	 * 条件查询责任清单
+	 * @param userId
 	 * @param deptId
 	 * @param posiId
-	 * @param dutyName
 	 * @return
 	 */
-	List<DutyDomain> queryDutyByCondition(Integer deptId, Integer posiId, String dutyName);
+	List<DutyResult> queryDutyByCondition(Integer userId, Integer deptId, Integer posiId);
 	
 	/**
 	 * 根据部门id 或 岗位id, 查询各自的一二级职责
@@ -29,7 +30,7 @@ public interface IDutyService {
 	 * @param type: 部门：DEPT, 岗位：POSI
 	 * @return
 	 */
-	List<DutyDomain> queryDutyByType(Integer qId, String type);
+	List<Map<String, Object>> queryDutyByType(Integer qId, String type);
 	
 	/**
 	 * 修改责任清单
