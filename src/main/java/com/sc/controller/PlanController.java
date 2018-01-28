@@ -14,14 +14,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
+import com.sc.model.request.AddPlanModel;
 import com.sc.model.request.PlanDetailModel;
-import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
 import com.sc.model.response.PlanDetailResult;
 import com.sc.service.IPlanService;
 import com.sc.support.ValidatedGroup1;
 import com.sc.support.ValidatedGroup2;
-import com.sc.support.ValidatedGroup3;
 
 /**
  * 计划完成情况
@@ -38,10 +37,10 @@ public class PlanController {
 	 * 新增计划
 	 */
 	@RequestMapping(value = "/plan/addPlan", method = { RequestMethod.POST })
-	public DataResponse addPlan(@RequestBody  @Validated(value={ValidatedGroup3.class}) PlanModel planModel) {
+	public DataResponse addPlan(@RequestBody AddPlanModel addPlanModel) {
 		DataResponse dr = null;
 		try {
-			planService.addPlan(planModel);
+			planService.addPlan(addPlanModel);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
