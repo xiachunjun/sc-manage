@@ -45,7 +45,7 @@ public class UserController {
 	/**
 	 * 注册用户
 	 */
-	@RequestMapping(value = "/user/add", method = { RequestMethod.POST })
+	@RequestMapping(value = "/user/addUser", method = { RequestMethod.POST })
 	public DataResponse addUserPost(@RequestBody @Validated(value = { ValidatedGroup2.class }) UserModel userModel) {
 		DataResponse dr = null;
 		try {
