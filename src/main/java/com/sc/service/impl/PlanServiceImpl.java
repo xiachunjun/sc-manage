@@ -135,7 +135,10 @@ public class PlanServiceImpl implements IPlanService {
 		}
 		for (PlanDetailModel planDetailModel : planDetailModelList) {
 			//先查询plan_details表记录存不存在，存在即更新，不存在即新增
-			PlanDetailDomain detailDO = planDetailMapper.selectByPrimaryKey(planDetailModel.getId());
+			PlanDetailDomain detailDO = null;
+			if(null != planDetailModel.getId()){
+				detailDO = planDetailMapper.selectByPrimaryKey(planDetailModel.getId());
+			}
 			//设置的内容
 			PlanDetailDomain record = new PlanDetailDomain();
 			record.setDetailType(planDetailModel.getDetailType());
