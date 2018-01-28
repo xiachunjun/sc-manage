@@ -42,7 +42,7 @@
 								<div class="col-sm-12">
 									<div class="col-sm-offset-4" style="font-size: 18px; font-weight: bold;">添加用户</div>
 									<div class="space-6"></div>
-									<form id="addUserForm" class="form-horizontal" role="form" enctype="multipart/form-data" method="post">
+									<form id="addUserForm" class="form-horizontal" role="form" method="post">
 										<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="userLoginName">用户名</label>
 											<div class="col-sm-9">
@@ -150,7 +150,8 @@
 	      });
 		}
 		//添加用户
-		$("#submitBtn").on('click',function(){
+		$("#submitBtn").on('click',function(e){
+			e.preventDefault();
 			submitForm({
 				'formId' : 'addUserForm',
 				'url' : '/user/addUser'
