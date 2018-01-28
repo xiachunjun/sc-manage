@@ -67,6 +67,7 @@ public class PlanDomain extends BaseDomain implements Serializable{
      */
     private Date checkTime;
 
+    //dataState状态值: 0-失效；1-初始；2-待领导审批；3-领导审核通过待执行人执行；4-领导审核不通过；5-执行人执行完成
 
     public Integer getRefUserId() {
         return refUserId;

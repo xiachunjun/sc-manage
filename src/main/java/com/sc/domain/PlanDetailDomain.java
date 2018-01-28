@@ -18,7 +18,7 @@ public class PlanDetailDomain extends BaseDomain implements Serializable{
     private Integer refPlanId;
 
     /**
-     * 工作类型
+     * 工作类型 : 1常规，2计划外，3重点
      */
     private Integer detailType;
 
@@ -31,12 +31,15 @@ public class PlanDetailDomain extends BaseDomain implements Serializable{
      * 开始时间
      */
     private Date beginTime;
-
+    private String beginTimeStr;
+    
     /**
      * 结束时间
      */
     private Date endTime;
-
+    private String endTimeStr;
+    
+    
     public Integer getRefPlanId() {
         return refPlanId;
     }
@@ -76,6 +79,22 @@ public class PlanDetailDomain extends BaseDomain implements Serializable{
     public void setEndTime(Date endTime) {
         this.endTime = endTime;
     }
+
+	public String getBeginTimeStr() {
+		return beginTimeStr;
+	}
+
+	public String getEndTimeStr() {
+		return endTimeStr;
+	}
+
+	public void setBeginTimeStr(String beginTimeStr) {
+		this.beginTimeStr = beginTimeStr;
+	}
+
+	public void setEndTimeStr(String endTimeStr) {
+		this.endTimeStr = endTimeStr;
+	}
 
     
 }
