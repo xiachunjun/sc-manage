@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.sc.common.constant.CommonConstant;
 import com.sc.model.response.UserInfoResult;
 import com.sc.service.IPositionService;
 import com.sc.service.IUserService;
@@ -57,11 +58,11 @@ public class PageController {
 	public ModelAndView toDutyDetail(@RequestParam(name="qId", required=true)Integer qId,
 			@RequestParam(name="type", required=true)String type, @RequestParam Map<String, Object> map) {
 		ModelAndView mv = new ModelAndView("/duty/dutyDetail");
-		if(StringUtils.equals("DEPT", type)){
+		if(StringUtils.equals(CommonConstant.DEPT, type)){
 			map.put("dutyTypeName", "部门");
 			map.put("dutyDeptEntityName", map.get("name"));
 			map.put("dutyPosiEntityName", "");
-		}else if(StringUtils.equals("POSI", type)){
+		}else if(StringUtils.equals(CommonConstant.POSI, type)){
 			String deptName = positionService.queryDeptNameByPosiId(qId);
 			map.put("dutyTypeName", "岗位");
 			map.put("dutyDeptEntityName", deptName);
