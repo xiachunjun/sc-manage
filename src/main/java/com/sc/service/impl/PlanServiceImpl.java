@@ -1,5 +1,6 @@
 package com.sc.service.impl;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -18,8 +19,8 @@ import com.sc.dao.UserMapper;
 import com.sc.domain.PlanDetailDomain;
 import com.sc.domain.PlanDomain;
 import com.sc.domain.UserDomain;
+import com.sc.model.request.AddPlanModel;
 import com.sc.model.request.PlanDetailModel;
-import com.sc.model.request.PlanModel;
 import com.sc.model.request.QueryPlanModel;
 import com.sc.model.response.PlanDetailResult;
 import com.sc.model.response.UserInfoResult;
@@ -42,8 +43,8 @@ public class PlanServiceImpl implements IPlanService {
 	
 	@Transactional
 	@Override
-	public void addPlan(PlanModel planModel) {
-		List<PlanDetailDomain> planDetailList = planModel.getPlanDetailList();
+	public void addPlan(AddPlanModel planModel) {
+		List<PlanDetailModel> planDetailList = planModel.getPlanDetails();
 		if(CollectionUtils.isEmpty(planDetailList)){
 			throw new ScException("请至少填写一条计划");
 		}
@@ -64,7 +65,7 @@ public class PlanServiceImpl implements IPlanService {
 		planDomain.setRefUserId(userInfo.getUserId());
 		planDomain.setRefDeptId(userInfo.getDeptId());
 		planDomain.setRefPosiId(userInfo.getPosiId());
-		planDomain.setPlanDate(DateUtil.str2Date(planModel.getPlanDateStr()));
+		planDomain.setPlanDate(DateUtil.str2Date(planModel.getPlanDate()));
 		planDomain.setPlanMainUser(userInfo.getUserId());  //执行人
 		planDomain.setCheckUser(deptHeaderUser.getId());   //审核人
 		planDomain.setId(null);
@@ -77,10 +78,12 @@ public class PlanServiceImpl implements IPlanService {
 		//保存一条记录到sc_plans表
 		int flag = planMapper.insertSelective(planDomain);
 		if (flag == 1) {
-			for (PlanDetailDomain planDetailDO : planDetailList) {
-				planDetailDO.setRefPlanId(planDomain.getId());
-				planDetailDO.setBeginTime(DateUtil.str2Date(planDetailDO.getBeginTimeStr()));
-				planDetailDO.setEndTime(DateUtil.str2Date(planDetailDO.getEndTimeStr()));
+			List<PlanDetailDomain> detailList = new ArrayList<PlanDetailDomain>();
+			for (PlanDetailModel planDetailModel : planDetailList) {
+				PlanDetailDomain planDetailDO = new PlanDetailDomain();
+				planDetailDO.setRefPlanId(planDetailModel.getId());
+				planDetailDO.setBeginTime(DateUtil.str2Date(planDetailModel.getBeginTimeStr()));
+				planDetailDO.setEndTime(DateUtil.str2Date(planDetailModel.getEndTimeStr()));
 				planDetailDO.setId(null);
 				planDetailDO.setDataState(1);
 				planDetailDO.setDataVersion(1);
@@ -88,9 +91,10 @@ public class PlanServiceImpl implements IPlanService {
 				planDetailDO.setUpdateUser(planDetailDO.getCreateUser());
 				planDetailDO.setCreateTime(new Date());
 				planDetailDO.setUpdateTime(planDetailDO.getCreateTime());
+				detailList.add(planDetailDO);
 			}
 			//保存到sc_plan_details表
-			int result = planDetailMapper.insertList(planDetailList);
+			int result = planDetailMapper.insertList(detailList);
 			if(result != planDetailList.size()){
 				throw new ScException("新增计划详情出错");
 			}
