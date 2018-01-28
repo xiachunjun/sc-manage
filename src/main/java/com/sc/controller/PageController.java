@@ -55,8 +55,9 @@ public class PageController {
 	 * 跳转到部门或岗位的一二级职责页面
 	 */
 	@RequestMapping(value = "/to/duty/detail", method = { RequestMethod.GET })
-	public ModelAndView toDutyDetail(@RequestParam(name="qId", required=true)Integer qId,
-			@RequestParam(name="type", required=true)String type, @RequestParam Map<String, Object> map) {
+	public ModelAndView toDutyDetail(@RequestParam Map<String, Object> map,
+			@RequestParam(name="qId", required=true)Integer qId,
+			@RequestParam(name="type", required=true)String type) {
 		ModelAndView mv = new ModelAndView("/duty/dutyDetail");
 		if(StringUtils.equals(CommonConstant.DEPT, type)){
 			map.put("dutyTypeName", "部门");
