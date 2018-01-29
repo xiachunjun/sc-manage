@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.sc.common.constant.ScException;
-import com.sc.common.util.DateUtil;
 import com.sc.dao.PlanDetailMapper;
 import com.sc.dao.PlanMapper;
 import com.sc.dao.UserMapper;
@@ -65,7 +65,6 @@ public class PlanServiceImpl implements IPlanService {
 		planDomain.setRefUserId(userInfo.getUserId());
 		planDomain.setRefDeptId(userInfo.getDeptId());
 		planDomain.setRefPosiId(userInfo.getPosiId());
-		planDomain.setPlanDate(DateUtil.str2Date(planModel.getPlanDate()));
 		planDomain.setPlanMainUser(userInfo.getUserId());  //执行人
 		planDomain.setCheckUser(deptHeaderUser.getId());   //审核人
 		planDomain.setId(null);
@@ -82,8 +81,8 @@ public class PlanServiceImpl implements IPlanService {
 			for (PlanDetailModel planDetailModel : planDetailList) {
 				PlanDetailDomain planDetailDO = new PlanDetailDomain();
 				planDetailDO.setRefPlanId(planDetailModel.getId());
-				planDetailDO.setBeginTime(DateUtil.str2Date(planDetailModel.getBeginTimeStr()));
-				planDetailDO.setEndTime(DateUtil.str2Date(planDetailModel.getEndTimeStr()));
+				planDetailDO.setBeginTime(planDetailModel.getBeginTime());
+				planDetailDO.setEndTime(planDetailModel.getEndTime());
 				planDetailDO.setId(null);
 				planDetailDO.setDataState(1);
 				planDetailDO.setDataVersion(1);
@@ -143,8 +142,8 @@ public class PlanServiceImpl implements IPlanService {
 			PlanDetailDomain record = new PlanDetailDomain();
 			record.setDetailType(planDetailModel.getDetailType());
 			record.setDetailContent(planDetailModel.getDetailContent());
-			record.setBeginTime(DateUtil.str2Date(planDetailModel.getBeginTimeStr()));
-			record.setEndTime(DateUtil.str2Date(planDetailModel.getEndTimeStr()));
+			record.setBeginTime(planDetailModel.getBeginTime());
+			record.setEndTime(planDetailModel.getEndTime());
 			record.setUpdateTime(new Date());
 			if(null == detailDO){
 				record.setId(null);
@@ -157,8 +156,8 @@ public class PlanServiceImpl implements IPlanService {
 			}else{
 				//有改动计划详情，则展示修订人（从updateUser读取）
 				if(!StringUtils.equals(planDetailModel.getDetailContent(), detailDO.getDetailContent()) || 
-					!StringUtils.equals(planDetailModel.getBeginTimeStr(), detailDO.getBeginTimeStr()) ||
-					!StringUtils.equals(planDetailModel.getEndTimeStr(), detailDO.getEndTimeStr()) || 
+					!DateUtils.isSameDay(planDetailModel.getBeginTime(), detailDO.getBeginTime()) ||
+					!DateUtils.isSameDay(planDetailModel.getEndTime(), detailDO.getEndTime()) || 
 					planDetailModel.getDetailType() != detailDO.getDetailType()){
 					record.setUpdateUser(UserContext.getLoginName());
 				}

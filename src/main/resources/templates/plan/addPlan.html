@@ -54,7 +54,7 @@
 								<div class="col-sm-12">
 									<div class="col-sm-offset-5" style="font-size: 18px; font-weight: bold;">个人月度计划完成情况</div>
 									<div class="space-6"></div>
-									<form id="addPlanForm" class="form-horizontal" role="form">
+									<form id="addPlanForm" class="form-horizontal" role="form" onsubmit="return false;">
 										<input type="hidden" name="userName" value="${userInfo.userName!''}" /> <input
 											type="hidden" id="userId" name="userId" value="${userInfo.userId!''}" /> <input
 											type="hidden" id="deptId" name="deptId" value="${userInfo.deptId!''}" /> <input
@@ -75,7 +75,7 @@
 										</div>
 										<table id="tfhover" class="tftable" border="1">
 											<tr>
-												<th>序号</th>
+												<!-- 	<th>序号</th> -->
 												<th>工作类型</th>
 												<th>工作计划内容</th>
 												<th>制定人</th>
@@ -84,28 +84,28 @@
 												<th>结束时间</th>
 												<th>操作</th>
 											</tr>
-											<tbody class="center">
-												<tr class="planDetail" id="tmpl">
-													<td id=itemNUm>1</td>
-													<td><select class="full planType" name="planType">
+											<tbody class="center" id="tableBody">
+												<tr class="planDetail" id="planDetail1">
+													<!-- <td id=itemNUm>1</td> -->
+													<td><select class="full detailType" name="detailType">
 															<option value="0">常规</option>
 															<option value="1">计划外</option>
 															<option value="2">重点</option>
 													</select></td>
-													<td><input class="full planContent" type="text" name="planContent" /></td>
+													<td><input class="full detailContent" type="text" name="detailContent" /></td>
 													<td>${userInfo.userName!''}</td>
 													<td>--</td>
-													<td><input name="planBeginTime" class="date-picker full planBeginTime"
+													<td><input name="beginTimeStr" class="date-picker full beginTimeStr"
 														readonly="readonly" type="text" data-date-format="yyyy-mm-dd" placeholder="开始时间" /></td>
 
-													<td><input name="planEndTime" class="date-picker full planEndTime"
+													<td><input name="endTimeStr" class="date-picker full endTimeStr"
 														readonly="readonly" type="text" data-date-format="yyyy-mm-dd" placeholder="结束时间" /></td>
-													<td><button onclick='detailItem(this)' class='btn btn-minier radius-2'>删除</button></td>
+													<td class="btnTd" itemindex="1"><button onclick='' class='btn btn-minier radius-2'>删除</button></td>
 												</tr>
 											</tbody>
 											<tfoot class="center">
 												<tr>
-													<td colspan="7" style="border: none;"></td>
+													<td colspan="6" style="border: none;"></td>
 													<td style="border: none;"><button onclick='addRow()'
 															class='btn btn-minier radius-2'>添加</button></td>
 												</tr>
@@ -135,7 +135,13 @@
 	<script src="/static/assets/js/sc-date.js"></script>
 	<#include "/common/parts/submit-form-js.html"/>
 	<script type="text/javascript">
+		var count = 1;
 		jQuery(function($) {
+			datePicker();
+			renderPlanDateList();
+		});
+	
+		function datePicker() {
 			$('.date-picker').datepicker({
 				autoclose : true,
 				todayHighlight : true
@@ -148,8 +154,17 @@
 				addPlan();
 	
 			});
-			renderPlanDateList();
-		});
+		}
+	
+		function addRow() {
+			var tmplht = $("#tmpl").html();
+			$("#tableBody").append(tmplht);
+			datePicker();
+		}
+		function delRow(obj) {
+			$(obj).parent().parent().remove();
+		}
+	
 		function renderPlanDateList() {
 			var planDateList = dateList({
 				'format' : 'yyyy年MM月'
@@ -169,21 +184,22 @@
 			data.refUserId = $("#userId").val();
 			data.refPosiId = $("#deptId").val();
 			data.refDeptId = $("#posiId").val();
+			data.planDate = $("#planDate").val();
 	
 			$(".planDetail").each(function(i, element) {
 				var planDetail = new Object();
-				var planType = $(element).find(".planType").val();
-				var planContent = $(element).find(".planContent").val();
-				var planBeginTime = $(element).find(".planBeginTime").val();
-				var planEndTime = $(element).find(".planEndTime").val();
-				if (!planType || !planContent || !planBeginTime || !planEndTime) {
+				var detailType = $(element).find(".detailType").val();
+				var detailContent = $(element).find(".detailContent").val();
+				var beginTimeStr = $(element).find(".beginTimeStr").val();
+				var endTimeStr = $(element).find(".endTimeStr").val();
+				if (!detailType || !detailContent || !beginTimeStr || !endTimeStr) {
 					hasError = true;
 					return;
 				}
-				planDetail.planType = planType;
-				planDetail.planContent = planContent;
-				planDetail.planBeginTime = planBeginTime;
-				planDetail.planEndTime = planEndTime;
+				planDetail.detailType = detailType;
+				planDetail.detailContent = detailContent;
+				planDetail.beginTimeStr = beginTimeStr;
+				planDetail.endTimeStr = endTimeStr;
 				planDetails.push(planDetail);
 			});
 			data.planDetails = planDetails;
@@ -202,7 +218,7 @@
 				success : function(data) {
 					var resultCode = data.resultCode;
 					if (resultCode == '000000') {
-					window.location.href='/plan/addPlan';
+						window.location.href = '/plan/addPlan';
 						alert("操作成功!");
 					} else if (resultCode == '100002') {
 						showInputError(data);
@@ -227,34 +243,25 @@
 			ht = ht + "]";
 			alert(ht);
 		}
-	
-		function buildParam() {
-			var data = new Object();
-			var planDetails = [];
-			data.refUserId = $("#userId").val();
-			data.refPosiId = $("#deptId").val();
-			data.refDeptId = $("#posiId").val();
-	
-			$(".planDetail").each(function(i, element) {
-				var planDetail = new Object();
-				var planType = $(element).find(".planType").val();
-				var planContent = $(element).find(".planContent").val();
-				var planBeginTime = $(element).find(".planBeginTime").val();
-				var planEndTime = $(element).find(".planEndTime").val();
-				if (!planType || !planContent || !planBeginTime || !planEndTime) {
-					alert("参数为空");
-					return null;
-				}
-				planDetail.planType = planType;
-				planDetail.planContent = planContent;
-				planDetail.planBeginTime = planBeginTime;
-				planDetail.planEndTime = planEndTime;
-				planDetails.push(planDetail);
-			});
-			data.planDetails = planDetails;
-			return data;
-		}
 	</script>
-	<div></div>
+	<script type="text/html" id="tmpl">
+		<tr class="planDetail">
+		<!--<td class="index"></td>-->
+	<td><select class="full detailType" name="detailType">
+			<option value="0">常规</option>
+			<option value="1">计划外</option>
+			<option value="2">重点q</option>
+		</select></td>
+	<td><input class="full detailContent" type="text" name="detailContent" /></td>
+	<td>${userInfo.userName!''}</td>
+	<td>--</td>
+	<td><input name="beginTimeStr" class="date-picker full beginTimeStr" readonly="readonly"
+	type="text" data-date-format="yyyy-mm-dd" placeholder="开始时间" /></td>
+
+	<td><input name="endTimeStr" class="date-picker full endTimeStr" readonly="readonly"
+	type="text" data-date-format="yyyy-mm-dd" placeholder="结束时间" /></td>
+	<td><button onclick='delRow(this)' class='btn btn-minier radius-2'>删除</button></td>
+</tr>
+</script>
 </body>
 </html>

@@ -34,7 +34,7 @@ public class AddPlanModel {
 	/**
 	 * 计划创建日期
 	 */
-	private String planDate;
+	private Date planDate;
 
 	/**
 	 * 执行人
@@ -103,11 +103,11 @@ public class AddPlanModel {
 		this.planType = planType;
 	}
 
-	public String getPlanDate() {
+	public Date getPlanDate() {
 		return planDate;
 	}
 
-	public void setPlanDate(String planDate) {
+	public void setPlanDate(Date planDate) {
 		this.planDate = planDate;
 	}
 

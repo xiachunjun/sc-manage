@@ -31,13 +31,11 @@ public class PlanDetailDomain extends BaseDomain implements Serializable{
      * 开始时间
      */
     private Date beginTime;
-    private String beginTimeStr;
     
     /**
      * 结束时间
      */
     private Date endTime;
-    private String endTimeStr;
     
     
     public Integer getRefPlanId() {
@@ -80,21 +78,4 @@ public class PlanDetailDomain extends BaseDomain implements Serializable{
         this.endTime = endTime;
     }
 
-	public String getBeginTimeStr() {
-		return beginTimeStr;
-	}
-
-	public String getEndTimeStr() {
-		return endTimeStr;
-	}
-
-	public void setBeginTimeStr(String beginTimeStr) {
-		this.beginTimeStr = beginTimeStr;
-	}
-
-	public void setEndTimeStr(String endTimeStr) {
-		this.endTimeStr = endTimeStr;
-	}
-
-    
 }

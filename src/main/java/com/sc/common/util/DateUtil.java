@@ -19,7 +19,17 @@ public class DateUtil {
 		}
 		return d;
 	}
-
+	
+	public static Date str2Date2(String strDate){
+		Date d= null;
+		try {
+			d = new SimpleDateFormat("yyyy-MM").parse(strDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return d;
+	}
+	
 	public static String date2Str2(Date date){
 		return new SimpleDateFormat("yyyy-MM-dd").format(date);
 	}
@@ -28,6 +38,5 @@ public class DateUtil {
 	public static String generateStr(Date date){
 		return new SimpleDateFormat("yyyyMMddhhmmssSSSS").format(date);
 	}
-	
 	
 }

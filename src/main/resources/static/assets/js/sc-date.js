@@ -82,7 +82,7 @@ var dateList =function getDateList(initOption) {
 			obj.value=now.getFullYear() + "-" + dateComplement(m) + "-" + dateComplement(date);
 			result.push(obj);
 		} else if (format2 == option.format) {
-			obj.key=now.getFullYear() + "-" + dateComplement(m);
+			obj.key=now.getFullYear() + "-" + dateComplement(m) + "-" + dateComplement(date);
 			obj.value=now.getFullYear() + "-" + dateComplement(m);
 			result.push(obj);
 		} else if (format3 == option.format) {
@@ -90,7 +90,7 @@ var dateList =function getDateList(initOption) {
 			obj.value=now.getFullYear() + "年" + dateComplement(m) + "月" + dateComplement(date) + "日";
 			result.push(obj);
 		} else if (format4 == option.format) {
-			obj.key=now.getFullYear() + "-" + dateComplement(m);
+			obj.key=now.getFullYear() + "-" + dateComplement(m) + "-" + dateComplement(date);
 			obj.value=now.getFullYear() + "年" + dateComplement(m) + "月";
 			result.push(obj);
 		}
