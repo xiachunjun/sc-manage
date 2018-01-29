@@ -42,41 +42,58 @@
 								<div class="col-sm-12">
 									<div class="col-sm-offset-4" style="font-size: 18px; font-weight: bold;">新增职责</div>
 									<div class="space-6"></div>
-									<form id="addUserForm" class="form-horizontal" role="form" method="post">
+									<form id="addDutyForm" class="form-horizontal" role="form" onsubmit="return false">
 										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="userLoginName">用户名</label>
+											<label class="col-sm-3 control-label no-padding-right" for="dutyType">职责类型</label>
 											<div class="col-sm-9">
-												<input type="text" id="userLoginName" name="userLoginName" placeholder="输入用户名" class="col-xs-10 col-sm-5" />
+												<select class="col-xs-10 col-sm-5" id="dutyType" name="dutyType"
+													onchange="deptOrPosi(this)">
+													<option value="DEPT">部门职责</option>
+													<!-- 	<option value="POSI">岗位职责</option> -->
+												</select>
 											</div>
 										</div>
 										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="userName">姓名</label>
+											<label class="col-sm-3 control-label no-padding-right" for="dutyLevel">职责级别</label>
 											<div class="col-sm-9">
-												<input type="text" id="userName" name="userName" placeholder="输入姓名" class="col-xs-10 col-sm-5" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="userLoginPwd">密码</label>
-											<div class="col-sm-9">
-												<input type="password" id="userLoginPwd" name="userLoginPwd" placeholder="输入密码" class="col-xs-10 col-sm-5" />
+												<select class="col-xs-10 col-sm-5" id="dutyLevel" name="dutyLevel">
+													<option value="1">一级职责</option>
+													<option value="2">二级职责</option>
+												</select>
 											</div>
 										</div>
 										<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="refDeptId">所属部门</label>
 											<div class="col-sm-9">
-												<select class="col-xs-10 col-sm-5" id="refDeptId" name="refDeptId" onchange="if(this.value != '')findPosition(this)">
+												<select class="col-xs-10 col-sm-5" id="refDeptId" name="refDeptId"
+													onchange="if(this.value != '')findPosition(this)">
 													<option>请选择</option>
 												</select>
 											</div>
 										</div>
 										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="dutyName">职责名称</label>
+											<div class="col-sm-9">
+												<input type="text" id="dutyName" name="dutyName" placeholder="输入职责名称"
+													class="col-xs-10 col-sm-5" />
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="dutyIntroduce">职责描述</label>
+											<div class="col-sm-9">
+												<input type="text" id="dutyIntroduce" name="dutyIntroduce" placeholder="输入职责描述"
+													class="col-xs-10 col-sm-5" />
+											</div>
+										</div>
+
+										<!-- 	<div class="form-group">
 											<label class="col-sm-3 control-label no-padding-right" for="refPosiId">所属岗位</label>
 											<div class="col-sm-9">
 												<select class="col-xs-10 col-sm-5" id="refPosiId" name="refPosiId">
 													<option>请选择</option>
 												</select>
 											</div>
-										</div>
+										</div> -->
 										<div class="form-group">
 											<div class="col-sm-offset-4">
 												<button id="submitBtn" class="btn btn-primary radius-4">保存</button>
@@ -106,7 +123,7 @@
 				$("#refDeptId option").remove();
 		        var deptList = data.dataMap.depts;
 		        if(deptList!=null && deptList.length>0){
-		        	var $option2 = $("<option>请选择</option>");
+		        	var $option2 = $("");
 		        	$("#refDeptId").append($option2);
 		            for(var i=0;i<deptList.length;i++){
 			            //添加到所属部门的下拉菜单中
@@ -119,42 +136,12 @@
 			 }
 	       });
 		})
-		//二级联动
-		function findPosition(o){
-	      var deptId = document.getElementById("refDeptId").value;
-	      $.ajax({
-    	    type: 'post',
-    	    url: '/position/queryByDept',
-    	    data : JSON.stringify({"refDeptId":deptId}),
-    	    dataType : 'json',
-    		headers : {
-    			'Content-Type' : 'application/json'
-    		},
-    	    success: function (data) { //返回json结果
-    	    	if(data.resultCode === '000000'){
-   	    		 $("#refPosiId option").remove();
-   	  	         var posiList = data.dataMap.positions;
-   	  	         if(posiList!=null && posiList.length>0){
-   	  	        	var $option2 = $("<option>请选择</option>");
-	        		$("#refPosiId").append($option2);
-   	  	            for(var i=0;i<posiList.length;i++){
-   	  		            //添加到所属岗位的下拉菜单中
-   	  		            var $option = $("<option></option>");
-   	  		            $option.attr("value", posiList[i].id);
-   	  		            $option.text(posiList[i].posiName);
-   	  		            $("#refPosiId").append($option);
-   	  	            }
-   	  	         }
-   	    	   }
-    	    }
-	      });
-		}
 		//添加用户
 		$("#submitBtn").on('click',function(e){
 			e.preventDefault();
 			submitForm({
-				'formId' : 'addUserForm',
-				'url' : '/user/addUser'
+				'formId' : 'addDutyForm',
+				'url' : '/duty/add'
 			});
 		});
 	</script>

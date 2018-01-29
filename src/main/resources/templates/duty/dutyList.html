@@ -54,13 +54,13 @@
 											<label class="col-sm-1 control-label no-padding-right" for="posiId">岗位</label>
 											<div class="col-sm-2">
 												<select style="width: 80%;" id="posiId" name="posiId">
-												  	<option></option>
+													<option></option>
 												</select>
 											</div>
 											<label class="col-sm-1 control-label no-padding-right" for="userId">责任人</label>
 											<div class="col-sm-2">
 												<select style="width: 80%;" id="userId" name="userId">
-												  	<option></option>
+													<option></option>
 												</select>
 											</div>
 											<div class="col-sm-2 align-left">
@@ -76,6 +76,15 @@
 									<div style="font-size: 18px; font-weight: bold;">部门与岗位责任清单</div>
 									<div class="space-6"></div>
 									<table id="tfhover" class="tftable" border="1">
+										<tr>
+											<th>序号</th>
+											<th>部门名称</th>
+											<th>岗位名称</th>
+											<th>责任人</th>
+										</tr>
+										<tbody id="tableBody">
+
+										</tbody>
 									</table>
 								</div>
 							</div>
@@ -193,21 +202,42 @@
 		}
 	
 		function dataListRender(dataMap) {
-			var ht = "<tr><th>序号</th><th>部门名称</th><th>岗位名称</th><th>责任人</th></tr>";
+			var ht = "";
 			var dutyList = dataMap.dutyList;
 			if (dutyList && dutyList.length > 0) {
 				var indexNo = 1;
 				for (var i = 0; i < dutyList.length; i++) {
 					var duty = dutyList[i];
+					var posis=duty.posis;
+					if(posis && posis.length>0){
+						posis.forEach(function(value,index, posis) {
+							ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
+							if (0 === index) {
+								ht = ht + "<td rowspan='" +posis.length + "'><a href='#' style='text-decoration:none;'>" + duty.dept.deptName + "</a></td>";
+							}
+							ht = ht + "<td><a href='#' style='text-decoration:none;'>" + value.posiName + "</a></td>";
+							var user=duty.userMap[value.id];
+							if(!!user){
+							ht = ht + "<td>" + user.userName + "</td>";
+							}else{
+							ht = ht + "<td></td>";
+							}
+						});
+					}else{
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='/to/duty/detail?qId="+duty.deptId+"&name="+encodeURI(duty.deptName)+"&type="+encodeURI("DEPT")+"' style='text-decoration:none;'>" + duty.deptName + "</a></td>";
-					ht = ht + "<td><a href='/to/duty/detail?qId="+duty.posiId+"&name="+encodeURI(duty.posiName)+"&type="+encodeURI("POSI")+"' style='text-decoration:none;'>" + duty.posiName + "</a></td>";
-					ht = ht + "<td>" + duty.userName + "</td>";
+					ht = ht + "<td><a href='#' style='text-decoration:none;'>" + duty.dept.deptName + "</a></td>";
+					ht = ht + "<td></td>";
+					ht = ht + "<td></td>";
+					
+					}
+					
+//					ht = ht + "<td><a href='/to/duty/detail?qId="+duty.posiId+"&name="+encodeURI(duty.posiName)+"&type="+encodeURI("POSI")+"' style='text-decoration:none;'>" + duty.posiName + "</a></td>";
 				}
 			}else{
 				ht = ht + "<tr class='center'><td colspan='4'>未查询到相关记录</td></tr>";
 			}
-			$("#tfhover").html(ht);
+			$("#tableBody").html("");
+			$("#tableBody").append(ht);
 		}
 	</script>
 </body>

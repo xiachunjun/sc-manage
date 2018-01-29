@@ -69,6 +69,8 @@
 											<th>序号</th>
 											<th>用户登录名</th>
 											<th>用户姓名</th>
+											<!-- <th>部门</th>
+											<th>岗位</th> -->
 											<th>操作员</th>
 											<th>操作时间</th>
 											<th>操作</th>
@@ -155,7 +157,11 @@
 					ht = ht + "<td>" + user.userName + "</td>";
 					ht = ht + "<td>" + user.updateUser + "</td>";
 					ht = ht + "<td>" + formatDate(user.updateTime, true) + "</td>";
+					if(user.userLoginName=='admin'){
+						ht = ht + "<td itemid='" + user.id + "'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button></td>";
+					}else{
 					ht = ht + "<td itemid='" + user.id + "'><button onclick='detailItem(this)' class='btn btn-minier radius-2'>详情</button>&nbsp;&nbsp;<button onclick='updateItem(this)' class='btn btn-minier radius-2'>修改</button>&nbsp;&nbsp;<button onclick='deleteItem(this)' class='btn btn-minier radius-2'>删除</button></td>";
+					}
 				}
 			}else{
 				ht=ht+"<tr><td colspan='6'>未查到相关记录</td></tr>";

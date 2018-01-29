@@ -1,55 +1,41 @@
 package com.sc.model.response;
 
+import java.util.List;
+import java.util.Map;
+
+import com.sc.domain.DepartmentDomain;
+import com.sc.domain.PositionDomain;
+import com.sc.domain.UserDomain;
+
 public class DutyResult {
 
-	/**责任人*/
-	private Integer userId;
-	private String userName;
-	
-	/**部门*/
-	private Integer deptId;
-	private String deptName;
-	
-	/**岗位*/
-	private Integer posiId;
-	private String posiName;
-	
-	public Integer getUserId() {
-		return userId;
+	DepartmentDomain dept;
+	List<PositionDomain> posis;
+	// user中的key是posi的id
+	Map<String, UserDomain> userMap;
+
+	public DepartmentDomain getDept() {
+		return dept;
 	}
-	public String getUserName() {
-		return userName;
+
+	public void setDept(DepartmentDomain dept) {
+		this.dept = dept;
 	}
-	public Integer getDeptId() {
-		return deptId;
+
+	public List<PositionDomain> getPosis() {
+		return posis;
 	}
-	public String getDeptName() {
-		return deptName;
+
+	public void setPosis(List<PositionDomain> posis) {
+		this.posis = posis;
 	}
-	public Integer getPosiId() {
-		return posiId;
+
+	public Map<String, UserDomain> getUserMap() {
+		return userMap;
 	}
-	public String getPosiName() {
-		return posiName;
+
+	public void setUserMap(Map<String, UserDomain> userMap) {
+		this.userMap = userMap;
 	}
-	public void setUserId(Integer userId) {
-		this.userId = userId;
-	}
-	public void setUserName(String userName) {
-		this.userName = userName;
-	}
-	public void setDeptId(Integer deptId) {
-		this.deptId = deptId;
-	}
-	public void setDeptName(String deptName) {
-		this.deptName = deptName;
-	}
-	public void setPosiId(Integer posiId) {
-		this.posiId = posiId;
-	}
-	public void setPosiName(String posiName) {
-		this.posiName = posiName;
-	}
-	
-	
+
 }
