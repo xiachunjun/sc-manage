@@ -1,1 +1,3 @@
 CREATE DATABASE IF NOT EXISTS sc_manage DEFAULT CHARSET utf8 COLLATE utf8_bin;
+
+INSERT INTO `sc_users` (`user_login_name`, `user_login_pwd`, `user_id_card`, `user_name`, `user_nickname`, `data_state`, `data_version`, `create_user`, `update_user`, `create_time`, `update_time`) VALUES ('admin', 'b98eeb7ba7cc1b74e30c8aa7833176e9012c421f1aeb728f693bb56fc7d098942378027a2890f0ed', null, '管理员', null, '1', '1', 'SYS', 'SYS', now(), now());
