@@ -54,7 +54,7 @@
 								<div class="col-sm-12">
 									<div class="col-sm-offset-5" style="font-size: 18px; font-weight: bold;">个人月度计划完成情况</div>
 									<div class="space-6"></div>
-									<form id="addPlanForm" class="form-horizontal" role="form" onsubmit="return false;">
+									<form id="addPlanForm" class="form-horizontal" role="form" onsubmit="return false">
 										<input type="hidden" name="userName" value="${userInfo.userName!''}" /> <input
 											type="hidden" id="userId" name="userId" value="${userInfo.userId!''}" /> <input
 											type="hidden" id="deptId" name="deptId" value="${userInfo.deptId!''}" /> <input
@@ -95,11 +95,11 @@
 													<td><input class="full detailContent" type="text" name="detailContent" /></td>
 													<td>${userInfo.userName!''}</td>
 													<td>--</td>
-													<td><input name="beginTimeStr" class="date-picker full beginTimeStr"
-														readonly="readonly" type="text" data-date-format="yyyy-mm-dd" placeholder="开始时间" /></td>
+													<td><input name="beginTime" class="date-picker full beginTime" readonly="readonly"
+														type="text" data-date-format="yyyy-mm-dd" placeholder="开始时间" /></td>
 
-													<td><input name="endTimeStr" class="date-picker full endTimeStr"
-														readonly="readonly" type="text" data-date-format="yyyy-mm-dd" placeholder="结束时间" /></td>
+													<td><input name="endTime" class="date-picker full endTime" readonly="readonly"
+														type="text" data-date-format="yyyy-mm-dd" placeholder="结束时间" /></td>
 													<td class="btnTd" itemindex="1"><button onclick='' class='btn btn-minier radius-2'>删除</button></td>
 												</tr>
 											</tbody>
@@ -139,6 +139,10 @@
 		jQuery(function($) {
 			datePicker();
 			renderPlanDateList();
+			$("#submitBtn").on('click', function(e) {
+			e.preventDefault();
+				addPlan();
+			});
 		});
 	
 		function datePicker() {
@@ -148,9 +152,6 @@
 			})
 				.next().on(ace.click_event, function() {
 				$(this).prev().focus();
-			});
-			$("#submitBtn").on('click', function(e) {
-				addPlan();
 			});
 		}
 	
@@ -188,16 +189,16 @@
 				var planDetail = new Object();
 				var detailType = $(element).find(".detailType").val();
 				var detailContent = $(element).find(".detailContent").val();
-				var beginTimeStr = $(element).find(".beginTimeStr").val();
-				var endTimeStr = $(element).find(".endTimeStr").val();
-				if (!detailType || !detailContent || !beginTimeStr || !endTimeStr) {
+				var beginTime = $(element).find(".beginTime").val();
+				var endTime = $(element).find(".endTime").val();
+				if (!detailType || !detailContent || !beginTime || !endTime) {
 					hasError = true;
 					return;
 				}
 				planDetail.detailType = detailType;
 				planDetail.detailContent = detailContent;
-				planDetail.beginTimeStr = beginTimeStr;
-				planDetail.endTimeStr = endTimeStr;
+				planDetail.beginTime = beginTime;
+				planDetail.endTime = endTime;
 				planDetails.push(planDetail);
 			});
 			data.planDetails = planDetails;
@@ -253,10 +254,10 @@
 	<td><input class="full detailContent" type="text" name="detailContent" /></td>
 	<td>${userInfo.userName!''}</td>
 	<td>--</td>
-	<td><input name="beginTimeStr" class="date-picker full beginTimeStr" readonly="readonly"
+	<td><input name="beginTime" class="date-picker full beginTime" readonly="readonly"
 	type="text" data-date-format="yyyy-mm-dd" placeholder="开始时间" /></td>
 
-	<td><input name="endTimeStr" class="date-picker full endTimeStr" readonly="readonly"
+	<td><input name="endTime" class="date-picker full endTime" readonly="readonly"
 	type="text" data-date-format="yyyy-mm-dd" placeholder="结束时间" /></td>
 	<td><button onclick='delRow(this)' class='btn btn-minier radius-2'>删除</button></td>
 </tr>

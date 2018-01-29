@@ -80,9 +80,11 @@ public class PlanServiceImpl implements IPlanService {
 			List<PlanDetailDomain> detailList = new ArrayList<PlanDetailDomain>();
 			for (PlanDetailModel planDetailModel : planDetailList) {
 				PlanDetailDomain planDetailDO = new PlanDetailDomain();
-				planDetailDO.setRefPlanId(planDetailModel.getId());
+				planDetailDO.setRefPlanId(planDomain.getId());
 				planDetailDO.setBeginTime(planDetailModel.getBeginTime());
 				planDetailDO.setEndTime(planDetailModel.getEndTime());
+				planDetailDO.setDetailType(planDetailModel.getDetailType());
+				planDetailDO.setDetailContent(planDetailModel.getDetailContent());
 				planDetailDO.setId(null);
 				planDetailDO.setDataState(1);
 				planDetailDO.setDataVersion(1);
