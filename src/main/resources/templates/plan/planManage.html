@@ -8,7 +8,6 @@
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 <#include "/common/parts/common-css.html"/>
-<link rel="stylesheet" href="/static/assets/css/bootstrap-datepicker3.min.css" />
 
 </head>
 <body class="no-skin">
@@ -31,7 +30,7 @@
 							</div>
 							<div class="col-sm-6 text-right" style="padding-right: 20px;">
 								<button class="btn btn-white radius-4" onclick="window.location.href='/plan/addPlan'">新建</button>
-								<button class="btn btn-white radius-4" onclick="window.location.href='/plan/planList'">返回</button>
+								<button class="btn btn-white radius-4" onclick="window.location.href='/page/plan/planList'">返回</button>
 							</div>
 						</div>
 					</div>
@@ -64,8 +63,9 @@
 																			<div class="space-6"></div>
 																			<div class="col-sm-12 center">
 																				<div class="space-6"></div>
-																				<form id="needTodoForm" class="form-horizontal" role="form"
+																				<form id="queryForm1" class="form-horizontal" role="form"
 																					onsubmit="return false;">
+																					<input type="hidden" name="tab" value="1" />
 																					<div class="form-group">
 																						<label class="col-sm-1 control-label no-padding-right" for="deptId">部门</label>
 																						<div class="col-sm-2">
@@ -95,7 +95,7 @@
 
 																						<div class="col-sm-1 align-left">
 																							<button class="btn btn-white radius-4" style="padding: 4px 12px;"
-																								onclick="queryData()">查询</button>
+																								onclick="load(1)">查询</button>
 																						</div>
 																					</div>
 																				</form>
@@ -115,7 +115,7 @@
 																						<th>进度节点</th>
 																						<th>申请时间</th>
 																					</tr>
-
+																					<tbody id="tableBody1"></tbody>
 																				</table>
 																			</div>
 																		</div>
@@ -274,12 +274,8 @@
 		<#include "/common/parts/footer.html"/>
 	</div>
 	<#include "/common/parts/common-js.html"/>
-	<script src="/static/assets/js/bootstrap-datepicker.min.js"></script>
-	<script src="/static/assets/js/markdown.min.js"></script>
-	<script src="/static/assets/js/bootstrap-markdown.min.js"></script>
-	<script src="/static/assets/js/jquery.hotkeys.index.min.js"></script>
-	<script src="/static/assets/js/bootstrap-wysiwyg.min.js"></script>
-	<script src="/static/assets/js/bootbox.js"></script>
+	<#include "/common/parts/submit-form-js.html"/>
+
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script src="/static/assets/js/sc-date.js"></script>
 	<script type="text/javascript">
@@ -292,14 +288,9 @@
 					console.log("error uploading file", reason, detail);
 				}
 			}
-			$('.date-picker').datepicker({
-				autoclose : true,
-				todayHighlight : true
-			})
-				.next().on(ace.click_event, function() {
-				$(this).prev().focus();
-			});
 			renderPlanDateList();
+			renderUser();
+			load(1);
 		});
 		function renderPlanDateList() {
 			var planDateList = dateList({
@@ -314,30 +305,44 @@
 			$("#planDate3").html(ht);
 		}
 	
-		function dataListRender(dataMap) {
-			var ht = "<tr><th>序号</th><th>日期</th><th>标题</th><th>联系人</th><th>签发人</th><th>操作</th></tr>";
-			var deptDutyList = dataMap.deptDutyList;
-			if (deptDutyList && deptDutyList.length > 0) {
-				var indexNo = 1;
-				for (var i = 0; i < deptDutyList.length; i++) {
-					var deptDutyLevel1 = deptDutyList[i];
-					var deptDutyLevel2 = deptDutyLevel1.two;
-					if (deptDutyLevel2 && deptDutyLevel2.length > 0) {
-						deptDutyLevel2.forEach(function(value, index, deptDutyLevel2) {
-							ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-							if (0 === index) {
-								ht = ht + "<td rowspan='" + deptDutyLevel2.length + "'>" + deptDutyLevel1.one + "</td>";
-							}
-							ht = ht + "<td>" + value + "</td>";
-						});
-					} else {
-						ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-						ht = ht + "<td>" + deptDutyLevel1.one + "</td>";
-						ht = ht + "<td>&nbsp;</td>";
-					}
-				}
+		var load = function(tab) {
+			var formId = 'queryForm1';
+			if (1 == tab) {
+				formId = 'queryForm1';
+			} else if (2 == tab) {
+				formId = 'queryForm2';
+			} else if (3 == tab) {
+				formId = 'queryForm3';
 			}
-			$("#tfhover").html(ht);
+			submitForm({
+				'formId' : formId,
+				'url' : '/plan/queryByTab',
+				'catchError' : true,
+				'callBack' : dataListRender
+			});
+		}
+	
+		function dataListRender(rsp) {
+			var ht = "";
+			var planList = rsp.dataMap.planList;
+			if (planList && planList.length > 0) {
+				var indexNo = 1;
+				for (var i = 0; i < planList.length; i++) {
+					var plan = planList[i];
+					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
+					ht = ht + "<td>" + formatDate2(plan.planDate, true) + "</td>";
+					ht = ht + "<td>" + plan.deptName + "</td>";
+					ht = ht + "<td>" + plan.posiName + "</td>";
+					ht = ht + "<td>" + plan.userName + "</td>";
+					ht = ht + "<td>" + plan.rateOfProgress + "</td>";
+					ht = ht + "<td>" + plan.progressInfo + "</td>";
+					ht = ht + "<td>" + "审核时间" + "</td>";
+				}
+			} else {
+				ht = ht + "<tr><td colspan='8'>未查到相关记录</td></tr>";
+			}
+			$("#tableBody1").html("");
+			$("#tableBody1").append(ht);
 		}
 	
 		function renderUser() {
@@ -372,7 +377,6 @@
 				}
 			});
 		}
-		renderUser();
 	</script>
 </body>
 </html>

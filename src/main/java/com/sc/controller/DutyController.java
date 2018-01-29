@@ -37,7 +37,7 @@ public class DutyController {
 	 * 新增责任清单
 	 */
 	@RequestMapping(value = "/duty/add", method = { RequestMethod.POST })
-	public DataResponse saveDuty(@RequestBody @Valid DutySaveModel dutySaveModel) {
+	public DataResponse saveDuty(@RequestBody DutySaveModel dutySaveModel) {
 		DataResponse dr = null;
 		try {
 			dutyService.saveDuty(dutySaveModel);
