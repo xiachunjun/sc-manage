@@ -1,6 +1,7 @@
 package com.sc.service.impl;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,13 +23,13 @@ import com.sc.domain.DepartmentDomain;
 import com.sc.domain.DutyDomain;
 import com.sc.domain.PositionDomain;
 import com.sc.domain.UserDomain;
-import com.sc.domain.UserPosiRelDomain;
 import com.sc.model.request.DutySaveModel;
 import com.sc.model.request.QueryDeptPosiDutyModel;
 import com.sc.model.request.QueryDutyModel;
 import com.sc.model.request.UpdateDutyModel;
 import com.sc.model.response.DutyResult;
 import com.sc.service.IDutyService;
+import com.sc.support.UserContext;
 
 @Service
 public class DutyServiceImpl implements IDutyService {
@@ -50,16 +51,22 @@ public class DutyServiceImpl implements IDutyService {
 	public void saveDuty(DutySaveModel dutySaveModel) {
 		DutyDomain record = new DutyDomain();
 		BeanUtils.copyProperties(dutySaveModel, record);
-		// TODO 其他字段 和 处理一二级职责？？？
+		record.setId(null);
+		record.setDataState(1);
+		record.setDataVersion(0);
+		record.setCreateUser(UserContext.getLoginName());
+		record.setUpdateUser(record.getCreateUser());
+		record.setCreateTime(new Date());
+		record.setUpdateTime(record.getCreateTime());
 		int flag = dutyMapper.insertSelective(record);
 		if (flag != 1) {
 			throw new ScException("保存责任清单出错");
 		} else {
-			// TODO 修改
-			UserPosiRelDomain record2 = new UserPosiRelDomain();
-			record2.setRefUserId(dutySaveModel.getRefUserId());
-			record2.setRefPosiId(dutySaveModel.getRefPosiId());
-			userPosiRelMapper.insertSelective(record2);
+//			// TODO 修改
+//			UserPosiRelDomain record2 = new UserPosiRelDomain();
+//			record2.setRefUserId(dutySaveModel.getRefUserId());
+//			record2.setRefPosiId(dutySaveModel.getRefPosiId());
+//			userPosiRelMapper.insertSelective(record2);
 		}
 	}
 
@@ -133,6 +140,29 @@ public class DutyServiceImpl implements IDutyService {
 		}
 		return allList;
 	}
+	
+	
+	@Override
+	public List<DutyDomain> queryByTypeAndLevel(QueryDeptPosiDutyModel queryDeptPosiDutyModel) {
+		List<DutyDomain> list = null;
+		DutyDomain record = new DutyDomain();
+		if (StringUtils.equals(CommonConstant.DEPT, queryDeptPosiDutyModel.getType())) {
+			record.setRefDeptId(queryDeptPosiDutyModel.getqId());
+			record.setDataState(1);
+			record.setDutyType(queryDeptPosiDutyModel.getType());
+			record.setDutyLevel(String.valueOf(queryDeptPosiDutyModel.getDutyLevel()));
+			list = dutyMapper.select(record);
+		} else if (StringUtils.equals(CommonConstant.POSI, queryDeptPosiDutyModel.getType())) {
+			record.setRefPosiId(queryDeptPosiDutyModel.getqId());
+			record.setDataState(1);
+			record.setDutyType(queryDeptPosiDutyModel.getType());
+			record.setDutyLevel(String.valueOf(queryDeptPosiDutyModel.getDutyLevel()));
+			list = dutyMapper.select(record);
+		}
+		
+		
+		return list;
+	}
 
 	@Transactional
 	@Override
@@ -180,5 +210,7 @@ public class DutyServiceImpl implements IDutyService {
 		}
 		return null;
 	}
+
+	
 
 }
