@@ -2,32 +2,23 @@ package com.sc.model.response;
 
 import java.util.Date;
 
-public class PlanDetailResult {
+public class PlanResult {
 
 	private Integer id;
 	
 	private Integer refPlanId;
 
-    /**工作类型 : 1常规，2计划外，3重点 */
-    private Integer detailType;
-    private String detailTypeName;
-    
-    /**计划内容*/
-    private String detailContent;
-
-    /**开始时间*/
-    private Date beginTime;
-    
-    /** 结束时间 */
-    private Date endTime;
-	
     private String deptName;
     private String userName;
     private String userLoginName;
 
     private Integer planMainUser;
+    
     private String updateUser;
+    
     private String rateOfProgress;
+    private String rateOfProgressName;
+    
     private String progressInfo;
     
     private Date planDate;
@@ -39,22 +30,6 @@ public class PlanDetailResult {
 
 	public Integer getRefPlanId() {
 		return refPlanId;
-	}
-
-	public Integer getDetailType() {
-		return detailType;
-	}
-
-	public String getDetailContent() {
-		return detailContent;
-	}
-
-	public Date getBeginTime() {
-		return beginTime;
-	}
-
-	public Date getEndTime() {
-		return endTime;
 	}
 
 	public String getUserName() {
@@ -71,22 +46,6 @@ public class PlanDetailResult {
 
 	public void setRefPlanId(Integer refPlanId) {
 		this.refPlanId = refPlanId;
-	}
-
-	public void setDetailType(Integer detailType) {
-		this.detailType = detailType;
-	}
-
-	public void setDetailContent(String detailContent) {
-		this.detailContent = detailContent;
-	}
-
-	public void setBeginTime(Date beginTime) {
-		this.beginTime = beginTime;
-	}
-
-	public void setEndTime(Date endTime) {
-		this.endTime = endTime;
 	}
 
 	public void setUserName(String userName) {
@@ -153,12 +112,12 @@ public class PlanDetailResult {
 		this.posiName = posiName;
 	}
 
-	public String getDetailTypeName() {
-		return detailTypeName;
+	public String getRateOfProgressName() {
+		return rateOfProgressName;
 	}
 
-	public void setDetailTypeName(String detailTypeName) {
-		this.detailTypeName = detailTypeName;
+	public void setRateOfProgressName(String rateOfProgressName) {
+		this.rateOfProgressName = rateOfProgressName;
 	}
     
 	

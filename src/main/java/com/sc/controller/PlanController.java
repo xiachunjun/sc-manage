@@ -18,6 +18,7 @@ import com.sc.model.request.AddPlanModel;
 import com.sc.model.request.PlanDetailModel;
 import com.sc.model.request.QueryPlanModel;
 import com.sc.model.response.PlanDetailResult;
+import com.sc.model.response.PlanResult;
 import com.sc.service.IPlanService;
 import com.sc.support.ValidatedGroup1;
 import com.sc.support.ValidatedGroup2;
@@ -142,7 +143,7 @@ public class PlanController {
 	public DataResponse queryByTab(@RequestBody  @Validated(value={ValidatedGroup2.class}) QueryPlanModel planModel) {
 		DataResponse dr = null;
 		try {
-			List<PlanDetailResult> list = planService.queryPlanByTab(planModel);
+			List<PlanResult> list = planService.queryPlanByTab(planModel);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.put("planList", list);
 		} catch (ScException e) {

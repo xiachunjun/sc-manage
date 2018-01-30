@@ -6,6 +6,7 @@ import com.sc.model.request.AddPlanModel;
 import com.sc.model.request.PlanDetailModel;
 import com.sc.model.request.QueryPlanModel;
 import com.sc.model.response.PlanDetailResult;
+import com.sc.model.response.PlanResult;
 
 public interface IPlanService {
 
@@ -48,7 +49,7 @@ public interface IPlanService {
 	 * @param planModel
 	 * @return
 	 */
-	List<PlanDetailResult> queryPlanByTab(QueryPlanModel planModel);
+	List<PlanResult> queryPlanByTab(QueryPlanModel planModel);
 
 	
 	

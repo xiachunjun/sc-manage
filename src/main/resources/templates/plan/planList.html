@@ -77,9 +77,9 @@
 											<div class="col-sm-1">
 												<select style="width: 100%;" id="rateOfProgress" name="rateOfProgress">
 												    <option value=""></option>
-													<option value="0">完成</option>
-													<option value="1">未完成</option>
-													<option value="2">部分完成</option>
+													<option value="完成">完成</option>
+													<option value="未完成">未完成</option>
+													<option value="部分完成">部分完成</option>
 												</select>
 											</div>
 											<label class="col-sm-1 control-label no-padding-right" for="refUserId">责任人</label>
@@ -209,7 +209,7 @@
 					var plan = planList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
 					ht = ht + "<td>" + plan.deptName + "</td>";
-					ht = ht + "<td>" + plan.detailType + "</td>";
+					ht = ht + "<td>" + plan.detailTypeName + "</td>";
 					ht = ht + "<td>" + plan.detailContent + "</td>";
 					ht = ht + "<td>" + plan.userName + "</td>";
 					ht = ht + "<td>" + plan.userName + "</td>";

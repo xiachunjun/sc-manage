@@ -24,6 +24,7 @@ import com.sc.model.request.AddPlanModel;
 import com.sc.model.request.PlanDetailModel;
 import com.sc.model.request.QueryPlanModel;
 import com.sc.model.response.PlanDetailResult;
+import com.sc.model.response.PlanResult;
 import com.sc.model.response.UserInfoResult;
 import com.sc.service.IPlanService;
 import com.sc.support.AuthUser;
@@ -211,12 +212,21 @@ public class PlanServiceImpl implements IPlanService {
 			sbf.append(" and b.ref_user_id="+queryPlanModel.getRefUserId());
 		}
 		List<PlanDetailResult> detailList = planDetailMapper.queryPlanDetailList(sbf.toString());
+		if(!CollectionUtils.isEmpty(detailList)){
+			for (PlanDetailResult detail : detailList) {
+				switch(detail.getDetailType()){
+					case 1 :  detail.setDetailTypeName("常规");  break;
+					case 2 :  detail.setDetailTypeName("计划外");  break;
+					case 3 :  detail.setDetailTypeName("重点");  break;
+				}
+			}
+		}
 		return detailList;
 	}
 	
 	
 	@Override
-	public List<PlanDetailResult> queryPlanByTab(QueryPlanModel queryPlanModel) {
+	public List<PlanResult> queryPlanByTab(QueryPlanModel queryPlanModel) {
 		AuthUser authUser = UserContext.getAuthUser();
 		if(null == authUser || null == authUser.getId()){
 			throw new ScException("对不起，请先登录");
@@ -252,7 +262,19 @@ public class PlanServiceImpl implements IPlanService {
 		} else if (queryPlanModel.getTab() == 3) { // 3我的计划
 			sbf.append(" and b.ref_user_id="+authUser.getId());
 		}
-		return planDetailMapper.queryPlanDetailList(sbf.toString());
+		List<PlanResult> planList = planMapper.queryPlanList(sbf.toString());
+		if(!CollectionUtils.isEmpty(planList)){
+			for (PlanResult plan : planList) {
+				switch(plan.getRateOfProgress()){
+					case "1" :  plan.setRateOfProgressName("新建");;  break;
+					case "2" :  plan.setRateOfProgressName("部门领导确认");  break;
+					case "3" :  plan.setRateOfProgressName("责任人执行");  break;
+					case "4" :  plan.setRateOfProgressName("部门领导审批");  break;
+					case "5" :  plan.setRateOfProgressName("完成");  break;
+				}
+			}
+		}
+		return planList;
 	}
 	
 	
