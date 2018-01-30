@@ -5,6 +5,7 @@
 	} catch (e) {}
 </script>
 	<ul class="nav nav-list">
+	<#if userName!='管理员'>
 		<li id="00000001" class="center"><a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">责任晒板</span>
 		</a>
 			<ul class="submenu">
@@ -28,7 +29,7 @@
 				<li id="00000013" parent-menu-code="00000011"  class=""><a href="#"> 部门监管数据 </a></li>
 				<li id="00000014" parent-menu-code="00000011"  class=""><a href="#"> 数据填报 </a></li>
 			</ul></li>
-			
+			</#if>
 			<#if userName=='管理员'>
 			<li id="00000015" class="center"><a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">系统管理</span>
 		</a>
