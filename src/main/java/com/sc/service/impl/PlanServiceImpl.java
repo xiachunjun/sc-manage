@@ -70,6 +70,7 @@ public class PlanServiceImpl implements IPlanService {
 		planDomain.setPlanMainUser(userInfo.getUserId());  //执行人
 		planDomain.setCheckUser(deptHeaderUser.getId());   //审核人
 		planDomain.setRateOfProgress("1");  //新建计划这一步
+		planDomain.setProgressInfo("未完成");
 		planDomain.setId(null);
 		planDomain.setDataState(1);  //进度（审核）状态：0-失效；1-初始；2-待领导审批；3-领导审核通过待执行人执行；4-领导审核不通过；5-执行人执行完成
 		planDomain.setDataVersion(1);
