@@ -88,9 +88,9 @@
 												<tr class="planDetail" id="planDetail1">
 													<!-- <td id=itemNUm>1</td> -->
 													<td><select class="full detailType" name="detailType">
-															<option value="0">常规</option>
-															<option value="1">计划外</option>
-															<option value="2">重点</option>
+															<option value="1">常规</option>
+															<option value="2">计划外</option>
+															<option value="3">重点</option>
 													</select></td>
 													<td><input class="full detailContent" type="text" name="detailContent" /></td>
 													<td>${userInfo.userName!''}</td>
@@ -246,11 +246,13 @@
 	<script type="text/html" id="tmpl">
 		<tr class="planDetail">
 		<!--<td class="index"></td>-->
-	<td><select class="full detailType" name="detailType">
-			<option value="0">常规</option>
-			<option value="1">计划外</option>
-			<option value="2">重点q</option>
-		</select></td>
+			<td>
+				<select class="full detailType" name="detailType">
+					<option value="1">常规</option>
+					<option value="2">计划外</option>
+					<option value="3">重点</option>
+				</select>
+			</td>
 	<td><input class="full detailContent" type="text" name="detailContent" /></td>
 	<td>${userInfo.userName!''}</td>
 	<td>--</td>

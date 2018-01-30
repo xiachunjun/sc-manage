@@ -20,7 +20,7 @@ public class QueryPlanModel {
 	private String planDateStr;
 	
 	/**责任人ID*/
-	private String refUserId;
+	private Integer refUserId;
 	
 	/**计划完成度*/
 	private String rateOfProgress;
@@ -55,7 +55,7 @@ public class QueryPlanModel {
 	}
 
 
-	public String getRefUserId() {
+	public Integer getRefUserId() {
 		return refUserId;
 	}
 
@@ -95,7 +95,7 @@ public class QueryPlanModel {
 	}
 
 
-	public void setRefUserId(String refUserId) {
+	public void setRefUserId(Integer refUserId) {
 		this.refUserId = refUserId;
 	}
 

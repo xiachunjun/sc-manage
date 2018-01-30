@@ -67,23 +67,24 @@
 																					onsubmit="return false;">
 																					<input type="hidden" name="tab" value="1" />
 																					<div class="form-group">
-																						<label class="col-sm-1 control-label no-padding-right" for="deptId">部门</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="refDeptId">部门</label>
 																						<div class="col-sm-2">
-																							<select style="width: 100%;" id="deptId" name="deptId">
+																							<select style="width: 100%;" id="refDeptId1" name="refDeptId">
 																								<option value="${userInfo.deptId!''}">${userInfo.deptName!''}</option>
 																							</select>
 																						</div>
-																						<label class="col-sm-1 control-label no-padding-right" for="refUser">责任人</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="refUserId">责任人</label>
 																						<div class="col-sm-1">
-																							<select style="width: 100%;" id="refUser1" name="refUser">
+																							<select style="width: 100%;" id="refUser1" name="refUserId">
 																							</select>
 																						</div>
-																						<label class="col-sm-1 control-label no-padding-right" for="planType">进度节点</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="rateOfProgress">进度节点</label>
 																						<div class="col-sm-2">
-																							<select style="width: 100%;" id="planType1" name="planType">
-																								<option value="0">部门领导确认</option>
-																								<option value="1">责任人执行</option>
-																								<option value="2">部门领导审批</option>
+																							<select style="width: 100%;" id="rateOfProgress1" name="rateOfProgress">
+																								<option value=""></option>
+																								<option value="2">部门领导确认</option>
+																								<option value="3">责任人执行</option>
+																								<option value="4">部门领导审批</option>
 																							</select>
 																						</div>
 																						<label class="col-sm-1 control-label no-padding-right" for="planDate">计划年月</label>
@@ -132,26 +133,28 @@
 																				<div class="space-6"></div>
 																				<div class="col-sm-12 center">
 																					<div class="space-6"></div>
-																					<form id="doingForm" class="form-horizontal" role="form"
+																					<form id="queryForm2" class="form-horizontal" role="form"
 																						onsubmit="return false;">
+																						<input type="hidden" name="tab" value="2" />
 																						<div class="form-group">
-																							<label class="col-sm-1 control-label no-padding-right" for="deptCode">部门</label>
+																							<label class="col-sm-1 control-label no-padding-right" for="refDeptId">部门</label>
 																							<div class="col-sm-2">
-																								<select style="width: 100%;" id="deptCode2" name="deptCode">
+																								<select style="width: 100%;" id="refDeptId2" name="refDeptId">
 																									<option value="${userInfo.deptId!''}">${userInfo.deptName!''}</option>
 																								</select>
 																							</div>
-																							<label class="col-sm-1 control-label no-padding-right" for="refUser">责任人</label>
+																							<label class="col-sm-1 control-label no-padding-right" for="refUserId">责任人</label>
 																							<div class="col-sm-1">
-																								<select style="width: 100%;" id="refUser2" name="refUser">
+																								<select style="width: 100%;" id="refUser2" name="refUserId">
 																								</select>
 																							</div>
-																							<label class="col-sm-1 control-label no-padding-right" for="planType">进度节点</label>
+																							<label class="col-sm-1 control-label no-padding-right" for="rateOfProgress">进度节点</label>
 																							<div class="col-sm-2">
-																								<select style="width: 100%;" id="planType2" name="planType">
-																									<option value="0">部门领导确认</option>
-																									<option value="1">责任人执行</option>
-																									<option value="2">部门领导审批</option>
+																								<select style="width: 100%;" id="rateOfProgress2" name="rateOfProgress">
+																									<option value=""></option>
+																									<option value="2">部门领导确认</option>
+																									<option value="3">责任人执行</option>
+																									<option value="4">部门领导审批</option>
 																								</select>
 																							</div>
 																							<label class="col-sm-1 control-label no-padding-right" for="planDate">计划年月</label>
@@ -162,7 +165,7 @@
 
 																							<div class="col-sm-1 align-left">
 																								<button class="btn btn-white radius-4" style="padding: 4px 12px;"
-																									onclick="queryData()">查询</button>
+																									onclick="load(2)">查询</button>
 																							</div>
 																						</div>
 																					</form>
@@ -182,7 +185,7 @@
 																							<th>进度节点</th>
 																							<th>审批时间</th>
 																						</tr>
-
+																						<tbody id="tableBody2"></tbody>
 																					</table>
 																				</div>
 																			</div>
@@ -199,26 +202,29 @@
 																			<div class="space-6"></div>
 																			<div class="col-sm-12 center">
 																				<div class="space-6"></div>
-																				<form id="finishedForm" class="form-horizontal" role="form"
+																				<form id="queryForm3" class="form-horizontal" role="form"
 																					onsubmit="return false;">
+																					<input type="hidden" name="tab" value="3" />
 																					<div class="form-group">
-																						<label class="col-sm-1 control-label no-padding-right" for="deptCode">部门</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="refDeptId">部门</label>
 																						<div class="col-sm-2">
-																							<select style="width: 100%;" id="deptCode" name="deptCode">
+																							<select style="width: 100%;" id="refDeptId3" name="refDeptId">
 																								<option value="${userInfo.deptId!''}">${userInfo.deptName!''}</option>
 																							</select>
 																						</div>
-																						<label class="col-sm-1 control-label no-padding-right" for="refUser">责任人</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="refUserId">责任人</label>
 																						<div class="col-sm-1">
-																							<select style="width: 100%;" id="refUser3" name="refUser">
+																							<select style="width: 100%;" id="refUser3" name="refUserId">
+																								<option value="${userInfo.userId!''}">${userInfo.userName!''}</option>
 																							</select>
 																						</div>
-																						<label class="col-sm-1 control-label no-padding-right" for="planType">进度节点</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="rateOfProgress">进度节点</label>
 																						<div class="col-sm-2">
-																							<select style="width: 100%;" id="planTyp3" name="planType">
-																								<option value="0">部门领导确认</option>
-																								<option value="1">责任人执行</option>
-																								<option value="2">部门领导审批</option>
+																							<select style="width: 100%;" id="rateOfProgress3" name="rateOfProgress">
+																								<option value=""></option>
+																								<option value="2">部门领导确认</option>
+																								<option value="3">责任人执行</option>
+																								<option value="4">部门领导审批</option>
 																							</select>
 																						</div>
 																						<label class="col-sm-1 control-label no-padding-right" for="planDate">计划年月</label>
@@ -229,7 +235,7 @@
 
 																						<div class="col-sm-1 align-left">
 																							<button class="btn btn-white radius-4" style="padding: 4px 12px;"
-																								onclick="queryData()">查询</button>
+																								onclick="load(3)">查询</button>
 																						</div>
 																					</div>
 																				</form>
@@ -249,7 +255,7 @@
 																						<th>进度节点</th>
 																						<th>完成时间</th>
 																					</tr>
-
+																					<tbody id="tableBody3"></tbody>
 																				</table>
 																			</div>
 																		</div>
@@ -290,6 +296,7 @@
 			}
 			renderPlanDateList();
 			renderUser();
+			renderDept();
 			load(1);
 		});
 		function renderPlanDateList() {
@@ -343,6 +350,10 @@
 			}
 			$("#tableBody1").html("");
 			$("#tableBody1").append(ht);
+			$("#tableBody2").html("");
+			$("#tableBody2").append(ht);
+			$("#tableBody3").html("");
+			$("#tableBody3").append(ht);
 		}
 	
 		function renderUser() {
@@ -357,7 +368,7 @@
 					var resultCode = data.resultCode;
 					var dataMap = data.dataMap;
 					if (resultCode == '000000' & dataMap != null) {
-						var ht = "";
+						var ht = "<option value=''></option>";
 						var userList = dataMap.userList;
 						if (userList && userList.length > 0) {
 							for (i = 0; i < userList.length; i++) {
@@ -365,7 +376,40 @@
 							}
 							$("#refUser1").html(ht);
 							$("#refUser2").html(ht);
-							$("#refUser3").html(ht);
+							//$("#refUser3").html(ht);
+						}
+					} else {
+						alert("获取信息异常-" + JSON.stringify(data));
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取信息异常-" + JSON.stringify(data));
+				}
+			});
+		}
+		
+		function renderDept() {
+			$.ajax({
+				type : 'POST',
+				url : '/dept/queryDeptList',
+				data : JSON.stringify({}),
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						var ht = "<option value=''></option>";
+						var deptList = dataMap.depts;
+						if (deptList && deptList.length > 0) {
+							for (i = 0; i < deptList.length; i++) {
+								ht = ht + "<option value='" + deptList[i].id + "'>" + deptList[i].deptName + "</option>";
+							}
+							$("#refDeptId1").html(ht);
+							$("#refDeptId2").html(ht);
+							//$("#refDeptId3").html(ht);
 						}
 					} else {
 						alert("获取信息异常-" + JSON.stringify(data));

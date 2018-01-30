@@ -34,6 +34,10 @@ public class DateUtil {
 		return new SimpleDateFormat("yyyy-MM-dd").format(date);
 	}
 	
+	public static String date2Str3(Date date){
+		return new SimpleDateFormat("yyyy-MM").format(date);
+	}
+	
 	/**生成一连串字符串*/
 	public static String generateStr(Date date){
 		return new SimpleDateFormat("yyyyMMddhhmmssSSSS").format(date);

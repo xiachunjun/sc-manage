@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import com.sc.common.constant.ScException;
+import com.sc.common.util.DateUtil;
 import com.sc.dao.PlanDetailMapper;
 import com.sc.dao.PlanMapper;
 import com.sc.dao.UserMapper;
@@ -67,8 +68,9 @@ public class PlanServiceImpl implements IPlanService {
 		planDomain.setRefPosiId(userInfo.getPosiId());
 		planDomain.setPlanMainUser(userInfo.getUserId());  //执行人
 		planDomain.setCheckUser(deptHeaderUser.getId());   //审核人
+		planDomain.setRateOfProgress("1");  //新建计划这一步
 		planDomain.setId(null);
-		planDomain.setDataState(2);  // 审核状态：0-失效；1-初始；2-待领导审批；3-领导审核通过待执行人执行；4-领导审核不通过；5-执行人执行完成
+		planDomain.setDataState(1);  //进度（审核）状态：0-失效；1-初始；2-待领导审批；3-领导审核通过待执行人执行；4-领导审核不通过；5-执行人执行完成
 		planDomain.setDataVersion(1);
 		planDomain.setCreateUser(UserContext.getLoginName());
 		planDomain.setUpdateUser(planDomain.getCreateUser());
@@ -191,9 +193,10 @@ public class PlanServiceImpl implements IPlanService {
 	@Override
 	public List<PlanDetailResult> queryPlanList(QueryPlanModel queryPlanModel) {
 		StringBuffer sbf = new StringBuffer();
-		sbf.append(" a.data_state=1 ");
-		if(StringUtils.isNoneBlank(queryPlanModel.getPlanDateStr())){
-			sbf.append(" and date_format(b.plan_date,'%Y-%m')='"+queryPlanModel.getPlanDateStr()+"'");
+		sbf.append(" 1=1 ");
+		if(queryPlanModel.getPlanDate() != null){
+			String date2Str3 = DateUtil.date2Str3(queryPlanModel.getPlanDate());
+			sbf.append(" and date_format(b.plan_date,'%Y-%m')='"+date2Str3+"'");
 		}
 		if(null != queryPlanModel.getDetailType()){
 			sbf.append(" and a.detail_type="+queryPlanModel.getDetailType());
@@ -218,30 +221,34 @@ public class PlanServiceImpl implements IPlanService {
 		if(null == authUser || null == authUser.getId()){
 			throw new ScException("对不起，请先登录");
 		}
+		if(queryPlanModel != null && queryPlanModel.getTab() == null){
+			queryPlanModel.setTab(1); // 默认是查询待办计划
+		}
 		if (null == queryPlanModel) {
 			queryPlanModel = new QueryPlanModel();
 			queryPlanModel.setTab(1); // 默认是查询待办计划
 		}
 		// 封装请求条件
 		StringBuffer sbf = new StringBuffer();
-		sbf.append(" a.data_state=1 ");
+		sbf.append(" 1=1 ");
 		if(null != queryPlanModel.getRefDeptId()){
 			sbf.append(" and b.ref_dept_id="+queryPlanModel.getRefDeptId());
 		}
 		if(null != queryPlanModel.getRefUserId()){
 			sbf.append(" and b.ref_user_id="+queryPlanModel.getRefUserId());
 		}
-		if(null != queryPlanModel.getDataState()){
-			sbf.append(" and b.data_state="+queryPlanModel.getDataState());
+		if(StringUtils.isNoneBlank(queryPlanModel.getRateOfProgress())){
+			sbf.append(" and b.rate_of_progress='"+queryPlanModel.getRateOfProgress()+"'");
 		}
-		if(StringUtils.isNoneBlank(queryPlanModel.getPlanDateStr())){
-			sbf.append(" and date_format(b.plan_date,'%Y-%m')='"+queryPlanModel.getPlanDateStr()+"'");
+		if(queryPlanModel.getPlanDate() != null){
+			String date2Str3 = DateUtil.date2Str3(queryPlanModel.getPlanDate());
+			sbf.append(" and date_format(b.plan_date,'%Y-%m')='"+date2Str3+"'");
 		}
 		// 判断查询的是哪个tab
 		if (queryPlanModel.getTab() == 1) { // 1待办计划
-			sbf.append(" and b.data_state >= 2");
+			sbf.append(" and b.data_state in (1,2,3)");
 		} else if (queryPlanModel.getTab() == 2) { // 2在办计划
-			sbf.append(" and (b.data_state == 2 or b.data_state == 3 or b.data_state == 4)");
+			sbf.append(" and b.data_state in (2,3,4)");
 		} else if (queryPlanModel.getTab() == 3) { // 3我的计划
 			sbf.append(" and b.ref_user_id="+authUser.getId());
 		}
