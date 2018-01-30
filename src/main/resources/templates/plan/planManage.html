@@ -78,13 +78,15 @@
 																							<select style="width: 100%;" id="refUser1" name="refUserId">
 																							</select>
 																						</div>
-																						<label class="col-sm-1 control-label no-padding-right" for="rateOfProgress">进度节点</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="dataState">进度节点</label>
 																						<div class="col-sm-2">
-																							<select style="width: 100%;" id="rateOfProgress1" name="rateOfProgress">
+																							<select style="width: 100%;" id="dataState1" name="dataState">
 																								<option value=""></option>
-																								<option value="2">部门领导确认</option>
-																								<option value="3">责任人执行</option>
+																								<option value="1">新建计划</option>
+																								<option value="2">部门领导批示</option>
+																								<option value="3">责任人执行计划</option>
 																								<option value="4">部门领导审批</option>
+																								<option value="5">结束</option>
 																							</select>
 																						</div>
 																						<label class="col-sm-1 control-label no-padding-right" for="planDate">计划年月</label>
@@ -148,13 +150,15 @@
 																								<select style="width: 100%;" id="refUser2" name="refUserId">
 																								</select>
 																							</div>
-																							<label class="col-sm-1 control-label no-padding-right" for="rateOfProgress">进度节点</label>
+																							<label class="col-sm-1 control-label no-padding-right" for="dataState">进度节点</label>
 																							<div class="col-sm-2">
-																								<select style="width: 100%;" id="rateOfProgress2" name="rateOfProgress">
+																								<select style="width: 100%;" id="dataState2" name="dataState">
 																									<option value=""></option>
-																									<option value="2">部门领导确认</option>
-																									<option value="3">责任人执行</option>
+																									<option value="1">新建计划</option>
+																									<option value="2">部门领导批示</option>
+																									<option value="3">责任人执行计划</option>
 																									<option value="4">部门领导审批</option>
+																									<option value="5">结束</option>
 																								</select>
 																							</div>
 																							<label class="col-sm-1 control-label no-padding-right" for="planDate">计划年月</label>
@@ -218,13 +222,15 @@
 																								<option value="${userInfo.userId!''}">${userInfo.userName!''}</option>
 																							</select>
 																						</div>
-																						<label class="col-sm-1 control-label no-padding-right" for="rateOfProgress">进度节点</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="dataState">进度节点</label>
 																						<div class="col-sm-2">
-																							<select style="width: 100%;" id="rateOfProgress3" name="rateOfProgress">
+																							<select style="width: 100%;" id="dataState3" name="dataState">
 																								<option value=""></option>
-																								<option value="2">部门领导确认</option>
-																								<option value="3">责任人执行</option>
+																								<option value="1">新建计划</option>
+																								<option value="2">部门领导批示</option>
+																								<option value="3">责任人执行计划</option>
 																								<option value="4">部门领导审批</option>
+																								<option value="5">结束</option>
 																							</select>
 																						</div>
 																						<label class="col-sm-1 control-label no-padding-right" for="planDate">计划年月</label>
@@ -341,8 +347,8 @@
 					ht = ht + "<td>" + plan.deptName + "</td>";
 					ht = ht + "<td planId='"+plan.id+"'><a href='javascript:void(0)' onclick='queryPlanDetailByPlanId(this)' style='text-decoration:none;'>" + plan.posiName + "</a></td>";
 					ht = ht + "<td>" + plan.userName + "</td>";
-					ht = ht + "<td>" + plan.rateOfProgressName + "</td>";
-					ht = ht + "<td>" + plan.progressInfo + "</td>";
+					ht = ht + "<td>" + plan.rateOfProgress + "</td>";
+					ht = ht + "<td>" + plan.dataStateName + "</td>";
 					ht = ht + "<td>" + "审核时间" + "</td>";
 				}
 			} else {
@@ -428,8 +434,9 @@
 		}
 		
 		function queryPlanDetailByPlanId(obj){
-			var planId = $(obj).parent().attr("planId");
-			window.location.href = '/plan/detailPlan?planId=' + planId;
+			alert("功能正在紧张开发中正在开发中");
+			//var planId = $(obj).parent().attr("planId");
+			//window.location.href = '/plan/detailPlan?planId=' + planId;
 		}
 	</script>
 </body>

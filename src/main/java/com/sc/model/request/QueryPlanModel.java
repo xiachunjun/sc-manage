@@ -22,8 +22,11 @@ public class QueryPlanModel {
 	/**责任人ID*/
 	private Integer refUserId;
 	
-	/**计划完成度*/
+	/**计划完成度：完成， 未完成， 部分完成*/
 	private String rateOfProgress;
+	
+	/**进度节点*/
+	private Integer dataState;
 	
 	/**工作类型 : 1常规，2计划外，3重点*/
     private Integer detailType;
@@ -31,9 +34,6 @@ public class QueryPlanModel {
 	//1待办计划，2在办计划，3我的计划
 	@NotNull(message="tab不能为空",groups={ValidatedGroup2.class})
 	private Integer tab;
-
-	//进度节点
-	private Integer dataState;
 
 	
 	public Integer getId() {

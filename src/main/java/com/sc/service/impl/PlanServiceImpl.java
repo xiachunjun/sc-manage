@@ -69,8 +69,8 @@ public class PlanServiceImpl implements IPlanService {
 		planDomain.setRefPosiId(userInfo.getPosiId());
 		planDomain.setPlanMainUser(userInfo.getUserId());  //执行人
 		planDomain.setCheckUser(deptHeaderUser.getId());   //审核人
-		planDomain.setRateOfProgress("1");  //新建计划这一步
-		planDomain.setProgressInfo("未完成");
+		planDomain.setRateOfProgress("未完成");  //新建计划这一步
+		planDomain.setProgressInfo("等待完成计划任务");
 		planDomain.setId(null);
 		planDomain.setDataState(1);  //进度（审核）状态：0-失效；1-初始；2-待领导审批；3-领导审核通过待执行人执行；4-领导审核不通过；5-执行人执行完成
 		planDomain.setDataVersion(1);
@@ -248,8 +248,8 @@ public class PlanServiceImpl implements IPlanService {
 		if(null != queryPlanModel.getRefUserId()){
 			sbf.append(" and b.ref_user_id="+queryPlanModel.getRefUserId());
 		}
-		if(StringUtils.isNoneBlank(queryPlanModel.getRateOfProgress())){
-			sbf.append(" and b.rate_of_progress='"+queryPlanModel.getRateOfProgress()+"'");
+		if(queryPlanModel.getDataState() != null){
+			sbf.append(" and b.data_state="+queryPlanModel.getDataState()+"");
 		}
 		if(queryPlanModel.getPlanDate() != null){
 			String date2Str3 = DateUtil.date2Str3(queryPlanModel.getPlanDate());
@@ -266,12 +266,12 @@ public class PlanServiceImpl implements IPlanService {
 		List<PlanResult> planList = planMapper.queryPlanList(sbf.toString());
 		if(!CollectionUtils.isEmpty(planList)){
 			for (PlanResult plan : planList) {
-				switch(plan.getRateOfProgress()){
-					case "1" :  plan.setRateOfProgressName("新建计划");;  break;
-					case "2" :  plan.setRateOfProgressName("部门领导批示");  break;
-					case "3" :  plan.setRateOfProgressName("责任人执行计划");  break;
-					case "4" :  plan.setRateOfProgressName("部门领导审批");  break;
-					case "5" :  plan.setRateOfProgressName("结束");  break;
+				switch(plan.getDataState()){
+					case 1 :  plan.setDataStateName("新建计划");;  break;
+					case 2 :  plan.setDataStateName("部门领导批示");  break;
+					case 3 :  plan.setDataStateName("责任人执行计划");  break;
+					case 4 :  plan.setDataStateName("部门领导审批");  break;
+					case 5 :  plan.setDataStateName("结束");  break;
 				}
 			}
 		}

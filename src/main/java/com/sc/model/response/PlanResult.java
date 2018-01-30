@@ -17,12 +17,14 @@ public class PlanResult {
     private String updateUser;
     
     private String rateOfProgress;
-    private String rateOfProgressName;
-    
     private String progressInfo;
     
     private Date planDate;
     private String posiName;
+    
+    //进度节点
+    private Integer dataState;
+    private String dataStateName;
     
 	public Integer getId() {
 		return id;
@@ -112,12 +114,20 @@ public class PlanResult {
 		this.posiName = posiName;
 	}
 
-	public String getRateOfProgressName() {
-		return rateOfProgressName;
+	public Integer getDataState() {
+		return dataState;
 	}
 
-	public void setRateOfProgressName(String rateOfProgressName) {
-		this.rateOfProgressName = rateOfProgressName;
+	public void setDataState(Integer dataState) {
+		this.dataState = dataState;
+	}
+
+	public String getDataStateName() {
+		return dataStateName;
+	}
+
+	public void setDataStateName(String dataStateName) {
+		this.dataStateName = dataStateName;
 	}
     
 	
