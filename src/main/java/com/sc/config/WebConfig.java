@@ -38,6 +38,7 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		
 		customer.excludePathPatterns("/swagger-resources/**");
 		customer.excludePathPatterns("/v2/**");
+//		customer.excludePathPatterns("/**");
 		
 		customer.addPathPatterns("/**");
 	}

@@ -25,12 +25,12 @@ import com.sc.model.request.ArticleModel;
 import com.sc.service.IArticleService;
 import com.sc.support.UserContext;
 
-@Service
+//@Service
 public class ArticleServiceImpl implements IArticleService {
 
 	private static final Logger logger = LoggerFactory.getLogger(ArticleServiceImpl.class);	
 	
-	@Autowired
+//	@Autowired
 	private ArticleMapper articleMapper;
 	
 	

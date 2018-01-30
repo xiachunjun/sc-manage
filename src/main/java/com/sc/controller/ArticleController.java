@@ -27,7 +27,7 @@ import com.sc.support.UserContext;
  * 每日信息
  * 
  */
-@RestController
+//@RestController
 public class ArticleController {
 
 	private static final Logger logger = LoggerFactory.getLogger(ArticleController.class);	
