@@ -104,31 +104,31 @@
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script src="/static/assets/js/jquery.serializejson.min.js"></script>
 	<script type="text/javascript">
-		$(function(){
+		$(function() {
 			queryData();
 			//查询所有用户
 			$.ajax({
 				type : 'POST',
 				url : '/user/query/list',
-				data :  JSON.stringify({}),
+				data : JSON.stringify({}),
 				headers : {
 					'Content-Type' : 'application/json'
 				},
 				success : function(data) {
-					if(data.resultCode === '000000' & data.dataMap != null){
-		   	    		 $("#userId option").remove();
-		   	  	         var userList = data.dataMap.userList;
-		   	  	         if(userList!=null && userList.length>0){
-		   	  	            var $option2 = $("<option></option>");
-			        		$("#userId").append($option2);
-		   	  	            for(var i=0; i<userList.length; i++){
-		   	  		            var $option = $("<option></option>");
-		   	  		            $option.attr("value", userList[i].id);
-		   	  		            $option.text(userList[i].userName);
-		   	  		       		$("#userId").append($option);
-		   	  	            }
-		   	  	         }
-		   	    	}else {
+					if (data.resultCode === '000000' & data.dataMap != null) {
+						$("#userId option").remove();
+						var userList = data.dataMap.userList;
+						if (userList != null && userList.length > 0) {
+							var $option2 = $("<option></option>");
+							$("#userId").append($option2);
+							for (var i = 0; i < userList.length; i++) {
+								var $option = $("<option></option>");
+								$option.attr("value", userList[i].id);
+								$option.text(userList[i].userName);
+								$("#userId").append($option);
+							}
+						}
+					} else {
 						alert("获取信息异常-" + JSON.stringify(data));
 					}
 				},
@@ -137,46 +137,47 @@
 					alert("获取信息异常-" + JSON.stringify(data));
 				}
 			});
-		  //查询所有部门
-		  $.post("/dept/queryDeptList", null, function(data,textStatus){
-			 if(data.resultCode === '000000'){
-				$("#deptId option").remove();
-		        var deptList = data.dataMap.depts;
-		        if(deptList!=null && deptList.length>0){
-		        	var $option2 = $("<option></option>");
-		        	$("#deptId").append($option2);
-		            for(var i=0;i<deptList.length;i++){
-			            //添加到所属部门的下拉菜单中
-			            var $option = $("<option></option>");
-			            $option.attr("value",deptList[i].id);
-			            $option.text(deptList[i].deptName);
-			            $("#deptId").append($option);
-		            }
-		        }
-			 }
-	       });
-		   //查询所有岗位	
-		   $.post("/position/queryPosiList", null, function(data,textStatus){
-			 if(data.resultCode === '000000'){
-				$("#posiId option").remove();
-		        var posiList = data.dataMap.positions;
-		        if(posiList!=null && posiList.length>0){
-		        	var $option2 = $("<option></option>");
-		        	$("#posiId").append($option2);
-		            for(var i=0;i<posiList.length;i++){
-			            //添加到所属部门的下拉菜单中
-			            var $option = $("<option></option>");
-			            $option.attr("value",posiList[i].id);
-			            $option.text(posiList[i].posiName);
-			            $("#posiId").append($option);
-		            }
-		        }
-			 }
-		   });	
+			//查询所有部门
+			$.post("/dept/queryDeptList", null, function(data, textStatus) {
+				if (data.resultCode === '000000') {
+					$("#deptId option").remove();
+					var deptList = data.dataMap.depts;
+					if (deptList != null && deptList.length > 0) {
+						var $option2 = $("<option></option>");
+						$("#deptId").append($option2);
+						for (var i = 0; i < deptList.length; i++) {
+							//添加到所属部门的下拉菜单中
+							var $option = $("<option></option>");
+							$option.attr("value", deptList[i].id);
+							$option.text(deptList[i].deptName);
+							$("#deptId").append($option);
+						}
+					}
+				}
+			});
+			//查询所有岗位	
+			$.post("/position/queryPosiList", null, function(data, textStatus) {
+				if (data.resultCode === '000000') {
+					$("#posiId option").remove();
+					var posiList = data.dataMap.positions;
+					if (posiList != null && posiList.length > 0) {
+						var $option2 = $("<option></option>");
+						$("#posiId").append($option2);
+						for (var i = 0; i < posiList.length; i++) {
+							//添加到所属部门的下拉菜单中
+							var $option = $("<option></option>");
+							$option.attr("value", posiList[i].id);
+							$option.text(posiList[i].posiName);
+							$("#posiId").append($option);
+						}
+					}
+				}
+			});
 		})
-		
+	
 		function queryData() {
-			var paramJson=$("#queryForm").serializeJSON();;
+			var paramJson = $("#queryForm").serializeJSON();
+			;
 			$.ajax({
 				type : 'POST',
 				url : '/duty/queryByCondition',
@@ -208,36 +209,49 @@
 				var indexNo = 1;
 				for (var i = 0; i < dutyList.length; i++) {
 					var duty = dutyList[i];
-					var posis=duty.posis;
-					if(posis && posis.length>0){
-						posis.forEach(function(value,index, posis) {
+					var posis = duty.posis;
+					if (posis && posis.length > 0) {
+						posis.forEach(function(value, index, posis) {
 							ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
 							if (0 === index) {
-								ht = ht + "<td rowspan='" +posis.length + "'><a href='#' style='text-decoration:none;'>" + duty.dept.deptName + "</a></td>";
+								ht = ht + "<td rowspan='" + posis.length + "'    dutyTyp='DEPT' deptid='" + duty.dept.id + "' name='" + duty.dept.deptName + "'   ><a href='javascript:void(0)' onclick='queryByType(this)' style='text-decoration:none;'>" + duty.dept.deptName + "</a></td>";
 							}
-							ht = ht + "<td><a href='#' style='text-decoration:none;'>" + value.posiName + "</a></td>";
-							var user=duty.userMap[value.id];
-							if(!!user){
-							ht = ht + "<td>" + user.userName + "</td>";
-							}else{
-							ht = ht + "<td></td>";
+							ht = ht + "<td dutyTyp='POSI' posiid='" + value.id + "' name='" + value.posiName + "'><a href='javascript:void(0)' onclick='queryByType(this)' style='text-decoration:none;'>" + value.posiName + "</a></td>";
+							var user = duty.userMap[value.id];
+							if (!!user) {
+								ht = ht + "<td>" + user.userName + "</td>";
+							} else {
+								ht = ht + "<td></td>";
 							}
 						});
-					}else{
-					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='#' style='text-decoration:none;'>" + duty.dept.deptName + "</a></td>";
-					ht = ht + "<td></td>";
-					ht = ht + "<td></td>";
-					
+					} else {
+						ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
+						ht = ht + "<td dutyTyp='DEPT' deptid='" + duty.dept.id + "' name='" + duty.dept.deptName + "'><a href='javascript:void(0)' onclick='queryByType(this)'  style='text-decoration:none;'>" + duty.dept.deptName + "</a></td>";
+						ht = ht + "<td></td>";
+						ht = ht + "<td></td>";
 					}
-					
-//					ht = ht + "<td><a href='/to/duty/detail?qId="+duty.posiId+"&name="+encodeURI(duty.posiName)+"&type="+encodeURI("POSI")+"' style='text-decoration:none;'>" + duty.posiName + "</a></td>";
+	
+				//					ht = ht + "<td><a href='/to/duty/detail?qId="+duty.posiId+"&name="+encodeURI(duty.posiName)+"&type="+encodeURI("POSI")+"' style='text-decoration:none;'>" + duty.posiName + "</a></td>";
 				}
-			}else{
+			} else {
 				ht = ht + "<tr class='center'><td colspan='4'>未查询到相关记录</td></tr>";
 			}
 			$("#tableBody").html("");
 			$("#tableBody").append(ht);
+		}
+	
+		function queryByType(obj) {
+			var dutyTyp = $(obj).parent().attr("dutyTyp");
+			var name = $(obj).parent().attr("name");
+			if (dutyTyp == 'DEPT') {
+				var deptid = $(obj).parent().attr("deptid");
+				window.location.href = '/to/duty/detail?type=DEPT&qId=' + deptid + '&name=' + name;
+			} else if (dutyTyp == 'POSI') {
+				var posiid = $(obj).parent().attr("posiid");
+				window.location.href = '/to/duty/detail?type=POSI&qId=' + posiid + '&name=' + name;
+			} else {
+				alert("类型错误");
+			}
 		}
 	</script>
 </body>
