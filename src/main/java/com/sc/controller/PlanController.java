@@ -146,6 +146,7 @@ public class PlanController {
 			List<PlanResult> list = planService.queryPlanByTab(planModel);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 			dr.put("planList", list);
+			dr.put("tab", planModel.getTab());
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);

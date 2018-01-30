@@ -103,5 +103,18 @@ public class PageController {
 	}
 	
 	
+	@RequestMapping("/plan/detailPlan")
+	public ModelAndView planDetail(@RequestParam(name="planId", required=true)Integer planId) {
+		ModelAndView mv = new ModelAndView("/plan/detailPlan");
+		AuthUser authUser = UserContext.getAuthUser();
+		if(null != authUser){
+			//查询登录人的姓名，部门，岗位
+			UserInfoResult userInfo = userService.queryUserInfoByUserId(authUser.getId());
+			mv.addObject("userInfo", userInfo);
+			mv.addObject("planId", planId);
+		}
+		return mv;
+	}
+	
 	
 }

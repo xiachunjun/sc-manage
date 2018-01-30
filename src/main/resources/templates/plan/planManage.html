@@ -339,7 +339,7 @@
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
 					ht = ht + "<td>" + formatDate2(plan.planDate, true) + "</td>";
 					ht = ht + "<td>" + plan.deptName + "</td>";
-					ht = ht + "<td>" + plan.posiName + "</td>";
+					ht = ht + "<td planId='"+plan.id+"'><a href='javascript:void(0)' onclick='queryPlanDetailByPlanId(this)' style='text-decoration:none;'>" + plan.posiName + "</a></td>";
 					ht = ht + "<td>" + plan.userName + "</td>";
 					ht = ht + "<td>" + plan.rateOfProgressName + "</td>";
 					ht = ht + "<td>" + plan.progressInfo + "</td>";
@@ -348,12 +348,17 @@
 			} else {
 				ht = ht + "<tr><td colspan='8'>未查到相关记录</td></tr>";
 			}
-			$("#tableBody1").html("");
-			$("#tableBody1").append(ht);
-			$("#tableBody2").html("");
-			$("#tableBody2").append(ht);
-			$("#tableBody3").html("");
-			$("#tableBody3").append(ht);
+			var tab = rsp.dataMap.tab;
+			if(tab == 1){
+				$("#tableBody1").html("");
+				$("#tableBody1").append(ht);
+			}else if(tab == 2){
+				$("#tableBody2").html("");
+				$("#tableBody2").append(ht);
+			}else if(tab == 3){
+				$("#tableBody3").html("");
+				$("#tableBody3").append(ht);
+			}
 		}
 	
 		function renderUser() {
@@ -420,6 +425,11 @@
 					alert("获取信息异常-" + JSON.stringify(data));
 				}
 			});
+		}
+		
+		function queryPlanDetailByPlanId(obj){
+			var planId = $(obj).parent().attr("planId");
+			window.location.href = '/plan/detailPlan?planId=' + planId;
 		}
 	</script>
 </body>

@@ -267,11 +267,11 @@ public class PlanServiceImpl implements IPlanService {
 		if(!CollectionUtils.isEmpty(planList)){
 			for (PlanResult plan : planList) {
 				switch(plan.getRateOfProgress()){
-					case "1" :  plan.setRateOfProgressName("新建");;  break;
-					case "2" :  plan.setRateOfProgressName("部门领导确认");  break;
-					case "3" :  plan.setRateOfProgressName("责任人执行");  break;
+					case "1" :  plan.setRateOfProgressName("新建计划");;  break;
+					case "2" :  plan.setRateOfProgressName("部门领导批示");  break;
+					case "3" :  plan.setRateOfProgressName("责任人执行计划");  break;
 					case "4" :  plan.setRateOfProgressName("部门领导审批");  break;
-					case "5" :  plan.setRateOfProgressName("完成");  break;
+					case "5" :  plan.setRateOfProgressName("结束");  break;
 				}
 			}
 		}
