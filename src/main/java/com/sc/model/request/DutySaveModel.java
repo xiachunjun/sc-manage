@@ -1,5 +1,7 @@
 package com.sc.model.request;
 
+import org.hibernate.validator.constraints.NotBlank;
+
 public class DutySaveModel {
 
 	private Integer refUserId;
@@ -11,21 +13,25 @@ public class DutySaveModel {
 	/**
 	 * 职责类型（DEPT-部门职责，POSI-岗位职责）
 	 */
+	@NotBlank(message="职责类型不能为空")
 	private String dutyType;
 
 	/**
 	 * 级别（1-一级职责，2-二级职责）
 	 */
+	@NotBlank(message="级别不能为空")
 	private String dutyLevel;
 
 	/**
 	 * 名称
 	 */
+	@NotBlank(message="名称不能为空")
 	private String dutyName;
 
 	/**
 	 * 描述
 	 */
+	@NotBlank(message="描述不能为空")
 	private String dutyIntroduce;
 
 	/**

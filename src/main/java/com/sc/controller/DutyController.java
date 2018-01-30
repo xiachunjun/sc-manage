@@ -15,9 +15,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
+import com.sc.domain.DutyDomain;
 import com.sc.model.request.DutySaveModel;
 import com.sc.model.request.QueryDeptPosiDutyModel;
 import com.sc.model.request.QueryDutyModel;
@@ -40,8 +42,16 @@ public class DutyController {
 	public DataResponse saveDuty(@RequestBody DutySaveModel dutySaveModel) {
 		DataResponse dr = null;
 		try {
-			dutyService.saveDuty(dutySaveModel);
-			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+			boolean deptError = CommonConstant.DEPT.equals(dutySaveModel.getDutyType())
+					&& dutySaveModel.getRefDeptId() == null;
+			boolean posiError = CommonConstant.POSI.equals(dutySaveModel.getDutyType())
+					&& dutySaveModel.getRefPosiId() == null;
+			if (deptError || posiError) {
+				dr = new DataResponse(ResponseEnum.RESPONSE_FAIL);
+			} else {
+				dutyService.saveDuty(dutySaveModel);
+				dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+			}
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);
@@ -51,11 +61,9 @@ public class DutyController {
 		}
 		return dr;
 	}
-	
-	
+
 	/**
-	 * 条件查询，查询部门与岗位责任清单
-	 * userId:责任人，  deptId:部门，   posiId:岗位
+	 * 条件查询，查询部门与岗位责任清单 userId:责任人， deptId:部门， posiId:岗位
 	 */
 	@RequestMapping(value = "/duty/queryByCondition", method = { RequestMethod.POST })
 	public DataResponse queryDutyByCondition(@RequestBody QueryDutyModel queryDutyModel) {
@@ -73,21 +81,25 @@ public class DutyController {
 		}
 		return dr;
 	}
-	
 
 	/**
-	 * 根据部门id 或 岗位id, 查询各自的一二级职责;  直接跳转到一二级职责详情页面
-	 * qId: 为部门或岗位id
-	 * type: DEPT表示部门，  POSI表示岗位
+	 * 根据部门id 或 岗位id, 查询各自的一二级职责; 直接跳转到一二级职责详情页面 qId: 为部门或岗位id type: DEPT表示部门，
+	 * POSI表示岗位
 	 */
 	@RequestMapping(value = "/duty/queryByType", method = { RequestMethod.POST })
 	public DataResponse queryDutyByDeptId(@RequestBody @Valid QueryDeptPosiDutyModel queryDeptPosiDutyModel) {
 		DataResponse dr = null;
 		try {
-			//一二级职责
-			List<Map<String, Object>> dataMapList = dutyService.queryDutyByType(queryDeptPosiDutyModel);
-			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-			dr.put("dutyList", dataMapList);
+			if (queryDeptPosiDutyModel.getDutyLevel() != null && 1 == queryDeptPosiDutyModel.getDutyLevel()) {
+				List<DutyDomain> dutyList = dutyService.queryByTypeAndLevel(queryDeptPosiDutyModel);
+				dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+				dr.put("dutyList", dutyList);
+			} else {
+				// 一二级职责
+				List<Map<String, Object>> dataMapList = dutyService.queryDutyByType(queryDeptPosiDutyModel);
+				dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+				dr.put("dutyList", dataMapList);
+			}
 		} catch (ScException e) {
 			logger.error(e.getMessage());
 			dr = new DataResponse(e);
@@ -98,7 +110,6 @@ public class DutyController {
 		return dr;
 	}
 
-	
 	/**
 	 * 修改责任清单
 	 */
@@ -106,7 +117,7 @@ public class DutyController {
 	public DataResponse updateDuty(List<UpdateDutyModel> models) {
 		DataResponse dr = null;
 		try {
-			if(CollectionUtils.isEmpty(models)){
+			if (CollectionUtils.isEmpty(models)) {
 				return new DataResponse(ResponseEnum.RESPONSE_ERROR_PARAM);
 			}
 			dutyService.updateDuty(models);
@@ -120,13 +131,12 @@ public class DutyController {
 		}
 		return dr;
 	}
-	
-	
+
 	/**
 	 * 删除责任清单
 	 */
 	@RequestMapping(value = "/duty/delete", method = { RequestMethod.POST })
-	public DataResponse deleteDuty(@RequestParam(name="id", required=true)Integer id) {
+	public DataResponse deleteDuty(@RequestParam(name = "id", required = true) Integer id) {
 		DataResponse dr = null;
 		try {
 			dutyService.deleteDutyById(id);
@@ -140,10 +150,5 @@ public class DutyController {
 		}
 		return dr;
 	}
-	
-	
-	
-	
-	
-	
+
 }

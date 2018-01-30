@@ -3,6 +3,7 @@ package com.sc.service;
 import java.util.List;
 import java.util.Map;
 
+import com.sc.domain.DutyDomain;
 import com.sc.model.request.DutySaveModel;
 import com.sc.model.request.QueryDeptPosiDutyModel;
 import com.sc.model.request.QueryDutyModel;
@@ -30,6 +31,14 @@ public interface IDutyService {
 	 * @return
 	 */
 	List<Map<String, Object>> queryDutyByType(QueryDeptPosiDutyModel queryDeptPosiDutyModel);
+	
+	
+	/**
+	 * 根据部门id 或 岗位id, 查询各自的一级职责或二级职责
+	 * @param queryDeptPosiDutyModel
+	 * @return
+	 */
+	List<DutyDomain> queryByTypeAndLevel(QueryDeptPosiDutyModel queryDeptPosiDutyModel);
 	
 	/**
 	 * 修改责任清单

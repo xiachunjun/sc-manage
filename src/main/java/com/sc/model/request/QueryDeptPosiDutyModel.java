@@ -8,9 +8,11 @@ public class QueryDeptPosiDutyModel {
 
 	@NotNull(message = "部门或岗位id不能为空")
 	private Integer qId;
-	
-	@NotBlank(message="部门或岗位类型不能为空")
+
+	@NotBlank(message = "部门或岗位类型不能为空")
 	private String type;
+
+	private Integer dutyLevel;
 
 	public Integer getqId() {
 		return qId;
@@ -28,5 +30,12 @@ public class QueryDeptPosiDutyModel {
 		this.type = type;
 	}
 
-	
+	public Integer getDutyLevel() {
+		return dutyLevel;
+	}
+
+	public void setDutyLevel(Integer dutyLevel) {
+		this.dutyLevel = dutyLevel;
+	}
+
 }

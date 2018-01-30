@@ -29,7 +29,6 @@
 								<span>当前位置</span> > <span>责任晒板</span> > <span>责任清单</span>
 							</div>
 							<div class="col-sm-6 text-right" style="padding-right: 20px;">
-								<button class="btn btn-white radius-4" onclick="">编辑</button>
 								<button class="btn btn-white radius-4" onclick="window.location.href='/page/duty/dutyList'">返回</button>
 							</div>
 						</div>
@@ -45,6 +44,8 @@
 								</div>
 								<div class="col-sm-12">
 									<table id="tfhover" class="tftable" border="1">
+									<tr><th>序号</th><th>一级职责</th><th>二级职责</th></tr>
+									<tbody id="tableBody"></tbody>
 									</table>
 								</div>
 							</div>
@@ -88,7 +89,7 @@
 		}
 	
 		function dataListRender(dataMap) {
-			var ht = "<tr><th>序号</th><th>一级职责</th><th>二级职责</th></tr>";
+			var ht = "";
 			var dutyList = dataMap.dutyList;
 			if (dutyList && dutyList.length > 0) {
 				var indexNo = 1;
@@ -110,7 +111,8 @@
 					}
 				}
 			}
-			$("#tfhover").html(ht);
+			$("#tableBody").html("");
+			$("#tableBody").append(ht);
 		}
 		queryData();
 	</script>

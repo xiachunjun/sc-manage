@@ -49,16 +49,7 @@
 												<select class="col-xs-10 col-sm-5" id="dutyType" name="dutyType"
 													onchange="deptOrPosi(this)">
 													<option value="DEPT">部门职责</option>
-													<!-- 	<option value="POSI">岗位职责</option> -->
-												</select>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="dutyLevel">职责级别</label>
-											<div class="col-sm-9">
-												<select class="col-xs-10 col-sm-5" id="dutyLevel" name="dutyLevel">
-													<option value="1">一级职责</option>
-													<option value="2">二级职责</option>
+													<option value="POSI">岗位职责</option>
 												</select>
 											</div>
 										</div>
@@ -66,8 +57,34 @@
 											<label class="col-sm-3 control-label no-padding-right" for="refDeptId">所属部门</label>
 											<div class="col-sm-9">
 												<select class="col-xs-10 col-sm-5" id="refDeptId" name="refDeptId"
-													onchange="if(this.value != '')findPosition(this)">
-													<option>请选择</option>
+													onchange="deptChange(this)">
+													<option value=''>请选择</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group" id="posiDiv" style="display: none;">
+											<label class="col-sm-3 control-label no-padding-right" for="refPosiId">所属岗位</label>
+											<div class="col-sm-9">
+												<select class="col-xs-10 col-sm-5" id="refPosiId" name="refPosiId">
+													<option value=''>请选择</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label class="col-sm-3 control-label no-padding-right" for="dutyLevel">职责级别</label>
+											<div class="col-sm-9">
+												<select class="col-xs-10 col-sm-5" id="dutyLevel" name="dutyLevel"
+													onchange="dutyLevelChange(this)">
+													<option value="1">一级职责</option>
+													<option value="2">二级职责</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group" id="parentIdDiv" style="display: none;">
+											<label class="col-sm-3 control-label no-padding-right" for="parentId">上级职责</label>
+											<div class="col-sm-9">
+												<select class="col-xs-10 col-sm-5" id="parentId" name="parentId">
+													<option value=''>请选择</option>
 												</select>
 											</div>
 										</div>
@@ -85,22 +102,12 @@
 													class="col-xs-10 col-sm-5" />
 											</div>
 										</div>
-
-										<!-- 	<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="refPosiId">所属岗位</label>
-											<div class="col-sm-9">
-												<select class="col-xs-10 col-sm-5" id="refPosiId" name="refPosiId">
-													<option>请选择</option>
-												</select>
-											</div>
-										</div> -->
 										<div class="form-group">
 											<div class="col-sm-offset-4">
 												<button id="submitBtn" class="btn btn-primary radius-4">保存</button>
 												<button class="btn btn-primary radius-4">重置</button>
 											</div>
 										</div>
-
 									</form>
 								</div>
 							</div>
@@ -117,33 +124,173 @@
 	<script src="/static/assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script type="text/javascript">
-		$(function(){
-			$.post("/dept/queryDeptList", null, function(data,textStatus){
-			 if(data.resultCode === '000000'){
-				$("#refDeptId option").remove();
-		        var deptList = data.dataMap.depts;
-		        if(deptList!=null && deptList.length>0){
-		        	var $option2 = $("");
-		        	$("#refDeptId").append($option2);
-		            for(var i=0;i<deptList.length;i++){
-			            //添加到所属部门的下拉菜单中
-			            var $option = $("<option></option>");
-			            $option.attr("value",deptList[i].id);
-			            $option.text(deptList[i].deptName);
-			            $("#refDeptId").append($option);
-		            }
-		        }
-			 }
-	       });
+		$(function() {
+			$.post("/dept/queryDeptList", null, function(data, textStatus) {
+				if (data.resultCode === '000000') {
+					$("#refDeptId option").remove();
+					var deptList = data.dataMap.depts;
+					if (deptList != null && deptList.length > 0) {
+						var $option2 = $("<option value=''>请选择</option>");
+						$("#refDeptId").append($option2);
+						for (var i = 0; i < deptList.length; i++) {
+							//添加到所属部门的下拉菜单中
+							var $option = $("<option></option>");
+							$option.attr("value", deptList[i].id);
+							$option.text(deptList[i].deptName);
+							$("#refDeptId").append($option);
+						}
+					}
+				}
+			});
 		})
 		//添加用户
-		$("#submitBtn").on('click',function(e){
+		$("#submitBtn").on('click', function(e) {
 			e.preventDefault();
 			submitForm({
 				'formId' : 'addDutyForm',
 				'url' : '/duty/add'
 			});
 		});
+	
+	
+		function deptOrPosi(obj) {
+			var va = $(obj).val();
+			if ('DEPT' == va) {
+				$("#posiDiv").css('display', 'none');
+			} else if ('POSI' == va) {
+				$("#posiDiv").css('display', 'block');
+			}
+			$("#refDeptId").val("");
+			$("#refPosiId").val("");
+			$("#dutyLevel").val("1");
+			$("#parentId").val("");
+		}
+	
+		function deptChange(obj) {
+			var dutyType = $("#dutyType").val();
+			var deptId = $(obj).val();
+			if ('POSI' == dutyType) {
+				$.ajax({
+					type : 'POST',
+					url : '/position/queryByDept',
+					data : JSON.stringify({
+						'refDeptId' : deptId
+					}),
+					dataType : 'json',
+					headers : {
+						'Content-Type' : 'application/json'
+					},
+					success : function(data) {
+						var resultCode = data.resultCode;
+						var dataMap = data.dataMap;
+						if (resultCode == '000000' & dataMap != null) {
+							posiListRender(dataMap);
+						} else {
+							alert("查询异常！");
+						}
+					},
+					dataType : 'json',
+					error : function(data) {
+						alert("获取信息异常-" + JSON.stringify(data));
+					}
+				});
+			}
+		}
+	
+		function posiListRender(data) {
+			var positions = data.positions;
+			$("#refPosiId option").remove();
+			var $option2 = $("<option value=''>请选择</option>");
+			$("#refPosiId").append($option2);
+			if (positions && positions.length > 0) {
+				for (var i = 0; i < positions.length; i++) {
+					var $option = $("<option></option>");
+					$option.attr("value", positions[i].id);
+					$option.text(positions[i].posiName);
+					$("#refPosiId").append($option);
+				}
+			}
+		}
+	
+		function dutyLevelChange(obj) {
+			var dutyLevel = $(obj).val();
+			if (1 == dutyLevel) {
+				$("#parentId option").remove();
+				$("#parentIdDiv").css('display', 'none');
+			} else if (2 == dutyLevel) {
+				var dutyType = $("#dutyType").val();
+				if ('POSI' == dutyType) {
+					var posiId = $("#refPosiId").val();
+					if (!!!posiId) {
+						alert("请先选择部门和岗位");
+						$("#dutyLevel").val("1");
+						return;
+					}
+					$("#parentIdDiv").css('display', 'block');
+					queryParentId(posiId, 'POSI');
+				} else if ('DEPT' == dutyType) {
+					var deptId = $("#refDeptId").val();
+					if (!!!deptId) {
+						alert("请先选择部门");
+						$("#dutyLevel").val("1");
+						return;
+					}
+					$("#parentIdDiv").css('display', 'block');
+					queryParentId(deptId, 'DEPT');
+				}
+			}
+	
+		}
+	
+	
+		function queryParentId(id, dutyType) {
+			var da = new Object();
+			da.qId = id;
+			da.dutyLevel = 1;
+			if ('POSI' == dutyType) {
+				da.type = 'POSI';
+			} else {
+				da.type = 'DEPT';
+			}
+			$.ajax({
+				type : 'POST',
+				url : '/duty/queryByType',
+				data : JSON.stringify(da),
+				dataType : 'json',
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						partentListRender(dataMap);
+					} else {
+						alert("查询异常！");
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取信息异常-" + JSON.stringify(data));
+				}
+			});
+	
+		}
+	
+		function partentListRender(data) {
+			var dutyList = data.dutyList;
+			$("#parentId option").remove();
+			var $option2 = $("<option value=''>请选择</option>");
+			$("#parentId").append($option2);
+			if (dutyList && dutyList.length > 0) {
+				for (var i = 0; i < dutyList.length; i++) {
+					var $option = $("<option></option>");
+					$option.attr("value", dutyList[i].id);
+					$option.text(dutyList[i].dutyName);
+					$("#parentId").append($option);
+				}
+			}
+		}
 	</script>
 </body>
 </html>
