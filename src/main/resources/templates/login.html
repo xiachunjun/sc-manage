@@ -89,8 +89,12 @@
 					{
 						'formId' : 'loginForm',
 						'url' : '/outer/user/login',
-						'callBack' : function() {
-							window.location.href = '/index'
+						'callBack' : function(rsp) {
+							if (rsp.resultCode == '000000') {
+								window.location.href = '/index'
+							} else {
+								alert("用户名或密码错误");
+							}
 						}
 					}
 				);
