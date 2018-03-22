@@ -6,9 +6,9 @@ import org.springframework.context.annotation.ComponentScan;
 
 @SpringBootApplication
 @ComponentScan("com.sc.config")
-public class Application {
+public class ScApplication {
 	public static void main(String[] args) {
-		SpringApplication sa = new SpringApplication(Application.class);
+		SpringApplication sa = new SpringApplication(ScApplication.class);
 		sa.setAddCommandLineProperties(false);
 		sa.run(args);
 	}
