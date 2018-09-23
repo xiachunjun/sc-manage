@@ -3,17 +3,33 @@ spring:
     name: scDataSource
     url: jdbc:mysql://127.0.0.1:3306/sc_manage?characterEncoding=utf8&useSSL=false
     username: root
-    password: root1234
+    password: 123456
     type: org.apache.tomcat.jdbc.pool.DataSource
     driver-class-name: com.mysql.jdbc.Driver
-    
+  freemarker:
+      templateLoaderPath: classpath:/templates
+      suffix: .html
+      cache: false
+      charset: UTF-8
+      check-template-location: true
+      content-type: text/html
+      expose-request-attributes: true
+      expose-session-attributes: true
+      settings:
+        localizedLookup: false
+        datetime_format: yyyy-MM-dd HH:mm:ss
+        date_format: yyyy-MM-dd
+        number_format: #.##
+  jackson:
+    time-zone: GMT+8
+ 
 logging:
   config: classpath:config/logback.xml
   
 server:
   port: 8090
-  
+
 system:
    enableSwagger: true    #是否启用swagger  
    file:
-     path: /opt/app/upload/scfile
+     path: C:/opt/sc-manage/upload/

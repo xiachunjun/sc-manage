@@ -1,95 +1,141 @@
 package com.sc.model.request;
 
+import java.util.Date;
 
 public class ArticleModel {
+	
+	private Integer id;
 
-	/**联系人*/
+	/**
+	 * 联系人
+	 */
 	private String articleLinkUser;
-	
-	/**联系人手机号*/
+
+	/**
+	 * 联系人审核状态（0-初始，1-通过，2-拒绝）
+	 */
+	private Integer linkUserCheckState;
+
+	/**
+	 * 联系人手机号
+	 */
 	private String articleLinkUserPhone;
-	
-	/**签发人*/
+
+	/**
+	 * 签发人
+	 */
 	private String articleSignUser;
-	
-	/**保密级别*/
+
+	/**
+	 * 签发状态（0-初始，1-通过，2-拒绝）
+	 */
+	private String signUserCheckState;
+
+	/**
+	 * 保密级别
+	 */
 	private String secrecyLevel;
-	
-	/**文章时间*/
+
+	/**
+	 * 文章时间
+	 */
+	private Date articleTime;
 	private String artTime;
 	
-	/**标题*/
+	/**
+	 * 标题
+	 */
 	private String articleTitle;
-	
-	/**内容*/
-	private String articleContent;
 
-	//附加值
-	private String userLoginName;
+	/**信息内容*/
+	private String articleContent;
 	
-	
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
 	public String getArticleLinkUser() {
 		return articleLinkUser;
-	}
-
-	public String getArticleLinkUserPhone() {
-		return articleLinkUserPhone;
-	}
-
-	public String getArticleSignUser() {
-		return articleSignUser;
-	}
-
-	public String getSecrecyLevel() {
-		return secrecyLevel;
-	}
-
-	public String getArtTime() {
-		return artTime;
-	}
-
-	public String getArticleTitle() {
-		return articleTitle;
-	}
-
-	public String getArticleContent() {
-		return articleContent;
 	}
 
 	public void setArticleLinkUser(String articleLinkUser) {
 		this.articleLinkUser = articleLinkUser;
 	}
 
+	public Integer getLinkUserCheckState() {
+		return linkUserCheckState;
+	}
+
+	public void setLinkUserCheckState(Integer linkUserCheckState) {
+		this.linkUserCheckState = linkUserCheckState;
+	}
+
+	public String getArticleLinkUserPhone() {
+		return articleLinkUserPhone;
+	}
+
 	public void setArticleLinkUserPhone(String articleLinkUserPhone) {
 		this.articleLinkUserPhone = articleLinkUserPhone;
+	}
+
+	public String getArticleSignUser() {
+		return articleSignUser;
 	}
 
 	public void setArticleSignUser(String articleSignUser) {
 		this.articleSignUser = articleSignUser;
 	}
 
+	public String getSignUserCheckState() {
+		return signUserCheckState;
+	}
+
+	public void setSignUserCheckState(String signUserCheckState) {
+		this.signUserCheckState = signUserCheckState;
+	}
+
+	public String getSecrecyLevel() {
+		return secrecyLevel;
+	}
+
 	public void setSecrecyLevel(String secrecyLevel) {
 		this.secrecyLevel = secrecyLevel;
 	}
 
-	public void setArtTime(String artTime) {
-		this.artTime = artTime;
+	public Date getArticleTime() {
+		return articleTime;
+	}
+
+	public void setArticleTime(Date articleTime) {
+		this.articleTime = articleTime;
+	}
+
+	public String getArticleTitle() {
+		return articleTitle;
 	}
 
 	public void setArticleTitle(String articleTitle) {
 		this.articleTitle = articleTitle;
 	}
 
+	public String getArtTime() {
+		return artTime;
+	}
+
+	public String getArticleContent() {
+		return articleContent;
+	}
+
+	public void setArtTime(String artTime) {
+		this.artTime = artTime;
+	}
+
 	public void setArticleContent(String articleContent) {
 		this.articleContent = articleContent;
-	}
-
-	public String getUserLoginName() {
-		return userLoginName;
-	}
-
-	public void setUserLoginName(String userLoginName) {
-		this.userLoginName = userLoginName;
 	}
 	
 	

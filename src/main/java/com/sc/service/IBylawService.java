@@ -1,12 +1,9 @@
 package com.sc.service;
 
+import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
-
-import org.springframework.web.multipart.MultipartFile;
-
-import com.sc.domain.Bylaw;
+import com.sc.domain.BylawDomain;
 import com.sc.model.request.BylawModel;
 
 public interface IBylawService {
@@ -17,13 +14,13 @@ public interface IBylawService {
 	 * @param file
 	 * @param request
 	 */
-	void saveBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request, String userLoginName);
+	void saveBylaw(BylawModel bylawModel);
 
 	/**
 	 * 查询规章制度
 	 * @return
 	 */
-	Map<String, Object> queryBylawList();
+	Map<String, List<BylawDomain>> queryBylawList();
 
 	/**
 	 * 修改规章制度
@@ -31,7 +28,7 @@ public interface IBylawService {
 	 * @param file
 	 * @param request
 	 */
-	void updateBylaw(BylawModel bylawModel, MultipartFile file, HttpServletRequest request, String userLoginName);
+	void updateBylaw(BylawModel bylawModel);
 
 	/**
 	 * 删除规章制度
@@ -40,18 +37,11 @@ public interface IBylawService {
 	void deleteBylaw(Integer bylawsId);
 
 	/**
-	 * 根据业务主键， 获取文件的存储路径
-	 * @param bylawsId
-	 * @return
-	 */
-	String queryFileUrlById(Integer bylawsId);
-
-	/**
 	 * 根据id，查询规章制度
 	 * @param id
 	 * @return
 	 */
-	Bylaw queryById(Integer id);
+	BylawDomain queryById(Integer id);
 
 	/**
 	 * 查询各个类型规章制度的数量

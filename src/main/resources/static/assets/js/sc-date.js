@@ -23,6 +23,7 @@ function formatDate(timestampStr, complement) {
 	var   second=now.getSeconds();  */
 	return year + "年" + month + "月" + date + "日";
 }
+
 /**
  * timestampStr时间戳
  * complement是否补全，true需要补全，如1月补全为：01月
@@ -44,6 +45,30 @@ function formatDate1(timestampStr, complement) {
 	}
 	return year + "-" + month + "-" + date;
 }
+function formatDate2(timestampStr, complement) {
+	var now;
+	if (!!timestampStr) {
+		now = new Date(timestampStr);
+	} else {
+		now = new Date();
+	}
+	var year = now.getFullYear();
+	var month = now.getMonth() + 1;
+	var date = now.getDate();
+	if (complement) {
+		month = dateComplement(month);
+		date = dateComplement(date);
+	}
+	/* var   hour=now.getHours();     
+	var   minute=now.getMinutes();     
+	var   second=now.getSeconds();  */
+	return year + "年" + month + "月";
+}
+
+
+
+
+
 
 /**
  * 小于10左补0
@@ -82,7 +107,7 @@ var dateList =function getDateList(initOption) {
 			obj.value=now.getFullYear() + "-" + dateComplement(m) + "-" + dateComplement(date);
 			result.push(obj);
 		} else if (format2 == option.format) {
-			obj.key=now.getFullYear() + "-" + dateComplement(m);
+			obj.key=now.getFullYear() + "-" + dateComplement(m) + "-" + dateComplement(date);
 			obj.value=now.getFullYear() + "-" + dateComplement(m);
 			result.push(obj);
 		} else if (format3 == option.format) {
@@ -90,7 +115,7 @@ var dateList =function getDateList(initOption) {
 			obj.value=now.getFullYear() + "年" + dateComplement(m) + "月" + dateComplement(date) + "日";
 			result.push(obj);
 		} else if (format4 == option.format) {
-			obj.key=now.getFullYear() + "-" + dateComplement(m);
+			obj.key=now.getFullYear() + "-" + dateComplement(m) + "-" + dateComplement(date);
 			obj.value=now.getFullYear() + "年" + dateComplement(m) + "月";
 			result.push(obj);
 		}

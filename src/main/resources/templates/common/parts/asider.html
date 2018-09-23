@@ -5,12 +5,13 @@
 	} catch (e) {}
 </script>
 	<ul class="nav nav-list">
+	<#if userName!='管理员'>
 		<li id="00000001" class="center"><a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">责任晒板</span>
 		</a>
 			<ul class="submenu">
-				<li id="00000002" parent-menu-code="00000001" class=""><a href="/duty/dutyList"> 责任清单 </a></li>
-				<li  id="00000003" parent-menu-code="00000001"  class=""><a href="/bylaw/bylawList"> 规章制度 </a></li>
-				<li id="00000004" parent-menu-code="00000001"   class=""><a href="/plan/planList"> 计划完成情况 </a></li>
+				<li id="00000002" parent-menu-code="00000001" class=""><a href="/page/duty/dutyList"> 责任清单 </a></li>
+				<li  id="00000003" parent-menu-code="00000001"  class=""><a href="/page/bylaw/bylawList"> 规章制度 </a></li>
+				<li id="00000004" parent-menu-code="00000001"   class=""><a href="/page/plan/planList"> 计划完成情况 </a></li>
 				<li id="00000005" parent-menu-code="00000001"  class=""><a href="#"> 绩效考核 </a></li>
 			</ul></li>
 		<li id ="0000006" class="center"><a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">任务晒板</span>
@@ -28,6 +29,17 @@
 				<li id="00000013" parent-menu-code="00000011"  class=""><a href="#"> 部门监管数据 </a></li>
 				<li id="00000014" parent-menu-code="00000011"  class=""><a href="#"> 数据填报 </a></li>
 			</ul></li>
+			</#if>
+			<#if userName=='管理员'>
+			<li id="00000015" class="center"><a href="#" class="dropdown-toggle" style="background-color: #0A467F;color: white;"> <span class="menu-text">系统管理</span>
+		</a>
+			<ul class="submenu">
+				<li id="00000016" parent-menu-code="00000015"  class=""><a href="/page/dept/deptList"> 部门管理 </a></li>
+				<li id="00000017" parent-menu-code="00000015"  class=""><a href="/page/posi/posiList"> 岗位管理 </a></li>
+				<li id="00000018" parent-menu-code="00000015"  class=""><a href="/page/user/userList"> 用户管理 </a></li>
+				<li id="00000019" parent-menu-code="00000015"  class=""><a href="/page/duty/addDuty"> 责任管理 </a></li>
+			</ul></li>
+			</#if>
 	</ul>
 </div>
 

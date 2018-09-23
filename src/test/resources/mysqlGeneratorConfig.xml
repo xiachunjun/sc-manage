@@ -16,20 +16,65 @@
 			<property name="forceBigDecimals" value="false" />
 		</javaTypeResolver>
 		
-		<javaModelGenerator targetPackage="com.sc.domain" targetProject="src/main/java">
+		<javaModelGenerator targetPackage="com.sc.domain" targetProject="./src/main/java">
 			<property name="enableSubPackages" value="true" />
 			<property name="trimStrings" value="true" />
 		</javaModelGenerator>
 		
-		<sqlMapGenerator targetPackage="com.sc.mysql" targetProject="src/main/resources">
+		<sqlMapGenerator targetPackage="com.sc.mysql" targetProject="./src/main/resources">
 			<property name="enableSubPackages" value="true" />
 		</sqlMapGenerator>
 		<!-- ANNOTATEDMAPPER /  XMLMAPPER-->
-		<javaClientGenerator type="ANNOTATEDMAPPER"  targetPackage="com.sc.dao" targetProject="src/main/java">
+		<javaClientGenerator type="ANNOTATEDMAPPER"  targetPackage="com.sc.dao" targetProject="./src/main/java">
 			<property name="enableSubPackages" value="true" />
 		</javaClientGenerator>
 		
-		<table  schema="sc_manage" tableName="sc_users" domainObjectName="User" enableCountByExample="false"
+		<table  schema="sc_manage" tableName="sc_users" domainObjectName="UserDomain" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table  schema="sc_manage" tableName="sc_user_posi_rel" domainObjectName="UserPosiRelDomain" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table  schema="sc_manage" tableName="sc_positions" domainObjectName="PositionDomain" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table  schema="sc_manage" tableName="sc_plans" domainObjectName="PlanDomain" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		<table  schema="sc_manage" tableName="sc_plan_details" domainObjectName="PlanDetailDomain" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table  schema="sc_manage" tableName="sc_duty" domainObjectName="DutyDomain" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		
+		<table  schema="sc_manage" tableName="sc_departments" domainObjectName="DepartmentDomain" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		<table  schema="sc_manage" tableName="sc_bylaws" domainObjectName="BylawDomain" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="false" />
+		</table>
+		<table  schema="sc_manage" tableName="sc_articles" domainObjectName="ArticleDomain" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="false" />

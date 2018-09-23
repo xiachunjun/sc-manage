@@ -1,18 +1,38 @@
 package com.sc.model.request;
 
-public class PositionModel {
+import javax.validation.constraints.NotNull;
 
-	// 用于修改操作时传入后端，表示记录id
+import org.hibernate.validator.constraints.NotBlank;
+
+import com.sc.support.ValidatedGroup1;
+import com.sc.support.ValidatedGroup2;
+import com.sc.support.ValidatedGroup3;
+
+public class PositionModel {
+	@NotNull(message="ID不能为空",groups={ValidatedGroup1.class})
 	private Integer id;
 
-	/** 部门code */
-	private String departmentCode;
+	/**
+	 * 所属部门
+	 */
+	@NotNull(message="部门ID不能为空" ,groups={ValidatedGroup2.class,ValidatedGroup3.class})
+	private Integer refDeptId;
 
-	/** 岗位名称 */
-	private String positionCode;
+	/**
+	 * 岗位名称
+	 */
+	@NotBlank(message="岗位名称不能为空" ,groups={ValidatedGroup2.class})
+	private String posiName;
 
-	/** 责任人(用户code) */
-	private String userCode;
+	/**
+	 * 岗位描述
+	 */
+	private String posiIntroduce;
+
+	/**
+	 * 备注
+	 */
+	private String dataMemo;
 
 	public Integer getId() {
 		return id;
@@ -22,28 +42,36 @@ public class PositionModel {
 		this.id = id;
 	}
 
-	public String getPositionCode() {
-		return positionCode;
+	public Integer getRefDeptId() {
+		return refDeptId;
 	}
 
-	public void setPositionCode(String positionCode) {
-		this.positionCode = positionCode;
+	public void setRefDeptId(Integer refDeptId) {
+		this.refDeptId = refDeptId;
 	}
 
-	public String getDepartmentCode() {
-		return departmentCode;
+	public String getPosiName() {
+		return posiName;
 	}
 
-	public void setDepartmentCode(String departmentCode) {
-		this.departmentCode = departmentCode;
+	public void setPosiName(String posiName) {
+		this.posiName = posiName;
 	}
 
-	public String getUserCode() {
-		return userCode;
+	public String getPosiIntroduce() {
+		return posiIntroduce;
 	}
 
-	public void setUserCode(String userCode) {
-		this.userCode = userCode;
+	public void setPosiIntroduce(String posiIntroduce) {
+		this.posiIntroduce = posiIntroduce;
+	}
+
+	public String getDataMemo() {
+		return dataMemo;
+	}
+
+	public void setDataMemo(String dataMemo) {
+		this.dataMemo = dataMemo;
 	}
 
 }

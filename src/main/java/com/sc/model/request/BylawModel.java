@@ -1,45 +1,49 @@
 package com.sc.model.request;
 
+import java.util.Date;
+
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.NotBlank;
 import org.springframework.web.multipart.MultipartFile;
 
-public class BylawModel {
+import com.sc.support.ValidatedGroup1;
 
-	//用于修改操作时，传入后端时使用
+public class BylawModel {
+	
+	@NotNull(message="ID不能为空",groups={ValidatedGroup1.class})
 	private Integer id;
 	
 	/**
 	 * 规则制度分类
 	 */
-	@NotBlank(message = "规则制度分类不能为空")
 	private String bylawsCategory;
 
 	/**
 	 * 名称
 	 */
-	@NotBlank(message = "名称不能为空")
 	private String bylawsName;
 
 	/**
 	 * 编号
 	 */
-	@NotBlank(message = "编号不能为空")
 	private String bylawsNo;
 
 	/**
 	 * 发文文号
 	 */
-	@NotBlank(message = "发文文号不能为空")
 	private String articleNo;
 
 	/**
 	 * 发文时间
 	 */
+	private Date articleTime;
 	private String artTime;
+	
+	/**
+	 * （如果不直接保存内容，则以文件或页面的形式保存）
+	 */
+	private String fileUrl;
 
-	@NotNull(message="文件不能为空")
 	private MultipartFile file;
 
 	
@@ -55,40 +59,48 @@ public class BylawModel {
 		return bylawsCategory;
 	}
 
-	public String getBylawsName() {
-		return bylawsName;
-	}
-
-	public String getBylawsNo() {
-		return bylawsNo;
-	}
-
-	public String getArticleNo() {
-		return articleNo;
-	}
-
 	public void setBylawsCategory(String bylawsCategory) {
 		this.bylawsCategory = bylawsCategory;
+	}
+
+	public String getBylawsName() {
+		return bylawsName;
 	}
 
 	public void setBylawsName(String bylawsName) {
 		this.bylawsName = bylawsName;
 	}
 
+	public String getBylawsNo() {
+		return bylawsNo;
+	}
+
 	public void setBylawsNo(String bylawsNo) {
 		this.bylawsNo = bylawsNo;
+	}
+
+	public String getArticleNo() {
+		return articleNo;
 	}
 
 	public void setArticleNo(String articleNo) {
 		this.articleNo = articleNo;
 	}
 
-	public String getArtTime() {
-		return artTime;
+	public Date getArticleTime() {
+		return articleTime;
 	}
 
-	public void setArtTime(String artTime) {
-		this.artTime = artTime;
+	public void setArticleTime(Date articleTime) {
+		this.articleTime = articleTime;
+	}
+
+	public String getFileUrl() {
+		return fileUrl;
+	}
+
+	public void setFileUrl(String fileUrl) {
+		this.fileUrl = fileUrl;
 	}
 
 	public MultipartFile getFile() {
@@ -99,4 +111,13 @@ public class BylawModel {
 		this.file = file;
 	}
 
+	public String getArtTime() {
+		return artTime;
+	}
+
+	public void setArtTime(String artTime) {
+		this.artTime = artTime;
+	}
+
+	
 }

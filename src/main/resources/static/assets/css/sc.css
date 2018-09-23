@@ -76,14 +76,24 @@ table.tftable td {
 	width: 100%;
 }
 
-.law-div table{
-	width:100%;
+.law-div table {
+	width: 100%;
 	border: 1px solid #ddd;
 }
-.law-div table td{
+
+.law-div table td {
 	border: 1px solid #ddd;
 }
+
 .law-div .td-title {
 	width: 75%;
 	padding: 2px 0 2px 3px;
+}
+
+.full {
+	width: 100%;
+}
+
+.center {
+	text-align: center;
 }

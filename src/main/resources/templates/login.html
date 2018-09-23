@@ -4,8 +4,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 <meta charset="utf-8" />
 <title>登录</title>
-
-<meta name="description" content="User login page" />
+<meta name="description" content="用户登录" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
 <link rel="stylesheet" href="../static/assets/css/bootstrap.min.css" />
@@ -16,7 +15,7 @@
 
 <body class="login-layout">
 	<div style="position:absolute; left:0; top:0; width:100%; height:100%">
-		<img src="../static/assets/images/u953.jpg" width="100%" height="100%"/>
+		<img src="../static/assets/images/u953.jpg" width="100%" height="100%" />
 	</div>
 	<div class="main-container">
 		<div class="main-content">
@@ -42,9 +41,13 @@
 										<div class="space-6"></div>
 										<form id="loginForm">
 											<fieldset>
-												<label class="block clearfix"> <span class="block input-icon input-icon-right"> <input id="userLoginName" type="text" name="userLoginName" class="form-control" placeholder="用户名" /> <i class="ace-icon fa fa-user"></i>
+												<label class="block clearfix"> <span class="block input-icon input-icon-right">
+														<input id="userLoginName" type="text" name="userLoginName" class="form-control"
+														placeholder="用户名" /> <i class="ace-icon fa fa-user"></i>
 												</span>
-												</label> <label class="block clearfix"> <span class="block input-icon input-icon-right"> <input id="userLoginPwd" type="password" name="userLoginPwd" class="form-control" placeholder="密码" /> <i class="ace-icon fa fa-lock"></i>
+												</label> <label class="block clearfix"> <span class="block input-icon input-icon-right">
+														<input id="userLoginPwd" type="password" name="userLoginPwd" class="form-control"
+														placeholder="密码" /> <i class="ace-icon fa fa-lock"></i>
 												</span>
 												</label>
 												<div class="space"></div>
@@ -66,10 +69,9 @@
 			</div>
 		</div>
 	</div>
-	<script src="../static/assets/js/jquery-1.11.3.min.js"></script>
-	<script src="../static/assets/js/jquery.form.js"></script>
+	<#include "/common/parts/common-js.html"/>
+	<#include "/common/parts/submit-form-js.html"/>
 	<script type="text/javascript">
-	
 		$(document).keyup(function(e) {
 			if (e.keyCode == 13) {
 				var userLoginName = $("#userLoginName").val();
@@ -83,24 +85,19 @@
 	<script type="text/javascript">
 		jQuery(function($) {
 			$('#loginBtn').on('click', function() {
-				$("#loginForm").ajaxSubmit({
-					url : "/outer/user/login",
-					type : "POST",
-					dataType : "JSON",
-					clearForm : true,
-					resetForm : true,
-					timeout : 5000,
-					success : function(respData) {
-						if ('000000' === respData.resultCode) {
-							window.location.href = "/index";
-						} else {
-							alert("登录失败,请稍后重试...");
+				submitForm(
+					{
+						'formId' : 'loginForm',
+						'url' : '/outer/user/login',
+						'callBack' : function(rsp) {
+							if (rsp.resultCode == '000000') {
+								window.location.href = '/index'
+							} else {
+								alert("用户名或密码错误");
+							}
 						}
-					},
-					beforeSubmit : function(formData) {
-						console.log(formData);
 					}
-				});
+				);
 			});
 		});
 	</script>

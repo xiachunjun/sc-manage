@@ -7,28 +7,31 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
 
 import com.sc.common.constant.CommonConstant;
 import com.sc.common.constant.DataResponse;
 import com.sc.common.constant.ResponseEnum;
 import com.sc.common.constant.ScException;
-import com.sc.domain.User;
+import com.sc.domain.UserDomain;
+import com.sc.model.request.UpdateUserPwdModel;
 import com.sc.model.request.UserModel;
 import com.sc.service.IUserService;
 import com.sc.support.AuthUser;
 import com.sc.support.TokenService;
+import com.sc.support.UserContext;
+import com.sc.support.ValidatedGroup1;
+import com.sc.support.ValidatedGroup2;
+import com.sc.support.ValidatedGroup3;
 
-@Controller
+@RestController
 public class UserController {
 
 	private static final Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -38,26 +41,15 @@ public class UserController {
 	@Autowired
 	private TokenService tokenService;
 
-	
-	@RequestMapping("/outer/register")
-	public String registerPage(Map<String, Object> map) {
-		return "/addUser";
-	}
-	
-	@RequestMapping("/outer/login")
-	public String loginPage(Map<String, Object> map) {
-		return "/login";
-	}
 
 	/**
 	 * 注册用户
 	 */
-	@RequestMapping(value = "/outer/user/register", method = { RequestMethod.POST })
-	@ResponseBody
-	public DataResponse register(UserModel userModel) {
+	@RequestMapping(value = "/user/addUser", method = { RequestMethod.POST })
+	public DataResponse addUserPost(@RequestBody @Validated(value = { ValidatedGroup2.class }) UserModel userModel) {
 		DataResponse dr = null;
 		try {
-			userService.register(userModel);
+			userService.saveUser(userModel);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
@@ -73,13 +65,13 @@ public class UserController {
 	 * 用户登录
 	 */
 	@RequestMapping(value = "/outer/user/login", method = { RequestMethod.POST })
-	@ResponseBody
-	public DataResponse login(UserModel userModel, HttpServletRequest request, HttpServletResponse response) {
+	public DataResponse login(@RequestBody @Validated(value = { ValidatedGroup3.class }) UserModel userModel,
+			HttpServletRequest request, HttpServletResponse response) {
 		DataResponse dr = null;
 		try {
-			User user = userService.login(userModel);
-			if (null != user) {
-				dr = produceToken(user, request, response);
+			UserDomain userDomain = userService.login(userModel);
+			if (null != userDomain) {
+				dr = produceToken(userDomain, request, response);
 			} else {
 				dr = new DataResponse(ResponseEnum.RESPONSE_FAIL);
 			}
@@ -97,9 +89,8 @@ public class UserController {
 	 * 用户退出
 	 */
 	@RequestMapping(value = "/user/logout", method = { RequestMethod.POST })
-	@ResponseBody
-	public DataResponse logout(HttpServletRequest request) {
-		request.getSession().removeAttribute(CommonConstant.USER_LOGIN_NAME);
+	public DataResponse logout() {
+		tokenService.logout(UserContext.getAuthUser());
 		return new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 	}
 
@@ -107,14 +98,14 @@ public class UserController {
 	 * 查询用户列表
 	 */
 	@RequestMapping(value = "/user/query/list", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse queryUsertList(@RequestBody Map<String, String> paramMap) {
 		DataResponse dr = null;
 		try {
-			List<User> userList = null;
-			if (paramMap.get("deptCode")!=null) {
-				String deptCode = String.valueOf(paramMap.get("deptCode"));
-				userList = userService.queryByDept(deptCode);
+			List<UserDomain> userList = null;
+			if (paramMap.get("deptId") != null) {
+				userList = userService.queryByDeptId(Integer.parseInt(paramMap.get("deptId")));
+			}else if (paramMap.get("refDeptId") != null || paramMap.get("refPosiId") != null) {
+				userList = userService.queryByDeptOrPosiId(paramMap);
 			} else {
 				userList = userService.queryUsertList();
 			}
@@ -134,14 +125,13 @@ public class UserController {
 	 * 查询当前用户
 	 */
 	@RequestMapping(value = "/user/currentUser", method = { RequestMethod.POST })
-	@ResponseBody
 	public DataResponse queryCurrentUser(HttpServletRequest request) {
 		DataResponse dr = null;
 		try {
-			Object userNameObj = request.getSession().getAttribute(CommonConstant.USER_LOGIN_NAME);
+			Object userNameObj = request.getSession().getAttribute(CommonConstant.USER_NAME);
 			if (null != userNameObj) {
 				dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
-				dr.put(CommonConstant.USER_LOGIN_NAME, String.valueOf(userNameObj));
+				dr.put(CommonConstant.USER_NAME, String.valueOf(userNameObj));
 			} else {
 				dr = new DataResponse(ResponseEnum.RESPONSE_FAIL);
 			}
@@ -151,18 +141,15 @@ public class UserController {
 		}
 		return dr;
 	}
-	
-	
+
 	/**
 	 * 修改密码
 	 */
-	@RequestMapping(value = "/user/pwd/update", method = { RequestMethod.POST })
-	@ResponseBody
-	public DataResponse updatePwd(@RequestParam(name="id", required=true)Integer id, 
-			@RequestParam(name="password", required=true)String password) {
+	@RequestMapping(value = "/user/updatePwd", method = { RequestMethod.POST })
+	public DataResponse updatePwd(@RequestBody @Validated UpdateUserPwdModel updateUserPwdModel) {
 		DataResponse dr = null;
 		try {
-			userService.updatePwdById(id, password);
+			userService.updatePwd(updateUserPwdModel);
 			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
 		} catch (ScException e) {
 			logger.error(e.getMessage());
@@ -173,16 +160,36 @@ public class UserController {
 		}
 		return dr;
 	}
-	
-	
-	/************************以下为私有方法****************************/
 
-	private DataResponse produceToken(User user, HttpServletRequest request, HttpServletResponse response) {
-		if (null == user) {
+	
+	/**
+	 * 删除用户
+	 */
+	@RequestMapping(value = "/user/delete", method = { RequestMethod.POST })
+	public DataResponse deleteUserById(@RequestBody @Validated(value = { ValidatedGroup1.class} ) UserModel userModel) {
+		DataResponse dr = null;
+		try {
+			userService.deleteUserById(userModel.getId());
+			dr = new DataResponse(ResponseEnum.RESPONSE_SUCCESS);
+		} catch (ScException e) {
+			logger.error(e.getMessage());
+			dr = new DataResponse(e);
+		} catch (Exception e) {
+			logger.error("删除用户异常", e);
+			dr = new DataResponse(ResponseEnum.RESPONSE_ERROR_SYSTEM);
+		}
+		return dr;
+	}
+	
+	
+	/************************ 以下为私有方法 ****************************/
+
+	private DataResponse produceToken(UserDomain userDomain, HttpServletRequest request, HttpServletResponse response) {
+		if (null == userDomain) {
 			return new DataResponse(ResponseEnum.RESPONSE_FAIL);
 		}
 		// 设置token并且添加到redis
-		AuthUser authUser = tokenService.generateAccessTokenByUser(user);
+		AuthUser authUser = tokenService.generateAccessTokenByUser(userDomain);
 		Cookie cookie = new Cookie(CommonConstant.ACCESS_TOKEN_KEY, authUser.getAccessToken());
 		cookie.setPath(request.getContextPath() + "/");
 		cookie.setMaxAge(3600);// 有效期10分钟
@@ -192,5 +199,5 @@ public class UserController {
 		dr.put(CommonConstant.ACCESS_TOKEN_KEY, authUser.getAccessToken());
 		return dr;
 	}
-	
+
 }

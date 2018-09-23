@@ -27,12 +27,12 @@ public class AuthorizationInterceptor extends HandlerInterceptorAdapter {
 		try {
 			System.out.println("path==="+request.getRequestURL());
 			String accessToken = getAccessToken(request);
-			logger.debug("AuthorizationInterceptor.preHandle==", accessToken);
+			logger.debug("AuthorizationInterceptor.preHandle==" + accessToken);
 			AuthUser authUser = tokenService.getUserByAccessToken(accessToken);
 			if (null != authUser) {
 				UserContext.setAuthUser(authUser);
 				logger.info("当前用户为："+JSONObject.toJSON(authUser));
-				request.setAttribute(CommonConstant.USER_LOGIN_NAME, authUser.getUserLoginName());
+				request.setAttribute(CommonConstant.USER_NAME, authUser.getUserName());
 				return true;
 			}
 		} catch (Exception e) {

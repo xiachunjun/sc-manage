@@ -8,18 +8,18 @@
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-<#include "/parts/common-css.html"/>
+<#include "/common/parts/common-css.html"/>
 
 </head>
 <body class="no-skin">
-	<#include "/parts/header.html"/>
+	<#include "/common/parts/header.html"/>
 	<div class="main-container ace-save-state" id="main-container">
 		<script type="text/javascript">
 			try {
 				ace.settings.loadState('main-container')
 			} catch (e) {}
 		</script>
-		<#include "/parts/asider.html"/>
+		<#include "/common/parts/asider.html"/>
 		<div class="main-content">
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state">
@@ -29,8 +29,7 @@
 								<span>当前位置</span> > <span>责任晒板</span> > <span>责任清单</span>
 							</div>
 							<div class="col-sm-6 text-right" style="padding-right: 20px;">
-								<button class="btn btn-white radius-4" onclick="">编辑</button>
-								<button class="btn btn-white radius-4" onclick="window.location.href='/duty/dutyList'">返回</button>
+								<button class="btn btn-white radius-4" onclick="window.location.href='/page/duty/dutyList'">返回</button>
 							</div>
 						</div>
 					</div>
@@ -41,11 +40,12 @@
 							<div class="row">
 								<div class="space-6"></div>
 								<div class="center" style="font-size: 18px; font-weight: bold;">
-									<span id="dutyEntity" dutyEntityCode="${dutyEntityCode!""}" dutyEntityType="${dutyEntityType!""}">${dutyEntityName!""}-${dutyTypeName!""}</span>职责清单
+									<span id="dutyEntity" dutyEntityCode="${dutyEntityCode!""}" dutyEntityType="${dutyEntityType!""}">${dutyDeptEntityName!""} ${dutyPosiEntityName!""} ${dutyTypeName!""}</span>职责清单
 								</div>
 								<div class="col-sm-12">
 									<table id="tfhover" class="tftable" border="1">
-
+									<tr><th>序号</th><th>一级职责</th><th>二级职责</th></tr>
+									<tbody id="tableBody"></tbody>
 									</table>
 								</div>
 							</div>
@@ -54,22 +54,23 @@
 				</div>
 			</div>
 		</div>
-		<#include "/parts/footer.html"/>
+		<#include "/common/parts/footer.html"/>
 	</div>
-	<#include "/parts/common-js.html"/>
+	<#include "/common/parts/common-js.html"/>
 	<script type="text/javascript">
 		function queryData() {
 			var dutyEntityCode = $("#dutyEntity").attr("dutyEntityCode");
 			var dutyEntityType = $("#dutyEntity").attr("dutyEntityType");
 			$.ajax({
 				type : 'POST',
-				url : '/duty/queryByCondition',
-				data : {
-					'dutyEntityCode' : dutyEntityCode,
-					'dutyEntityType' : dutyEntityType
-				},
+				url : '/duty/queryByType',
+				data : JSON.stringify({
+					'qId' : dutyEntityCode,
+					'type' : dutyEntityType
+				}),
+				dataType : 'json',
 				headers : {
-					'Content-Type' : 'application/x-www-form-urlencoded'
+					'Content-Type' : 'application/json'
 				},
 				success : function(data) {
 					var resultCode = data.resultCode;
@@ -88,7 +89,7 @@
 		}
 	
 		function dataListRender(dataMap) {
-			var ht = "<tr><th>序号</th><th>一级职责</th><th>二级职责</th></tr>";
+			var ht = "";
 			var dutyList = dataMap.dutyList;
 			if (dutyList && dutyList.length > 0) {
 				var indexNo = 1;
@@ -97,14 +98,12 @@
 					var dutyLevel2 = dutyLevel1.two;
 					if (dutyLevel2 && dutyLevel2.length > 0) {
 						dutyLevel2.forEach(function(value, index, dutyLevel2) {
-	
 							ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
 							if (0 === index) {
 								ht = ht + "<td rowspan='" + dutyLevel2.length + "'>" + dutyLevel1.one + "</td>";
 							}
 							ht = ht + "<td>" + value + "</td>";
 						});
-	
 					} else {
 						ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
 						ht = ht + "<td>" + dutyLevel1.one + "</td>";
@@ -112,7 +111,8 @@
 					}
 				}
 			}
-			$("#tfhover").html(ht);
+			$("#tableBody").html("");
+			$("#tableBody").append(ht);
 		}
 		queryData();
 	</script>

@@ -8,19 +8,19 @@
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-<#include "/parts/common-css.html"/>
+<#include "/common/parts/common-css.html"/>
 <link rel="stylesheet" href="/static/assets/css/bootstrap-datepicker3.min.css" />
 
 </head>
 <body class="no-skin">
-	<#include "/parts/header.html"/>
+	<#include "/common/parts/header.html"/>
 	<div class="main-container ace-save-state" id="main-container">
 		<script type="text/javascript">
 			try {
 				ace.settings.loadState('main-container')
 			} catch (e) {}
 		</script>
-		<#include "/parts/asider.html"/>
+		<#include "/common/parts/asider.html"/>
 
 		<div class="main-content">
 			<div class="main-content-inner">
@@ -45,40 +45,43 @@
 									<div class="space-6"></div>
 									<form id="queryForm" class="form-horizontal" role="form" onsubmit="return false;">
 										<div class="form-group">
-											<label class="col-sm-1 control-label no-padding-right" for="yearAndMonth">年月</label>
+											<label class="col-sm-1 control-label no-padding-right" for="planDate">年月</label>
 											<div class="col-sm-1">
-												<select id="yearAndMonth" name="yearAndMonth">
+												<select style="width: 100%;" id="planDate" name="planDate">
+													<option value=""></option>
 													<option value="201801">2018年1月</option>
 													<option value="201712">2017年12月</option>
 													<option value="201711">2017年11月</option>
 												</select>
 											</div>
 
-											<label class="col-sm-1 control-label no-padding-right" for="departmentCode">部门</label>
+											<label class="col-sm-1 control-label no-padding-right" for="refDeptId">部门</label>
 											<div class="col-sm-2">
-												<select style="width: 100%;" id="departmentCode" name="departmentCode">
+												<select style="width: 100%;" id="refDeptId" name="refDeptId">
 
 												</select>
 											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="planType">工作类型</label>
+											<label class="col-sm-1 control-label no-padding-right" for="detailType">工作类型</label>
 											<div class="col-sm-1">
-												<select style="width: 100%;" id="planType" name="planType">
-													<option value="0">常规</option>
-													<option value="1">重点</option>
-													<option value="2">计划外</option>
+												<select style="width: 100%;" id="detailType" name="detailType">
+													<option value=""></option>
+													<option value="1">常规</option>
+													<option value="2">重点</option>
+													<option value="3">计划外</option>
 												</select>
 											</div>
 											<label class="col-sm-1 control-label no-padding-right" for="rateOfProgress">完成度</label>
 											<div class="col-sm-1">
 												<select style="width: 100%;" id="rateOfProgress" name="rateOfProgress">
-													<option value="0">完成</option>
-													<option value="1">未完成</option>
-													<option value="2">部分完成</option>
+												    <option value=""></option>
+													<option value="完成">完成</option>
+													<option value="未完成">未完成</option>
+													<option value="部分完成">部分完成</option>
 												</select>
 											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="userCode">责任人</label>
+											<label class="col-sm-1 control-label no-padding-right" for="refUserId">责任人</label>
 											<div class="col-sm-1">
-												<select style="width: 100%;" id="userCode" name="userCode">
+												<select style="width: 100%;" id="refUserId" name="refUserId">
 												</select>
 											</div>
 											<div class="col-sm-1 align-left">
@@ -104,33 +107,76 @@
 				</div>
 			</div>
 		</div>
-		<#include "/parts/footer.html"/>
+		<#include "/common/parts/footer.html"/>
 	</div>
 
-	<#include "/parts/common-js.html"/>
+	<#include "/common/parts/common-js.html"/>
+	<#include "/common/parts/submit-form-js.html"/>
 	<script src="/static/assets/js/jquery.form.js"></script>
 	<script src="/static/assets/js/ace.min.js"></script>
 	<script src="/static/assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script src="/static/assets/js/jquery.serializejson.min.js"></script>
+	<script src="/static/assets/js/sc-date.js"></script>
 	<script type="text/javascript">
-		jQuery(function($) {
-			$('#departmentCode').on('change', function(e) {
-				renderPosition();
-			});
+		$(function(){
 			queryData();
-			renderDept();
-			renderUser();
+			//查询所有用户
+			$.ajax({
+				type : 'POST',
+				url : '/user/query/list',
+				data :  JSON.stringify({}),
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					if(data.resultCode === '000000' & data.dataMap != null){
+		   	    		 $("#refUserId option").remove();
+		   	  	         var userList = data.dataMap.userList;
+		   	  	         if(userList!=null && userList.length>0){
+		   	  	            var $option2 = $("<option></option>");
+			        		$("#refUserId").append($option2);
+		   	  	            for(var i=0; i<userList.length; i++){
+		   	  		            var $option = $("<option></option>");
+		   	  		            $option.attr("value", userList[i].id);
+		   	  		            $option.text(userList[i].userName);
+		   	  		       		$("#refUserId").append($option);
+		   	  	            }
+		   	  	         }
+		   	    	}else {
+						alert("获取信息异常-" + JSON.stringify(data));
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取信息异常-" + JSON.stringify(data));
+				}
+			});
+			//查询所有部门
+			$.post("/dept/queryDeptList", null, function(data,textStatus){
+				 if(data.resultCode === '000000'){
+					$("#refDeptId option").remove();
+			        var deptList = data.dataMap.depts;
+			        if(deptList!=null && deptList.length>0){
+			        	var $option2 = $("<option></option>");
+			        	$("#refDeptId").append($option2);
+			            for(var i=0;i<deptList.length;i++){
+				            //添加到所属部门的下拉菜单中
+				            var $option = $("<option></option>");
+				            $option.attr("value",deptList[i].id);
+				            $option.text(deptList[i].deptName);
+				            $("#refDeptId").append($option);
+			            }
+			        }
+				 }
+		    });
 		});
 	
 		function queryData() {
 			var paramJson = $('#queryForm').serializeJSON();
-			if (!paramJson.departmentCode || paramJson.departmentCode.length < 8) {
-				paramJson.departmentCode = "00000001";
-			}
 			$.ajax({
 				type : 'POST',
-				url : '/position/query/list',
+				url : '/plan/queryPlanList',
 				data : JSON.stringify(paramJson),
 				headers : {
 					'Content-Type' : 'application/json'
@@ -151,123 +197,29 @@
 			});
 		}
 	
-	
 		function dataListRender(dataMap) {
 			var ht = "<tr><th>序号</th><th>部门</th><th>工作类型</th><th>工作计划内容</th><th>责任人</th><th>制定人</th><th>修订人</th><th>开始时间</th><th>结束时间</th><th>完成度</th><th>完成情况</th></tr>";
-			var dataList = dataMap.dataList;
-			if (dataList && dataList.length > 0) {
+			var planList = dataMap.planList;
+			if (planList && planList.length > 0) {
 				var indexNo = 1;
-				for (var i = 0; i < dataList.length; i++) {
-					var posi = dataList[i];
+				for (var i = 0; i < planList.length; i++) {
+					var plan = planList[i];
 					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-					ht = ht + "<td><a href='/duty/deptDutyList?deptCode=" + posi.refDepartmentCode + "&deptName=" + encodeURI(posi.departmentName) + "' style='text-decoration:none;'>" + posi.departmentName + "</a></td>";
-					ht = ht + "<td><a href='/duty/posiDutyList?posiCode=" + posi.positionCode + "&posiName=" + encodeURI(posi.positionName) + "' style='text-decoration:none;'>" + posi.positionName + "</a></td>";
-					ht = ht + "<td>" + posi.userLoginName + "</td>";
+					ht = ht + "<td>" + plan.deptName + "</td>";
+					ht = ht + "<td>" + plan.detailTypeName + "</td>";
+					ht = ht + "<td>" + plan.detailContent + "</td>";
+					ht = ht + "<td>" + plan.userName + "</td>";
+					ht = ht + "<td>" + plan.userName + "</td>";
+					ht = ht + "<td>" + plan.updateUser + "</td>";
+					ht = ht + "<td>" + formatDate1(plan.beginTime, true) + "</td>";
+					ht = ht + "<td>" + formatDate1(plan.endTime, true) + "</td>";
+					ht = ht + "<td>" + plan.rateOfProgress + "</td>";
+					ht = ht + "<td>" + plan.progressInfo + "</td>";
 				}
 			} else {
-				ht = ht + "<tr class='center'><td colspan='4'>未查询到相关记录</td></tr>";
+				ht = ht + "<tr class='center'><td colspan='11'>未查询到相关记录</td></tr>";
 			}
 			$("#tfhover").html(ht);
-		}
-	
-	
-		function renderDept() {
-			$.ajax({
-				type : 'POST',
-				url : '/department/queryAll',
-				data : null,
-				headers : {
-					'Content-Type' : 'application/json'
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					var dataMap = data.dataMap;
-					if (resultCode == '000000' & dataMap != null) {
-						var ht = "";
-						var depts = dataMap.depts;
-						if (depts && depts.length > 0) {
-							for (i = 0; i < depts.length; i++) {
-								ht = ht + "<option value='" + depts[i].departmentCode + "'>" + depts[i].departmentName + "</option>";
-							}
-							$("#departmentCode").html(ht);
-						}
-						renderPosition();
-					} else {
-						alert("获取部门列表失败！");
-					}
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("获取信息异常-" + JSON.stringify(data));
-				}
-			});
-		}
-	
-		function renderPosition(deptCode) {
-			var da = {};
-			if (!deptCode) {
-				deptCode = $("#departmentCode").val();
-			}
-			da.departmentCode = deptCode;
-			$.ajax({
-				type : 'POST',
-				url : '/position/queryByDeptCode',
-				data : JSON.stringify(da),
-				headers : {
-					"Content-Type" : "application/json"
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					var dataMap = data.dataMap;
-					var ht = "<option></option>";
-					if (resultCode == '000000' & dataMap != null) {
-						var positions = dataMap.positions;
-						if (positions && positions.length > 0) {
-							for (i = 0; i < positions.length; i++) {
-								ht = ht + "<option value='" + positions[i].positionCode + "'>" + positions[i].positionName + "</option>";
-							}
-						}
-					} else {
-						alert("获取信息异常-" + JSON.stringify(data));
-					}
-					$("#positionCode").html(ht);
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("获取信息异常-" + JSON.stringify(data));
-				}
-			});
-		}
-	
-		function renderUser() {
-			$.ajax({
-				type : 'POST',
-				url : '/user/query/list',
-				data :  JSON.stringify({}),
-				headers : {
-					'Content-Type' : 'application/json'
-				},
-				success : function(data) {
-					var resultCode = data.resultCode;
-					var dataMap = data.dataMap;
-					if (resultCode == '000000' & dataMap != null) {
-						var ht = "<option></option>";
-						var userList = dataMap.userList;
-						if (userList && userList.length > 0) {
-							for (i = 0; i < userList.length; i++) {
-								ht = ht + "<option value='" + userList[i].userCode + "'>" + userList[i].userLoginName + "</option>";
-							}
-							$("#userCode").html(ht);
-						}
-					} else {
-						alert("获取信息异常-" + JSON.stringify(data));
-					}
-				},
-				dataType : 'json',
-				error : function(data) {
-					alert("获取信息异常-" + JSON.stringify(data));
-				}
-			});
 		}
 	</script>
 </body>

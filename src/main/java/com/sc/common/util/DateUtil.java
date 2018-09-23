@@ -19,13 +19,28 @@ public class DateUtil {
 		}
 		return d;
 	}
-
+	
+	public static Date str2Date2(String strDate){
+		Date d= null;
+		try {
+			d = new SimpleDateFormat("yyyy-MM").parse(strDate);
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return d;
+	}
+	
 	public static String date2Str2(Date date){
 		return new SimpleDateFormat("yyyy-MM-dd").format(date);
 	}
 	
-//	public static void main(String[] args) {
-//		System.out.println(date2Str(str2Date("2017-01-01")));
-//	}
+	public static String date2Str3(Date date){
+		return new SimpleDateFormat("yyyy-MM").format(date);
+	}
+	
+	/**生成一连串字符串*/
+	public static String generateStr(Date date){
+		return new SimpleDateFormat("yyyyMMddhhmmssSSSS").format(date);
+	}
 	
 }

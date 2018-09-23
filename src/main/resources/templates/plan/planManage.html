@@ -7,12 +7,11 @@
 
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<#include "/parts/common-css.html"/>
-<link rel="stylesheet" href="/static/assets/css/bootstrap-datepicker3.min.css" />
+<#include "/common/parts/common-css.html"/>
 
 </head>
 <body class="no-skin">
-	<#include "/parts/header.html"/>
+	<#include "/common/parts/header.html"/>
 	<div class="main-container ace-save-state" id="main-container">
 		<script type="text/javascript">
 			try {
@@ -20,7 +19,7 @@
 			} catch (e) {}
 		</script>
 
-		<#include "/parts/asider.html"/>
+		<#include "/common/parts/asider.html"/>
 		<div class="main-content">
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state">
@@ -31,7 +30,7 @@
 							</div>
 							<div class="col-sm-6 text-right" style="padding-right: 20px;">
 								<button class="btn btn-white radius-4" onclick="window.location.href='/plan/addPlan'">新建</button>
-								<button class="btn btn-white radius-4" onclick="window.location.href='/plan/planList'">返回</button>
+								<button class="btn btn-white radius-4" onclick="window.location.href='/page/plan/planList'">返回</button>
 							</div>
 						</div>
 					</div>
@@ -64,26 +63,30 @@
 																			<div class="space-6"></div>
 																			<div class="col-sm-12 center">
 																				<div class="space-6"></div>
-																				<form id="needTodoForm" class="form-horizontal" role="form"
+																				<form id="queryForm1" class="form-horizontal" role="form"
 																					onsubmit="return false;">
+																					<input type="hidden" name="tab" value="1" />
 																					<div class="form-group">
-																						<label class="col-sm-1 control-label no-padding-right" for="deptCode">部门</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="refDeptId">部门</label>
 																						<div class="col-sm-2">
-																							<select style="width: 100%;" id="deptCode1" name="deptCode">
-																								<option value="${dept.departmentCode!''}">${dept.departmentName!''}</option>
+																							<select style="width: 100%;" id="refDeptId1" name="refDeptId">
+																								<option value="${userInfo.deptId!''}">${userInfo.deptName!''}</option>
 																							</select>
 																						</div>
-																						<label class="col-sm-1 control-label no-padding-right" for="refUser">责任人</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="refUserId">责任人</label>
 																						<div class="col-sm-1">
-																							<select style="width: 100%;" id="refUser1" name="refUser">
+																							<select style="width: 100%;" id="refUser1" name="refUserId">
 																							</select>
 																						</div>
-																						<label class="col-sm-1 control-label no-padding-right" for="planType">进度节点</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="dataState">进度节点</label>
 																						<div class="col-sm-2">
-																							<select style="width: 100%;" id="planType1" name="planType">
-																								<option value="0">部门领导确认</option>
-																								<option value="1">责任人执行</option>
-																								<option value="2">部门领导审批</option>
+																							<select style="width: 100%;" id="dataState1" name="dataState">
+																								<option value=""></option>
+																								<option value="1">新建计划</option>
+																								<option value="2">部门领导批示</option>
+																								<option value="3">责任人执行计划</option>
+																								<option value="4">部门领导审批</option>
+																								<option value="5">结束</option>
 																							</select>
 																						</div>
 																						<label class="col-sm-1 control-label no-padding-right" for="planDate">计划年月</label>
@@ -95,7 +98,7 @@
 
 																						<div class="col-sm-1 align-left">
 																							<button class="btn btn-white radius-4" style="padding: 4px 12px;"
-																								onclick="queryData()">查询</button>
+																								onclick="load(1)">查询</button>
 																						</div>
 																					</div>
 																				</form>
@@ -115,7 +118,7 @@
 																						<th>进度节点</th>
 																						<th>申请时间</th>
 																					</tr>
-
+																					<tbody id="tableBody1"></tbody>
 																				</table>
 																			</div>
 																		</div>
@@ -132,26 +135,30 @@
 																				<div class="space-6"></div>
 																				<div class="col-sm-12 center">
 																					<div class="space-6"></div>
-																					<form id="doingForm" class="form-horizontal" role="form"
+																					<form id="queryForm2" class="form-horizontal" role="form"
 																						onsubmit="return false;">
+																						<input type="hidden" name="tab" value="2" />
 																						<div class="form-group">
-																							<label class="col-sm-1 control-label no-padding-right" for="deptCode">部门</label>
+																							<label class="col-sm-1 control-label no-padding-right" for="refDeptId">部门</label>
 																							<div class="col-sm-2">
-																								<select style="width: 100%;" id="deptCode2" name="deptCode">
-																									<option value="${dept.departmentCode!''}">${dept.departmentName!''}</option>
+																								<select style="width: 100%;" id="refDeptId2" name="refDeptId">
+																									<option value="${userInfo.deptId!''}">${userInfo.deptName!''}</option>
 																								</select>
 																							</div>
-																							<label class="col-sm-1 control-label no-padding-right" for="refUser">责任人</label>
+																							<label class="col-sm-1 control-label no-padding-right" for="refUserId">责任人</label>
 																							<div class="col-sm-1">
-																								<select style="width: 100%;" id="refUser2" name="refUser">
+																								<select style="width: 100%;" id="refUser2" name="refUserId">
 																								</select>
 																							</div>
-																							<label class="col-sm-1 control-label no-padding-right" for="planType">进度节点</label>
+																							<label class="col-sm-1 control-label no-padding-right" for="dataState">进度节点</label>
 																							<div class="col-sm-2">
-																								<select style="width: 100%;" id="planType2" name="planType">
-																									<option value="0">部门领导确认</option>
-																									<option value="1">责任人执行</option>
-																									<option value="2">部门领导审批</option>
+																								<select style="width: 100%;" id="dataState2" name="dataState">
+																									<option value=""></option>
+																									<option value="1">新建计划</option>
+																									<option value="2">部门领导批示</option>
+																									<option value="3">责任人执行计划</option>
+																									<option value="4">部门领导审批</option>
+																									<option value="5">结束</option>
 																								</select>
 																							</div>
 																							<label class="col-sm-1 control-label no-padding-right" for="planDate">计划年月</label>
@@ -162,7 +169,7 @@
 
 																							<div class="col-sm-1 align-left">
 																								<button class="btn btn-white radius-4" style="padding: 4px 12px;"
-																									onclick="queryData()">查询</button>
+																									onclick="load(2)">查询</button>
 																							</div>
 																						</div>
 																					</form>
@@ -182,7 +189,7 @@
 																							<th>进度节点</th>
 																							<th>审批时间</th>
 																						</tr>
-
+																						<tbody id="tableBody2"></tbody>
 																					</table>
 																				</div>
 																			</div>
@@ -199,26 +206,31 @@
 																			<div class="space-6"></div>
 																			<div class="col-sm-12 center">
 																				<div class="space-6"></div>
-																				<form id="finishedForm" class="form-horizontal" role="form"
+																				<form id="queryForm3" class="form-horizontal" role="form"
 																					onsubmit="return false;">
+																					<input type="hidden" name="tab" value="3" />
 																					<div class="form-group">
-																						<label class="col-sm-1 control-label no-padding-right" for="deptCode">部门</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="refDeptId">部门</label>
 																						<div class="col-sm-2">
-																							<select style="width: 100%;" id="deptCode" name="deptCode">
-																								<option value="${dept.departmentCode!''}">${dept.departmentName!''}</option>
+																							<select style="width: 100%;" id="refDeptId3" name="refDeptId">
+																								<option value="${userInfo.deptId!''}">${userInfo.deptName!''}</option>
 																							</select>
 																						</div>
-																						<label class="col-sm-1 control-label no-padding-right" for="refUser">责任人</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="refUserId">责任人</label>
 																						<div class="col-sm-1">
-																							<select style="width: 100%;" id="refUser3" name="refUser">
+																							<select style="width: 100%;" id="refUser3" name="refUserId">
+																								<option value="${userInfo.userId!''}">${userInfo.userName!''}</option>
 																							</select>
 																						</div>
-																						<label class="col-sm-1 control-label no-padding-right" for="planType">进度节点</label>
+																						<label class="col-sm-1 control-label no-padding-right" for="dataState">进度节点</label>
 																						<div class="col-sm-2">
-																							<select style="width: 100%;" id="planTyp3" name="planType">
-																								<option value="0">部门领导确认</option>
-																								<option value="1">责任人执行</option>
-																								<option value="2">部门领导审批</option>
+																							<select style="width: 100%;" id="dataState3" name="dataState">
+																								<option value=""></option>
+																								<option value="1">新建计划</option>
+																								<option value="2">部门领导批示</option>
+																								<option value="3">责任人执行计划</option>
+																								<option value="4">部门领导审批</option>
+																								<option value="5">结束</option>
 																							</select>
 																						</div>
 																						<label class="col-sm-1 control-label no-padding-right" for="planDate">计划年月</label>
@@ -229,7 +241,7 @@
 
 																						<div class="col-sm-1 align-left">
 																							<button class="btn btn-white radius-4" style="padding: 4px 12px;"
-																								onclick="queryData()">查询</button>
+																								onclick="load(3)">查询</button>
 																						</div>
 																					</div>
 																				</form>
@@ -249,7 +261,7 @@
 																						<th>进度节点</th>
 																						<th>完成时间</th>
 																					</tr>
-
+																					<tbody id="tableBody3"></tbody>
 																				</table>
 																			</div>
 																		</div>
@@ -271,15 +283,11 @@
 				</div>
 			</div>
 		</div>
-		<#include "/parts/footer.html"/>
+		<#include "/common/parts/footer.html"/>
 	</div>
-	<#include "/parts/common-js.html"/>
-	<script src="/static/assets/js/bootstrap-datepicker.min.js"></script>
-	<script src="/static/assets/js/markdown.min.js"></script>
-	<script src="/static/assets/js/bootstrap-markdown.min.js"></script>
-	<script src="/static/assets/js/jquery.hotkeys.index.min.js"></script>
-	<script src="/static/assets/js/bootstrap-wysiwyg.min.js"></script>
-	<script src="/static/assets/js/bootbox.js"></script>
+	<#include "/common/parts/common-js.html"/>
+	<#include "/common/parts/submit-form-js.html"/>
+
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script src="/static/assets/js/sc-date.js"></script>
 	<script type="text/javascript">
@@ -292,19 +300,10 @@
 					console.log("error uploading file", reason, detail);
 				}
 			}
-	
-	
-			$('.date-picker').datepicker({
-				autoclose : true,
-				todayHighlight : true
-			})
-				.next().on(ace.click_event, function() {
-				$(this).prev().focus();
-			});
-	
-	
 			renderPlanDateList();
-	
+			renderUser();
+			renderDept();
+			load(1);
 		});
 		function renderPlanDateList() {
 			var planDateList = dateList({
@@ -319,34 +318,53 @@
 			$("#planDate3").html(ht);
 		}
 	
-	
-	
-		function dataListRender(dataMap) {
-			var ht = "<tr><th>序号</th><th>日期</th><th>标题</th><th>联系人</th><th>签发人</th><th>操作</th></tr>";
-			var deptDutyList = dataMap.deptDutyList;
-			if (deptDutyList && deptDutyList.length > 0) {
-				var indexNo = 1;
-				for (var i = 0; i < deptDutyList.length; i++) {
-					var deptDutyLevel1 = deptDutyList[i];
-					var deptDutyLevel2 = deptDutyLevel1.two;
-					if (deptDutyLevel2 && deptDutyLevel2.length > 0) {
-						deptDutyLevel2.forEach(function(value, index, deptDutyLevel2) {
-	
-							ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-							if (0 === index) {
-								ht = ht + "<td rowspan='" + deptDutyLevel2.length + "'>" + deptDutyLevel1.one + "</td>";
-							}
-							ht = ht + "<td>" + value + "</td>";
-						});
-	
-					} else {
-						ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
-						ht = ht + "<td>" + deptDutyLevel1.one + "</td>";
-						ht = ht + "<td>&nbsp;</td>";
-					}
-				}
+		var load = function(tab) {
+			var formId = 'queryForm1';
+			if (1 == tab) {
+				formId = 'queryForm1';
+			} else if (2 == tab) {
+				formId = 'queryForm2';
+			} else if (3 == tab) {
+				formId = 'queryForm3';
 			}
-			$("#tfhover").html(ht);
+			submitForm({
+				'formId' : formId,
+				'url' : '/plan/queryByTab',
+				'catchError' : true,
+				'callBack' : dataListRender
+			});
+		}
+	
+		function dataListRender(rsp) {
+			var ht = "";
+			var planList = rsp.dataMap.planList;
+			if (planList && planList.length > 0) {
+				var indexNo = 1;
+				for (var i = 0; i < planList.length; i++) {
+					var plan = planList[i];
+					ht = ht + "<tr class='center'><td>" + (indexNo++) + "</td>";
+					ht = ht + "<td>" + formatDate2(plan.planDate, true) + "</td>";
+					ht = ht + "<td>" + plan.deptName + "</td>";
+					ht = ht + "<td planId='"+plan.id+"'><a href='javascript:void(0)' onclick='queryPlanDetailByPlanId(this)' style='text-decoration:none;'>" + plan.posiName + "</a></td>";
+					ht = ht + "<td>" + plan.userName + "</td>";
+					ht = ht + "<td>" + plan.rateOfProgress + "</td>";
+					ht = ht + "<td>" + plan.dataStateName + "</td>";
+					ht = ht + "<td>" + "审核时间" + "</td>";
+				}
+			} else {
+				ht = ht + "<tr><td colspan='8'>未查到相关记录</td></tr>";
+			}
+			var tab = rsp.dataMap.tab;
+			if(tab == 1){
+				$("#tableBody1").html("");
+				$("#tableBody1").append(ht);
+			}else if(tab == 2){
+				$("#tableBody2").html("");
+				$("#tableBody2").append(ht);
+			}else if(tab == 3){
+				$("#tableBody3").html("");
+				$("#tableBody3").append(ht);
+			}
 		}
 	
 		function renderUser() {
@@ -361,15 +379,15 @@
 					var resultCode = data.resultCode;
 					var dataMap = data.dataMap;
 					if (resultCode == '000000' & dataMap != null) {
-						var ht = "";
+						var ht = "<option value=''></option>";
 						var userList = dataMap.userList;
 						if (userList && userList.length > 0) {
 							for (i = 0; i < userList.length; i++) {
-								ht = ht + "<option value='" + userList[i].userCode + "'>" + userList[i].userName + "</option>";
+								ht = ht + "<option value='" + userList[i].id + "'>" + userList[i].userName + "</option>";
 							}
 							$("#refUser1").html(ht);
 							$("#refUser2").html(ht);
-							$("#refUser3").html(ht);
+							//$("#refUser3").html(ht);
 						}
 					} else {
 						alert("获取信息异常-" + JSON.stringify(data));
@@ -381,8 +399,45 @@
 				}
 			});
 		}
-	
-		renderUser();
+		
+		function renderDept() {
+			$.ajax({
+				type : 'POST',
+				url : '/dept/queryDeptList',
+				data : JSON.stringify({}),
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					var dataMap = data.dataMap;
+					if (resultCode == '000000' & dataMap != null) {
+						var ht = "<option value=''></option>";
+						var deptList = dataMap.depts;
+						if (deptList && deptList.length > 0) {
+							for (i = 0; i < deptList.length; i++) {
+								ht = ht + "<option value='" + deptList[i].id + "'>" + deptList[i].deptName + "</option>";
+							}
+							$("#refDeptId1").html(ht);
+							$("#refDeptId2").html(ht);
+							//$("#refDeptId3").html(ht);
+						}
+					} else {
+						alert("获取信息异常-" + JSON.stringify(data));
+					}
+				},
+				dataType : 'json',
+				error : function(data) {
+					alert("获取信息异常-" + JSON.stringify(data));
+				}
+			});
+		}
+		
+		function queryPlanDetailByPlanId(obj){
+			alert("功能正在紧张开发中正在开发中");
+			//var planId = $(obj).parent().attr("planId");
+			//window.location.href = '/plan/detailPlan?planId=' + planId;
+		}
 	</script>
 </body>
 </html>

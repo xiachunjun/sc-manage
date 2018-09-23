@@ -7,7 +7,8 @@ public enum ResponseEnum {
 	RESPONSE_ERROR_SYSTEM("100001", "对不起，系统繁忙!"),
 	RESPONSE_ERROR_PARAM("100002", "输入参数有误"),
 	/**以下定义具体业务异常*/
-	RESPONSE_ERROR_NULL("100001", "没有查询到该条记录"),
+	RESPONSE_ERROR_NULL("100003", "没有查询到该条记录"),
+	RESPONSE_USERID_ERROR_NULL("100004", "没有查询到用户id")
 	;
 	
 	

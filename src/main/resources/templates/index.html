@@ -8,11 +8,11 @@
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 
-<#include "/parts/common-css.html"/>
+<#include "/common/parts/common-css.html"/>
 <link rel="stylesheet" href="/static/assets/css/sc-calendar.css" />
 </head>
 <body class="no-skin">
-	<#include "/parts/header.html"/>
+	<#include "/common/parts/header.html"/>
 	<div class="main-container ace-save-state" id="main-container">
 		<script type="text/javascript">
 			try {
@@ -20,7 +20,7 @@
 			} catch (e) {}
 		</script>
 
-		<#include "/parts/asider.html"/>
+		<#include "/common/parts/asider.html"/>
 
 		<div class="main-content">
 			<div class="main-content-inner">
@@ -137,7 +137,7 @@
 										<h4 class="widget-title"
 											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">每日信息</h4>
 										<div class="widget-toolbar">
-											<a href="/article/articleList"> 详情 > </a>
+											<a href="/page/article/articleList"> 详情 > </a>
 										</div>
 									</div>
 									<div class="widget-body">
@@ -263,7 +263,7 @@
 										<h4 class="widget-title"
 											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">责任晒板</h4>
 										<div class="widget-toolbar">
-											<a href="duty.html"> 详情 > </a>
+											<a href="/page/duty/dutyList"> 详情 > </a>
 										</div>
 									</div>
 									<div class="widget-body">
@@ -413,7 +413,7 @@
 										<h4 class="widget-title"
 											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">法律宣传</h4>
 										<div class="widget-toolbar">
-											<a href="/article/articleList"> 详情 > </a>
+											<a href="/page/article/articleList"> 详情 > </a>
 										</div>
 									</div>
 									<div class="widget-body">
@@ -470,7 +470,7 @@
 										<h4 class="widget-title"
 											style="color:#0099CC;margin-left:3px;text-align: left;font-size: 18px;">规章制度</h4>
 										<div class="widget-toolbar">
-											<a href="bylaws.html"> 详情 > </a>
+											<a href="/page/bylaw/bylawList"> 详情 > </a>
 										</div>
 									</div>
 									<div class="widget-body">
@@ -492,9 +492,9 @@
 			</div>
 		</div>
 	</div>
-	<#include "/parts/footer.html"/>
+	<#include "/common/parts/footer.html"/>
 
-	<#include "/parts/common-js.html"/>
+	<#include "/common/parts/common-js.html"/>
 	<script src="/static/assets/js/jquery.liMarquee.js"></script>
 	<script src="/static/assets/js/jquery-ui.custom.min.js"></script>
 	<script src="/static/assets/js/jquery.ui.touch-punch.min.js"></script>

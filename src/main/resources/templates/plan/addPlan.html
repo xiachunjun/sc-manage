@@ -7,19 +7,19 @@
 
 <meta name="description" content="overview &amp; stats" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-<#include "/parts/common-css.html"/>
+<#include "/common/parts/common-css.html"/>
 <link rel="stylesheet" href="/static/assets/css/bootstrap-datepicker3.min.css" />
 
 </head>
 <body class="no-skin">
-	<#include "/parts/header.html"/>
+	<#include "/common/parts/header.html"/>
 	<div class="main-container ace-save-state" id="main-container">
 		<script type="text/javascript">
 			try {
 				ace.settings.loadState('main-container')
 			} catch (e) {}
 		</script>
-		<#include "/parts/asider.html"/>
+		<#include "/common/parts/asider.html"/>
 		<div class="main-content">
 			<div class="main-content-inner">
 				<div class="breadcrumbs ace-save-state">
@@ -52,63 +52,66 @@
 								</div>
 								<div class="space-6"></div>
 								<div class="col-sm-12">
-									<div class="col-sm-offset-5" style="font-size: 18px; font-weight: bold;">新建计划</div>
+									<div class="col-sm-offset-5" style="font-size: 18px; font-weight: bold;">个人月度计划完成情况</div>
 									<div class="space-6"></div>
-									<form id="addPlanForm" class="form-horizontal" role="form" onsubmit="return false;">
-									<input type="hidden" name="planName" value="新建计划" />
+									<form id="addPlanForm" class="form-horizontal" role="form" onsubmit="return false">
+										<input type="hidden" name="userName" value="${userInfo.userName!''}" /> <input
+											type="hidden" id="userId" name="userId" value="${userInfo.userId!''}" /> <input
+											type="hidden" id="deptId" name="deptId" value="${userInfo.deptId!''}" /> <input
+											type="hidden" id="posiId" name="posiId" value="${userInfo.posiId!''}" />
 										<div class="form-group">
-											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right"
-												for="formulateUser">制定人</label>
+											<label class="col-sm-1 control-label no-padding-right">姓名：</label> <label
+												class="col-sm-1 control-label center">${userInfo.userName!''}</label> <label
+												class="col-sm-1 control-label no-padding-right">岗位：</label> <label
+												class="col-sm-2 control-label center">${userInfo.posiName!''}</label> <label
+												class="col-sm-1 control-label no-padding-right">部门：</label> <label
+												class="col-sm-2 control-label center">${userInfo.deptName!''}</label> <label
+												class="col-sm-1 control-label no-padding-right" for="planDate">月份</label>
 											<div class="col-sm-2">
-											
-												<input readonly="readonly" type="text" 	value="${authUser.userName!''}" />
-											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="formulateDept">部门</label>
-											<div class="col-sm-2">
-												<input readonly="readonly" type="text"  value="${dept.departmentName!''}" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right" for="position">岗位</label>
-											<div class="col-sm-2">
-												<input readonly="readonly" type="text" id="position" name="position" value="企业规划" />
-											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="planDate">计划日期</label>
-											<div class="col-sm-2">
-												<input id="planDate" name="planDate" class="date-picker" readonly="readonly" type="text"
-													data-date-format="yyyy-mm-dd" value=""/>
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right"
-												for="planBeginTime">开始日期</label>
-											<div class="col-sm-2">
-												<input name="planBeginTime" class="date-picker" readonly="readonly" type="text"
-													data-date-format="yyyy-mm-dd" placeholder="开始时间" />
-											</div>
-											<label class="col-sm-1 control-label no-padding-right" for="planEndTime">结束日期</label>
-											<div class="col-sm-2">
-												<input name="planEndTime" class="date-picker" readonly="readonly" type="text"
-													data-date-format="yyyy-mm-dd" placeholder="结束时间" />
-											</div>
-										</div>
-										<div class="form-group">
-											<label class="col-sm-offset-2 col-sm-1 control-label no-padding-right" for="planType">工作类型</label>
-											<div class="col-sm-2" style="padding-right: 1px;">
-												<select style="width: 100%" id="planType" name="planType">
-													<option></option>
-													<option value="0">常规</option>
-													<option value="1">计划外</option>
-													<option value="2">重点</option>
+												<select style="width: 100%;" id="planDate" name="planDate">
+
 												</select>
 											</div>
 										</div>
-										<div class="form-group">
-											<label class="col-sm-3 control-label no-padding-right" for="planContent">计划内容</label>
-											<div class="col-sm-5">
-												<textarea name="planContent" rows="5" cols="" style="width: 100%"></textarea>
-											</div>
-										</div>
+										<table id="tfhover" class="tftable" border="1">
+											<tr>
+												<!-- 	<th>序号</th> -->
+												<th>工作类型</th>
+												<th>工作计划内容</th>
+												<th>制定人</th>
+												<th>修订人</th>
+												<th>开始时间</th>
+												<th>结束时间</th>
+												<th>操作</th>
+											</tr>
+											<tbody class="center" id="tableBody">
+												<tr class="planDetail" id="planDetail1">
+													<!-- <td id=itemNUm>1</td> -->
+													<td><select class="full detailType" name="detailType">
+															<option value="1">常规</option>
+															<option value="2">计划外</option>
+															<option value="3">重点</option>
+													</select></td>
+													<td><input class="full detailContent" type="text" name="detailContent" /></td>
+													<td>${userInfo.userName!''}</td>
+													<td>--</td>
+													<td><input name="beginTime" class="date-picker full beginTime" readonly="readonly"
+														type="text" data-date-format="yyyy-mm-dd" placeholder="开始时间" /></td>
+
+													<td><input name="endTime" class="date-picker full endTime" readonly="readonly"
+														type="text" data-date-format="yyyy-mm-dd" placeholder="结束时间" /></td>
+													<td class="btnTd" itemindex="1"><button onclick='' class='btn btn-minier radius-2'>删除</button></td>
+												</tr>
+											</tbody>
+											<tfoot class="center">
+												<tr>
+													<td colspan="6" style="border: none;"></td>
+													<td style="border: none;"><button onclick='addRow()'
+															class='btn btn-minier radius-2'>添加</button></td>
+												</tr>
+											</tfoot>
+										</table>
+
 
 										<div class="form-group">
 											<div class="col-sm-offset-5">
@@ -124,15 +127,25 @@
 				</div>
 			</div>
 		</div>
-		<#include "/parts/footer.html"/>
+		<#include "/common/parts/footer.html"/>
 	</div>
-	<#include "/parts/common-js.html"/>
+	<#include "/common/parts/common-js.html"/>
 	<script src="/static/assets/js/bootstrap-datepicker.min.js"></script>
 	<script src="/static/assets/js/ace-elements.min.js"></script>
 	<script src="/static/assets/js/sc-date.js"></script>
-	<#include "/parts/submit-form-with-js.html"/>
+	<#include "/common/parts/submit-form-js.html"/>
 	<script type="text/javascript">
+		var count = 1;
 		jQuery(function($) {
+			datePicker();
+			renderPlanDateList();
+			$("#submitBtn").on('click', function(e) {
+			e.preventDefault();
+				addPlan();
+			});
+		});
+	
+		function datePicker() {
 			$('.date-picker').datepicker({
 				autoclose : true,
 				todayHighlight : true
@@ -140,17 +153,116 @@
 				.next().on(ace.click_event, function() {
 				$(this).prev().focus();
 			});
-			
-			$("#submitBtn").on('click',function(){
-			submitForm(
-				{
-					'formId' : 'addPlanForm',
-					'url' : '/plan/addPlanPost'
-				}
-			);
+		}
+	
+		function addRow() {
+			var tmplht = $("#tmpl").html();
+			$("#tableBody").append(tmplht);
+			datePicker();
+		}
+		function delRow(obj) {
+			$(obj).parent().parent().remove();
+		}
+	
+		function renderPlanDateList() {
+			var planDateList = dateList({
+				'format' : 'yyyy年MM月'
 			});
-		});
-		$("#planDate").val(formatDate1(null,true));
+			var ht = "";
+			for (var i = 0; i < planDateList.length; i++) {
+				ht = ht + "<option value='" + planDateList[i].key + "'>" + planDateList[i].value + "</option>"
+			}
+			$("#planDate").html(ht);
+		}
+	
+	
+		function addPlan() {
+			var hasError = false;
+			var data = new Object();
+			var planDetails = [];
+			data.refUserId = $("#userId").val();
+			data.refPosiId = $("#deptId").val();
+			data.refDeptId = $("#posiId").val();
+			data.planDate = $("#planDate").val();
+	
+			$(".planDetail").each(function(i, element) {
+				var planDetail = new Object();
+				var detailType = $(element).find(".detailType").val();
+				var detailContent = $(element).find(".detailContent").val();
+				var beginTime = $(element).find(".beginTime").val();
+				var endTime = $(element).find(".endTime").val();
+				if (!detailType || !detailContent || !beginTime || !endTime) {
+					hasError = true;
+					return;
+				}
+				planDetail.detailType = detailType;
+				planDetail.detailContent = detailContent;
+				planDetail.beginTime = beginTime;
+				planDetail.endTime = endTime;
+				planDetails.push(planDetail);
+			});
+			data.planDetails = planDetails;
+			if (hasError) {
+				alert("输入参数有误");
+				return;
+			}
+			$.ajax({
+				type : 'POST',
+				url : '/plan/addPlan',
+				data : JSON.stringify(data),
+				dataType : 'json',
+				headers : {
+					'Content-Type' : 'application/json'
+				},
+				success : function(data) {
+					var resultCode = data.resultCode;
+					if (resultCode == '000000') {
+						window.location.href = '/plan/addPlan';
+						alert("操作成功!");
+					} else if (resultCode == '100002') {
+						showInputError(data);
+					} else {
+						alert("操作失败!");
+					}
+	
+				},
+				error : function(data) {
+					alert("服务器异常-" + JSON.stringify(data));
+				}
+			});
+		}
+	
+		var showInputError = function(data) {
+			var dataMap = data.dataMap;
+			var inputError = dataMap.inputError;
+			var ht = data.resultMessage + "[";
+			for (var name in inputError) {
+				ht = ht + inputError[name] + ";";
+			}
+			ht = ht + "]";
+			alert(ht);
+		}
 	</script>
+	<script type="text/html" id="tmpl">
+		<tr class="planDetail">
+		<!--<td class="index"></td>-->
+			<td>
+				<select class="full detailType" name="detailType">
+					<option value="1">常规</option>
+					<option value="2">计划外</option>
+					<option value="3">重点</option>
+				</select>
+			</td>
+	<td><input class="full detailContent" type="text" name="detailContent" /></td>
+	<td>${userInfo.userName!''}</td>
+	<td>--</td>
+	<td><input name="beginTime" class="date-picker full beginTime" readonly="readonly"
+	type="text" data-date-format="yyyy-mm-dd" placeholder="开始时间" /></td>
+
+	<td><input name="endTime" class="date-picker full endTime" readonly="readonly"
+	type="text" data-date-format="yyyy-mm-dd" placeholder="结束时间" /></td>
+	<td><button onclick='delRow(this)' class='btn btn-minier radius-2'>删除</button></td>
+</tr>
+</script>
 </body>
 </html>

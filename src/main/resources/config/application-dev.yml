@@ -7,7 +7,7 @@ spring:
     type: org.apache.tomcat.jdbc.pool.DataSource
     driver-class-name: com.mysql.jdbc.Driver
   freemarker:
-      templateLoaderPath: classpath:/templates/
+      templateLoaderPath: classpath:/templates
       suffix: .html
       cache: false
       charset: UTF-8
@@ -20,9 +20,6 @@ spring:
         datetime_format: yyyy-MM-dd HH:mm:ss
         date_format: yyyy-MM-dd
         number_format: #.##
-  redis:
-    host: 127.0.0.1
-    port: 6379
   jackson:
     time-zone: GMT+8
  
